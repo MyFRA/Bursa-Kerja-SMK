@@ -1,0 +1,38 @@
+version: '2.1'
+
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bursa-kerja
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysql", "-h", "localhost", "-P", "3306", "-u", "root", "--password=root", "-e", "select 1", "bursa-kerja"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    networks:
+      - test
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - db
+    environment:
+      - PMA_HOST=db
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - 8085:80
+    networks:
+      - test
+
+volumes:
+  db:
+networks:
+  test:
