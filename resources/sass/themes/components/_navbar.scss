@@ -1,0 +1,15 @@
+.main-navbar {
+    height: 80px;
+    border-top: 3px solid $blue;
+    background-color: $color-white;
+    box-shadow: 0 0 5px $color-light-gray;
+
+    .navbar-nav {
+
+        .nav-link {
+            color: $color-black;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+        }
+    }
+}

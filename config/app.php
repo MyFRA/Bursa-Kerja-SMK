@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'SMK Bisa Kerja | SMK Negeri 1 Bojongsari'),
 
     /*
     |--------------------------------------------------------------------------
@@ -175,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /** SEO Plugins */
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
+
     ],
 
     /*
@@ -225,6 +228,13 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        /** SEO Plugins */
+        'SEOMeta'   => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph' => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
+        'JsonLd'   => Artesaos\SEOTools\Facades\JsonLd::class,
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
 
     ],
 

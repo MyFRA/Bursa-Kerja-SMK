@@ -1,0 +1,19 @@
+.nav-list-page {
+
+    .nav-item {
+        padding-left: 1rem;
+        list-style: square;
+
+        li {
+
+            a {
+                text-decoration: none;
+                color: $blue;
+            }
+
+            a:hover {
+                color: darken($color: $blue, $amount: 4);
+            }
+        }
+    }
+}

@@ -1,0 +1,73 @@
+.banner-content {
+    padding: 58px 0;
+    min-height: 300px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../../../img/background-01.jpg);
+
+    .content-text {
+        color: $gray-900;
+        padding-top: 142px;
+        font-family: 'Quicksand', sans-serif;
+        
+        h2, h3 {
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        h2 {
+            font-size: 55px;
+            color: $blue;
+        }
+
+        h3 {
+            font-size: 32px;
+        }
+
+        h4 {
+            color: $color-gray;
+        }
+
+        .counting {
+            margin-top: 36px;
+            font-size: 18px;
+            color: darken($blue, 10);
+        }
+    }
+
+    form {
+
+        label {
+            font-size: 14px;
+            color: $gray-700 !important;
+        }
+
+        .form-control {
+            font-size: 16px;
+        }
+
+        .form-control::placeholder {
+            opacity: .5;
+        }
+
+        .role-form {
+            margin-top: 3px;
+            color: $gray-700 !important;
+            font-size: 10.5px;
+            line-height: 13px;
+        }
+
+        .btn-submit {
+            color: $white;
+            padding: 12px;
+            font-size: 16px;
+            background: $blue;
+        }
+    }
+
+    .card-footer {
+        font-size: 14px;
+        padding: 7px 0;
+    }
+}

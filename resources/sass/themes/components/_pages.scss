@@ -1,0 +1,21 @@
+.pages {
+
+    .page-title {
+        font-family: 'Ubuntu', sans-serif;
+        font-weight: bold;
+        width: 50%;
+        display: inline-block;
+    }
+
+    .breadcrumb {
+        background: $body-bg;
+        padding-left: 0;
+        padding-right: 0;
+        color: $color-light-gray;
+
+        .breadcrumb-item +
+        .breadcrumb-item::before {
+            content: "\00BB";
+        }
+    }
+}

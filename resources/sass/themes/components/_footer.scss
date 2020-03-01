@@ -1,0 +1,46 @@
+.footer {
+    background-color: darken($color: $blue, $amount: 5);
+    color: $white;
+    margin-top: 1rem;
+
+    .footer-text-header {
+        font-weight: bold;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .footer-text-content {
+        list-style: square;
+        padding: 0 18px;
+
+        li {
+            padding: 5px 0;
+
+            a {
+                text-decoration: none;
+                color: $color-white;
+            }
+
+            a:hover {
+                color: $color-gray;
+            }
+        }
+    }
+
+    .media-social {
+        list-style: none;
+        padding: 0;
+    }
+}
+
+.copyright {
+    padding: 20px;
+    text-align: center;
+    color: $color-white;
+    background-color: darken($color: $blue, $amount: 10);
+
+    a {
+        text-decoration: none;
+        color: $color-light-gray;
+    }
+}
