@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Jakarta',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,9 @@ return [
         /** SEO Plugins */
         Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
+        /** Management Users Permissions Plugins */
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ],
 
     /*
@@ -235,6 +238,8 @@ return [
         'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
         'JsonLd'   => Artesaos\SEOTools\Facades\JsonLd::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+
+        /** Management User Plugins */
 
     ],
 
