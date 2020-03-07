@@ -164,7 +164,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/bidang-studi') }}"
                                 class="nav-link {{ $nav == 'bidang-studi' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Bidang Studi</p>

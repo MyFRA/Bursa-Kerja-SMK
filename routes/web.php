@@ -23,8 +23,13 @@ Route::prefix('/app-admin')->group(function() {
         Route::post('/jurusan/imported', 'Admin\JurusanController@imported')->name('jurusan.imported');
         Route::get('/jurusan/format-excel-import', 'Admin\JurusanController@download')->name('jurusan.download');
         Route::resource('/jurusan', 'Admin\JurusanController')->except(['show']);
+
         /** Bidang Studi Router */
-        
+        Route::get('/bidang-studi/import', 'Admin\BidangStudiController@import')->name('bidang-studi.import');
+        Route::post('/bidang-studi/imported', 'Admin\BidangStudiController@imported')->name('bidang-studi.imported');
+        Route::get('/bidang-studi/format-excel-import', 'Admin\BidangStudiController@download')->name('bidang-studi.download');
+        Route::resource('/bidang-studi', 'Admin\BidangStudiController')->except(['show']);
+
     });
 });
 /** /.ADMINISTRATOR */
