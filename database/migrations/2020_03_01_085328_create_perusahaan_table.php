@@ -16,6 +16,8 @@ class CreatePerusahaanTable extends Migration
         Schema::create('perusahaan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('bidang_keahlian_id')->unsigned();
+            $table->bigInteger('program_keahlian_id')->unsigned();
             $table->string('nama', 128);
             $table->enum('kategori', ['Negeri', 'Swasta', 'BUMN']);
             $table->string('logo', 128)->nullable();
@@ -33,7 +35,6 @@ class CreatePerusahaanTable extends Migration
             $table->string('provinsi', 32)->nullable();
             $table->string('negara', 32)->nullable();
             $table->string('kodepos', 8)->nullable();
-            $table->bigInteger('bidang_industri')->unsigned();
             $table->string('jumlah_karyawan', 16)->nullable();
             $table->string('waktu_proses_perekrutan', 32)->nullable();
             $table->string('gaya_berpakaian', 128)->nullable();
@@ -43,7 +44,8 @@ class CreatePerusahaanTable extends Migration
             $table->text('overview')->nullable();
             $table->text('alasan_harus_melamar')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('bidang_industri')->references('id')->on('m_industri');
+            $table->foreign('bidang_keahlian_id')->references('id')->on('m_bidang_keahlian');
+            $table->foreign('program_keahlian_id')->references('id')->on('m_program_keahlian');
             $table->timestamps();
         });
     }

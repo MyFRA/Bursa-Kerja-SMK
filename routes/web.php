@@ -18,11 +18,11 @@ Route::prefix('/app-admin')->group(function() {
     Route::middleware(['auth'])->group(function() {
         Route::get('/dashboard', 'Admin\AdminController@index')->name('admin');
 
-        /** Jurusan Router */
-        Route::get('/jurusan/import', 'Admin\JurusanController@import')->name('jurusan.import');
-        Route::post('/jurusan/imported', 'Admin\JurusanController@imported')->name('jurusan.imported');
-        Route::get('/jurusan/format-excel-import', 'Admin\JurusanController@download')->name('jurusan.download');
-        Route::resource('/jurusan', 'Admin\JurusanController')->except(['show']);
+        /** Kompetensi Keahlian Router */
+        Route::get('/kompetensi-keahlian/import', 'Admin\KompetensiKeahlianController@import')->name('kompetensi-keahlian.import');
+        Route::post('/kompetensi-keahlian/imported', 'Admin\KompetensiKeahlianController@imported')->name('kompetensi-keahlian.imported');
+        Route::get('/kompetensi-keahlian/format-excel-import', 'Admin\KompetensiKeahlianController@download')->name('kompetensi-keahlian.download');
+        Route::resource('/kompetensi-keahlian', 'Admin\KompetensiKeahlianController')->except(['show']);
 
         /** Bidang Studi Router */
         Route::get('/bidang-studi/import', 'Admin\BidangStudiController@import')->name('bidang-studi.import');

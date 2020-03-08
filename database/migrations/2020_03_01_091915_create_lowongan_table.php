@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateJobsTable extends Migration
+class CreateLowonganTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
-        Schema::create('jobs', function (Blueprint $table) {
+        Schema::create('lowongan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('perusahaan_id')->nullable();
             $table->string('nama_perusahaan', 128)->nullable();
             $table->text('gambaran_perusahaan')->nullable();
             $table->string('jabatan', 128);
-            $table->json('jurusan');
+            $table->json('kompetensi_keahlian');
             $table->json('keahlian');
             $table->double('gaji_min');
             $table->double('gaji_max');
@@ -42,6 +42,6 @@ class CreateJobsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('lowongan');
     }
 }

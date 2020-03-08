@@ -138,7 +138,7 @@
                 <li class="nav-header">Lainnya</li>
 
                 <li class="nav-item has-treeview 
-                    {{ $nav == 'jurusan' ? 'menu-open' : '' }}
+                    {{ $nav == 'kompetensi-keahlian' ? 'menu-open' : '' }}
                     {{ $nav == 'bidang-studi' ? 'menu-open' : '' }}
                     {{ $nav == 'bidang-pekerjaan' ? 'menu-open' : '' }}
                     {{ $nav == 'bidang-industri' ? 'menu-open' : '' }}
@@ -156,42 +156,34 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/jurusan') }}"
-                                class="nav-link {{ $nav == 'jurusan' ? 'active' : '' }}">
+                            <a href="{{ url('/app-admin/bidang-keahlian') }}"
+                                class="nav-link {{ $nav == 'bidang-keahlian' ? 'active' : '' }}">
                                 <i class="fas nav-icon"></i>
-                                <p>Jurusan</p>
+                                <p>Bidang Keahlian</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/bidang-studi') }}"
-                                class="nav-link {{ $nav == 'bidang-studi' ? 'active' : '' }}">
+                            <a href="{{ url('/app-admin/program-keahlian') }}"
+                                class="nav-link {{ $nav == 'program-keahlian' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
-                                <p>Bidang Studi</p>
+                                <p>Program Keahlian</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
-                                class="nav-link {{ $nav == 'bidang-pekerjaan' ? 'active' : '' }}">
+                            <a href="{{ url('/app-admin/kompetensi-keahlian') }}"
+                                class="nav-link {{ $nav == 'kompetensi-keahlian' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
-                                <p>Bidang Pekerjaan</p>
+                                <p>Kompetensi Keahlian</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
-                                class="nav-link {{ $nav == 'bidang-industri' ? 'active' : '' }}">
+                            <a href="{{ url('/app-admin/perusahaan') }}"
+                                class="nav-link {{ $nav == 'keahlian' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
-                                <p>Bidang Industri</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
-                                class="nav-link {{ $nav == 'daftar-keahlian' ? 'active' : '' }}">
-                                <i class="far nav-icon"></i>
-                                <p>Daftar Keahlian</p>
+                                <p>Keahlian</p>
                             </a>
                         </li>
 

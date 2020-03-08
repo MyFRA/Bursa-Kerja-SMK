@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMBidangStudiTable extends Migration
+class CreateMProgramKeahlianTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateMBidangStudiTable extends Migration
      */
     public function up()
     {
-        Schema::create('m_bidang_studi', function (Blueprint $table) {
+        Schema::create('m_program_keahlian', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('bidang_keahlian_id')->unsigned();
+            $table->string('kode', 8)->unique();
             $table->string('nama', 128);
             $table->text('deskripsi')->nullable();
+            $table->foreign('bidang_keahlian_id')->references('id')->on('m_bidang_keahlian');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ class CreateMBidangStudiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('m_bidang_studi');
+        Schema::dropIfExists('m_program_keahlian');
     }
 }

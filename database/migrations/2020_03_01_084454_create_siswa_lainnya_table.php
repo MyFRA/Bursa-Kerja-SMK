@@ -16,10 +16,12 @@ class CreateSiswaLainnyaTable extends Migration
         Schema::create('siswa_lainnya', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('siswa_id')->unsigned();
+            $table->bigInteger('keterampilan_id')->unsigned();
             $table->double('gaji_diharapkan', 16, 0)->nullable();
             $table->json('lokasi_diharap')->nullable();
             $table->text('keterangan')->nullable();
             $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('keterampilan_id')->references('id')->on('m_keterampilan');
             $table->timestamps();
         });
     }

@@ -7,18 +7,18 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Jurusan
+                    Kompetensi Keahlian
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="" class="btn btn-danger rounded-0 disabled">
                     <i class="fas fa-trash mr-1"></i> Hapus Masal
                 </a>
-                <a href="{{ url('/app-admin/jurusan/import') }}" class="btn btn-default rounded-0">
+                <a href="{{ url('/app-admin/kompetensi-keahlian/import') }}" class="btn btn-default rounded-0">
                     <i class="fas fa-download mr-1"></i> Import
                 </a>
-                <a href="{{ url('/app-admin/jurusan/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Jurusan Baru
+                <a href="{{ url('/app-admin/kompetensi-keahlian/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Kompetensi Keahlian Baru
                 </a>
             </div>
         </div>
@@ -35,7 +35,7 @@
                     <th width="8px"></th>
                     <th width="8%"></th>
                     <th width="10%">KODE</th>
-                    <th>NAMA JURUSAN</th>
+                    <th>NAMA KOMPETENSI KEAHLIAN</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
             </thead>
@@ -44,10 +44,10 @@
                     <tr>
                         <td class="text-center"></td>
                         <td class="text-center">
-                            <a href="{{ url('/app-admin/jurusan/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
+                            <a href="{{ url('/app-admin/kompetensi-keahlian/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/jurusan/' . encrypt($val->id)) ?>')" class="mx-1 text-danger">
+                            <a href="#" onclick="onDestroy('<?= url('/app-admin/kompetensi-keahlian/' . encrypt($val->id)) ?>')" class="mx-1 text-danger">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>

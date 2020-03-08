@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Jurusan extends Model
+class ProgramKeahlian extends Model
 {
     /**
      * Choose the table for this model.
      *
      * @var string
      */
-    protected $table = "m_jurusan";
+    protected $table = "m_program_keahlian";
 
     /**
      * The attributes that are mass assignable.
@@ -19,6 +19,7 @@ class Jurusan extends Model
      * @var array
      */
     protected $fillable = [
+        "bidang_keahlian_id",
         "kode",
         "nama",
         "deskripsi",

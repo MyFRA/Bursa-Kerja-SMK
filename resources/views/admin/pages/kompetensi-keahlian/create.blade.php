@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Jurusan
+                    Kompetensi Keahlian
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ url('/app-admin/jurusan') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Jurusan
+                <a href="{{ url('/app-admin/kompetensi-keahlian') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-table mr-1"></i> Daftar
                 </a>
-                <a href="{{ url('/app-admin/jurusan/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Jurusan Baru
+                <a href="{{ url('/app-admin/kompetensi-keahlian/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Baru
                 </a>
             </div>
         </div>
@@ -26,7 +26,7 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <form action="{{ route('jurusan.store') }}" method="post" class="card">
+        <form action="{{ route('kompetensi-keahlian.store') }}" method="post" class="card">
             @csrf
 
             <div class="card-body">
@@ -41,7 +41,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="nama">JURUSAN <span class="text-danger">*</span></label>
+                    <label for="nama">KOMPETENSI KEAHLIAN <span class="text-danger">*</span></label>
                     <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" />
 
                     @error('nama')
@@ -51,8 +51,23 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label>PROGRAM KEAHLIAN <span class="text-danger">*</span></label>
+                    <select name="program_keahlian_id" class="form-control select2 @error('nama') is-invalid @enderror" style="width: 100%;">
+                        <option></option>
+                        @foreach($programs as $val)
+                            <option value="{{ $val->id }}">{{ $val->nama }}</option>
+                        @endforeach
+                    </select>
+
+                    @error('program_keahlian_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group">
                     <label for="deskripsi">DESKRIPSI</label>
-                    <textarea name="deskripsi" class="form-control" rows="5"></textarea>
+                    <textarea name="deskripsi" class="form-control" rows="3"></textarea>
                 </div>
             </div>
             <div class="card-footer text-right">
@@ -70,7 +85,7 @@
     <div class="col-md-8">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                <i class="fas fa-info-circle mr-2"></i>DETAIL JURUSAN
+                <i class="fas fa-info-circle mr-2"></i>DETAIL KOMPETENSI KEAHLIAN
             </h6>
             <table class="table table-striped table-sm"></table>
         </div>
@@ -79,7 +94,17 @@
 @endsection
 
 @section('stylesheet')
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 @endsection
 
 @section('script')
+<script src="{{ asset('/app-admin/plugins/select2/js/select2.full.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.select2').select2({
+            theme: 'bootstrap4'
+        })
+    });
+</script>
 @endsection

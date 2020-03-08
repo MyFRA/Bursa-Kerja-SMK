@@ -16,10 +16,10 @@ class CreatePelamaranTable extends Migration
         Schema::create('pelamaran', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('siswa_id')->unsigned();
-            $table->bigInteger('job_id')->unsigned();
+            $table->bigInteger('lowongan_id')->unsigned();
             $table->text('proposal_pelamaran');
             $table->foreign('siswa_id')->references('id')->on('siswa');
-            $table->foreign('job_id')->references('id')->on('jobs');
+            $table->foreign('lowongan_id')->references('id')->on('lowongan');
             $table->timestamps();
         });
     }

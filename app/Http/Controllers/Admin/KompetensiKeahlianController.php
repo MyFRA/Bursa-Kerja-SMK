@@ -6,9 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-use App\Models\Jurusan;
+use App\Models\KompetensiKeahlian;
+use App\Models\ProgramKeahlian;
 
-class JurusanController extends Controller
+class KompetensiKeahlianController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +19,11 @@ class JurusanController extends Controller
     public function index()
     {
         $data = array(
-            'title' => 'Jurusan',
-            'nav' => 'jurusan',
-            'items' => Jurusan::orderBy('nama', 'ASC')->get()
+            'title' => 'Kompetensi Keahlian',
+            'nav' => 'kompetensi-keahlian',
+            'items' => KompetensiKeahlian::orderBy('nama', 'ASC')->get()
         );
-        return view('admin.pages.jurusan.index', $data);
+        return view('admin.pages.kompetensi-keahlian.index', $data);
     }
 
     /**
@@ -33,10 +34,11 @@ class JurusanController extends Controller
     public function create()
     {
         $data = array(
-            'title' => 'Jurusan',
-            'nav' => 'jurusan'
+            'title' => 'Kompetensi Keahlian',
+            'nav' => 'kompetensi-keahlian',
+            'programs' => ProgramKeahlian::orderBy('nama', 'ASC')->get()
         );
-        return view('admin.pages.jurusan.create', $data);
+        return view('admin.pages.kompetensi-keahlian.create', $data);
     }
 
     /**
@@ -48,14 +50,16 @@ class JurusanController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            "kode" => "required|max:8|unique:m_jurusan",
-            "nama" => "required|min:3"
+            "kode" => "required|max:8|unique:m_kompetensi_keahlian",
+            "nama" => "required|min:3",
+            "program_keahlian_id" => "required"
         ], [
-            "kode.required" => "Kode jurusan harus diisi",
-            "kode.max" => "Kode jurusan max: 8 karakter",
-            "kode.unique" => "Kode jurusan tidak boleh sama",
-            "nama.required" => "Nama jurusan harus diisi",
-            "nama.min" => "Nama jurusan min: 3 karakter"
+            "kode.required" => "Kode kompetensi keahlian harus diisi",
+            "kode.max" => "Kode kompetensi keahlian max: 8 karakter",
+            "kode.unique" => "Kode kompetensi keahlian tidak boleh sama",
+            "nama.required" => "Nama kompetensi keahlian harus diisi",
+            "nama.min" => "Nama kompetensi keahlian min: 3 karakter",
+            "program_keahlian_id.required" => "Program keahlian harus diisi"
         ]);
 
         if ($validation->fails()) {
@@ -63,8 +67,8 @@ class JurusanController extends Controller
                 ->withErrors($validation)
                 ->withInput();
         } else {
-            $data = Jurusan::create($request->all());
-            return redirect('/app-admin/jurusan/' . encrypt($data->id) . "/edit")
+            $data = KompetensiKeahlian::create($request->all());
+            return redirect('/app-admin/kompetensi-keahlian/' . encrypt($data->id) . "/edit")
                 ->with('success', true);
         }
     }
@@ -78,11 +82,15 @@ class JurusanController extends Controller
     public function edit($id)
     {
         $data = array(
-            'title' => 'Jurusan',
-            'nav' => 'jurusan',
-            'item' => Jurusan::find(decrypt($id))
+            'title' => 'Kompetensi Keahlian',
+            'nav' => 'kompetensi-keahlian',
+            'item' => KompetensiKeahlian::select('m_kompetensi_keahlian.*', "m_program_keahlian.nama as nama_program_keahlian")
+                            ->join('m_program_keahlian', 'm_kompetensi_keahlian.program_keahlian_id', '=', 'm_program_keahlian.id')
+                            ->where('m_kompetensi_keahlian.id', decrypt($id))
+                            ->first(),
+            'programs' => ProgramKeahlian::orderBy('nama', 'ASC')->get()
         );
-        return view('admin.pages.jurusan.edit', $data);
+        return view('admin.pages.kompetensi-keahlian.edit', $data);
     }
 
     /**
@@ -96,12 +104,14 @@ class JurusanController extends Controller
     {
         $validation = Validator::make($request->all(), [
             "kode" => "required|max:8",
-            "nama" => "required|min:3"
+            "nama" => "required|min:3",
+            "program_keahlian_id" => "required"
         ], [
-            "kode.required" => "Kode jurusan harus diisi",
-            "kode.max" => "Kode jurusan max: 8 karakter",
-            "nama.required" => "Nama jurusan harus diisi",
-            "nama.min" => "Nama jurusan min: 3 karakter"
+            "kode.required" => "Kode kompetensi keahlian harus diisi",
+            "kode.max" => "Kode kompetensi keahlian max: 8 karakter",
+            "nama.required" => "Nama kompetensi keahlian harus diisi",
+            "nama.min" => "Nama kompetensi keahlian min: 3 karakter",
+            "program_keahlian_id.required" => "Program keahlian harus diisi"
         ]);
 
         if ($validation->fails()) {
@@ -109,7 +119,7 @@ class JurusanController extends Controller
                 ->withErrors($validation)
                 ->withInput();
         } else {
-            $data = Jurusan::find(decrypt($id));
+            $data = KompetensiKeahlian::find(decrypt($id));
             $data->kode = $request->kode;
             $data->nama = $request->nama;
             $data->deskripsi = $request->deskripsi;
@@ -127,7 +137,7 @@ class JurusanController extends Controller
      */
     public function destroy($id)
     {
-        $data = Jurusan::find(decrypt($id));
+        $data = KompetensiKeahlian::find(decrypt($id));
         $data->delete();
 
         return back()->with('success', true);
@@ -141,10 +151,10 @@ class JurusanController extends Controller
     public function import()
     {
         $data = array(
-            'title' => 'Jurusan',
-            'nav' => 'jurusan'
+            'title' => 'Kompetensi Keahlian',
+            'nav' => 'kompetensi-keahlian'
         );
-        return view('admin.pages.jurusan.import', $data);
+        return view('admin.pages.kompetensi-keahlian.import', $data);
     }
 
     /**
@@ -165,6 +175,6 @@ class JurusanController extends Controller
      */
     public function download()
     {
-        return response()->download(public_path('/assets/excel/file-format-import-jurusan.xlsx'));
+        return response()->download(public_path('/assets/excel/file-format-import-kompetensi-keahlian.xlsx'));
     }
 }
