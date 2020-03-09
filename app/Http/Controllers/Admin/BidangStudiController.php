@@ -49,12 +49,12 @@ class BidangStudiController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            "nama" => "required|min:2",
+            "nama" => "required|min:2|max:128",
         ], [
             "nama.required" => "nama bidang studi harus diisi",
-            "nama.min" => "nama bidang studi minimal 2 karakter",
+            "nama.min"      => "nama bidang studi minimal 2 karakter",
+            "nama.max"      => "nama bidang studi maksimal 128 karakter"
         ]);
-
 
         if ($validation->fails()) {
             return back()
@@ -101,10 +101,11 @@ class BidangStudiController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            "nama" => "required|min:2",
+            "nama" => "required|min:2|max:128",
         ], [
             "nama.required" => "nama bidang studi harus diisi",
-            "nama.min" => "nama bidang studi minimal 2 karakter",
+            "nama.min"      => "nama bidang studi minimal 2 karakter",
+            "nama.max"      => "nama bidang studi maksimal 128 karakter"
         ]);
 
         if ($validation->fails()) {
@@ -117,11 +118,6 @@ class BidangStudiController extends Controller
             $update->nama = $request->nama;
             $update->deskripsi = $request->deskripsi;
             $update->save();
-
-            $alert = [
-                'field'   => $request->nama,
-                'jawaban' => 'Diubah'
-            ];
 
             return back()->with('success', "Bidang Studi $request->nama Telah Diubah");
         }

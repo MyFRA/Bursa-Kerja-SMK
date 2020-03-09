@@ -172,7 +172,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/bidang-pekerjaan') }}"
                                 class="nav-link {{ $nav == 'bidang-pekerjaan' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Bidang Pekerjaan</p>
@@ -180,7 +180,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/bidang-industri') }}"
                                 class="nav-link {{ $nav == 'bidang-industri' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Bidang Industri</p>
@@ -188,7 +188,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/daftar-keahlian') }}"
                                 class="nav-link {{ $nav == 'daftar-keahlian' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Daftar Keahlian</p>
