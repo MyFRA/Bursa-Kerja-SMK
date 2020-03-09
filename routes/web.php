@@ -48,6 +48,12 @@ Route::prefix('/app-admin')->group(function() {
         Route::get('/daftar-keahlian/format-excel-import', 'Admin\DaftarKeahlianController@download')->name('daftar-keahlian.download');
         Route::resource('/daftar-keahlian', 'Admin\DaftarKeahlianController')->except(['show']);
 
+        /** Mata Uang Router */
+        Route::get('/mata-uang/import', 'Admin\MataUangController@import')->name('mata-uang.import');
+        Route::post('/mata-uang/imported', 'Admin\MataUangController@imported')->name('mata-uang.imported');
+        Route::get('/mata-uang/format-excel-import', 'Admin\MataUangController@download')->name('mata-uang.download');
+        Route::resource('/mata-uang', 'Admin\MataUangController')->except(['show']);
+
     });
 });
 /** /.ADMINISTRATOR */

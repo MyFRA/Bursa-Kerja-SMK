@@ -196,7 +196,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/mata-uang') }}"
                                 class="nav-link {{ $nav == 'mata-uang' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Mata Uang</p>
