@@ -138,16 +138,15 @@
                 <li class="nav-header">Lainnya</li>
 
                 <li class="nav-item has-treeview 
-                    {{ $nav == 'kompetensi-keahlian' ? 'menu-open' : '' }}
-                    {{ $nav == 'bidang-studi' ? 'menu-open' : '' }}
-                    {{ $nav == 'bidang-pekerjaan' ? 'menu-open' : '' }}
-                    {{ $nav == 'bidang-industri' ? 'menu-open' : '' }}
-                    {{ $nav == 'daftar-keahlian' ? 'menu-open' : '' }}
-                    {{ $nav == 'mata-uang' ? 'menu-open' : '' }}
                     {{ $nav == 'bahasa' ? 'menu-open' : '' }}
-                    {{ $nav == 'negara' ? 'menu-open' : '' }}
-                    {{ $nav == 'provinsi' ? 'menu-open' : '' }}
+                    {{ $nav == 'bidang-keahlian' ? 'menu-open' : '' }}
                     {{ $nav == 'kabupaten' ? 'menu-open' : '' }}
+                    {{ $nav == 'keterampilan' ? 'menu-open' : '' }}
+                    {{ $nav == 'kompetensi-keahlian' ? 'menu-open' : '' }}
+                    {{ $nav == 'mata-uang' ? 'menu-open' : '' }}
+                    {{ $nav == 'negara' ? 'menu-open' : '' }}
+                    {{ $nav == 'program-keahlian' ? 'menu-open' : '' }}
+                    {{ $nav == 'provinsi' ? 'menu-open' : '' }}
                 ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-folder-open"></i>
@@ -180,15 +179,15 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/perusahaan') }}"
+                            <a href="{{ url('/app-admin/keterampilan') }}"
                                 class="nav-link {{ $nav == 'keahlian' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
-                                <p>Keahlian</p>
+                                <p>Keterampilan</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/mata-uang') }}"
                                 class="nav-link {{ $nav == 'mata-uang' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Mata Uang</p>

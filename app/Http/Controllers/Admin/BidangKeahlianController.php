@@ -6,9 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\BidangStudi;
+use App\Models\BidangKeahlian;
 
-class BidangStudiController extends Controller
+class BidangKeahlianController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +18,11 @@ class BidangStudiController extends Controller
     public function index()
     {
         $data = array(
-            'title' => 'Bidang Studi',
-            'nav' => 'bidang-studi',
-            'items' => BidangStudi::orderBy('nama', 'ASC')->get()
+            'title' => 'Bidang Keahlian',
+            'nav' => 'bidang-keahlian',
+            'items' => BidangKeahlian::orderBy('nama', 'ASC')->get()
         );
-        return view('admin.pages.bidang-studi.index', $data);
+        return view('admin.pages.bidang-keahlian.index', $data);
     }
 
     /**
@@ -34,10 +34,10 @@ class BidangStudiController extends Controller
     {
         $data = array(
             'title' => 'Bidang Studi',
-            'nav' => 'bidang-studi'
+            'nav' => 'bidang-keahlian'
         );
 
-        return view('admin.pages.bidang-studi.create', $data);
+        return view('admin.pages.bidang-keahlian.create', $data);
     }
 
     /**
@@ -49,21 +49,25 @@ class BidangStudiController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            "nama" => "required|min:2",
+            "kode" => 'required|max:8|unique:m_bidang_keahlian',
+            "nama" => "required|min:2|max:128",
         ], [
+            "kode.required" => "Kode bidang keahlian harus diisi",
+            "kode.max" => "Kode bidang keahlian max: 8 karakter",
+            "kode.unique" => "Kode bidang keahlian tidak boleh sama",
             "nama.required" => "nama bidang studi harus diisi",
-            "nama.min" => "nama bidang studi minimal 2 karakter",
+            "nama.min"      => "nama bidang studi minimal 2 karakter",
+            "nama.max"      => "nama bidang studi maksimal 128 karakter"
         ]);
-
 
         if ($validation->fails()) {
             return back()
                 ->withErrors($validation)
                 ->withInput();
         } else {
-            $data = BidangStudi::create($request->all());
-            return redirect('/app-admin/bidang-studi/' . encrypt($data->id) . "/edit")
-                ->with('success', "Bidang Studi $request->nama Telah Ditambahkan");
+            $data = BidangKeahlian::create($request->all());
+            return redirect('/app-admin/bidang-keahlian/' . encrypt($data->id) . "/edit")
+                ->with('success', "Bidang Keahlian $request->nama Telah Ditambahkan");
         }
     }
 
@@ -82,13 +86,13 @@ class BidangStudiController extends Controller
      */
     public function edit($id)
     {
-        $item = BidangStudi::find(decrypt($id));
+        $item = BidangKeahlian::find(decrypt($id));
         $data = array(
-            'title' => 'Bidang Studi',
-            'nav'   => 'bidang-studi',
+            'title' => 'Bidang Keahlian',
+            'nav'   => 'bidang-keahlian',
             'item'  => $item,
         );
-        return view('admin.pages.bidang-studi.edit', $data);
+        return view('admin.pages.bidang-keahlian.edit', $data);
     }
 
     /**
@@ -101,10 +105,14 @@ class BidangStudiController extends Controller
     public function update(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            "nama" => "required|min:2",
+            "kode" => "required|max:8",
+            "nama" => "required|min:2|max:128",
         ], [
-            "nama.required" => "nama bidang studi harus diisi",
-            "nama.min" => "nama bidang studi minimal 2 karakter",
+            "kode.required" => "Kode bidang keahlian harus diisi",
+            "kode.max" => "Kode bidang keahlian max: 8 karakter",
+            "nama.required" => "nama bidang keahlian harus diisi",
+            "nama.min"      => "nama bidang keahlian minimal 2 karakter",
+            "nama.max"      => "nama bidang keahlian maksimal 128 karakter"
         ]);
 
         if ($validation->fails()) {
@@ -113,17 +121,13 @@ class BidangStudiController extends Controller
                 ->withInput();
         } else {
 
-            $update = BidangStudi::find(decrypt($id));
+            $update = BidangKeahlian::find(decrypt($id));
+            $update->kode = $request->kode;
             $update->nama = $request->nama;
             $update->deskripsi = $request->deskripsi;
             $update->save();
 
-            $alert = [
-                'field'   => $request->nama,
-                'jawaban' => 'Diubah'
-            ];
-
-            return back()->with('success', "Bidang Studi $request->nama Telah Diubah");
+            return back()->with('success', "Bidang Keahlian $request->nama Telah Diubah");
         }
     }
 
@@ -135,11 +139,11 @@ class BidangStudiController extends Controller
      */
     public function destroy($id)
     {
-        $data = BidangStudi::find(decrypt($id));
+        $data = BidangKeahlian::find(decrypt($id));
         $nama = $data->nama;
         $data->delete();
 
-        return back()->with('success', "Bidang Studi $nama Telah Dihapus");
+        return back()->with('success', "Bidang Keahlian $nama Telah Dihapus");
     }
 
     /**
@@ -150,10 +154,10 @@ class BidangStudiController extends Controller
     public function import()
     {
         $data = array(
-            'title' => 'Bidang Studi',
-            'nav' => 'bidang-studi'
+            'title' => 'Bidang Keahlian',
+            'nav' => 'bidang-keahlian'
         );
-        return view('admin.pages.bidang-studi.import', $data);
+        return view('admin.pages.bidang-keahlian.import', $data);
     }
 
         /**
@@ -174,6 +178,6 @@ class BidangStudiController extends Controller
      */
     public function download()
     {
-        return response()->download(public_path('/assets/excel/file-format-import-bidang-studi.xlsx'));
+        return response()->download(public_path('/assets/excel/file-format-import-bidang-keahlian.xlsx'));
     }
 }

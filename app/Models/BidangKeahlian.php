@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BidangStudi extends Model
+class BidangKeahlian extends Model
 {
-    protected $table = 'm_bidang_studi';
+    protected $table = 'm_bidang_keahlian';
 
     protected $fillable = [
+    	'kode',
         "nama",
         "deskripsi",
         "created_at",
