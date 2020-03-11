@@ -135,10 +135,16 @@ class ProvinsiController extends Controller
      */
     public function destroy($id)
     {
+        $kabupaten = kabupaten::get();
         $data = Provinsi::find(decrypt($id));
+
+        foreach ($kabupaten as $var) {
+            if ( $var->provinsi_id == $data->id  ) {
+                return back()->with('gagal', ' Provinsi Gagal Dihapus, Karena masih terikat dengan Kabupaten');
+            }
+        }
         $nama = $data->nama_provinsi;
         $data->delete();
-
         return back()->with('success', "Provinsi $nama Telah Dihapus");
     }
 
