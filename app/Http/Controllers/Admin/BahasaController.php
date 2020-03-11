@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\BidangPekerjaan;
+use App\Models\Bahasa; 
 
-class BidangPekerjaanController extends Controller
+class BahasaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,11 +18,12 @@ class BidangPekerjaanController extends Controller
     public function index()
     {
         $data = array(
-            'title' => 'Bidang Pekerjaan',
-            'nav'   => 'bidang-pekerjaan',
-            'items' => BidangPekerjaan::orderBy('nama', 'ASC')->get(),
+            'title' => 'Bahasa',
+            'nav'   => 'bahasa',
+            'items' => Bahasa::orderBy('nama', 'ASC')->get(),
         );
-        return view('admin.pages.bidang-pekerjaan.index', $data);
+
+        return view('admin.pages.bahasa.index', $data);
     }
 
     /**
@@ -33,10 +34,11 @@ class BidangPekerjaanController extends Controller
     public function create()
     {
         $data = array(
-            'title' => 'Bidang Pekerjaan',
-            'nav'   => 'bidang-pekerjaan'
+            'title' => 'Bahasa',
+            'nav'   => 'bahasa'
         );
-        return view('admin.pages.bidang-pekerjaan.create', $data);
+
+        return view('admin.pages.bahasa.create', $data);
     }
 
     /**
@@ -50,9 +52,9 @@ class BidangPekerjaanController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|min:3|max:128',
         ], [
-            'nama.required' => 'nama bidang pekerjaan harus diisi',
-            'nama.min' => 'nama bidang pekerjaan minimal 3 karakter',
-            'nama.max' => 'nama bidang pekerjaan maksimal 128 karakter'
+            'nama.required' => 'nama bahasa harus diisi',
+            'nama.min' => 'nama bahasa minimal 3 karakter',
+            'nama.max' => 'nama bahasa maksimal 128 karakter'
         ]);
 
         if ( $validator->fails() ) {
@@ -60,9 +62,9 @@ class BidangPekerjaanController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         } else {
-            $data = BidangPekerjaan::create($request->all());
-            return redirect('/app-admin/bidang-pekerjaan/' . encrypt($data->id) . "/edit")
-                    ->with('success', "Bidang Pekerjaan $request->nama Telah Ditambahkan");
+            $data = Bahasa::create($request->all());
+            return redirect('/app-admin/bahasa/' . encrypt($data->id) . "/edit")
+                    ->with('success', "Bahasa $request->nama Telah Ditambahkan");
         }
     }
 
@@ -75,11 +77,11 @@ class BidangPekerjaanController extends Controller
     public function edit($id)
     {
         $data = array(
-            'title' => 'Bidang Pekerjaan',
-            'nav' => 'bidang-pekerjaan',
-            'item'  => BidangPekerjaan::find(decrypt($id))
+            'title' => 'Bahasa',
+            'nav'   => 'bahasa',
+            'item'  => Bahasa::find(decrypt($id))
         );
-        return view('admin.pages.bidang-pekerjaan.edit', $data);
+        return view('admin.pages.bahasa.edit', $data);
     }
 
     /**
@@ -94,9 +96,9 @@ class BidangPekerjaanController extends Controller
         $validator = Validator::make($request->all(), [
             'nama' => 'required|min:3|max:128',
         ], [
-            'nama.required' => 'nama bidang pekerjaan harus diisi',
-            'nama.min' => 'nama bidang pekerjaan minimal 3 karakter',
-            'nama.max' => 'nama bidang pekerjaan maksimal 128 karakter'
+            'nama.required' => 'nama bahasa harus diisi',
+            'nama.min' => 'nama bahasa minimal 3 karakter',
+            'nama.max' => 'nama bahasa maksimal 128 karakter'
         ]);
 
         if ( $validator->fails() ) {
@@ -104,12 +106,11 @@ class BidangPekerjaanController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         } else {
-            $update = BidangPekerjaan::find(decrypt($id));
-            $update->nama      = $request->nama;
-            $update->deskripsi = $request->deskripsi;
+            $update = Bahasa::find(decrypt($id));
+            $update->nama      = $request['nama'];
             $update->save();
 
-            return back()->with('success', "Bidang Pekerjaan $request->nama Telah Diubah");
+            return back()->with('success', "Bahasa $request->nama Telah Diubah");
         }
     }
 
@@ -121,10 +122,11 @@ class BidangPekerjaanController extends Controller
      */
     public function destroy($id)
     {
-        $data = BidangPekerjaan::find(decrypt($id));
+        $data = Bahasa::find(decrypt($id));
         $nama = $data->nama;
-        $data->delete();        
-        return redirect()->back()->with('success', "Bidang Pekerjaan $nama Telah Dihapus");
+        $data->delete();
+
+        return back()->with('success', "Bahasa $nama Telah Dihapus");
     }
 
     /**
@@ -135,11 +137,12 @@ class BidangPekerjaanController extends Controller
     public function import()
     {
         $data = array(
-            'title' => 'Bidang Pekerjaan',
-            'nav' => 'bidang-pekerjaan'
+            'title' => 'Bahasa',
+            'nav' => 'bahasa'
         );
-        return view('admin.pages.bidang-pekerjaan.import', $data);
+        return view('admin.pages.bahasa.import', $data);
     }
+
 
     /**
      * Import the specified from excel data to storage.
@@ -159,6 +162,6 @@ class BidangPekerjaanController extends Controller
      */
     public function download()
     {
-        return response()->download(public_path('/assets/excel/file-format-import-bidang-pekerjaan.xlsx'));
+        return response()->download(public_path('/assets/excel/file-format-import-bahasa.xlsx'));
     }
 }

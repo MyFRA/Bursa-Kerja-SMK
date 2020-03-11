@@ -7,18 +7,18 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Bidang Pekerjaan
+                    Provinsi
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="" class="btn btn-danger rounded-0 disabled">
                     <i class="fas fa-trash mr-1"></i> Hapus Masal
                 </a>
-                <a href="{{ url('/app-admin/bidang-pekerjaan/import') }}" class="btn btn-default rounded-0">
+                <a href="{{ url('/app-admin/provinsi/import') }}" class="btn btn-default rounded-0">
                     <i class="fas fa-download mr-1"></i> Import
                 </a>
-                <a href="{{ url('/app-admin/bidang-pekerjaan/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Bidang Pekerjaan Baru
+                <a href="{{ url('/app-admin/provinsi/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Provinsi Baru
                 </a>
             </div>
         </div>
@@ -34,7 +34,8 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th width="70%">NAMA BIDANG PEKERJAAN</th>
+                    <th width="25%">NEGARA</th>
+                    <th>PROVINSI</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
             </thead>
@@ -43,14 +44,15 @@
                     <tr>
                         <td class="text-center"></td>
                         <td class="text-center">
-                            <a href="{{ url('/app-admin/bidang-pekerjaan/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
+                            <a href="{{ url('/app-admin/provinsi/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/bidang-pekerjaan/' . encrypt($val->id)) ?>', '{{ $val->nama }}')" class="mx-1 text-danger">
+                            <a href="#" onclick="onDestroy('<?= url('/app-admin/provinsi/' . encrypt($val->id)) ?>', '{{ $val->nama_provinsi }}')" class="mx-1 text-danger">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
-                        <td>{{ $val->nama }}</td>
+                        <td>{{ $val->nama_negara }}</td>
+                        <td>{{ $val->nama_provinsi }}</td>
                         <td>{{ Carbon\Carbon::parse($val->updated_at)->format('d M Y H:i:s') }}</td>
                     </tr> 
                 @endforeach
@@ -104,7 +106,7 @@
     function onDestroy(url, nama) {
         Swal.fire({
             title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus ' + nama + '?',
+            text: "Apakah anda yakin akan menghapus provinsi " + nama + '?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -125,8 +127,8 @@
 @if(Session::get('success'))
 <script>
 Swal.fire(
-  'Berhasil',
-  '{{ Session::get('success') }}',
+  'Sukses',
+  'Data yang anda masuka berhasil disimpan',
   'success'
 )
 </script>

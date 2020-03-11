@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\DaftarKeahlian;
+use App\Models\Negara;
 
-class DaftarKeahlianController extends Controller
+class NegaraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +18,12 @@ class DaftarKeahlianController extends Controller
     public function index()
     {
         $data = array(
-            'title' => 'Daftar Keahlian',
-            'nav'   => 'daftar-keahlian',
-            'items' => DaftarKeahlian::orderBy('nama', 'ASC')->get()
+            'title' => 'Negara',
+            'nav'   => 'negara',
+            'items' => Negara::orderBy('nama_negara', 'ASC')->get()
         );
 
-        return view('admin.pages.daftar-keahlian.index', $data);
+        return view('admin.pages.negara.index', $data);
     }
 
     /**
@@ -34,11 +34,11 @@ class DaftarKeahlianController extends Controller
     public function create()
     {
         $data = array(
-            'title' => 'Daftar Keahlian',
-            'nav'   => 'daftar-keahlian',
+            'title' => 'Negara',
+            'nav'   => 'negara',
         );
 
-        return view('admin.pages.daftar-keahlian.create', $data);
+        return view('admin.pages.negara.create', $data);
     }
 
     /**
@@ -50,11 +50,11 @@ class DaftarKeahlianController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|min:3|max:128',
+            'nama_negara' => 'required|min:3|max:32',
         ], [
-            'nama.required' => 'nama keahlian harus diisi',
-            'nama.min' => 'nama keahlian minimal 3 karakter',
-            'nama.max' => 'nama keahlian maksimal 128 karakter'
+            'nama_negara.required' => 'nama negara keahlian harus diisi',
+            'nama_negara.min' => 'nama negara keahlian minimal 3 karakter',
+            'nama_negara.max' => 'nama negara keahlian maksimal 32 karakter'
         ]);
 
         if ( $validator->fails() ) {
@@ -62,9 +62,9 @@ class DaftarKeahlianController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         } else {
-            $data = DaftarKeahlian::create($request->all());
-            return redirect('/app-admin/daftar-keahlian/' . encrypt($data->id) . "/edit")
-                    ->with('success', "Keahlian $request->nama Telah Ditambahkan");
+            $data = Negara::create($request->all());
+            return redirect('/app-admin/negara/' . encrypt($data->id) . "/edit")
+                    ->with('success', "Negara $request->nama_negara Telah Ditambahkan");
         }
     }
 
@@ -77,12 +77,12 @@ class DaftarKeahlianController extends Controller
     public function edit($id)
     {
         $data = array(
-            'title' => 'Daftar Keahlian',
-            'nav' => 'daftar-keahlian',
-            'item' => DaftarKeahlian::find(decrypt($id))
+            'title' => 'Negara',
+            'nav' => 'negara',
+            'item' => Negara::find(decrypt($id))
         );
 
-        return view('admin.pages.daftar-keahlian.edit', $data);
+        return view('admin.pages.negara.edit', $data);
     }
 
     /**
@@ -95,11 +95,11 @@ class DaftarKeahlianController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|min:3|max:128',
+            'nama_negara' => 'required|min:3|max:32',
         ], [
-            'nama.required' => 'nama keahlian harus diisi',
-            'nama.min' => 'nama keahlian minimal 3 karakter',
-            'nama.max' => 'nama keahlian maksimal 128 karakter'
+            'nama_negara.required' => 'nama negara keahlian harus diisi',
+            'nama_negara.min' => 'nama negara keahlian minimal 3 karakter',
+            'nama_negara.max' => 'nama negara keahlian maksimal 32 karakter'
         ]);
 
         if ( $validator->fails() ) {
@@ -107,12 +107,10 @@ class DaftarKeahlianController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         } else {
-            $update = BidangIndustri::find(decrypt($id));
-            $update->nama      = $request['nama'];
-            $update->deskripsi = $request['deskripsi'];
+            $update = Negara::find(decrypt($id));
+            $update->nama_negara      = $request['nama_negara'];
             $update->save();
-            return redirect('/app-admin/daftar-keahlian/' . encrypt($data->id) . "/edit")
-                    ->with('success', "Keahlian $request->nama Telah Diubah");
+            return back()->with('success', "Negara $request->nama_negara Telah Diubah");
         }
     }
 
@@ -124,11 +122,17 @@ class DaftarKeahlianController extends Controller
      */
     public function destroy($id)
     {
-        $data = DaftarKeahlian::find(decrypt($id));
-        $nama = $data->nama;
-        $data->delete();
+        $provinsi = Provinsi::get();
+        $data = Negara::find(decrypt($id));
 
-        return back()->with('success', "Keahlian $nama Telah Dihapus");
+        foreach ($provinsi as $var) {
+            if ( $var->negara_id == $data->id  ) {
+                return back()->with('gagal', ' Negara Gagal Dihapus, Karena masih terikat dengan Provinsi');
+            }
+        }
+        $nama = $data->nama_negara;
+        $data->delete();
+        return back()->with('success', "Negara $nama Telah Dihapus");
     }
 
 
@@ -140,10 +144,10 @@ class DaftarKeahlianController extends Controller
     public function import()
     {
         $data = array(
-            'title' => 'Daftar Keahlian',
-            'nav' => 'daftar-keahlian'
+            'title' => 'Negara',
+            'nav' => 'negara'
         );
-        return view('admin.pages.daftar-keahlian.import', $data);
+        return view('admin.pages.negara.import', $data);
     }
 
 
@@ -165,6 +169,6 @@ class DaftarKeahlianController extends Controller
      */
     public function download()
     {
-        return response()->download(public_path('/assets/excel/file-format-import-daftar-keahlian.xlsx'));
+        return response()->download(public_path('/assets/excel/file-format-import-negara.xlsx'));
     }
 }

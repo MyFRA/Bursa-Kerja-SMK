@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 use App\Models\BidangKeahlian;
+use App\Models\ProgramKeahlian;
 
 class BidangKeahlianController extends Controller
 {
@@ -33,7 +34,7 @@ class BidangKeahlianController extends Controller
     public function create()
     {
         $data = array(
-            'title' => 'Bidang Studi',
+            'title' => 'Bidang Keahlian',
             'nav' => 'bidang-keahlian'
         );
 
@@ -139,11 +140,18 @@ class BidangKeahlianController extends Controller
      */
     public function destroy($id)
     {
+        $programKeahlian = ProgramKeahlian::get();
         $data = BidangKeahlian::find(decrypt($id));
+
+        foreach ($programKeahlian as $var) {
+            if ( $var->bidang_keahlian_id == $data->id  ) {
+                return back()->with('gagal', ' Bidang Keahlian Gagal Dihapus, Karena masih terikat dengan program keahlian');
+            }
+        }
         $nama = $data->nama;
         $data->delete();
-
         return back()->with('success', "Bidang Keahlian $nama Telah Dihapus");
+        
     }
 
     /**

@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Mata Uang
+                    Bahasa
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ url('/app-admin/mata-uang') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Bidang Pekerjaan
+                <a href="{{ url('/app-admin/bahasa') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-table mr-1"></i> Daftar Bahasa
                 </a>
-                <a href="{{ url('/app-admin/mata-uang/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Bidang Pekerjaan Baru
+                <a href="{{ url('/app-admin/bahasa/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Bahasa Baru
                 </a>
             </div>
         </div>
@@ -26,26 +26,16 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <form action="{{ url('/app-admin/mata-uang/' . encrypt($item->id)) }}" method="post" class="card">
+        <form action="{{ url('/app-admin/bahasa/' . encrypt($item->id)) }}" method="post" class="card">
             @csrf
             @method('PUT')
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="kode">Kode <span class="text-danger">*</span></label>
-                    <input type="text" name="kode" value="{{ old('kode') ? old('kode') : $item->kode }}" class="form-control @error('kode') is-invalid @enderror" />
+                    <label for="nama">NAMA BAHASA<span class="text-danger">*</span></label>
+                    <input type="text" name="nama" value="{{ old('nama') ? old('nama') : $item->nama }}" class="form-control @error('nama') is-invalid @enderror" />
 
-                    @error('kode')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="negara">Negara <span class="text-danger">*</span></label>
-                    <input type="text" name="negara" value="{{ old('negara') ? old('negara') : $item->negara }}" class="form-control @error('nama') is-invalid @enderror" />
-
-                    @error('negara')
+                    @error('nama')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -67,18 +57,13 @@
     <div class="col-md-8">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                <i class="fas fa-info-circle mr-2"></i>DETAIL MATA UANG
+                <i class="fas fa-info-circle mr-2"></i>DETAIL BAHASA
             </h6>
             <table class="table table-striped table-sm">
                 <tr>
-                    <td width="30%">KODE</td>
+                    <td width="30%">NAMA BAHASA</td>
                     <td width="5px">:</td>
-                    <td>{{ $item->kode }}</td>
-                </tr>
-                <tr>
-                    <td width="30%">NEGARA</td>
-                    <td width="5px">:</td>
-                    <td>{{ $item->negara }}</td>
+                    <td>{{ $item->nama }}</td>
                 </tr>
                 <tr>
                     <td width="30%">DIPERBARUI PADA</td>

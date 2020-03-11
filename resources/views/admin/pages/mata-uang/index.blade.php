@@ -7,18 +7,18 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    DAFTAR KEAHLIAN
+                    MATA UANG
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="" class="btn btn-danger rounded-0 disabled">
                     <i class="fas fa-trash mr-1"></i> Hapus Masal
                 </a>
-                <a href="{{ url('/app-admin/daftar-keahlian/import') }}" class="btn btn-default rounded-0">
+                <a href="{{ url('/app-admin/mata-uang/import') }}" class="btn btn-default rounded-0">
                     <i class="fas fa-download mr-1"></i> Import
                 </a>
-                <a href="{{ url('/app-admin/daftar-keahlian/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Daftar Keahlian Baru
+                <a href="{{ url('/app-admin/mata-uang/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Mata Uang Baru
                 </a>
             </div>
         </div>
@@ -44,10 +44,10 @@
                     <tr>
                         <td class="text-center"></td>
                         <td class="text-center">
-                            <a href="{{ url('/app-admin/daftar-keahlian/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
+                            <a href="{{ url('/app-admin/mata-uang/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/daftar-keahlian/' . encrypt($val->id)) ?>', '{{ $val->nama }}')" class="mx-1 text-danger">
+                            <a href="#" onclick="onDestroy('<?= url('/app-admin/mata-uang/' . encrypt($val->id)) ?>', '{{ $val->negara }}')" class="mx-1 text-danger">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
@@ -106,7 +106,7 @@
     function onDestroy(url, nama) {
         Swal.fire({
             title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus ' + nama + '?',
+            text: 'Apakah anda yakin akan menghapus mata uang negara ' + nama + '?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

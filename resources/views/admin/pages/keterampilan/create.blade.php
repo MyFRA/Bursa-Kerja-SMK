@@ -60,7 +60,7 @@
     <div class="col-md-8">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                <i class="fas fa-info-circle mr-2"></i>DETAIL BIDANG INDUSTRI
+                <i class="fas fa-info-circle mr-2"></i>DETAIL BIDANG KETERAMPILAN
             </h6>
             <table class="table table-striped table-sm"></table>
         </div>

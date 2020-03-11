@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Daftar Keahlian
+                    BAHASA
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ url('/app-admin/daftar-keahlian') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> List Daftar Keahlian
+                <a href="{{ url('/app-admin/bahasa') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-table mr-1"></i> Daftar Bahasa
                 </a>
-                <a href="{{ url('/app-admin/daftar-keahlian/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Keahlian Baru
+                <a href="{{ url('/app-admin/bahasa/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Bahasa Baru
                 </a>
             </div>
         </div>
@@ -26,12 +26,12 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <form action="{{ route('daftar-keahlian.store') }}" method="post" class="card">
+        <form action="{{ route('bahasa.store') }}" method="post" class="card">
             @csrf
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nama">NAMA KEAHLIAN<span class="text-danger">*</span></label>
+                    <label for="nama">NAMA BAHASA<span class="text-danger">*</span></label>
                     <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" / required="">
 
                     @error('nama')
@@ -39,10 +39,6 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                </div>
-                <div class="form-group">
-                    <label for="deskripsi">DESKRIPSI</label>
-                    <textarea name="deskripsi" class="form-control" rows="5"></textarea>
                 </div>
             </div>
             <div class="card-footer text-right">
@@ -60,7 +56,7 @@
     <div class="col-md-8">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                <i class="fas fa-info-circle mr-2"></i>DETAIL KEAHLIAN
+                <i class="fas fa-info-circle mr-2"></i>DETAIL BAHASA
             </h6>
             <table class="table table-striped table-sm"></table>
         </div>

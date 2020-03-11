@@ -180,7 +180,7 @@
 
                         <li class="nav-item">
                             <a href="{{ url('/app-admin/keterampilan') }}"
-                                class="nav-link {{ $nav == 'keahlian' ? 'active' : '' }}">
+                                class="nav-link {{ $nav == 'keterampilan' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Keterampilan</p>
                             </a>
@@ -195,7 +195,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/bahasa') }}"
                                 class="nav-link {{ $nav == 'bahasa' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Bahasa</p>
@@ -203,7 +203,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/negara') }}"
                                 class="nav-link {{ $nav == 'negara' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Negara</p>
@@ -211,7 +211,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/provinsi') }}"
                                 class="nav-link {{ $nav == 'provinsi' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Provinsi</p>
@@ -219,7 +219,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-perusahaan') }}"
+                            <a href="{{ url('/app-admin/kabupaten') }}"
                                 class="nav-link {{ $nav == 'kabupaten' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Kota / Kabupaten</p>

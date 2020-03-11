@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Bidang Keahlian
+                    Kabupaten
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ url('/app-admin/bidang-keahlian') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Bidang Keahlian
+                <a href="{{ url('/app-admin/kabupaten') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-table mr-1"></i> Daftar Kabupaten
                 </a>
-                <a href="{{ url('/app-admin/bidang-keahlian/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Bidang Keahlian Baru
+                <a href="{{ url('/app-admin/kabupaten/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Kabupaten Baru
                 </a>
             </div>
         </div>
@@ -26,14 +26,14 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <form action="{{ route('bidang-keahlian.imported') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('kabupaten.imported') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="border p-2">
                 <h5 class="border-bottom pb-2 mb-2">
-                    IMPORT DATA BIDANG KEAHLIAN
+                    IMPORT DATA KABUPATEN
                 </h5>
-                <p>Impor data bidang keahlian dari berkas Excel. Silahkan <a href="{{ url('/app-admin/bidang-keahlian/format-excel-import') }}">download panduan format file excel</a>.</p>
+                <p>Impor data kabupaten dari berkas Excel. Silahkan <a href="{{ url('/app-admin/kabupaten/format-excel-import') }}">download panduan format file excel</a>.</p>
 
                 <div class="form-group col-6 px-0">
                     <div class="input-group">

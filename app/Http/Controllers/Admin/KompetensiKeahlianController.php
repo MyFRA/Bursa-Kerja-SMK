@@ -21,7 +21,9 @@ class KompetensiKeahlianController extends Controller
         $data = array(
             'title' => 'Kompetensi Keahlian',
             'nav' => 'kompetensi-keahlian',
-            'items' => KompetensiKeahlian::orderBy('nama', 'ASC')->get()
+            'items' => KompetensiKeahlian::select('m_kompetensi_keahlian.*', "m_program_keahlian.nama as nama_program_keahlian")
+                                ->join('m_program_keahlian', 'm_kompetensi_keahlian.program_keahlian_id', '=', 'm_program_keahlian.id')
+                                ->get()
         );
         return view('admin.pages.kompetensi-keahlian.index', $data);
     }

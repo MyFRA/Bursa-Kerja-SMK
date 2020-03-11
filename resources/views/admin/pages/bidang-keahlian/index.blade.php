@@ -132,5 +132,15 @@ Swal.fire(
   'success'
 )
 </script>
+
+@elseif(Session::get('gagal'))
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Oops...',
+    text: '{{ Session::get('gagal') }}',
+})
+</script>
+
 @endif
 @endsection

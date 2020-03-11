@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Bidang Pekerjaan
+                    NEGARA
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ url('/app-admin/bidang-pekerjaan') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Bidang Pekerjaan
+                <a href="{{ url('/app-admin/negara') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-table mr-1"></i> List Negara
                 </a>
-                <a href="{{ url('/app-admin/bidang-pekerjaan/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Bidang Pekerjaan Baru
+                <a href="{{ url('/app-admin/negara/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Negara Baru
                 </a>
             </div>
         </div>
@@ -26,23 +26,19 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <form action="{{ route('bidang-pekerjaan.store') }}" method="post" class="card">
+        <form action="{{ route('negara.store') }}" method="post" class="card">
             @csrf
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nama">NAMA BIDANG PEKERJAAN<span class="text-danger">*</span></label>
-                    <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" / required="">
+                    <label for="nama_negara">NAMA NEGARA<span class="text-danger">*</span></label>
+                    <input type="text" name="nama_negara" value="{{ old('nama_negara') }}" class="form-control @error('nama_negara') is-invalid @enderror" / required="">
 
-                    @error('nama')
+                    @error('nama_negara')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                </div>
-                <div class="form-group">
-                    <label for="deskripsi">DESKRIPSI</label>
-                    <textarea name="deskripsi" class="form-control" rows="5"></textarea>
                 </div>
             </div>
             <div class="card-footer text-right">
@@ -60,7 +56,7 @@
     <div class="col-md-8">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                <i class="fas fa-info-circle mr-2"></i>DETAIL BIDANG PEKERJAAN
+                <i class="fas fa-info-circle mr-2"></i>DETAIL NEGARA
             </h6>
             <table class="table table-striped table-sm"></table>
         </div>

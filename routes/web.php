@@ -24,29 +24,35 @@ Route::prefix('/app-admin')->group(function() {
         Route::get('/kompetensi-keahlian/format-excel-import', 'Admin\KompetensiKeahlianController@download')->name('kompetensi-keahlian.download');
         Route::resource('/kompetensi-keahlian', 'Admin\KompetensiKeahlianController')->except(['show']);
 
-        /** Bidang Studi Router */
+        /** Bidang Keahlian Router */
         Route::get('/bidang-keahlian/import', 'Admin\BidangKeahlianController@import')->name('bidang-keahlian.import');
         Route::post('/bidang-keahlian/imported', 'Admin\BidangKeahlianController@imported')->name('bidang-keahlian.imported');
         Route::get('/bidang-keahlian/format-excel-import', 'Admin\BidangKeahlianController@download')->name('bidang-keahlian.download');
         Route::resource('/bidang-keahlian', 'Admin\BidangKeahlianController')->except(['show']);
 
-        /** Bidang Pekerjaan Router */
-        Route::get('/bidang-pekerjaan/import', 'Admin\BidangPekerjaanController@import')->name('bidang-pekerjaan.import');
-        Route::post('/bidang-pekerjaan/imported', 'Admin\BidangPekerjaanController@imported')->name('bidang-pekerjaan.imported');
-        Route::get('/bidang-pekerjaan/format-excel-import', 'Admin\BidangPekerjaanController@download')->name('bidang-pekerjaan.download');
-        Route::resource('/bidang-pekerjaan', 'Admin\BidangPekerjaanController')->except(['show']);
+        /** Program Keahlian Router */
+        Route::get('/program-keahlian/import', 'Admin\ProgramKeahlianController@import')->name('program-keahlian.import');
+        Route::post('/program-keahlian/imported', 'Admin\ProgramKeahlianController@imported')->name('program-keahlian.imported');
+        Route::get('/program-keahlian/format-excel-import', 'Admin\ProgramKeahlianController@download')->name('program-keahlian.download');
+        Route::resource('/program-keahlian', 'Admin\ProgramKeahlianController')->except(['show']);
 
-        /** Bidang Pekerjaan Router */
-        Route::get('/bidang-industri/import', 'Admin\BidangIndustriController@import')->name('bidang-industri.import');
-        Route::post('/bidang-industri/imported', 'Admin\BidangIndustriController@imported')->name('bidang-industri.imported');
-        Route::get('/bidang-industri/format-excel-import', 'Admin\BidangIndustriController@download')->name('bidang-industri.download');
-        Route::resource('/bidang-industri', 'Admin\BidangIndustriController')->except(['show']);
+        /** Bahasa Router */
+        Route::get('/bahasa/import', 'Admin\BahasaController@import')->name('bahasa.import');
+        Route::post('/bahasa/imported', 'Admin\BahasaController@imported')->name('bahasa.imported');
+        Route::get('/bahasa/format-excel-import', 'Admin\BahasaController@download')->name('bahasa.download');
+        Route::resource('/bahasa', 'Admin\BahasaController')->except(['show']);
 
-        /** Daftar Keahlian Router */
-        Route::get('/daftar-keahlian/import', 'Admin\DaftarKeahlianController@import')->name('daftar-keahlian.import');
-        Route::post('/daftar-keahlian/imported', 'Admin\DaftarKeahlianController@imported')->name('daftar-keahlian.imported');
-        Route::get('/daftar-keahlian/format-excel-import', 'Admin\DaftarKeahlianController@download')->name('daftar-keahlian.download');
-        Route::resource('/daftar-keahlian', 'Admin\DaftarKeahlianController')->except(['show']);
+        /** Keterampilan Router */
+        Route::get('/keterampilan/import', 'Admin\KeterampilanController@import')->name('keterampilan.import');
+        Route::post('/keterampilan/imported', 'Admin\KeterampilanController@imported')->name('keterampilan.imported');
+        Route::get('/keterampilan/format-excel-import', 'Admin\KeterampilanController@download')->name('keterampilan.download');
+        Route::resource('/keterampilan', 'Admin\KeterampilanController')->except(['show']);
+
+        /** Negara Router */
+        Route::get('/negara/import', 'Admin\NegaraController@import')->name('negara.import');
+        Route::post('/negara/imported', 'Admin\NegaraController@imported')->name('negara.imported');
+        Route::get('/negara/format-excel-import', 'Admin\NegaraController@download')->name('negara.download');
+        Route::resource('/negara', 'Admin\NegaraController')->except(['show']);
 
         /** Mata Uang Router */
         Route::get('/mata-uang/import', 'Admin\MataUangController@import')->name('mata-uang.import');
@@ -54,6 +60,17 @@ Route::prefix('/app-admin')->group(function() {
         Route::get('/mata-uang/format-excel-import', 'Admin\MataUangController@download')->name('mata-uang.download');
         Route::resource('/mata-uang', 'Admin\MataUangController')->except(['show']);
 
+        /** Provinsi Router */
+        Route::get('/provinsi/import', 'Admin\ProvinsiController@import')->name('provinsi.import');
+        Route::post('/provinsi/imported', 'Admin\ProvinsiController@imported')->name('provinsi.imported');
+        Route::get('/provinsi/format-excel-import', 'Admin\ProvinsiController@download')->name('provinsi.download');
+        Route::resource('/provinsi', 'Admin\ProvinsiController')->except(['show']);
+
+        /** Kabupaten Router */
+        Route::get('/kabupaten/import', 'Admin\KabupatenController@import')->name('kabupaten.import');
+        Route::post('/kabupaten/imported', 'Admin\KabupatenController@imported')->name('kabupaten.imported');
+        Route::get('/kabupaten/format-excel-import', 'Admin\KabupatenController@download')->name('kabupaten.download');
+        Route::resource('/kabupaten', 'Admin\KabupatenController')->except(['show']);
     });
 });
 /** /.ADMINISTRATOR */

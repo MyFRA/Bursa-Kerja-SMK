@@ -110,8 +110,8 @@ class KeterampilanController extends Controller
             $update->nama      = $request['nama'];
             $update->deskripsi = $request['deskripsi'];
             $update->save();
-            return redirect('/app-admin/keterampilan/' . encrypt($data->id) . "/edit")
-                    ->with('success', "Keterampilan $request->nama Telah Diubah");
+
+            return back()->with('success', "Keterampilan $request->nama Telah Diubah");
         }
     }
 

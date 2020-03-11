@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Daftar Keahlian
+                    Mata Uang
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ url('/app-admin/daftar-keahlian') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> List Daftar Keahlian
+                <a href="{{ url('/app-admin/mata-uang') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-table mr-1"></i> List Daftar Mata Uang
                 </a>
-                <a href="{{ url('/app-admin/daftar-keahlian/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Keahlian Baru
+                <a href="{{ url('/app-admin/mata-uang/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Mata Uang Baru
                 </a>
             </div>
         </div>
@@ -26,23 +26,29 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <form action="{{ route('daftar-keahlian.store') }}" method="post" class="card">
+        <form action="{{ route('mata-uang.store') }}" method="post" class="card">
             @csrf
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nama">NAMA KEAHLIAN<span class="text-danger">*</span></label>
-                    <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" / required="">
+                    <label for="kode">KODE<span class="text-danger">*</span></label>
+                    <input type="text" name="kode" value="{{ old('kode') }}" class="form-control @error('kode') is-invalid @enderror" / required="">
 
-                    @error('nama')
+                    @error('kode')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="deskripsi">DESKRIPSI</label>
-                    <textarea name="deskripsi" class="form-control" rows="5"></textarea>
+                    <label for="negara">NEGARA<span class="text-danger">*</span></label>
+                    <input type="text" name="negara" value="{{ old('negara') }}" class="form-control @error('negara') is-invalid @enderror" / required="">
+
+                    @error('negara')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
             <div class="card-footer text-right">

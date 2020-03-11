@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Daftar Keahlian
+                    Mata Uang
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ url('/app-admin/daftar-keahlian') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> List Daftar Keahlian
+                <a href="{{ url('/app-admin/mata-uang') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-table mr-1"></i> List Daftar Mata Uang
                 </a>
-                <a href="{{ url('/app-admin/daftar-keahlian/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Keahlian Baru
+                <a href="{{ url('/app-admin/mata-uang/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Mata Uang Baru
                 </a>
             </div>
         </div>
@@ -26,14 +26,14 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        <form action="{{ route('daftar-keahlian.imported') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('mata-uang.imported') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="border p-2">
                 <h5 class="border-bottom pb-2 mb-2">
-                    IMPORT DATA KEAHLIAN
+                    IMPORT DATA MATA UANG
                 </h5>
-                <p>Impor data keahlian dari berkas Excel. Silahkan <a href="{{ url('/app-admin/daftar-keahlian/format-excel-import') }}">download panduan format file excel</a>.</p>
+                <p>Impor data mata uang dari berkas Excel. Silahkan <a href="{{ url('/app-admin/mata-uang/format-excel-import') }}">download panduan format file excel</a>.</p>
 
                 <div class="form-group col-6 px-0">
                     <div class="input-group">
