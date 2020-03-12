@@ -7,11 +7,10 @@ use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
-class HomeController extends Controller
+class FaqController extends Controller
 {
-    
     /**
-     * Show the application home.
+     * Show the application FAQ.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -28,6 +27,6 @@ class HomeController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('home');
+        return view('faq');
     }
 }
