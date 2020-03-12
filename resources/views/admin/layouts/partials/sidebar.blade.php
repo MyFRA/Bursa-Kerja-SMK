@@ -104,32 +104,32 @@
                 <li class="nav-header">Publikasi</li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/app-admin/dashboard') }}"
-                        class="nav-link {{ $nav == 'dashboard' ? 'lowongan-kerja' : '' }}">
+                    <a href="{{ url('/app-admin/lowongan-kerja') }}"
+                        class="nav-link {{ $nav == 'lowongan-kerja' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-mail-bulk"></i>
                         <p>Lowongan Kerja</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/app-admin/dashboard') }}"
-                        class="nav-link {{ $nav == 'dashboard' ? 'artikel' : '' }}">
+                    <a href="{{ url('/app-admin/artikel') }}"
+                        class="nav-link {{ $nav == 'artikel' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-align-left"></i>
                         <p>Artikel</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/app-admin/dashboard') }}"
-                        class="nav-link {{ $nav == 'dashboard' ? 'halaman' : '' }}">
+                    <a href="{{ url('/app-admin/halaman') }}"
+                        class="nav-link {{ $nav == 'halaman' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file-alt"></i>
                         <p>Halaman</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('/app-admin/dashboard') }}"
-                        class="nav-link {{ $nav == 'dashboard' ? 'agenda' : '' }}">
+                    <a href="{{ url('/app-admin/agenda') }}"
+                        class="nav-link {{ $nav == 'agenda' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>Agenda</p>
                     </a>

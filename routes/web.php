@@ -18,6 +18,9 @@ Route::prefix('/app-admin')->group(function() {
     Route::middleware(['auth'])->group(function() {
         Route::get('/dashboard', 'Admin\AdminController@index')->name('admin');
 
+        /** Artikel Router */ 
+        Route::resource('/artikel', 'Admin\ArtikelController')->except(['show']);
+
         /** Kompetensi Keahlian Router */
         Route::get('/kompetensi-keahlian/import', 'Admin\KompetensiKeahlianController@import')->name('kompetensi-keahlian.import');
         Route::post('/kompetensi-keahlian/imported', 'Admin\KompetensiKeahlianController@imported')->name('kompetensi-keahlian.imported');
