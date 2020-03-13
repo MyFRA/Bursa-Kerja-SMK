@@ -7,19 +7,8 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    BAHASA
+                    PENGATURAN
                 </h1>
-            </div>
-            <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
-                    <i class="fas fa-trash mr-1"></i> Hapus Masal
-                </a>
-                <a href="{{ url('/app-admin/bahasa/import') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-download mr-1"></i> Import
-                </a>
-                <a href="{{ url('/app-admin/bahasa/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Bahasa Baru
-                </a>
             </div>
         </div>
     </div>
@@ -34,7 +23,8 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th width="70%">NAMA BAHASA</th>
+                    <th width="20%">KODE</th>
+                    <th>NAMA</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
             </thead>
@@ -43,13 +33,11 @@
                     <tr>
                         <td class="text-center"></td>
                         <td class="text-center">
-                            <a href="{{ url('/app-admin/bahasa/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
+                            <a href="{{ url('/app-admin/pengaturan/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/bahasa/' . encrypt($val->id)) ?>', '{{ $val->nama }}')" class="mx-1 text-danger">
-                                <i class="fas fa-trash"></i>
-                            </a>
                         </td>
+                        <td>{{ $val->kode }}</td>
                         <td>{{ $val->nama }}</td>
                         <td>{{ Carbon\Carbon::parse($val->updated_at)->format('d M Y H:i:s') }}</td>
                     </tr> 
@@ -101,25 +89,6 @@
         });
     });
 
-    function onDestroy(url, nama) {
-        Swal.fire({
-            title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus bahasa ' + nama + '?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, Hapus!',
-            cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.value) {
-                    $("#deleted-form").attr('action', url);
-
-                    event.preventDefault();
-                    document.getElementById('deleted-form').submit();
-                }
-            })
-    }
 </script>
 
 @if(Session::get('success'))

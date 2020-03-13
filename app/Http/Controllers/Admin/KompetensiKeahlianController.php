@@ -71,7 +71,7 @@ class KompetensiKeahlianController extends Controller
         } else {
             $data = KompetensiKeahlian::create($request->all());
             return redirect('/app-admin/kompetensi-keahlian/' . encrypt($data->id) . "/edit")
-                ->with('success', true);
+                ->with('success', "kompetensi Keahlian $request->nama Telah Ditambahkan");
         }
     }
 
@@ -140,9 +140,10 @@ class KompetensiKeahlianController extends Controller
     public function destroy($id)
     {
         $data = KompetensiKeahlian::find(decrypt($id));
+        $nama = $data->nama;
         $data->delete();
 
-        return back()->with('success', true);
+        return back()->with('success', "kompetensi Keahlian $nama Telah Dihapus");
     }
 
     /**
