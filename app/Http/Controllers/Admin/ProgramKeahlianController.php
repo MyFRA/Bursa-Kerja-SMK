@@ -145,14 +145,14 @@ class ProgramKeahlianController extends Controller
     {
         $kompetensiKeahlian = KompetensiKeahlian::get();
         $data = ProgramKeahlian::find(decrypt($id));
-
+        $nama = $data->nama;
         foreach ($kompetensiKeahlian as $var) {
             if ( $var->program_keahlian_id == $data->id  ) {
                 return back()->with('gagal', ' Program Keahlian Gagal Dihapus, Karena masih terikat dengan Kompetensi Keahlian');
             }
         }
         $data->delete();
-        return back()->with('success', "Program Keahlian Telah Dihapus");
+        return back()->with('success', "Program Keahlian $nama Telah Dihapus");
     }
 
     /**

@@ -228,7 +228,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ $nav == 'pengaturan' ? 'active' : '' }}">
+                    <a href="{{ url('/app-admin/pengaturan') }}" class="nav-link {{ $nav == 'pengaturan' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>Pengaturan</p>
                     </a>

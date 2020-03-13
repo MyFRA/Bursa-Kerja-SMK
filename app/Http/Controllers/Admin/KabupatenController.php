@@ -59,7 +59,7 @@ class KabupatenController extends Controller
             "nama_kabupaten.required" => "Nama Kabupaten harus diisi",
             "nama_kabupaten.min" => "Nama Kabupaten min: 3 karakter",
             "nama_kabupaten.max" => "Nama Kabupaten max: 32 karakter",
-            "provinsi_id.required" => "Negara harus diisi"
+            "provinsi_id.required" => "Provinsi harus diisi"
         ]);
 
         if ($validation->fails()) {
