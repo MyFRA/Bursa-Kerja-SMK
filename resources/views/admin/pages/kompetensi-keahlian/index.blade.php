@@ -48,7 +48,7 @@
                             <a href="{{ url('/app-admin/kompetensi-keahlian/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/kompetensi-keahlian/' . encrypt($val->id)) ?>')" class="mx-1 text-danger">
+                            <a href="#" onclick="onDestroy('<?= url('/app-admin/kompetensi-keahlian/' . encrypt($val->id)) ?>', '{{ $val->nama }}')" class="mx-1 text-danger">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
@@ -105,10 +105,10 @@
         });
     });
 
-    function onDestroy(url) {
+    function onDestroy(url, nama) {
         Swal.fire({
             title: 'KONFIRMASI',
-            text: "Apakah anda yakin akan menghapus data?",
+            text: "Apakah anda yakin akan menghapus program keahlian " + nama + '?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -130,9 +130,10 @@
 <script>
 Swal.fire(
   'Sukses',
-  'Data yang anda masuka berhasil disimpan',
+  '{{ Session::get('success') }}',
   'success'
 )
 </script>
+
 @endif
 @endsection

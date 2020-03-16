@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Provinsi;
 use App\Models\Negara;
+use App\Models\Kabupaten;
 
 class ProvinsiController extends Controller
 {
@@ -135,7 +136,7 @@ class ProvinsiController extends Controller
      */
     public function destroy($id)
     {
-        $kabupaten = kabupaten::get();
+        $kabupaten = Kabupaten::get();
         $data = Provinsi::find(decrypt($id));
 
         foreach ($kabupaten as $var) {

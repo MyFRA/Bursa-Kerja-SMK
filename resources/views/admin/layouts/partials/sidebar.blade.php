@@ -147,6 +147,7 @@
                     {{ $nav == 'negara' ? 'menu-open' : '' }}
                     {{ $nav == 'program-keahlian' ? 'menu-open' : '' }}
                     {{ $nav == 'provinsi' ? 'menu-open' : '' }}
+                    {{ $nav == 'faq' ? 'menu-open' : '' }}
                 ">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-folder-open"></i>
@@ -225,10 +226,18 @@
                                 <p>Kota / Kabupaten</p>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="{{ url('/app-admin/faq') }}"
+                                class="nav-link {{ $nav == 'faq' ? 'active' : '' }}">
+                                <i class="far nav-icon"></i>
+                                <p>Faq</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ $nav == 'pengaturan' ? 'active' : '' }}">
+                    <a href="{{ url('/app-admin/pengaturan') }}" class="nav-link {{ $nav == 'pengaturan' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>Pengaturan</p>
                     </a>

@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 
 @section('page-header')
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -45,7 +46,7 @@
                             <a href="{{ url('/app-admin/artikel/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/artikel/' . encrypt($val->id)) ?>', '{{ $val->nama }}')" class="mx-1 text-danger">
+                            <a href="#" onclick="onDestroy('<?= url('/app-admin/artikel/' . encrypt($val->id)) ?>', '{{ $val->judul }}')" class="mx-1 text-danger">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
@@ -107,7 +108,7 @@
     function onDestroy(url, nama) {
         Swal.fire({
             title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus ' + nama + '?',
+            text: 'Apakah anda yakin akan menghapus Artikel ' + nama + '?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

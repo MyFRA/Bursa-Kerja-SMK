@@ -119,8 +119,8 @@
 @if(Session::get('success'))
 <script>
 Swal.fire(
-  'Sukses',
-  'Data yang anda masuka berhasil disimpan',
+  'Berhasil',
+  '{{ Session::get('success') }}',
   'success'
 )
 </script>

@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Kabupaten
+                    FAQ
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="{{ url('/app-admin/kabupaten') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Kabupaten
+                <a href="{{ url('/app-admin/faq') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-table mr-1"></i> Daftar Faq
                 </a>
-                <a href="{{ url('/app-admin/kabupaten/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Kabupaten Baru
+                <a href="{{ url('/app-admin/faq/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Faq Baru
                 </a>
             </div>
         </div>
@@ -26,39 +26,24 @@
 @section('content')
 <div class="row">
     <div class="col-md-4">
-        <form action="{{ url('/app-admin/kabupaten/' . encrypt($item->id)) }}" method="post" class="card">
+        <form action="{{ url('/app-admin/faq/' . encrypt($item->id)) }}" method="post" class="card">
             @csrf
             @method('PUT')
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nama_kabupaten">NAMA KABUPATEN <span class="text-danger">*</span></label>
-                    <input type="text" name="nama_kabupaten" value="{{ old('nama_kabupaten') ? old('nama_kabupaten') : $item->nama_kabupaten }}" class="form-control @error('nama_kabupaten') is-invalid @enderror" />
+                    <label for="pertanyaan">PERTANYAAN<span class="text-danger">*</span></label>
+                    <input type="text" name="pertanyaan" value="{{ old('pertanyaan') ? old('pertanyaan') : $item->pertanyaan }}" class="form-control @error('pertanyaan') is-invalid @enderror" />
 
-                    @error('nama_kabupaten')
+                    @error('pertanyaan')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>PROVINSI</label>
-                    <select name="provinsi_id" class="form-control select2 @error('provinsi_id') is-invalid @enderror" style="width: 100%;">
-                        @foreach($provinsi as $val)
-                            <option value="{{ $val->id }}" 
-                                @if ($val->id == $item->provinsi_id)
-                                    selected="" 
-                                @endif> 
-                                {{ $val->nama_provinsi }}
-                            </option>
-                        @endforeach
-                    </select>
-
-                    @error('provinsi_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <label for="jawaban">Jawaban</label>
+                    <textarea name="jawaban" class="form-control" rows="5">{{ $item->jawaban }}</textarea>
                 </div>
             </div>
             <div class="card-footer text-right">
@@ -76,18 +61,18 @@
     <div class="col-md-8">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                <i class="fas fa-info-circle mr-2"></i>DETAIL KABUPATEN
+                <i class="fas fa-info-circle mr-2"></i>DETAIL FAQ
             </h6>
             <table class="table table-striped table-sm">
                 <tr>
-                    <td width="30%">NAMA KABUPATEN</td>
+                    <td width="30%">Pertanyaan</td>
                     <td width="5px">:</td>
-                    <td>{{ $item->nama_kabupaten }}</td>
+                    <td>{{ $item->pertanyaan }}</td>
                 </tr>
                 <tr>
-                    <td width="30%">PROVINSI</td>
+                    <td width="30%">Jawaban</td>
                     <td width="5px">:</td>
-                    <td>{{ $item->nama_provinsi }}</td>
+                    <td>{{ $item->jawaban }}</td>
                 </tr>
                 <tr>
                     <td width="30%">DIPERBARUI PADA</td>
@@ -106,20 +91,16 @@
 @endsection
 
 @section('stylesheet')
-<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2/css/select2.min.css') }}">
-<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
 @endsection
 
 @section('script')
 <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
-
-
 @if(Session::get('success'))
 <script>
 Swal.fire(
-  'Sukses',
+  'Berhasil',
   '{{ Session::get('success') }}',
   'success'
 )
