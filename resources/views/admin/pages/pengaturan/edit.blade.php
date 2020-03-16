@@ -29,24 +29,12 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="kode">KODE<span class="text-danger">*</span></label>
-                    <input type="text" name="kode" value="{{ old('kode') ? old('kode') : $item->kode }}" class="form-control @error('kode') is-invalid @enderror" />
-
-                    @error('kode')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <label for="nama">KODE <span class="text-danger">*</span></label>
+                    <input disabled="" type="text" name="kode" value="{{ $item->kode }}" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label for="nama">NAMA<span class="text-danger">*</span></label>
-                    <input type="text" name="nama" value="{{ old('nama') ? old('nama') : $item->nama }}" class="form-control @error('nama') is-invalid @enderror" />
-
-                    @error('nama')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <input disabled=""  type="text" name="nama" value="{{ $item->nama }}" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label for="konten">KONTEN</label>
@@ -68,7 +56,7 @@
     <div class="col-md-8">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                <i class="fas fa-info-circle mr-2"></i>DETAIL PENGATURAN
+                <i class="fas fa-info-circle mr-2"></i>DETAIL KOMPETENSI KEAHLIAN
             </h6>
             <table class="table table-striped table-sm">
                 <tr>
@@ -84,7 +72,7 @@
                 <tr>
                     <td width="30%">KONTEN</td>
                     <td width="5px">:</td>
-                    <td>{{ $item->konten }}</td>
+                    <td>{{ $item->konten ? $item->konten : '-' }}</td>
                 </tr>
                 <tr>
                     <td width="30%">DIPERBARUI PADA</td>
@@ -103,6 +91,7 @@
 @endsection
 
 @section('stylesheet')
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/summernote/summernote-bs4.css') }}">
 <link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
 @endsection
 
@@ -118,4 +107,12 @@ Swal.fire(
 )
 </script>
 @endif
+<script src="{{ asset('/app-admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<script>
+  $(function () {
+    $('.summernote').summernote({
+        height: 340,
+    })
+  })
+</script>
 @endsection

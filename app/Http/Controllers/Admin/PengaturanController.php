@@ -22,7 +22,7 @@ class PengaturanController extends Controller
             'items' => Pengaturan::orderBy('nama', 'ASC')->get(),
         );
 
-        return view('admin.pengaturan.index', $data);
+        return view('admin.pages.pengaturan.index', $data);
     }
 
     /**
@@ -39,7 +39,7 @@ class PengaturanController extends Controller
             'item' => Pengaturan::find(decrypt($id))
         );
 
-        return view('admin.pengaturan.edit', $data);
+        return view('admin.pages.pengaturan.edit', $data);
     }
 
     /**
@@ -51,31 +51,12 @@ class PengaturanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation = Validator::make($request->all(), [
-            "kode" => "required|max:255",
-            "nama" => "required|min:2|max:128",
-        ], [
-            "kode.required" => "Kode harus diisi",
-            "kode.max"      => "Kode max: 255 karakter",
-            "nama.required" => "nama harus diisi",
-            "nama.min"      => "nama min:2 karakter",
-            "nama.max"      => "nama max:128 karakter"
-        ]);
+        $update = Pengaturan::find(decrypt($id));
+        $nama   = $update->nama;
+        $update->konten = $request->konten;
+        $update->save();
 
-        if ($validation->fails()) {
-            return back()
-                ->withErrors($validation)
-                ->withInput();
-        } else {
-
-            $update = Pengaturan::find(decrypt($id));
-            $update->kode = $request->kode;
-            $update->nama = $request->nama;
-            $update->konten = $request->konten;
-            $update->save();
-
-            return back()->with('success', "Pengaturan Telah Diubah");
-        }
+        return redirect('/app-admin/pengaturan')->with('success', "Pengaturan $nama Telah Diubah");
     }
 
 }

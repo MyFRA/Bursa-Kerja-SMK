@@ -1,22 +1,24 @@
 @extends('admin.layouts.app')
 
 @section('page-header')
-
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    ARTIKEL
+                    FAQ
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="" class="btn btn-danger rounded-0 disabled">
                     <i class="fas fa-trash mr-1"></i> Hapus Masal
                 </a>
-                <a href="{{ url('/app-admin/artikel/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Artikel Baru
+                <a href="{{ url('/app-admin/faq/import') }}" class="btn btn-default rounded-0">
+                    <i class="fas fa-download mr-1"></i> Import
+                </a>
+                <a href="{{ url('/app-admin/faq/create') }}" class="btn btn-primary rounded-0">
+                    <i class="fas fa-plus-circle mr-1"></i> Faq Baru
                 </a>
             </div>
         </div>
@@ -32,9 +34,7 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th>JUDUL</th>
-                    <th width="10%">STATUS</th>
-                    <th width="10%">COUNTER</th>
+                    <th width="70%">PERTANYAAN</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
             </thead>
@@ -43,18 +43,14 @@
                     <tr>
                         <td class="text-center"></td>
                         <td class="text-center">
-                            <a href="{{ url('/app-admin/artikel/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
+                            <a href="{{ url('/app-admin/faq/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/artikel/' . encrypt($val->id)) ?>', '{{ $val->judul }}')" class="mx-1 text-danger">
+                            <a href="#" onclick="onDestroy('<?= url('/app-admin/faq/' . encrypt($val->id)) ?>', '{{ $val->pertanyaan }}')" class="mx-1 text-danger">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
-                        <td>{{ $val->judul }}</td>
-                        <td>
-                            <span class="label">{{ $val->status }}</span>
-                        </td>
-                        <td>{{ $val->counter }}</td>
+                        <td>{{ $val->pertanyaan }}</td>
                         <td>{{ Carbon\Carbon::parse($val->updated_at)->format('d M Y H:i:s') }}</td>
                     </tr> 
                 @endforeach
@@ -105,10 +101,10 @@
         });
     });
 
-    function onDestroy(url, nama) {
+    function onDestroy(url, pertanyaan) {
         Swal.fire({
             title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus Artikel ' + nama + '?',
+            text: 'Apakah anda yakin akan menghapus pertanyaan ?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

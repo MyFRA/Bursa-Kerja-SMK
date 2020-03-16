@@ -82,6 +82,12 @@ Route::prefix('/app-admin')->group(function() {
         /** Pengaturan Router */
         Route::resource('/pengaturan', 'Admin\PengaturanController');
 
+        /** Faq Router */
+        Route::get('/faq/import', 'Admin\FaqController@import')->name('faq.import');
+        Route::post('/faq/imported', 'Admin\FaqController@imported')->name('faq.imported');
+        Route::get('/faq/format-excel-import', 'Admin\FaqController@download')->name('faq.download');
+        Route::resource('/faq', 'Admin\FaqController');
+
     });
 });
 /** /.ADMINISTRATOR */
