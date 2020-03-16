@@ -14697,6 +14697,18 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   color: var(#9ACD32);
 }
 
+.text-facebook {
+  color: var(#29487d);
+}
+
+.text-twitter {
+  color: var(#1DA0F2);
+}
+
+.text-whatsapp {
+  color: var(#1EbEA5);
+}
+
 .bg-alice-blue {
   background: var(#F0F8FF);
 }
@@ -15261,6 +15273,18 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   background: var(#9ACD32);
 }
 
+.bg-facebook {
+  background: var(#29487d);
+}
+
+.bg-twitter {
+  background: var(#1DA0F2);
+}
+
+.bg-whatsapp {
+  background: var(#1EbEA5);
+}
+
 .main-navbar {
   height: 80px;
   border-top: 3px solid #0b5188;
@@ -15498,7 +15522,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 .widgets .widget-title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
 }
 
 .nav-list-page .nav-item {

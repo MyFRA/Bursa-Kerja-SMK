@@ -2,8 +2,13 @@
 
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/lowongan', 'JobController@index')->name('jobs');
+Route::get('/lowongan', 'JobController@index')->name('lowongan');
+Route::get('/lowongan/{link}', 'JobController@show')->name('lowongan.show');
 Route::get('/faq', 'FaqController@index')->name('faq');
+Route::get('/produk-siswa', 'ProductController@index');
+Route::get('/produk-siswa/{link}', 'ProductController@show');
+Route::get('/artikel', 'ArtikelController@index')->name('artikel');
+Route::get('/artikel/{link}', 'ArtikelController@show')->name('artikel.show');
 Route::get('/kebijakan-privasi', 'PageController@privacy_police')->name('privacy-police');
 
 /** ADMINISTRATOR */

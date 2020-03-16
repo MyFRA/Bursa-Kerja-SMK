@@ -7,13 +7,12 @@ use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
-class JobController extends Controller
+class ProductController extends Controller
 {
-
     /**
-     * Show the application job list.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -28,9 +27,9 @@ class JobController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.jobs.index');
+        return view('pages.product.index');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -50,6 +49,6 @@ class JobController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.jobs.show');
+        return view('pages.product.show');
     }
 }

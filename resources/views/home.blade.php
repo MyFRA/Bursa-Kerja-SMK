@@ -96,23 +96,159 @@
     <div class="container">
         <div class="category-title">
             <h3>KATEGORI LOWONGAN</h3>
-            <span>Cari Lowongan Pekerjaan Berdasarkan Kategori</span>  
+            <span>Cari Lowongan Pekerjaan Berdasarkan Kompetensi Keahlian</span>  
         </div>
 
         <div class="row">
-            <div class="col-12 col-lg-2 col-md-3 col-sm-6">
-                <div class="card rounded-0">
-                    <div class="card-body text-center">
-                        <i class="fa fa-desktop fa-4x"></i>
+            @for($i = 0; $i < 20; $i++)
+            <div class="col-md-4 justify-content-between">
+                <i class="fa fa-angle-double-right mr-2"></i>
+                Rekayasa Perangkat Lunak
+                
+                <label class="badge badge-pill badge-secondary ml-2">123</label>
+            </div>
+            @endfor
+        </div>
+    </div>
+</section>
+
+<section class="testimonial">
+    <div class="container">
+        <div class="category-title">
+            <h3>TESTIMONIAL</h3>
+            <span>Kepuasan Siswa yang Menggunakan Aplikasi ini</span>  
+        </div>
+
+        <div id="carouselExampleIndicators" class="carousel slide container" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active row">
+                    <div class="row">
+                        <div class="col-6 col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>1 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>1 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-md-block d-none">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>1 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-6 col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>2 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>2 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-md-block d-none">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>2 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-6 col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>3 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>3 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-md-block d-none">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h1>3 of 3</h1>
+                                    <div class="card-text">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-2 col-md-3 col-sm-6">
-                <div class="card rounded-0">
-                    <div class="card-body text-center">
-                        <i class="fa fa-car fa-4x"></i>
-                    </div>
-                </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="company">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                A
+            </div>
+            <div class="col-md-2">
+                B
             </div>
         </div>
     </div>

@@ -9,7 +9,6 @@ use Artesaos\SEOTools\Facades\SEOTools;
 
 class HomeController extends Controller
 {
-    
     /**
      * Show the application home.
      *

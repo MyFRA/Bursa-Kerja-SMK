@@ -181,6 +181,9 @@ return [
         /** Management Users Permissions Plugins */
         Spatie\Permission\PermissionServiceProvider::class,
 
+        /** Disqus */
+        Yajra\Disqus\DisqusServiceProvider::class
+
     ],
 
     /*

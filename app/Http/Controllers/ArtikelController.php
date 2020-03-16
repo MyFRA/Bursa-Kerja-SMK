@@ -7,11 +7,10 @@ use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
-class JobController extends Controller
+class ArtikelController extends Controller
 {
-
     /**
-     * Show the application job list.
+     * Show the application artikel.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -28,16 +27,15 @@ class JobController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.jobs.index');
+        return view('artikel');
     }
-    
+
     /**
-     * Display the specified resource.
+     * Show the application artikel show.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show($id)
+    public function show()
     {
         SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
@@ -50,6 +48,6 @@ class JobController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.jobs.show');
+        return view('artikel-show');
     }
 }

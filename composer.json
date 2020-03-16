@@ -15,7 +15,8 @@
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0",
         "nesbot/carbon": "^2.31",
-        "spatie/laravel-permission": "^3.9"
+        "spatie/laravel-permission": "^3.9",
+        "yajra/laravel-disqus": "^1.2"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
