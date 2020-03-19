@@ -31,7 +31,7 @@
             @method('PUT')
             <div class="col-md-9">
                 <div class="form-group">
-                    <input type="text" name="judul" class="form-control form-control-lg @error('judul') is-invalid @enderror" placeholder="Masukan judul halaman disini" value="{{ old('judul') ? old('judul') : $item->judul }}" required="" />
+                    <input type="text" id="inputJudul" onkeyup="getValue('inputJudul')" name="judul" class="form-control form-control-lg @error('judul') is-invalid @enderror" placeholder="Masukan judul halaman disini" value="{{ old('judul') ? old('judul') : $item->judul }}" required="" />
                     
                     @error('judul')
                         <span class="invalid-feedback" role="alert">
@@ -47,7 +47,7 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header p-2">
-                        <h5 class="card-title">Publikasi</h5>
+                        <h5 class="card-title">Detail Halaman</h5>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -56,40 +56,29 @@
                         </div>
                     </div>
                     <div class="card-body p-2">
-                        <small class="p-0 m-0 d-block">
-                            STATUS: 
-                            <span class="font-weight-bold mr-1" id="statusNow">{{ $item->status }}</span> 
-                            <i id="edit-status" class="fas fa-edit"></i>
-                        </small>
-                        <small class="p-0 m-0 d-block">
-                            PENGUNJUNG: 
-                            <span class="font-weight-bold mr-1">0</span>
-                        </small>
-                        <small class="p-0 m-0 d-block">
-                            PUBLISH PADA: <br />
-                            <span class="font-weight-bold mr-1">
-                                {{ $item->created_at->format('d M Y H:i:s') }}
-                            </span> 
-                            {{-- <a href=""><i class="fas fa-edit"></i>Edit</a> --}}
-                        </small>
-                        <small class="p-0 m-0 d-block">
-                            DIPERBARUI PADA: <br />
-                            <span class="font-weight-bold mr-1">
-                                {{ $item->updated_at->format('d M Y H:i:s') }}
-                            </span> 
-                            {{-- <a href=""><i class="fas fa-edit"></i> Edit</a> --}}
-                        </small>
+                        <table class="table table-striped table-sm">
+                        <tr>
+                            <td width="30%">Judul</td>
+                            <td width="5px">:</td>
+                            <td style="word-break: break-all;" id="inputJudul">{{ $item->judul }}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%">Status</td>
+                            <td width="5px">:</td>
+                            <td style="word-break: break-all;" id="statusNow">{{ $item->status }}</td>
+                        </tr>
+                    </table>
                     </div>
                     <div class="card-footer text-right p-2">
                         <button id="simpan-draf" type="submit" class="btn btn-default btn-sm">
                             SIMPAN KE DRAF
                         </button>
                         <button type="submit" class="btn btn-primary btn-sm">
-                            <i class="fas fa-paper-plane mr-1"></i> UPDATE
+                            <i class="fas fa-paper-plane mr-1"></i> PUBLISH
                         </button>
                     </div>
                 </div>
-                <div class="card collapsed-card">
+                <div class="card">
                     <div class="card-header p-2">
                         <h5 class="card-title">Status</h5>
 
@@ -101,9 +90,11 @@
                     </div>
                     <div class="card-body p-2">
                         <div class="form-group">
-                            <select id="select-status" name="status" class="form-control">
-                                <option value="Aktif">Aktif</option>
-                                <option value="Nonaktif">Nonaktif</option>
+                            <select id="select-status" name="status" id="select-status" required="" class="form-control">
+                                <option value="{{ $item->status }}">{{ $item->status }}</option>
+                                <option value="Aktif" style="{{ $item->status == 'Aktif' ? 'display: none' : '' }}">Aktif</option>
+                                <option value="Nonaktif" style="{{ $item->status == 'Nonaktif' ? 'display: none' : '' }}">Nonaktif</option>
+                                <option value="Draf" style="{{ $item->status == 'Draf' ? 'display: none' : '' }}">Draf</option>
                             </select>
                         </div>
                     </div>
@@ -141,25 +132,19 @@
 </script>
 
 <script>
-    let tombolPlusStatus = document.querySelector('.collapsed-card .card-header .card-tools button');
-    let iEditStatusPublikasi = document.getElementById('edit-status');
+    function getValue(id) {
+        let inputForm = document.getElementById(id);
+        let selector = 'table tr td#' + id;
+        let td        = document.querySelector(selector);
+
+        td.innerHTML = inputForm.value;
+    }
+</script>
+
+<script>
     let selectStatus = document.getElementById('select-status');
     let opsiStatus = document.getElementsByTagName('option');
     let statusNow = document.getElementById('statusNow');
-    let simpanDraf = document.getElementById('simpan-draf');
-
-    iEditStatusPublikasi.style.color = 'blue';
-    iEditStatusPublikasi.style.cursor = 'pointer';
-
-    iEditStatusPublikasi.addEventListener('click', function() {
-        tombolPlusStatus.click();
-    });
-
-    simpanDraf.addEventListener('click', function() {
-        for (let i = 0; i < opsiStatus.length ; i++) {
-            opsiStatus[i].setAttribute('value', 'Draf');
-        }
-    });
 
     selectStatus.addEventListener('change', function() {
         for (let i = 0; i < opsiStatus.length ; i++) {
@@ -169,5 +154,15 @@
             }
         }
     })
+</script>
+
+<script>
+    let simpanDraf = document.getElementById('simpan-draf');
+
+    simpanDraf.addEventListener('click', function() {
+        for (let i = 0; i < opsiStatus.length ; i++) {
+            opsiStatus[i].setAttribute('value', 'Draf');
+        }
+    });
 </script>
 @endsection

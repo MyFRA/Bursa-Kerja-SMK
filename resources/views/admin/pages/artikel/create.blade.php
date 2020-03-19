@@ -31,81 +31,60 @@
 
             <div class="col-md-9">
                 <div class="form-group">
-                    <input type="text" name="judul" class="form-control form-control-lg" placeholder="Masukan judul artikel disini" value="{{ old('judul') }}"/>
+                    <input type="text" id="inputJudul" onkeyup="getValue('inputJudul', 'tdJudul')" name="judul" class="form-control form-control-lg" placeholder="Masukan judul artikel disini" value="{{ old('judul') }}" required="" />
                 </div>
                 <div class="form-group">
                     <textarea name="konten" rows="15" class="form-control summernote">{{ @old('konten') }}</textarea>
                 </div>
-
             </div>
             <div class="col-md-3">
-                <div class="card">
-                    <div class="card-header p-2">
-                        <h5 class="card-title">Publikasi</h5>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body p-2">
-                        <small class="p-0 m-0 d-block">
-                            STATUS: 
-                            <span class="font-weight-bold mr-1">Aktif</span> 
-                            <a href="" data-toggle="modal" data-target="#modal-status"><i class="fas fa-edit"></i></a>
-                        </small>
-                        <small class="p-0 m-0 d-block">
-                            PENGUNJUNG: 
-                            <span class="font-weight-bold mr-1">0</span>
-                        </small>
-                        <small class="p-0 m-0 d-block">
-                            PUBLISH PADA: <br />
-                            <span class="font-weight-bold mr-1">
-                                {{ Carbon\Carbon::parse(date('Y-m-d H:i:s'))->format('d M Y H:i:s') }}
-                            </span> 
-                            <a href=""><i class="fas fa-edit"></i>Edit</a>
-                        </small>
-                        <small class="p-0 m-0 d-block">
-                            DIPERBARUI PADA: <br />
-                            <span class="font-weight-bold mr-1">
-                                {{ Carbon\Carbon::parse(date('Y-m-d H:i:s'))->format('d M Y H:i:s') }}
-                            </span> 
-                            <a href=""><i class="fas fa-edit"></i> Edit</a>
-                        </small>
-                    </div>
-                    <div class="card-footer text-right p-2">
-                        <button type="button" class="btn btn-default btn-sm">
-                            SIMPAN KE DRAF
-                        </button>
-                        <button type="submit" class="btn btn-primary btn-sm">
-                            <i class="fas fa-paper-plane mr-1"></i> PUBLISH
-                        </button>
-                    </div>
+                <div class="border p-3">
+                    <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
+                        <i class="fas fa-info-circle mr-2"></i>DETAIL ARTIKEL
+                    </h6>
+                    <table class="table table-striped table-sm">
+                        <tr>
+                            <td width="30%">Judul</td>
+                            <td width="5px">:</td>
+                            <td style="overflow-x: auto" id="tdJudul">{{ old('judul') ? old('judul') : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%">Deskripsi</td>
+                            <td width="5px">:</td>
+                            <td style="overflow-x: auto" id="tdDeskripsi">{{ old('deskripsi') ? old('deskripsi') : '-' }}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%">Tags</td>
+                            <td width="5px">:</td>
+                            <td style="overflow-x: auto" id="tdTags"><a style="color: blue; cursor: pointer;" onclick="tampilkanCollapse('tombolAktifTags')"><i class="fas fa-edit"></i></a></td>
+                        </tr>
+                        <tr>
+                            <td width="30%">Status</td>
+                            <td width="5px">:</td>
+                            <td style="overflow-x: auto" id="statusNow">{{ old('status') ? old('status') : '' }}  @error('status') {!! $message !!} @enderror</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer text-right p-2">
+                    <button id="simpan-draf" type="submit" class="btn btn-default btn-sm">
+                        SIMPAN KE DRAF
+                    </button>
+                    <button onclick="tampilkanCollapse('tombolAktifStatus')" type="submit" class="btn btn-primary btn-sm">
+                        <i class="fas fa-paper-plane mr-1"></i> PUBLISH
+                    </button>
                 </div>
                 <div class="card collapsed-card">
                     <div class="card-header p-2">
                         <h5 class="card-title">Tags</h5>
-
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button id="tombolAktifTags" type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>
                     <div class="card-body p-2">
                         <div class="form-group" data-select2-id="39">
-                          <div class="select2-purple" data-select2-id="38">
-                            <select class="select2 select2-hidden-accessible" multiple="" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;" data-select2-id="15" tabindex="-1" aria-hidden="true" name="tags">
-                              <option data-select2-id="29" value="Alabama">Alabama</option>
-                              <option data-select2-id="30" value="Alaska">Alaska</option>
-                              <option data-select2-id="31" value="California">California</option>
-                              <option data-select2-id="32" value="Delaware">Delaware</option>
-                              <option data-select2-id="33" value="Tennessee">Tennessee</option>
-                              <option data-select2-id="34" value="Texas">Texas</option>
-                              <option data-select2-id="35" value="Washington">Washington</option>
-                            </select><span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="16" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title="Alaska" data-select2-id="50"><span class="select2-selection__choice__remove" role="presentation">×</span>Alaska</li><li class="select2-selection__choice" title="California" data-select2-id="51"><span class="select2-selection__choice__remove" role="presentation">×</span>California</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" placeholder="" style="width: 1.5em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                          </div>
+                            <input type="text" id="tags" name="tags">
                         </div>
                     </div>
                 </div>
@@ -120,11 +99,15 @@
                         </div>
                     </div>
                     <div class="card-body p-2">
+                            <div class="card-body " id="imagePreview">
+                                <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
+                                <span class="image-preview__default-text">Image Preview</span>
+                            </div>
                         <div class="form-group">
                             <!-- <label for="customFile">Custom File</label> -->
 
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFile" name="image">
+                              <input type="file" class="custom-file-input" id="image" name="image">
                               <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
                           </div>
@@ -135,14 +118,15 @@
                         <h5 class="card-title">Status</h5>
 
                         <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <button type="button" id="tombolAktifStatus" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
                     </div>
                     <div class="card-body p-2">
                         <div class="form-group">
-                            <select name="status" class="form-control">
+                            <select name="status" class="form-control" id="select-status" required="">
+                                <option value="">--Pilih Status--</option>
                                 <option value="Aktif">Aktif</option>
                                 <option value="Nonaktif">Nonaktif</option>
                                 <option value="Draf">Draf</option>
@@ -162,19 +146,9 @@
                     </div>
                     <div class="card-body p-2">
                         <div class="form-group">
-                        <textarea class="form-control" rows="3" name="deskripsi" placeholder="Tulis Deskripsi ...">{{ @old('deskripsi') }}</textarea>
+                            <textarea id="inputDeskripsi" onkeyup="getValue('inputDeskripsi', 'tdDeskripsi')" class="form-control" rows="3" name="deskripsi" placeholder="Tulis Deskripsi ...">{{ @old('deskripsi') }}</textarea>
                       </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-7">
-                    
-                </div>
-                <div class="col-md-12 ">
-                    <button type="submit" class="btn btn-primary float-right">
-                        <i class="fas fa-paper-plane mr-1"></i>PUBLISH
-                    </button>
                 </div>
             </div>
         </form>
@@ -196,13 +170,16 @@
 
 @section('stylesheet')
 <link rel="stylesheet" href="{{ asset('/app-admin/plugins/summernote/summernote-bs4.css') }}">
-<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2/css/select2.min.css') }}">
-
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/tagging-Input-Bootstrap-4/dist/jquery-tagsinput.min.css') }}">
 @endsection
 
 @section('script')
 <script src="{{ asset('/app-admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
-<script src="{{ asset('/app-admin/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('/app-admin/plugins/tagging-Input-Bootstrap-4/src/jquery-tagsinput.js') }}"></script>
+
+<script>
+    $('#tags').tagsInput();
+</script>
 <script>
   $(function () {
     $('.summernote').summernote({
@@ -211,14 +188,75 @@
   })
 </script>
 <script>
-    $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
+    function getValue(id, tdata) {
+        let inputForm = document.getElementById(id);
+        let selector = 'table tr td#' + tdata;
+        let td        = document.querySelector(selector);
+
+        td.innerHTML = inputForm.value;
+    }
+</script>
+<script>
+    let selectStatus = document.getElementById('select-status');
+    let opsiStatus = document.getElementsByTagName('option');
+    let statusNow = document.getElementById('statusNow');
+
+    selectStatus.addEventListener('change', function() {
+        for (let i = 0; i < opsiStatus.length ; i++) {
+            let dipilih = opsiStatus[i];
+            if( dipilih.selected === true ) {
+                statusNow.innerHTML = opsiStatus[i].value;
+            }
+        }
     })
+</script>
+<script>
+    function tampilkanCollapse(id)
+    {
+        let opened = document.getElementById(id);
+        opened.click();
+    }
 </script>
 @if (Session::get('alert'))
     <script>
         alert('file yang kamu upload bukan gambar');
     </script>
 @endif
+<script>
+    const inpFile = document.getElementById('image');
+    const previewContainer = document.getElementById('imagePreview');
+    const previewImage = previewContainer.querySelector(".image-preview__image");
+    const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+
+    inpFile.addEventListener("change", function() {
+      const file = this.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        previewDefaultText.style.display = 'none';
+        previewImage.style.display = 'block';
+
+        reader.addEventListener('load', function() {
+          previewImage.setAttribute('src', this.result);
+        });
+
+        reader.readAsDataURL(file); 
+      } else {
+        previewDefaultText.style.display = null;
+        previewImage.style.display = null;
+        previewImage.setAttribute('src', '');
+
+      }
+    });
+</script>
+<script>
+    let simpanDraf = document.getElementById('simpan-draf');
+    
+    simpanDraf.addEventListener('click', function() {
+        for (let i = 0; i < opsiStatus.length ; i++) {
+            opsiStatus[i].setAttribute('value', 'Draf');
+        }
+    });
+</script>
 @endsection

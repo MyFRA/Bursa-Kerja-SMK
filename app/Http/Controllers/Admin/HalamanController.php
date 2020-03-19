@@ -74,7 +74,7 @@ class HalamanController extends Controller
                 'status' => $request->status,
                 'link' => Str::slug($request->judul),
             ]);
-            return redirect('/app-admin/halaman')->with('success', "Halaman $request->nama Telah Ditambahkan");
+            return redirect('/app-admin/halaman')->with('success', "Halaman $request->judul Telah Ditambahkan");
         }
     }
 

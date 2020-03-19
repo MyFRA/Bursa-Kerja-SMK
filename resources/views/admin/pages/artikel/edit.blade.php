@@ -75,11 +75,11 @@
                         </small>
                     </div>
                     <div class="card-footer text-right p-2">
-                        <button type="button" class="btn btn-default btn-sm">
+                        <button type="submit" id="simpan-draf" class="btn btn-default btn-sm">
                             SIMPAN KE DRAF
                         </button>
-                        <button type="button" class="btn btn-primary btn-sm">
-                            <i class="fas fa-paper-plane mr-1"></i> PUBLISH
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-paper-plane mr-1"></i> UPDATE
                         </button>
                     </div>
                 </div>
@@ -95,16 +95,7 @@
                     <div class="card-body p-2">
                         <div class="form-group" data-select2-id="39">
                           <div class="select2-purple" data-select2-id="38">
-                            <select class="select2 select2-hidden-accessible" multiple="" data-placeholder="Select a State" data-dropdown-css-class="select2-purple" style="width: 100%;" data-select2-id="15" tabindex="-1" aria-hidden="true" name="tags">
-                              <option data-select2-id="29" selected="" value="{{ $item->value }}">{{ $item->value }}</option>
-                              <option data-select2-id="29" value="Alabama">Alabama</option>
-                              <option data-select2-id="30" value="Alaska">Alaska</option>
-                              <option data-select2-id="31" value="California">California</option>
-                              <option data-select2-id="32" value="Delaware">Delaware</option>
-                              <option data-select2-id="33" value="Tennessee">Tennessee</option>
-                              <option data-select2-id="34" value="Texas">Texas</option>
-                              <option data-select2-id="35" value="Washington">Washington</option>
-                            </select><span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="16" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title="Alaska" data-select2-id="50"><span class="select2-selection__choice__remove" role="presentation">×</span>Alaska</li><li class="select2-selection__choice" title="California" data-select2-id="51"><span class="select2-selection__choice__remove" role="presentation">×</span>California</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" placeholder="" style="width: 1.5em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                <input type="text" id="tags" name="tags" value="{{ $item->tags }}">
                           </div>
                         </div>
                     </div>
@@ -120,9 +111,9 @@
                     </div>
                     <div class="card-body p-2">
                         <div class="form-group">
-                            <img class="img-fluid img-thumbnail" src="{{ asset('/storage/assets/artikel') }}/{{ $item->image }}" alt="">
+                            <img class="img-fluid img-thumbnail image-preview__image" src="{{ asset('/storage/assets/artikel') }}/{{ $item->image }}" alt="">
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFile" name="image">
+                              <input id="inpFile" type="file" class="custom-file-input" id="customFile" name="image">
                               <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
                           </div>
@@ -164,16 +155,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-7">
-                    
-                </div>
-                <div class="col-md-12 ">
-                    <button type="submit" class="btn btn-primary float-right">
-                        <i class="fas fa-paper-plane mr-1"></i>UPDATE
-                    </button>
-                </div>
-            </div>
         </form>
     </div>
 </div>
@@ -193,13 +174,18 @@
 
 @section('stylesheet')
 <link rel="stylesheet" href="{{ asset('/app-admin/plugins/summernote/summernote-bs4.css') }}">
-<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/tagging-Input-Bootstrap-4/dist/jquery-tagsinput.min.css') }}">
 
 @endsection
 
 @section('script')
 <script src="{{ asset('/app-admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
-<script src="{{ asset('/app-admin/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('/app-admin/plugins/tagging-Input-Bootstrap-4/src/jquery-tagsinput.js') }}"></script>
+
+<script>
+    $('#tags').tagsInput();
+</script>
+
 <script>
   $(function () {
     $('.summernote').summernote({
@@ -207,11 +193,32 @@
     })
   })
 </script>
+
 <script>
-    $(function () {
-    //Initialize Select2 Elements
-    $('.select2').select2()
-    })
+    inpFile.addEventListener("change", function() {
+      const previewImage = document.querySelector(".image-preview__image");
+      const file = this.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.addEventListener('load', function() {
+          previewImage.setAttribute('src', this.result);
+        });
+
+        reader.readAsDataURL(file); 
+      } 
+    });
+</script>
+
+<script>
+    let simpanDraf = document.getElementById('simpan-draf');
+
+    simpanDraf.addEventListener('click', function() {
+        for (let i = 0; i < opsiStatus.length ; i++) {
+            opsiStatus[i].setAttribute('value', 'Draf');
+        }
+    });
 </script>
 @if (Session::get('alert'))
     <script>

@@ -91,6 +91,9 @@ Route::prefix('/app-admin')->group(function() {
         /** Halaman Router */
         Route::resource('/halaman', 'Admin\HalamanController');
 
+        /** Agenda Router */
+        Route::resource('/agenda', 'Admin\AgendaController');
+
 
     });
 });
