@@ -93,6 +93,13 @@ Route::prefix('/app-admin')->group(function() {
         Route::get('/faq/format-excel-import', 'Admin\FaqController@download')->name('faq.download');
         Route::resource('/faq', 'Admin\FaqController');
 
+        /** Halaman Router */
+        Route::resource('/halaman', 'Admin\HalamanController');
+
+        /** Agenda Router */
+        Route::resource('/agenda', 'Admin\AgendaController');
+
+
     });
 });
 /** /.ADMINISTRATOR */

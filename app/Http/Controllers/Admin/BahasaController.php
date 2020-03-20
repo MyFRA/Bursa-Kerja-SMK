@@ -110,7 +110,7 @@ class BahasaController extends Controller
             $update->nama      = $request['nama'];
             $update->save();
 
-            return back()->with('success', "Bahasa $request->nama Telah Diubah");
+            return redirect('/app-admin/bahasa')->with('success', "Bahasa $request->nama Telah Diubah");
         }
     }
 

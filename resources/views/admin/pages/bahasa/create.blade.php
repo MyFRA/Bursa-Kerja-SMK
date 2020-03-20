@@ -32,7 +32,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="nama">NAMA BAHASA<span class="text-danger">*</span></label>
-                    <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" / required="">
+                    <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror"  required=""/>
 
                     @error('nama')
                         <span class="invalid-feedback" role="alert">

@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
-use App\Models\Artikel;
+use App\Models\Agenda;
 
-class ArtikelController extends Controller
+class AgendaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,11 +21,12 @@ class ArtikelController extends Controller
     public function index()
     {
         $data = array(
-            'title' => 'Artikel',
-            'nav'   => 'artikel',
-            'items' => Artikel::orderBy('updated_at', 'DESC')->get(),
+            'items' => Agenda::orderBy('updated_at', 'DESC')->get(),
+            'title' => 'Agenda',
+            'nav'   => 'agenda',
         );
-        return view('admin.pages.artikel.index', $data);
+
+        return view('admin.pages.agenda.index', $data);
     }
 
     /**
@@ -36,10 +37,10 @@ class ArtikelController extends Controller
     public function create()
     {
         $data = array(
-            'title' => 'Artikel',
-            'nav'   => 'artikel'
+            'title' => 'Agenda',
+            'nav'   => 'agenda'
         );
-        return view('admin.pages.artikel.create', $data);
+        return view('admin.pages.agenda.create', $data);
     }
 
     /**
@@ -54,27 +55,29 @@ class ArtikelController extends Controller
 
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
+            'pelaksanaan' => 'max:255',
+            'lokasi'      => 'max:255',
             'status' => ['required', Rule::in($this->allslots)],
         ], [
             'judul.required' => 'judul harus diisi',
             'judul.max' => 'judul maksimal 255 karakter',
-            'status.required' => '<span style="color:red">status harus diisi</span>',
+            'status.required' => 'status harus diisi',
         ]);
 
         if ( $validator->fails() ) {
             return redirect()->back()
                              ->withErrors($validator)
                              ->withInput();
-        } else {
+        }else {
             if ( $request->file('image') == null ) {
-                $jawaban = $this->uploadArtikel($request);
+                $jawaban = $this->uploadAgenda($request);
             } else {
-                $jawaban = $this->uploadArtikel($request, $request->file('image'));
+                $jawaban = $this->uploadAgenda($request, $request->file('image'));
             }
 
             if ($jawaban) {
-                return redirect('/app-admin/artikel')
-                       ->with('success', "Artikel $request->judul Telah Ditambahkan");
+                return redirect('/app-admin/agenda')
+                       ->with('success', "Agenda $request->judul Telah Ditambahkan");
             } else {
                 return redirect()->back()
                              ->withErrors($validator)
@@ -93,12 +96,12 @@ class ArtikelController extends Controller
     public function edit($id)
     {
         $data = array(
-            'title' => 'Artikel',
-            'nav'   => 'artikel',
-            'item'  => Artikel::find(decrypt($id)),
+            'title' => 'Agenda',
+            'nav'   => 'agenda',
+            'item'  => Agenda::find(decrypt($id)),
         );
 
-        return view('/admin.pages.artikel.edit', $data);
+        return view('/admin.pages.agenda.edit', $data);
     }
 
     /**
@@ -114,6 +117,8 @@ class ArtikelController extends Controller
 
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
+            'pelaksanaan' => 'max:255',
+            'lokasi'      => 'max:255',
             'status' => ['required', Rule::in($this->allslots)],
         ], [
             'judul.required' => 'judul harus diisi',
@@ -125,18 +130,21 @@ class ArtikelController extends Controller
             return redirect()->back()
                              ->withErrors($validator)
                              ->withInput();
-        } else {
+        }else {
             if ( $request->file('image') == null ) {
-                $jawaban = $this->updateArtikel($request, $id);
+                $jawaban = $this->updateAgenda($request, $id);
             } else {
-                $jawaban = $this->updateArtikel($request, $id, $request->file('image'));
+                $jawaban = $this->updateAgenda($request, $id, $request->file('image'));
             }
 
             if ($jawaban) {
-                return redirect('/app-admin/artikel')
-                       ->with('success', "Artikel $request->judul Telah Diubah");
+                return redirect('/app-admin/agenda')
+                       ->with('success', "Agenda $request->judul Telah Diubah");
             } else {
-                return redirect()->back()->withInput()->with('alert', true);
+                return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput()
+                             ->with('alert', true);
             }
         }
     }
@@ -149,27 +157,26 @@ class ArtikelController extends Controller
      */
     public function destroy($id)
     {
-        $data = Artikel::find(decrypt($id));
+        $data = Agenda::find(decrypt($id));
         $nama = $data->judul;
-        $exists = Storage::disk('local')->exists('/public/assets/artikel/' . $data->image);
+        $exists = Storage::disk('local')->exists('/public/assets/agenda/' . $data->image);
         if ( $exists === true ) {
-            Storage::disk('local')->delete('/public/assets/artikel/' . $data->image);
+            Storage::disk('local')->delete('/public/assets/agenda/' . $data->image);
         }
-        Artikel::destroy(decrypt($id));
+        Agenda::destroy(decrypt($id));
 
-        return back()->with('success', "Artikel $nama Telah Dihapus");
-
+        return back()->with('success', "Agenda $nama Telah Dihapus");
     }
 
-    public function uploadArtikel($request, $fileGambar = null)
+    public function uploadAgenda($request, $fileGambar = null)
     {
         if ( is_null($fileGambar) ) {
-            Artikel::create([
+            Agenda::create([
                 'judul' => $request->judul,
                 'link'  => Str::slug($request->judul),
-                'konten' => $request->konten,
+                'pelaksanaan' => $request->pelaksanaan,
                 'deskripsi' => $request->deskripsi,
-                'tags'      => $request->tags,
+                'lokasi'      => $request->lokasi,
                 'status'    => $request->status
             ]);
             return true;
@@ -184,16 +191,16 @@ class ArtikelController extends Controller
             else {
                 $namaGambar = explode('.', $fileGambar->getClientOriginalName());
                 $namaGambar = $namaGambar[0] . '-' . time() . '.' . $fileGambar->getClientOriginalExtension();
-                $fileGambar->storeAs('public/assets/artikel', $namaGambar);
+                $fileGambar->storeAs('public/assets/agenda', $namaGambar);
 
-                Artikel::create([
+                Agenda::create([
                     'judul' => $request->judul,
                     'link'  => Str::slug($request->judul),
-                    'konten' => $request->konten,
+                    'pelaksanaan' => $request->pelaksanaan,
                     'deskripsi' => $request->deskripsi,
-                    'tags'      => $request->tags,
-                    'image'     => $namaGambar,
-                    'status'    => $request->status
+                    'lokasi'      => $request->lokasi,
+                    'status'    => $request->status,
+                    'image'      => $namaGambar,
                 ]);
 
                 return true;
@@ -201,14 +208,14 @@ class ArtikelController extends Controller
         }
     }
 
-    public function updateArtikel($request, $id, $fileGambar = null)
+    public function updateAgenda($request, $id, $fileGambar = null)
     {
         if ( is_null($fileGambar) ) {
-            $update = Artikel::find(decrypt($id));
+            $update = Agenda::find(decrypt($id));
             $update->judul = $request->judul;
-            $update->konten = $request->konten;
+            $update->pelaksanaan = $request->pelaksanaan;
             $update->link = Str::slug($request->judul);
-            $update->tags = $request->tags;
+            $update->lokasi = $request->lokasi;
             $update->status = $request->status;
             $update->deskripsi = $request->deskripsi;
             $update->save();
@@ -217,26 +224,26 @@ class ArtikelController extends Controller
         }
 
         else {
-            $artikelById = Artikel::find(decrypt($id));
+            $agendaById = Agenda::find(decrypt($id));
             $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
             if (!in_array($fileGambar->getClientOriginalExtension(), $ekstensiValid)) {
                 return false;
             }
             else {
-                $exists = Storage::disk('local')->exists('/public/assets/artikel/' . $artikelById->image);
+                $exists = Storage::disk('local')->exists('/public/assets/agenda/' . $agendaById->image);
                 if ( $exists === true ) {
-                    Storage::disk('local')->delete('/public/assets/artikel/' . $artikelById->image);
+                    Storage::disk('local')->delete('/public/assets/agenda/' . $agendaById->image);
                 }
 
                 $namaGambar = explode('.', $fileGambar->getClientOriginalName());
                 $namaGambar = $namaGambar[0] . '-' . time() . '.' . $fileGambar->getClientOriginalExtension();
-                $fileGambar->storeAs('public/assets/artikel', $namaGambar);
+                $fileGambar->storeAs('public/assets/agenda', $namaGambar);
 
-                $update = Artikel::find(decrypt($id));
+                $update = Agenda::find(decrypt($id));
                 $update->judul = $request->judul;
-                $update->konten = $request->konten;
+                $update->pelaksanaan = $request->pelaksanaan;
                 $update->link = Str::slug($request->judul);
-                $update->tags = $request->tags;
+                $update->lokasi = $request->lokasi;
                 $update->status = $request->status;
                 $update->deskripsi = $request->deskripsi;
                 $update->image = $namaGambar;
