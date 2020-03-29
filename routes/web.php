@@ -99,7 +99,11 @@ Route::prefix('/app-admin')->group(function() {
         /** Agenda Router */
         Route::resource('/agenda', 'Admin\AgendaController');
 
+        /** Daftar Siswa Router */
+        Route::resource('/daftar-siswa', 'Admin\SiswaController');
 
+        // Daftar Perusahaan ROuter
+        Route::resource('/daftar-perusahaan', 'Admin\PerusahaanController');
     });
 });
 /** /.ADMINISTRATOR */

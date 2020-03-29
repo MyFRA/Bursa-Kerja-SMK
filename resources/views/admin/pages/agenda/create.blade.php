@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="image">Gambar</label>
-                                    <input id="image" name="image" type="file" class="form-control-file" id="image">
+                                    <input id="image" name="image" type="file" class="form-control-file" >
                                 </div>
                             </div>
                             <div class="card-footer text-right">
