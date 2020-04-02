@@ -85,7 +85,7 @@ Route::prefix('/app-admin')->group(function() {
         /** Akhir Master File */
 
         /** Pengaturan Router */
-        Route::resource('/pengaturan', 'Admin\PengaturanController');
+        Route::resource('/pengaturan', 'Admin\PengaturanController')->except(['create', 'store', 'show', 'destroy']);
 
         /** Faq Router */
         Route::get('/faq/import', 'Admin\FaqController@import')->name('faq.import');
@@ -104,6 +104,13 @@ Route::prefix('/app-admin')->group(function() {
 
         // Daftar Perusahaan ROuter
         Route::resource('/daftar-perusahaan', 'Admin\PerusahaanController');
+
+        // Lowongan Kerja Router
+        Route::resource('/lowongan-kerja', 'Admin\LowonganController');
+
+        // Dafar Pengguna Router
+        Route::resource('/daftar-pengguna', 'Admin\DaftarPenggunaController');
+
     });
 });
 /** /.ADMINISTRATOR */
