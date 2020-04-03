@@ -104,7 +104,7 @@
     function onDestroy(url, nama) {
         Swal.fire({
             title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus ' + nama + '?',
+            text: 'Apakah anda yakin akan menghapus keterampilan' + nama + '?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

@@ -52,16 +52,17 @@ class KompetensiKeahlianController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            "kode" => "required|max:8|unique:m_kompetensi_keahlian",
-            "nama" => "required|min:3",
-            "program_keahlian_id" => "required"
+            "kode"                  => "required|max:8|unique:m_kompetensi_keahlian",
+            "nama"                  => "required|min:3|max:128",
+            "program_keahlian_id"   => "required"
         ], [
-            "kode.required" => "Kode kompetensi keahlian harus diisi",
-            "kode.max" => "Kode kompetensi keahlian max: 8 karakter",
-            "kode.unique" => "Kode kompetensi keahlian tidak boleh sama",
-            "nama.required" => "Nama kompetensi keahlian harus diisi",
-            "nama.min" => "Nama kompetensi keahlian min: 3 karakter",
-            "program_keahlian_id.required" => "Program keahlian harus diisi"
+            "kode.required"                 => "Kode kompetensi keahlian harus diisi",
+            "kode.max"                      => "Kode kompetensi keahlian max: 8 karakter",
+            "kode.unique"                   => "Kode kompetensi keahlian tidak boleh sama",
+            "nama.required"                 => "Nama kompetensi keahlian harus diisi",
+            "nama.min"                      => "Nama kompetensi keahlian min: 3 karakter",
+            "nama.max"                      => "Nama kompetensi keahlian max: 128 karakter",
+            "program_keahlian_id.required"  => "Program keahlian harus diisi"
         ]);
 
         if ($validation->fails()) {

@@ -72,14 +72,14 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-pengguna/create') }}" class="nav-link">
+                            <a href="{{ url('/app-admin/daftar-pengguna/create') }}" class="nav-link {{ $nav == 'tambah-pengguna' ? 'active' : '' }}">
                                 <i class="fas nav-icon"></i>
                                 <p>Tambah Pengguna</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ url('/app-admin/daftar-pengguna') }}" class="nav-link">
+                            <a href="{{ url('/app-admin/daftar-pengguna') }}" class="nav-link {{ $nav == 'daftar-pengguna' ? 'active' : '' }}">
                                 <i class="far nav-icon"></i>
                                 <p>Daftar Pengguna</p>
                             </a>

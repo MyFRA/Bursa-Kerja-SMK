@@ -55,15 +55,15 @@ class ProgramKeahlianController extends Controller
     {
         $validation = Validator::make($request->all(), [
             'kode'               => 'required|unique:m_program_keahlian|max:8',
-            "nama"               => "required|min:3|max:123",
+            "nama"               => "required|min:3|max:128",
             "bidang_keahlian_id" => "required"
         ], [
             "kode.required" => 'kode program keahlian harus diisi',
             'kode.unique'   => 'kode program keahlian sudah ada',
             'kode.max'      => 'kode program keahlian max: 8 karakter',
             "nama.required" => "nama program keahlian harus diisi",
-            "nama.min" => "nama program keahlian min: 3 karakter",
-            "nama.max" => "nama program keahlian max: 32 karakter",
+            "nama.min"      => "nama program keahlian min: 3 karakter",
+            "nama.max"      => "nama program keahlian max: 128 karakter",
             "bidang_keahlian_id.required" => "bidang keahlian harus diisi"
         ]);
 

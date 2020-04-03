@@ -33,9 +33,9 @@
                     <tr>
                         <td class="text-center"></td>
                         <td class="text-center">
-                            {{-- <a href="{{ url('/app-admin/pengaturan/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
-                                <i class="fas fa-edit"></i>
-                            </a> --}}
+                            <a href="{{ url('/app-admin/daftar-pengguna/'.encrypt($val->id)) }}" class="mx-1 text-dark">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
                         </td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->level }}</td>

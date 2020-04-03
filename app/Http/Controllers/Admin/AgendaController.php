@@ -59,9 +59,12 @@ class AgendaController extends Controller
             'lokasi'      => 'max:255',
             'status' => ['required', Rule::in($this->allslots)],
         ], [
-            'judul.required' => 'judul harus diisi',
-            'judul.max' => 'judul maksimal 255 karakter',
-            'status.required' => 'status harus diisi',
+            'judul.required'    => 'judul harus diisi',
+            'judul.max'         => 'judul maksimal 255 karakter',
+            'status.required'   => 'status harus diisi',
+            'status.in'         => 'status harus diantara Draf, Aktif dan Nonaktif',
+            'lokasi.max'        => 'lokasi maksimal 255 karakter',
+            'pelaksanaan.max'   => 'pelaksanaan maksimal 255 karakter'
         ]);
 
         if ( $validator->fails() ) {
@@ -82,7 +85,7 @@ class AgendaController extends Controller
                 return redirect()->back()
                              ->withErrors($validator)
                              ->withInput()
-                             ->with('alert', true);
+                             ->with('gagal', 'File Yang Kamu Upload Bukan Gambar');
             }
         }
     }
@@ -124,6 +127,9 @@ class AgendaController extends Controller
             'judul.required' => 'judul harus diisi',
             'judul.max' => 'judul maksimal 255 karakter',
             'status.required' => 'status harus diisi',
+            'status.in'         => 'status harus diantara Draf, Aktif dan Nonaktif',
+            'lokasi.max'        => 'lokasi maksimal 255 karakter',
+            'pelaksanaan.max'   => 'pelaksanaan maksimal 255 karakter'
         ]);
 
         if ( $validator->fails() ) {

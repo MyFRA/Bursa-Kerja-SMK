@@ -1,18 +1,19 @@
 @extends('admin.layouts.app')
 
 @section('page-header')
+
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Siswa
+                    Tambah Siswa
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{ url('/app-admin/daftar-siswa') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> List Siswa
+                    <i class="fas fa-table mr-1"></i> Daftar Siswa
                 </a>
                 <a href="{{ url('/app-admin/daftar-siswa/create') }}" class="btn btn-primary rounded-0">
                     <i class="fas fa-plus-circle mr-1"></i> Siswa Baru
@@ -41,7 +42,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="nama_belakang">Nama Belakang<span class="text-danger">*</span></label>
+                    <label for="nama_belakang">Nama Belakang</label>
                     <input type="text" name="nama_belakang" value="{{ old('nama_belakang') }}" class="form-control @error('nama_belakang') is-invalid @enderror" / >
 
                     @error('nama_belakang')
@@ -51,7 +52,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="photo">Photo<span class="text-danger">*</span></label>
+                    <label for="photo">Foto</label>
                     <input id="image" type="file" name="photo" value="{{ old('photo') }}" class="form-control @error('photo') is-invalid @enderror" / >
 
                     @error('photo')
@@ -61,7 +62,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="tempat_lahir">Tempat Lahir<span class="text-danger">*</span></label>
+                    <label for="tempat_lahir">Tempat Lahir</label>
                     <input type="text" name="tempat_lahir" value="{{ old('tempat_lahir') }}" class="form-control @error('tempat_lahir') is-invalid @enderror" / >
 
                     @error('tempat_lahir')
@@ -71,7 +72,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="tanggal_lahir">Tanggal Lahir<span class="text-danger">*</span></label>
+                    <label for="tanggal_lahir">Tanggal Lahir</label>
                     <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" class="form-control @error('tanggal_lahir') is-invalid @enderror" / >
 
                     @error('tanggal_lahir')
@@ -81,21 +82,21 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="jenis_kelamin">Jenis Kelamin<span class="text-danger">*</span></label>
-                    <select name="jenis_kelamin" id="">
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
+                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" id="" class="form-control">
+                        <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                        <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                     </select>
                     @error('jenis_kelamin')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <br>
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="email">Email<span class="text-danger">*</span></label>
+                    <label for="email">Email</label>
                     <input type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" / >
-
                     @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -103,7 +104,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="hp">No HP<span class="text-danger">*</span></label>
+                    <label for="hp">No HP</label>
                     <input type="text" name="hp" value="{{ old('hp') }}" class="form-control @error('hp') is-invalid @enderror" / >
 
                     @error('hp')
@@ -113,7 +114,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="facebook">Facebook<span class="text-danger">*</span></label>
+                    <label for="facebook">Facebook</label>
                     <input type="text" name="facebook" value="{{ old('facebook') }}" class="form-control @error('facebook') is-invalid @enderror" / >
 
                     @error('facebook')
@@ -123,7 +124,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="twitter">Twitter<span class="text-danger">*</span></label>
+                    <label for="twitter">Twitter</label>
                     <input type="text" name="twitter" value="{{ old('twitter') }}" class="form-control @error('twitter') is-invalid @enderror" / >
 
                     @error('twitter')
@@ -133,7 +134,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="instagram">Instagram<span class="text-danger">*</span></label>
+                    <label for="instagram">Instagram</label>
                     <input type="text" name="instagram" value="{{ old('instagram') }}" class="form-control @error('instagram') is-invalid @enderror" / >
 
                     @error('instagram')
@@ -143,7 +144,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="linkedin">Linkedin<span class="text-danger">*</span></label>
+                    <label for="linkedin">Linkedin</label>
                     <input type="text" name="linkedin" value="{{ old('linkedin') }}" class="form-control @error('linkedin') is-invalid @enderror" / >
 
                     @error('linkedin')
@@ -163,7 +164,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="kodepos">Kode Pos<span class="text-danger">*</span></label>
+                    <label for="kodepos">Kode Pos</label>
                     <input type="text" name="kodepos" value="{{ old('kodepos') }}" class="form-control @error('kodepos') is-invalid @enderror" / >
 
                     @error('kodepos')
@@ -173,7 +174,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="kabupaten">Kabupaten<span class="text-danger">*</span></label>
+                    <label for="kabupaten">Kabupaten</label>
                     <input type="text" name="kabupaten" value="{{ old('kabupaten') }}" class="form-control @error('kabupaten') is-invalid @enderror" / >
 
                     @error('kabupaten')
@@ -183,7 +184,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="provinsi">Provinsi<span class="text-danger">*</span></label>
+                    <label for="provinsi">Provinsi</label>
                     <input type="text" name="provinsi" value="{{ old('provinsi') }}" class="form-control @error('provinsi') is-invalid @enderror" / >
 
                     @error('provinsi')
@@ -193,7 +194,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="negara">Negara<span class="text-danger">*</span></label>
+                    <label for="negara">Negara</label>
                     <input type="text" name="negara" value="{{ old('negara') }}" class="form-control @error('negara') is-invalid @enderror" / >
 
                     @error('negara')
@@ -203,22 +204,25 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="kartu_identitas">NAMA NEGARA<span class="text-danger">*</span></label>
+                    <label for="kartu_identitas">KARTU IDENTITAS</label>
                     
-                    <select name="kartu_identitas" id="kartu_identitas">
-                        <option value="KTP">KTP</option>
-                        <option value="SIM">SIM</option>
-                        <option value="NPWP">NPWP</option>
-                        <option value="KARTU PELAJAR">KARTU PELAJAR</option>
+                    <select name="kartu_identitas" id="kartu_identitas" class="form-control">
+                        <option value="" selected="" disabled="" required>-- Pilih Kartu Identitas --</option>
+                        <option value="" >Belum Memiliki Satupun</option>
+                        <option value="KTP" {{ old('kartu_identitas') == 'KTP' ? 'selected' : '' }}>KTP</option>
+                        <option value="SIM" {{ old('kartu_identitas') == 'SIM' ? 'selected' : '' }}>SIM</option>
+                        <option value="NPWP" {{ old('kartu_identitas') == 'NPWP' ? 'selected' : '' }}>NPWP</option>
+                        <option value="KARTU PELAJAR" {{ old('kartu_identitas') == 'KARTU PELAJAR' ? 'selected' : '' }}>KARTU PELAJAR</option>
                     </select>
                     @error('kartu_identitas')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <br>
+                        <div class="alert alert-danger">
+                            {{ $message }}
+                        </div>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="kartu_identitas_nomor">Kartu Identitas Nomor<span class="text-danger">*</span></label>
+                    <label for="kartu_identitas_nomor">Kartu Identitas Nomor</label>
                     <input type="text" name="kartu_identitas_nomor" value="{{ old('kartu_identitas_nomor') }}" class="form-control @error('kartu_identitas_nomor') is-invalid @enderror" / >
 
                     @error('kartu_identitas_nomor')
@@ -228,7 +232,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="pengalaman_level">Pengalaman Level<span class="text-danger">*</span></label>
+                    <label for="pengalaman_level">Pengalaman Level</label>
                     <input type="text" name="pengalaman_level" value="{{ old('pengalaman_level') }}" class="form-control @error('pengalaman_level') is-invalid @enderror" / >
 
                     @error('pengalaman_level')
@@ -238,7 +242,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="pengalaman_level_teks">Pengalaman Level Teks<span class="text-danger">*</span></label>
+                    <label for="pengalaman_level_teks">Pengalaman Level Teks</label>
                     <input type="text" name="pengalaman_level_teks" value="{{ old('pengalaman_level_teks') }}" class="form-control @error('pengalaman_level_teks') is-invalid @enderror" / >
 
                     @error('pengalaman_level_teks')
@@ -279,10 +283,10 @@
             </div>
             <div class="card-body p-2">
                 <div class="card shadow">
-                  <div class="card-body " id="imagePreview">
-                    <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
-                    <span class="image-preview__default-text">Image Preview</span>
-                  </div>
+                    <div class="card-body " id="imagePreview">
+                        <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
+                        <span class="image-preview__default-text">Image Preview</span>
+                    </div>
                 </div>
             </div>
         </div>

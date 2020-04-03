@@ -100,10 +100,11 @@ Route::prefix('/app-admin')->group(function() {
         Route::resource('/agenda', 'Admin\AgendaController');
 
         /** Daftar Siswa Router */
-        Route::resource('/daftar-siswa', 'Admin\SiswaController');
+        Route::resource('/daftar-siswa', 'Admin\SiswaController')->except(['show']);;
 
-        // Daftar Perusahaan ROuter
+        // Daftar Perusahaan Router
         Route::resource('/daftar-perusahaan', 'Admin\PerusahaanController');
+        Route::get('/daftar-perusahaan/ajax/{id}', 'Admin\PerusahaanController@ajax');
 
         // Lowongan Kerja Router
         Route::resource('/lowongan-kerja', 'Admin\LowonganController');

@@ -53,9 +53,9 @@ class NegaraController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_negara' => 'required|min:3|max:32',
         ], [
-            'nama_negara.required' => 'nama negara keahlian harus diisi',
-            'nama_negara.min' => 'nama negara keahlian minimal 3 karakter',
-            'nama_negara.max' => 'nama negara keahlian maksimal 32 karakter'
+            'nama_negara.required' => 'nama negara harus diisi',
+            'nama_negara.min' => 'nama negara minimal 3 karakter',
+            'nama_negara.max' => 'nama negara maksimal 32 karakter'
         ]);
 
         if ( $validator->fails() ) {
@@ -98,9 +98,9 @@ class NegaraController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_negara' => 'required|min:3|max:32',
         ], [
-            'nama_negara.required' => 'nama negara keahlian harus diisi',
-            'nama_negara.min' => 'nama negara keahlian minimal 3 karakter',
-            'nama_negara.max' => 'nama negara keahlian maksimal 32 karakter'
+            'nama_negara.required' => 'nama negara harus diisi',
+            'nama_negara.min' => 'nama negara minimal 3 karakter',
+            'nama_negara.max' => 'nama negara maksimal 32 karakter'
         ]);
 
         if ( $validator->fails() ) {

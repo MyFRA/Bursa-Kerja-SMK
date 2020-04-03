@@ -41,6 +41,7 @@
                     <tr>
                         <td class="text-center"></td>
                         <td class="text-center">
+                            
                             <a href="{{ url('/app-admin/daftar-siswa/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>

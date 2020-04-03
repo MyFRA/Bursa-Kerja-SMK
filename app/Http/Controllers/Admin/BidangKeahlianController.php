@@ -49,35 +49,32 @@ class BidangKeahlianController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi Form Input 
         $validation = Validator::make($request->all(), [
             "kode" => 'required|max:8|unique:m_bidang_keahlian',
             "nama" => "required|min:2|max:128",
         ], [
             "kode.required" => "Kode bidang keahlian harus diisi",
-            "kode.max" => "Kode bidang keahlian max: 8 karakter",
-            "kode.unique" => "Kode bidang keahlian tidak boleh sama",
-            "nama.required" => "nama bidang studi harus diisi",
-            "nama.min"      => "nama bidang studi minimal 2 karakter",
-            "nama.max"      => "nama bidang studi maksimal 128 karakter"
+            "kode.max"      => "Kode bidang keahlian maksimal 8 karakter",
+            "kode.unique"   => "Kode bidang keahlian sudah digunakan",
+            "nama.required" => "nama bidang keahlian harus diisi",
+            "nama.min"      => "nama bidang keahlian minimal 2 karakter",
+            "nama.max"      => "nama bidang keahlian maksimal 128 karakter"
         ]);
 
+        // Jika Validasi Gagal, Maka Akan Dikembalikan Ke Halaman Sebelumnya.
         if ($validation->fails()) {
-            return back()
-                ->withErrors($validation)
-                ->withInput();
+            return redirect()->back()
+                             ->withErrors($validation)
+                             ->withInput();
         } else {
+
+            // Lolos Validasi, Insert Data Bidang Keahlian Berhasil.
             $data = BidangKeahlian::create($request->all());
             return redirect('/app-admin/bidang-keahlian/' . encrypt($data->id) . "/edit")
                 ->with('success', "Bidang Keahlian $request->nama Telah Ditambahkan");
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
     /**
      * Show the form for editing the specified resource.
@@ -105,6 +102,7 @@ class BidangKeahlianController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validasi Form Data
         $validation = Validator::make($request->all(), [
             "kode" => "required|max:8",
             "nama" => "required|min:2|max:128",
@@ -122,6 +120,7 @@ class BidangKeahlianController extends Controller
                 ->withInput();
         } else {
 
+            // Lolos Validasi Update Data Berhasil
             $update = BidangKeahlian::find(decrypt($id));
             $update->kode = $request->kode;
             $update->nama = $request->nama;
@@ -140,11 +139,13 @@ class BidangKeahlianController extends Controller
      */
     public function destroy($id)
     {
+        // Mengambil Data Data
         $programKeahlian = ProgramKeahlian::get();
         $data = BidangKeahlian::find(decrypt($id));
 
+        // Pengecekan Apakah Data Bidang Keahlian masih memiliki relasi dengan program_keahlian 
         foreach ($programKeahlian as $var) {
-            if ( $var->bidang_keahlian_id == $data->id  ) {
+            if ( $data->id == $var->bidang_keahlian_id ) {
                 return back()->with('gagal', ' Bidang Keahlian Gagal Dihapus, Karena masih terikat dengan program keahlian');
             }
         }

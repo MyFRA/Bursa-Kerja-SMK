@@ -43,27 +43,51 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputJudul">Judul Agenda</label>
-                                    <input type="text" id="inputJudul" name="judul" onkeyup="getValue('inputJudul')" class="form-control" required="">
+                                    <input type="text" id="inputJudul" value="{{ old('judul') }}" name="judul" onkeyup="getValue('inputJudul')" class="form-control @error('judul') is-invalid @enderror" required="">
+                                
+                                    @error('judul')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputDeskripsi">Deskripsi</label>
-                                    <textarea id="inputDeskripsi" name="deskripsi" onkeyup="getValue('inputDeskripsi')" class="form-control" rows="4"></textarea>
+                                    <textarea id="inputDeskripsi" name="deskripsi" onkeyup="getValue('inputDeskripsi')" class="form-control" rows="4">{{ old('deskripsi') }}</textarea>
+                                
+                                    @error('deskripsi')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPelaksanaan">Pelaksanaan</label>
-                                    <input type="text" id="inputPelaksanaan" name="pelaksanaan" onkeyup="getValue('inputPelaksanaan')" class="form-control">
+                                    <input type="text" value="{{ old('pelaksanaan') }}" id="inputPelaksanaan" name="pelaksanaan" onkeyup="getValue('inputPelaksanaan')" class="form-control @error('pelaksanaan') is-invalid @enderror">
+                                
+                                    @error('pelaksanaan')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputLokasi">Lokasi</label>
-                                    <input type="text" id="inputLokasi" name="lokasi" onkeyup="getValue('inputLokasi')" class="form-control">
+                                    <input type="text"  value="{{ old('lokasi') }}" id="inputLokasi" name="lokasi" onkeyup="getValue('inputLokasi')" class="form-control @error('lokasi') is-invalid @enderror">
+                                
+                                    @error('lokasi')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">Status</label>
-                                    <select id="select-status" name="status" class="form-control custom-select" required="">
+                                    <select id="select-status" name="status" class="form-control custom-select  @error('status') is-invalid @enderror" required="">
                                         <option value="" selected="" disabled="">-- Pilih Status --</option>
-                                        <option value="Aktif">Aktif</option>
-                                        <option value="Nonaktif">Nonaktif</option>
-                                        <option value="Draf">Draf</option>
+                                        <option value="Aktif" {{ (old('status') == "Aktif") ? 'selected' : '' }}>Aktif</option>
+                                        <option value="Nonaktif" {{ (old('status') == "Nonaktif") ? 'selected' : '' }}>Nonaktif</option>
+                                        <option value="Draf" {{ (old('status') == "Draf") ? 'selected' : '' }}>Draf</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -156,10 +180,12 @@
 @endsection
 
 @section('stylesheet')
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('/app-admin/plugins/summernote/summernote-bs4.css') }}">
 @endsection
 
 @section('script')
+<script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('/app-admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script>
   $(function () {
@@ -221,4 +247,21 @@
       }
     });
 </script>
+@if(Session::get('success'))
+<script>
+Swal.fire(
+  'Berhasil',
+  '{{ Session::get('success') }}',
+  'success'
+)
+</script>
+@elseif(Session::get('gagal'))
+<script>
+Swal.fire(
+  'Oops ...',
+  '{{ Session::get('gagal') }}',
+  'error'
+)
+</script>
+@endif
 @endsection

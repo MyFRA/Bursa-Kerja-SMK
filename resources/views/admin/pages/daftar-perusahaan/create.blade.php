@@ -32,7 +32,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="bidang_keahlian_id">Bidang Keahlian<span class="text-danger">*</span></label>
-                    <select name="bidang_keahlian_id" id="" class="form-control custom-select" required="">
+                    <select name="bidang_keahlian_id" id="bidang_keahlian_id" class="form-control custom-select" required="">
                         <option value="" disabled="" selected="">-- Pilih Bidang Keahlian --</option>
                         @foreach ($bidangKeahlian as $bidangKeahlianPerOne)
                             <option value="{{ $bidangKeahlianPerOne->id }}">{{ $bidangKeahlianPerOne->nama }}</option>
@@ -46,11 +46,11 @@
                 </div>
                 <div class="form-group">
                     <label for="program_keahlian_id">Program Keahlian<span class="text-danger">*</span></label>
-                    <select name="program_keahlian_id" id="" class="form-control custom-select" required="">
+                    <select name="program_keahlian_id" id="program_keahlian_id" class="form-control custom-select" required="">
                         <option value="" disabled="" selected="">-- Pilih Program Keahlian --</option>
-                        @foreach ($programKeahlian as $programKeahlianPerOne)
+                        {{-- @foreach ($programKeahlian as $programKeahlianPerOne)
                             <option value="{{ $programKeahlianPerOne->id }}">{{ $programKeahlianPerOne->nama }}</option>
-                        @endforeach
+                        @endforeach --}}
                     </select>
                     @error('program_keahlian_id')
                         <span class="invalid-feedback" role="alert">
@@ -334,7 +334,7 @@
         </div>
         <br>
         <div class="row">
-                    <div class="card col-md-6">
+            <div class="card col-md-6">
             <div class="card-header p-2">
                 <h3 class="card-title"><b>Logo Preview</b></h3>
                 <div class="card-tools">
@@ -436,6 +436,20 @@
         previewImage2.setAttribute('src', '');
 
       }
+    });
+</script>
+<script>
+    $('#bidang_keahlian_id').on('change', function(e) {
+        const bkID = e.target.value;
+
+        // Ajax
+        $.get('/app-admin/daftar-perusahaan/ajax/' + bkID, function(data) {
+            // success data
+            $('#program_keahlian_id').empty();
+            $.each(data, function(index, progKeahlian){
+                $('#program_keahlian_id').append('<option value="' + progKeahlian.id + '"> ' + progKeahlian.nama + ' </option>')
+            });
+        })
     });
 </script>
 @if(Session::get('success'))

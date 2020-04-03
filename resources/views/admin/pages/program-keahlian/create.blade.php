@@ -55,7 +55,7 @@
                     <select name="bidang_keahlian_id" class="form-control select2 @error('bidang_keahlian_id') is-invalid @enderror" style="width: 100%;">
                         <option></option>
                         @foreach($list_bidang_keahlian as $bidangKeahlian)
-                            <option value="{{ $bidangKeahlian->id }}">{{ $bidangKeahlian->nama }}</option>
+                            <option value="{{ $bidangKeahlian->id }}" {{ old('bidang_keahlian_id') == $bidangKeahlian->id ? 'selected' : '' }}>{{ $bidangKeahlian->nama }}</option>
                         @endforeach
                     </select>
 
@@ -64,6 +64,10 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                </div>
+                <div class="form-group">
+                    <label for="deskripsi">DESKRIPSI</label>
+                    <textarea name="deskripsi" class="form-control" rows="5">{{ old('deskripsi') }}</textarea>
                 </div>
             </div>
             <div class="card-footer text-right">

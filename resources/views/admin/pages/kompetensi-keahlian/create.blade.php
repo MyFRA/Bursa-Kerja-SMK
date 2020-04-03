@@ -31,8 +31,8 @@
 
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nama">KODE <span class="text-danger">*</span></label>
-                    <input type="text" name="kode" value="{{ old('kode') }}" class="form-control @error('nama') is-invalid @enderror" />
+                    <label for="kode">KODE <span class="text-danger">*</span></label>
+                    <input required="" type="text" name="kode" value="{{ old('kode') }}" class="form-control @error('kode') is-invalid @enderror" />
 
                     @error('kode')
                         <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label for="nama">KOMPETENSI KEAHLIAN <span class="text-danger">*</span></label>
-                    <input type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" />
+                    <input required="" type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" />
 
                     @error('nama')
                         <span class="invalid-feedback" role="alert">
@@ -51,11 +51,11 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label>PROGRAM KEAHLIAN <span class="text-danger">*</span></label>
-                    <select name="program_keahlian_id" class="form-control select2 @error('nama') is-invalid @enderror" style="width: 100%;">
+                    <label for="program_keahlian_id">PROGRAM KEAHLIAN <span class="text-danger">*</span></label>
+                    <select required="" name="program_keahlian_id" class="form-control select2 @error('program_keahlian_id') is-invalid @enderror" style="width: 100%;">
                         <option></option>
                         @foreach($programs as $val)
-                            <option value="{{ $val->id }}">{{ $val->nama }}</option>
+                            <option value="{{ $val->id }}" {{ old('program_keahlian_id') == $val->id ? 'selected' : '' }}>{{ $val->nama }}</option>
                         @endforeach
                     </select>
 
@@ -67,7 +67,7 @@
                 </div>
                 <div class="form-group">
                     <label for="deskripsi">DESKRIPSI</label>
-                    <textarea name="deskripsi" class="form-control" rows="3"></textarea>
+                    <textarea name="deskripsi" class="form-control" rows="3">{{ old('deskripsi') }}</textarea>
                 </div>
             </div>
             <div class="card-footer text-right">

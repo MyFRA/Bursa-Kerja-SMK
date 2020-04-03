@@ -49,7 +49,7 @@
                             </a>
                         </td>
                         <td>{{ $val->nama }}</td>
-                        <td>{{ $val->program_keahlian_id }}</td>
+                        <td>{{ $val->nama_program_keahlian }}</td>
                         <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
                     </tr> 
                 @endforeach

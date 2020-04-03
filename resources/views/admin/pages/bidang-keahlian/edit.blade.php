@@ -53,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label for="deskripsi">DESKRIPSI</label>
-                    <textarea name="deskripsi" class="form-control" rows="5">{{ $item->deskripsi }}</textarea>
+                    <textarea name="deskripsi" class="form-control" rows="5">{{ old('deskripsi') ? old('deskripsi') : $item->deskripsi }}</textarea>
                 </div>
             </div>
             <div class="card-footer text-right">

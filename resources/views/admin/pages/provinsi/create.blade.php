@@ -45,7 +45,7 @@
                     <select name="negara_id" class="form-control select2 @error('negara_id') is-invalid @enderror" style="width: 100%;">
                         <option></option>
                         @foreach($id_negara as $negara)
-                            <option value="{{ $negara->id }}">{{ $negara->nama_negara }}</option>
+                            <option value="{{ $negara->id }}" {{ old('negara_id') ? 'selected' : '' }}>{{ $negara->nama_negara }}</option>
                         @endforeach
                     </select>
 

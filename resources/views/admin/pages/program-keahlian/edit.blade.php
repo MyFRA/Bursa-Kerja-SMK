@@ -53,12 +53,9 @@
                 </div>
                 <div class="form-group">
                     <label>BIDANG KEAHLIAN</label>
-                    <select name="bidang_keahlian_id" class="form-control select2 @error('nama') is-invalid @enderror" style="width: 100%;">
+                    <select name="bidang_keahlian_id" class="form-control select2 @error('bidang_keahlian_id') is-invalid @enderror" style="width: 100%;">
                         @foreach($listBidangKeahlian as $bidangKeahlian)
-                            <option value="{{ $bidangKeahlian->id }}" 
-                                @if ($bidangKeahlian->id == $item->bidang_keahlian_id)
-                                    selected="" 
-                                @endif> 
+                            <option value="{{ $bidangKeahlian->id }}" {{ ( $bidangKeahlian->id == $item->bidang_keahlian_id ) ? 'selected' : '' }}> 
                                 {{ $bidangKeahlian->nama }}
                             </option>
                         @endforeach
@@ -69,6 +66,10 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                </div>
+                <div class="form-group">
+                    <label for="deskripsi">DESKRIPSI</label>
+                    <textarea name="deskripsi" class="form-control" rows="5">{{ $item->deskripsi }}</textarea>
                 </div>
             </div>
             <div class="card-footer text-right">

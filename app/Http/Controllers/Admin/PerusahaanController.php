@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 use App\Models\BidangKeahlian;
 use App\Models\ProgramKeahlian;
@@ -22,7 +23,9 @@ class PerusahaanController extends Controller
     public function index()
     {
         $data = array(
-            'items' => Perusahaan::orderBy('nama', 'ASC')->get(),
+            'items' => Perusahaan::select('perusahaan.*', 'm_program_keahlian.nama as nama_program_keahlian')
+                                   ->join('m_program_keahlian', 'perusahaan.program_keahlian_id', '=', 'm_program_keahlian.id')
+                                   ->get(),
             'title' => 'Daftar Perusahaan',
             'nav'   => 'daftar-perusahaan',
         );
@@ -136,6 +139,13 @@ class PerusahaanController extends Controller
     public function show($id)
     {
         //
+    }
+
+    public function ajax($bkID)
+    {
+        $program_keahlian = ProgramKeahlian::where('bidang_keahlian_id', $bkID)->get();
+        
+        return Response::json($program_keahlian);
     }
 
     /**

@@ -44,27 +44,50 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputJudul">Judul Agenda</label>
-                                    <input type="text" id="inputJudul" name="judul" onkeyup="getValue('inputJudul')" class="form-control" value="{{ old('judul') ? old('judul') : $item->judul }}" required="">
+                                    <input type="text" id="inputJudul" name="judul" onkeyup="getValue('inputJudul')" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul') ? old('judul') : $item->judul }}" required="">
+                                
+                                    @error('judul')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputDeskripsi">Deskripsi</label>
-                                    <textarea id="inputDeskripsi" name="deskripsi" onkeyup="getValue('inputDeskripsi')" class="form-control" rows="4">{{ old('deskripsi') ? old('deskripsi') : $item->deskripsi }}</textarea>
+                                    <textarea id="inputDeskripsi" name="deskripsi" onkeyup="getValue('inputDeskripsi')" class="form-control @error('deskripsi') is-invalid @enderror" rows="4">{{ old('deskripsi') ? old('deskripsi') : $item->deskripsi }}</textarea>
+                                
+                                    @error('deskripsi')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPelaksanaan">Pelaksanaan</label>
-                                    <input type="text" id="inputPelaksanaan" name="pelaksanaan" onkeyup="getValue('inputPelaksanaan')" class="form-control" value="{{ old('pelaksanaan') ? old('pelaksanaan') : $item->pelaksanaan }}">
+                                    <input type="text" id="inputPelaksanaan" name="pelaksanaan" onkeyup="getValue('inputPelaksanaan')" class="form-control @error('pelaksanaan') is-invalid @enderror" value="{{ old('pelaksanaan') ? old('pelaksanaan') : $item->pelaksanaan }}">
+                                
+                                    @error('pelaksanaan')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputLokasi">Lokasi</label>
-                                    <input type="text" id="inputLokasi" name="lokasi" onkeyup="getValue('inputLokasi')" class="form-control" value="{{ old('lokasi') ? old('lokasi') : $item->lokasi }}">
+                                    <input type="text" id="inputLokasi" name="lokasi" onkeyup="getValue('inputLokasi')" class="form-control @error('lokasi') is-invalid @enderror" value="{{ old('lokasi') ? old('lokasi') : $item->lokasi }}">
+                                
+                                    @error('lokasi')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputStatus">Status</label>
                                     <select id="select-status" name="status" class="form-control custom-select" required="">
-                                        <option value="{{ $item->status }}">{{ $item->status }}</option>
-                                        <option value="Aktif" style="{{ $item->status == 'Aktif' ? 'display: none' : '' }}">Aktif</option>
-                                        <option value="Nonaktif" style="{{ $item->status == 'Nonaktif' ? 'display: none' : '' }}">Nonaktif</option>
-                                        <option value="Draf" style="{{ $item->status == 'Draf' ? 'display: none' : '' }}">Draf</option>
+                                        <option value="Aktif" {{ $item->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                        <option value="Nonaktif" {{ $item->status == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                                        <option value="Draf" {{ $item->status == 'Draf' ? 'selected' : '' }}>Draf</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
