@@ -16,6 +16,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('plugins/aos-master/dist/aos.css') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -31,5 +32,10 @@
         <!-- Footer Component -->
         @include('layouts.partials.footer')
     </div>
+    <script src="{{ asset('plugins/aos-master/dist/aos.js') }}"></script>
+    @yield('script')
+    <script>   
+       AOS.init(); 
+    </script>
 </body>
 </html>

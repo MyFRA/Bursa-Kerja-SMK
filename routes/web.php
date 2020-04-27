@@ -11,6 +11,16 @@ Route::get('/artikel', 'ArtikelController@index')->name('artikel');
 Route::get('/artikel/{link}', 'ArtikelController@show')->name('artikel.show');
 Route::get('/kebijakan-privasi', 'PageController@privacy_police')->name('privacy-police');
 
+Route::get('/portal/perusahaan', 'PortalController@index');
+
+// Ajax Controller
+Route::get('/getProgramKeahlian/{id}', 'AjaxController@getProgramKeahlian');
+Route::get('/getProvinsi/{nama_negara}', 'AjaxController@getProvinsi');
+Route::get('/getKabupaten/{nama_provinsi}', 'AjaxController@getKabupaten');
+Route::get('/apiProvinsi', 'AjaxController@apiProvinsi');
+
+
+
 /** ADMINISTRATOR */
 Route::prefix('/app-admin')->group(function() {
 
@@ -111,6 +121,14 @@ Route::prefix('/app-admin')->group(function() {
 
         // Dafar Pengguna Router
         Route::resource('/daftar-pengguna', 'Admin\DaftarPenggunaController');
+
+        // Verifikasi Perusahaan
+        Route::get('/perusahaan/menunggu-verifikasi', 'Admin\VerifikasiPerusahaanController@menungguVerifikasi');
+        Route::post('/perusahaan/terima-verifikasi/{id}', 'Admin\VerifikasiPerusahaanController@terimaVerifikasi');
+        Route::post('/perusahaan/tolak-verifikasi/{id}', 'Admin\VerifikasiPerusahaanController@tolakVerifikasi');
+        Route::get('/perusahaan/lihat/{id}', 'Admin\VerifikasiPerusahaanController@lihat');
+        Route::get('/perusahaan/terverifikasi', 'Admin\VerifikasiPerusahaanController@terverifikasi');
+
 
     });
 });

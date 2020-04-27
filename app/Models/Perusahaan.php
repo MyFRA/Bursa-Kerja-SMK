@@ -39,4 +39,9 @@ class Perusahaan extends Model
     	'alasan_harus_melamar',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

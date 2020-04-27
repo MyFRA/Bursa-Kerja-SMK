@@ -4968,6 +4968,19 @@ input[type=button].btn-block {
   border-radius: 0.25rem;
 }
 
+.own-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: white;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+
 .card > hr {
   margin-right: 0;
   margin-left: 0;
@@ -9959,6 +9972,45 @@ button.bg-dark:focus {
   .px-lg-5 {
     padding-left: 3rem !important;
   }
+
+  .pt-lg-6,
+  .py-lg-6 {
+    padding-top: 3.5rem !important;
+  }
+
+
+
+
+  .pt-lg-7,
+  .py-lg-7 {
+    padding-top: 4rem !important;
+  }
+
+  .pt-lg-8,
+  .py-lg-8 {
+    padding-top: 4.5rem !important;
+  }
+
+  .pt-lg-9,
+  .py-lg-9 {
+    padding-top: 5rem !important;
+  }
+
+  .pt-lg-10,
+  .py-lg-10 {
+    padding-top: 5.5rem !important;
+  }
+
+  .pt-lg-11,
+  .py-lg-11 {
+    padding-top: 6rem !important;
+  }
+
+  .pt-lg-12,
+  .py-lg-12 {
+    padding-top: 6.5rem !important;
+  }
+
 
   .m-lg-n1 {
     margin: -0.25rem !important;
@@ -15539,3 +15591,1033 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   color: #094675;
 }
 
+
+/* Portal Perusahaan */
+
+.banner-perusahaan {
+  padding: 58px 0;
+  min-height: 88vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(/images/banner.jpg);
+}
+
+.banner-perusahaan h2 {
+  color: white;
+  font-weight: 600;
+  line-height: 1.1;
+  font-size: 40px;
+  margin: 0% 0px 5px;
+}
+
+.banner-perusahaan p {
+  color: white;
+  font-weight: 300;
+  font-size: 17px;
+  margin-bottom: 20px;
+  line-height: 1.8;
+  margin: 20px 0 10px;
+}
+
+@media screen and ( max-width: 768px ) {
+  .banner-perusahaan{
+      min-height: 40vh;
+  }
+
+  .banner-perusahaan h2 {
+    font-size: 30px;
+  }
+
+  .banner-perusahaan .content-text {
+    padding-top: 2.5rem;
+  }
+
+  .banner-perusahaan p {
+    margin-top: 2rem;
+  }
+}
+
+@media screen and( max-width: 768px ) {
+  .banner-perusahaan {
+    background-position: top left;
+  }
+}
+
+/* ---------- */
+
+.fitur-perusahaan  {
+  color: #334E6F;
+  text-align: center;
+}
+
+.fitur-perusahaan h2 {
+  font-size: 2.3rem;
+}
+
+.fitur-perusahaan p {
+  font-size: 1rem;
+}
+
+@media screen and ( max-width: 768px ) {
+  .fitur-perusahaan h2 {
+    font-size: 1.9rem;
+  }
+}
+
+/* --------- */
+.keunggulan-fitur-perusahaan {
+  padding-left: 6%;
+  padding-right: 6%;
+}
+
+.keunggulan-fitur-perusahaan .card {
+  color: #334E6F;
+  margin-top: 2rem;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, .10);
+  padding: 1.5rem;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .10), 0 10px 10px rgba(0, 0, 0, .2);
+  transition: all 250ms ease;
+}
+
+.keunggulan-fitur-perusahaan .card:hover {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .10), 0 1px 1px rgba(0, 0, 0, .2);
+}
+
+.keunggulan-fitur-perusahaan .card section.icon {
+  font-size: 2rem;
+  color: #094370;
+}
+
+.keunggulan-fitur-perusahaan .card section.title h2 {
+  font-size: 1.2rem;
+}
+
+/* -------- */
+
+.login-or-register {
+  text-align: center;
+}
+
+.login-or-register img {
+  width: 90%;
+}
+
+.login-or-register .col-md-7 {
+  /*margin-top: 8%;*/
+}
+
+.login-or-register p {
+  font-size: 1.2rem;
+  color: #094370;
+}
+
+.login-or-register a {
+  color: #eee;
+  text-decoration: none;
+  border: 0px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  font-size: 1.3rem;
+  width: 109rem;
+  /*margin: 0.7rem;*/
+  transition: all 350ms ease;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, .4), 0 4px 4px rgba(0, 0, 0, .2);
+}
+
+.login-or-register a#daftar {
+  background-color: #ff4d4d;
+}
+
+.login-or-register a#masuk {
+  background-color: #6675DF;
+}
+
+.login-or-register a#daftar:hover {
+  color: #333;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .10), 0 1px 1px rgba(0, 0, 0, .2);
+}
+
+.login-or-register a#masuk:hover {
+  color: #333;
+  background-color: white;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .10), 0 1px 1px rgba(0, 0, 0, .2);
+}
+
+@media screen and ( min-width: 768px ) {
+  .login-or-register br {
+    display: none;
+  }
+}
+
+@media screen and ( max-width: 768px ) {
+  .login-or-register .row {
+    padding: 1rem;
+  }
+
+  .login-or-register .col-md-7 {
+    margin-top: 0%;
+    transform: scale(0.9);
+  }
+
+  .login-or-register img {
+    margin-top: 1.5rem;
+    width: 70%;
+  }
+
+  .login-or-register p {
+    font-size: 1.1rem;
+    margin-top: 2rem; 
+  }
+}
+
+
+/* ---------- */
+
+
+.card-list-perusahaan {
+  text-align: center;
+}
+
+.card-list-perusahaan .container-fluid {
+  padding-left: 6%;
+  padding-right: 6%;
+}
+
+.card-list-perusahaan .container-fluid button {
+  border: none;
+  background-color: white;
+
+  color: #094370;
+  border-radius: 100%;
+  box-shadow: 0 2px 10px 0 #d8dde6;
+  position: absolute;
+}
+
+.card-list-perusahaan .container-fluid button.kiri {
+  left: 3.5%;
+  margin-top: -13rem;
+}
+
+.card-list-perusahaan .container-fluid button.kanan {
+  right: 3.5%;
+  margin-top: -13rem;
+}
+
+.card-list-perusahaan .card {
+  border: 0px;
+  box-shadow: 0 5px 25px 0 rgba(41, 128, 185, .15);
+  color: #777;
+}
+
+.card-list-perusahaan section.logo {
+  background-color: white;
+  width: 70%;
+  margin: auto;
+}
+
+.card-list-perusahaan section.logo .img-thumbnail {
+  border: 0px;
+  background-color: rgba(0, 0, 0, 0);;
+}
+
+.card-list-perusahaan section.body a {
+  text-decoration: none;
+  color: #444;
+  font-size: 1.3rem;
+}
+
+@media screen and (min-width: 425px) and (max-width: 768px) {
+  .card-list-perusahaan section.logo {
+    width: 100%;
+  }
+}
+
+
+/* ------------ */
+
+
+.bg-bisa-kerja {
+  min-height: 85vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/images/slider-1.jpg');
+  margin-top: 3rem;
+}
+
+.bg-bisa-kerja .bg-pewarna {
+  width: 100%;
+  height: 85vh;
+  background-color: rgb(0, 0, 26, 0.75);
+  color: #eee;
+  /*padding-top: 10%; */
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.bg-bisa-kerja .bg-pewarna img {
+  width: 14rem;
+}
+
+.bg-bisa-kerja .bg-pewarna h2 {
+  margin-top: 0.5rem;
+  font-weight: 600;
+  font-size: 2.2rem;
+}
+
+.bg-bisa-kerja .bg-pewarna p {
+  margin-top: 1rem;
+  line-height: 2rem;
+  font-size: 1rem;
+}
+
+.bg-bisa-kerja .bg-pewarna a {
+  background-color: #094370;
+  text-decoration: none;
+  color: #eee;
+  font-size: 1.05rem;
+  padding: 13px 35px 13px;
+  border-radius: 5px;
+  transition: all 400ms ease;
+}
+
+.bg-bisa-kerja .bg-pewarna a:hover {
+  background-color: #eee;
+  color: #094370;
+}
+
+@media screen and (max-width: 425px) {
+  .bg-bisa-kerja .bg-pewarna img {
+    width: 10rem;
+  }
+
+  .bg-bisa-kerja .bg-pewarna h2 {
+    margin-top: 0.5rem;
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+
+  .bg-bisa-kerja .bg-pewarna p {
+    margin-top: 1rem;
+    line-height: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+
+/* -------- */
+
+.testimoni-dari-perusahaan .col {
+  padding-left: 12%;
+  padding-right: 12%;
+}
+
+.testimoni-dari-perusahaan img {
+  width: 7rem;
+}
+
+.testimoni-dari-perusahaan span {
+  cursor: pointer;
+}
+
+.testimoni-dari-perusahaan span i.testi-kiri {
+  position: absolute;
+  font-size: 1.5rem;
+  margin-top: -11rem;
+  left: 7%;
+}
+
+.testimoni-dari-perusahaan span i.testi-kanan {
+  position: absolute;
+  font-size: 1.5rem;
+  margin-top: -11rem;
+  right: 7%;
+}
+
+@media screen and (min-width: 768px) {
+  .testimoni-dari-perusahaan .row {
+    padding-left: 17%;
+    padding-right: 17%;
+  }
+
+  .testimoni-dari-perusahaan span i.testi-kiri {
+  left: 13%;
+  }
+
+.testimoni-dari-perusahaan span i.testi-kanan {
+  right: 13%;
+  }
+}
+
+
+
+/* Perusahaan Register */
+
+/* ----- */
+
+.container-register-perusahaan {
+  width: 100%;
+  height: 115vh;
+  display: flex;
+}
+
+.container-register-perusahaan div {
+  flex: 1;
+}
+
+.container-register-perusahaan .background {
+  flex: 1.3;
+  background-position: center;
+  background-size: cover;
+  background-image: url('/images/bg-01.webp')
+}
+
+.container-register-perusahaan .background .opacity {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 26, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-register-perusahaan .background .opacity h2 {
+  font-size: 2.7rem;
+  color: #1B2A51;
+  font-weight: 600;
+}
+
+.container-register-perusahaan .background .opacity a {
+  border: 0.7px solid #1B2A51;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .10), 0 4px 10px rgba(0, 0, 0, .2);
+  /*box-shadow: 0 5px 25px 0 rgba(41, 128, 185, .15);*/
+  font-size: 1.3rem;
+  border-radius: 5px;
+  margin-top: 0.5rem;
+  margin-bottom: 7rem;
+  text-decoration: none;
+  color: #1B2A51;
+  transition: all 200ms ease;
+}
+
+.container-register-perusahaan .background .opacity a:hover {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .10), 0 1px 1px rgba(0, 0, 0, .2);
+}
+
+
+.container-register-perusahaan .njero-kotakan-register {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: 5%;
+  align-items: center;
+  padding-top: 10vh;
+}
+
+.container-register-perusahaan .njero-kotakan-register img {
+  object-fit: cover;
+  width: 80px;
+  margin-bottom: 10px;
+}
+
+.container-register-perusahaan .njero-kotakan-register h2 {
+  text-align: center;
+}
+
+.container-register-perusahaan .njero-kotakan-register form input,
+.container-register-perusahaan .njero-kotakan-register form select {
+  border-radius: 7px;
+  text-indent: 1.5rem;
+  border: 0.6px solid #ddd;
+  font-size: 1rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  margin-bottom: 0.8rem;
+  outline: none;
+  color: #666;
+  background-color: #F8FAFC;
+}
+
+.container-register-perusahaan .njero-kotakan-register form input {
+  width: 100%;
+  margin-top: 0.1rem;
+}
+
+.container-register-perusahaan .njero-kotakan-register form input.password {
+  width: 48%;
+}
+
+.container-register-perusahaan .njero-kotakan-register form input.second {
+  margin-left: 2%;
+}
+
+.container-register-perusahaan .njero-kotakan-register form button {
+  width: 100%;
+  text-align: center;
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 2.5px;
+  background-color: #6675DF;
+  border: none;
+  color: #fff;
+  border-radius: 7px;
+  transition: all 300ms ease;
+}
+
+.container-register-perusahaan .njero-kotakan-register form button:hover {
+  background-color: #333;
+}
+
+.container-register-perusahaan .njero-kotakan-register p.sudah-daftar {
+  margin-top: 0.8rem;
+  color: #333;
+  font-size: 1rem;
+  letter-spacing: 0.1px;
+}
+
+
+
+
+@media screen and (max-width: 425px) {
+  .container-register-perusahaan h2 {
+    font-size: 1.1rem;
+  }
+
+  .container-register-perusahaan p.daftar-temukan {
+    font-size: 0.8rem;
+  }
+
+  .container-register-perusahaan .njero-kotakan-register form input{
+    text-indent: 1.5rem;
+    font-size: 0.8rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .container-register-perusahaan .njero-kotakan-register form input.password {
+    width: 100%;
+    margin-left: 0%;
+  }
+
+  .container-register-perusahaan .njero-kotakan-register form button {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .container-register-perusahaan .njero-kotakan-register p.sudah-daftar {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container-register-perusahaan .background {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .container-register-perusahaan .background .opacity h2 {
+    transform: scale(1.2);
+  }
+}
+
+.input-salah {
+  border: 1px solid #FF4D4D !important;
+}
+
+
+/* Navbar Perusahaan */
+
+.container-navbar {
+  background-color: white
+
+}
+
+.navbar-perusahaan .inner-navbar {
+  width: 100%;
+}
+
+.navbar-perusahaan .inner-navbar div {
+  margin-top: 0.5rem;
+}
+
+.navbar-perusahaan .inner-navbar .logo img {
+  width: 2rem;
+}
+
+.navbar-perusahaan .inner-navbar .logo a {
+  font-size: 1.3rem;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.navbar-perusahaan .inner-navbar a#navbarDropdownMenuLink {
+  font-size: 1rem;
+}
+
+.navbar-perusahaan .inner-navbar .dropdown img { 
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+  width: 2.8rem;
+  border: 1px solid #094370;
+  background-color: white;
+}
+
+.navigasi-perusahaan .col-4 {
+  text-align: center;
+  border: 1px solid #ccc;
+  transition: all 200ms ease;
+}
+
+.navigasi-perusahaan .col-4 div {
+  width: 100%;
+  height: 100%;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigasi-perusahaan .col-4 div.active {
+  background-color: #094370;
+  color: #eee;
+}
+
+.navigasi-perusahaan .col-4 a {
+  color: #333;
+  text-decoration: none;
+}
+
+.navigasi-perusahaan .col-4 a i {
+  font-size: 1.3rem;
+}
+
+.navigasi-perusahaan .col-4:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+@media screen and (max-width: 425px) {
+  .navbar-perusahaan .inner-navbar .logo a {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .navbar-perusahaan .inner-navbar .dropdown img { 
+    width: 2rem;
+    padding: 2%;
+  }
+  .navbar-perusahaan .inner-navbar div {
+    margin-top: 0.5rem;
+  }
+
+  .container-navbar hr {
+    margin-top: 0.5rem;
+  }
+
+  .navigasi-perusahaan .col-4 a {
+    font-size: 0.65rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .navbar-perusahaan .inner-navbar .dropdown span {
+    display: none;
+  }
+}
+
+
+/* ----------- */
+
+
+.route {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.route div {
+  flex: 1;
+}
+
+.route div h2 {
+  font-weight: bold;
+  font-size: 1.35rem;
+  letter-spacing: 1px;
+  border-left: 3px solid #3333ff;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.route div a{
+  color: #1B91EB;
+}
+
+.route div a,
+.route div span {
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 575px) {
+  .route {
+    justify-content: start;
+    flex-direction: column;
+  }
+
+  .route div:nth-child(1) {
+    order: -1;
+    margin-top: 7px;
+
+  }
+
+  .route div:nth-child(2) {
+    justify-content: start !important;
+    order: -2;
+  }
+
+  .route div a,
+  .route div span {
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+  }
+
+  .route div h2 {
+    font-size: 1.2rem;
+  }
+
+}
+
+/* ----- */
+
+.minta-verivikasi {
+  margin-top: 1.7rem;
+}
+
+.minta-verivikasi .card {
+  border-radius: 7px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.24);
+  padding: 5% 6%;
+}
+
+.minta-verivikasi .card h2 {
+  font-size: 1.3rem;
+}
+
+.minta-verivikasi .card a {
+  margin-top: 0.5rem;
+  color: #eee;
+  text-decoration: none;
+  padding-top: 7.5px;
+  padding-bottom: 7.5px;
+  background-color: #094370;
+  text-align: center;
+  width: 100%;
+  font-size: 1.02rem;
+  transition: all 200ms ease;
+}
+
+.minta-verivikasi .card a:hover {
+  background-color: #222;
+}
+
+/* ----- */
+
+.kumpulan-card-beranda .col-lg-3 {
+  margin-top: 1rem;
+}
+
+.kumpulan-card-beranda div .card {
+  border-radius: 7px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.24);
+  padding: 100px;
+}
+
+.kumpulan-card-beranda .card i {
+  flex: 1;
+}
+
+.kumpulan-card-beranda .card div {
+  flex: 3;
+}
+
+.kumpulan-card-beranda .card div h2 {
+  margin: 0px;
+  padding: 0px;
+  font-size: 2.5rem;
+}
+
+.kumpulan-card-beranda .card div p {
+  margin: 0px;
+  padding: 0px;
+  color: #666;
+}
+
+
+/* ----------- */
+
+.kumpulan-card-beranda-bawah .card {
+  box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.24);
+}
+
+.kumpulan-card-beranda-bawah .card .header {
+  width: 100%;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 0.6px solid #ddd;
+}
+
+.kumpulan-card-beranda-bawah .card .header h6 {
+  font-size: 0.8rem;
+}
+
+.kumpulan-card-beranda-bawah .card .body img {
+  width: 100%;
+}
+
+
+/*  Perusahaan Verifikasi  */
+
+.form-verifikasi-perusahaan {
+  font-family: 'roboto';
+}
+
+.form-verifikasi-perusahaan .card {
+  padding: 6%;
+}
+
+.form-verifikasi-perusahaan .card .fa-refresh {
+  flex: 1;
+}
+
+.form-verifikasi-perusahaan .card span.register {
+  flex: 2;
+}
+
+.form-verifikasi-perusahaan .card h5{
+  font-size: 1rem;
+}
+
+.form-verifikasi-perusahaan .card .register-at{
+  font-size: 0.73rem;
+}
+
+.form-verifikasi-perusahaan .card .form-group {
+  color: #555;
+  border: 1px solid #ccc;
+  padding: 1.2rem;
+  margin: 0px;
+}
+
+.form-verifikasi-perusahaan .card .form-group:first-child {
+  border-top: 0px;
+}
+
+.form-verifikasi-perusahaan .card .form-group h4 {
+  font-size: 1.25rem;
+  color: #111;
+}
+
+.form-verifikasi-perusahaan .card .form-group button {
+  width: 100%;
+  background-color: #073559;
+  color: #eee;
+  border: 0px;
+  text-shadow: none;
+  font-size: 0.94rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.form-verifikasi-perusahaan .card form .d-flex div {
+  flex: 1;
+}
+
+.form-verifikasi-perusahaan .card form .d-flex div .form-group {
+  padding: 1rem;
+  padding-bottom: 0.6rem;
+}
+
+.form-verifikasi-perusahaan .card form .form-group input,
+.form-verifikasi-perusahaan .card form .form-group select,
+.form-verifikasi-perusahaan .card form .d-flex div select,
+.form-verifikasi-perusahaan .card form .d-flex div input {
+  margin-top: -5px;
+  border: 0px;
+  outline: none;
+}
+
+
+@media screen and (max-width: 450px) {
+  .form-verifikasi-perusahaan .card form .d-flex {
+    flex-direction: column;
+  }
+}
+
+
+
+
+/* Halaman Login Perusahaan */
+
+.body-halaman-login {
+  background-color: #F0F2F7
+}
+
+.halaman-login-perusahaan {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.halaman-login-perusahaan .card {
+  margin: 0px;
+  width: 40%;
+  border: 1px solid #bbb;
+}
+
+.halaman-login-perusahaan .card img {
+  width: 85px;
+}
+
+.halaman-login-perusahaan .card button {
+  width: 100%;
+  font-size: 1rem;
+  background-color: #6675DF;
+  border: 0px;
+}
+
+.halaman-login-perusahaan .card span {
+  font-size: 0.85rem;
+}
+
+.halaman-login-perusahaan .card span.pertama {
+  margin-top: 2.7rem;
+}
+
+
+@media screen and (max-width: 1024px) {
+  .halaman-login-perusahaan .card {
+    width: 70%;
+  }
+}
+
+
+@media screen and (max-width: 650px) {
+  .halaman-login-perusahaan .card {
+    width: 100%;
+    border: 1px solid white;
+  }
+
+  .body-halaman-login {
+    background-color: white;
+  }
+
+  .body-halaman-login .container {
+    margin: 0px;
+    padding: 0px;
+  }
+}
+
+
+
+
+/*  Halaman Profil Akun Perusahaan  */
+
+.profil-akun .image {
+  background-image: url('/images/banner-company-default.png');
+  background-size: 450px;
+  background-repeat: no-repeat;
+  height: 38vh;
+}
+
+.profil-akun .image .judul {
+  width: 60%;
+  float: right;
+  text-align: center;
+  padding-top: 1.4rem;
+}
+
+.profil-akun .profil {
+  display: flex;
+  padding: 2rem;
+}
+
+.profil-akun .profil .foto-profil {
+  flex: 1;
+}
+
+.profil-akun .profil .informasi {
+  flex: 4;
+}
+
+.profil-akun .profil .foto-profil img {
+  width: 100px;
+}
+
+.tabel-informasi,
+.tabel-informasi tr,
+.tabel-informasi tr td {
+  border: 0px;
+  color: #666;
+}
+
+.tabel-informasi tr td {
+  width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  .profil-akun {
+    flex-direction: column;
+  }
+
+  .profil-akun .urutan-1 {
+    order: 1;
+  }
+
+  .profil-akun .urutan-2 {
+    order: 4;
+  }
+
+  .profil-akun .urutan-3 {
+    order: 2;
+  }
+
+  .profil-akun .urutan-4 {
+    order: 3;
+  }
+
+  .profil-akun .profil {
+    flex-direction: column;
+  }
+
+  .profil-akun .profil .foto-profil{
+    text-align: center;
+  }
+
+  .profil-akun .profil .informasi {
+    margin-top: 1.3rem;
+  }
+
+  .profil-akun .image .judul {
+    width: 60%;
+    float: right;
+    text-align: center;
+    padding-top: 4rem;
+  }
+
+  .profil-akun .image .judul h1 {
+    font-size: 1.5rem;
+  }
+}

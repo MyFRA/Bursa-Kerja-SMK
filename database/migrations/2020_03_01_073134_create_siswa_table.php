@@ -21,7 +21,7 @@ class CreateSiswaTable extends Migration
             $table->string('photo', 128)->nullable();
             $table->string('tempat_lahir', 32)->nullable();
             $table->date('tanggal_lahir')->nullable();
-            $table->enum('jenis_kelamin', ['Laki-laki', 'Peremupan'])->nullable();
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
             $table->string('email', 128)->nullable();
             $table->string('hp', 16)->nullable();
             $table->string('facebook', 64)->nullable();

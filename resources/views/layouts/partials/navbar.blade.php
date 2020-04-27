@@ -36,7 +36,7 @@
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Masuk') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-success px-3 py-1 rounded-0" href="">
+                        <a class="btn btn-success px-3 py-1 rounded-0" href="{{ url('/portal/perusahaan') }}">
                             {{ __('Perusahaan') }}
                         </a>
                     </li>
@@ -46,6 +46,9 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            @role('perusahaan')
+                                <a class="dropdown-item" href="{{ url('/perusahaan') }}">Dasbhboard</a>
+                            @endrole
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">

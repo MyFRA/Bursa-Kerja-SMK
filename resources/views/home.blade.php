@@ -16,44 +16,49 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="" method="post">
-                            <div class="form-group">
-                                <label for="username" class="mb-0">{{ __('Username') }}</label>
-                                <input type="text" name="username" placeholder="{{ __('Tuliskan username') }}" autocomplete="off" class="form-control form-control-lg">
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="mb-0">{{ __('E-Mail') }}</label>
-                                <input type="email" name="email" placeholder="{{ __('mail@example.com') }}" autocomplete="off" class="form-control form-control-lg">
-                            </div>
-                            <div class="form-group mb-0">
-                                <label for="password" class="mb-0">{{ __('Kata Sandi') }}</label>
-                                <input type="password" name="password" placeholder="{{ __('Buat kata sandi') }}"
-                                    autocomplete="off" class="form-control form-control-lg">
-                            </div>
-                            <div class="role-form mt-2">
-                                {{ __('Pastikan lebih dari 15 karakter ATAU setidaknya 8 karakter termasuk angka dan huruf kecil') }}.
-                            </div>
-                            <div class="form-group mt-3">
-                                <button type="submit" class="btn btn-lg btn-block btn-submit">
-                                    {{ __('Daftar Sekarang') }}
-                                </button>
-                            </div>
-                            <div class="role-form text-center">
-                                Dengan mengklik "Daftar", Anda setuju dengan
-                                    <a href="">Ketentuan Layanan</a> dan <a href="">Kebijakan Privasi</a> kami.
-                                    Kami sesekali akan mengirimi Anda email terkait akun.
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card-footer text-center">
-                        {{ __('Anda sudah memiliki akun') }}?<br />
-                        <a href="">{{ __('Silahkan masuk') }}!</a>
+            @guest
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="" method="post">
+                                <div class="form-group">
+                                    <label for="username" class="mb-0">{{ __('Username') }}</label>
+                                    <input type="text" name="username" placeholder="{{ __('Tuliskan username') }}" autocomplete="off" class="form-control form-control-lg">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="mb-0">{{ __('E-Mail') }}</label>
+                                    <input type="email" name="email" placeholder="{{ __('mail@example.com') }}" autocomplete="off" class="form-control form-control-lg">
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label for="password" class="mb-0">{{ __('Kata Sandi') }}</label>
+                                    <input type="password" name="password" placeholder="{{ __('Buat kata sandi') }}"
+                                        autocomplete="off" class="form-control form-control-lg">
+                                </div>
+                                <div class="role-form mt-2">
+                                    {{ __('Pastikan lebih dari 15 karakter ATAU setidaknya 8 karakter termasuk angka dan huruf kecil') }}.
+                                </div>
+                                <div class="form-group mt-3">
+                                    <button type="submit" class="btn btn-lg btn-block btn-submit">
+                                        {{ __('Daftar Sekarang') }}
+                                    </button>
+                                </div>
+                                <div class="role-form text-center">
+                                    Dengan mengklik "Daftar", Anda setuju dengan
+                                        <a href="">Ketentuan Layanan</a> dan <a href="">Kebijakan Privasi</a> kami.
+                                        Kami sesekali akan mengirimi Anda email terkait akun.
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-center">
+                            {{ __('Anda sudah memiliki akun') }}?<br />
+                            <a href="">{{ __('Silahkan masuk') }}!</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @else
+            
+            @endguest
+            
         </div>
     </div>
 </div>

@@ -100,6 +100,33 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>Perusahaan<i class="fas fa-angle-left right"></i></p>
+                    </a>
+
+                    <ul class="nav nav-treeview
+                        {{ $nav == 'daftar-siswa' ? 'menu-open' : '' }}
+                        {{ $nav == 'daftar-perusahaan' ? 'menu-open' : '' }}
+                    ">
+                        <li class="nav-item">
+                            <a href="{{ url('/app-admin/perusahaan/menunggu-verifikasi') }}"
+                                class="nav-link {{ $nav == 'menunggu-verifikasi' ? 'active' : '' }}">
+                                <i class="fas nav-icon"></i>
+                                <p>Menunggu Verifikasi</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ url('/app-admin/perusahaan/terverifikasi') }}"
+                                class="nav-link {{ $nav == 'terverifikasi' ? 'active' : '' }}">
+                                <i class="far nav-icon"></i>
+                                <p>Terverifikasi</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 <li class="nav-header">Publikasi</li>
 
