@@ -7,7 +7,7 @@
         </div>
         <div class="nav-item dropdown list-unstyled d-block float-right" style="flex: 1">
             <a class="nav-link dropdown-toggle float-right d-flex align-items-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img class="mr-2 @can('melakukan verifikasi') rounded-circle @endcan @cannot('melakukan verifikasi') {{ ( $perusahaan->logo == null ? 'rounded-circle' : '' ) }} @endcannot" src="@can('melakukan verifikasi') {{ asset('/images/noimagecompany.png') }} @endcan   @cannot('melakukan verifikasi') {{ $perusahaan->logo == null ? asset('/images/noimagecompany.png') : asset('/storage/assets/daftar-perusahaan/logo' . $perusahaan->logo) }} @endcannot" alt="">
+              <img class="mr-2 @can('melakukan verifikasi') rounded-circle @endcan @cannot('melakukan verifikasi') {{ ( $perusahaan->logo == null ? 'rounded-circle' : '' ) }} @endcannot" src="@can('melakukan verifikasi'){{ asset('/images/noimagecompany.png') }}@endcan @cannot('melakukan verifikasi'){{ $perusahaan->logo == null ? asset('/images/noimagecompany.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $perusahaan->logo) }} @endcannot" alt="">
               <span>{{ $user->name }}</span>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
