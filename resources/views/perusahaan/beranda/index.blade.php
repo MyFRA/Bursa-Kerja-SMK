@@ -38,7 +38,7 @@
 			<div class="card p-3 d-flex flex-row justify-content-center align-items-center">
 				<i class="fa fa-suitcase fa-3x text-danger"></i>
 				<div class="d-flex justify-content-center align-items-start flex-column ml-1">
-					<h2>{{__('0')}}</h2>
+					<h2>{{__($jmlLowongan)}}</h2>
 					<p>{{__('Lowongan Diinput')}}</p>
 				</div>
 			</div>

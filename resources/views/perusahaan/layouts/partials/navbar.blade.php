@@ -31,21 +31,21 @@
     <div class="row">
         <div class="col-4 m-0 p-0">
             <a href="{{ url('/perusahaan') }}">
-                <div class="active d-flex flex-column">
+                <div class="{{ $nav == 'beranda' ? 'active' : '' }} d-flex flex-column">
                     <i class="fa fa-home mr-1"></i> <span class="mt-1"> BERANDA</span>
                 </div>
             </a>
         </div>
         <div class="col-4">
-            <a href="">
-                <div class=" d-flex flex-column">
+            <a href="@can('terverifikasi') {{ url('/perusahaan/lowongan') }} @endcan">
+                <div class="{{ $nav == 'lowongan' ? 'active' : '' }} d-flex flex-column">
                     <i class="fa fa-suitcase mr-1"></i> <span class="mt-1"> MANAJEMEN LOWONGAN</span>
                 </div>
             </a>
         </div>
         <div class="col-4">
             <a href="">
-                <div class=" d-flex flex-column">
+                <div class="{{ $nav == 'fitur' ? 'active' : '' }} d-flex flex-column">
                     <i class="fa fa-th mr-1"></i> <span class="mt-1"> FITUR PERUSAHAAN</span>
                 </div>
             </a>

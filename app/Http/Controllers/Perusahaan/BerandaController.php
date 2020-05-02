@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
-use App\User;
-use App\Models\BidangKeahlian;
 use App\Models\ProgramKeahlian;
+use App\Models\BidangKeahlian;
 use App\Models\Perusahaan;
+use App\Models\Lowongan;
 use App\Models\Negara;
 use App\Models\Bahasa;
+use App\User;
 
 class BerandaController extends Controller
 {
@@ -38,6 +39,8 @@ class BerandaController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
     	$data = [
+            'jmlLowongan' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count(),
+            'nav' => 'beranda',
     		'user' => Auth::user(),
             'perusahaan' => $this->getPerusahaan()
     	];
@@ -65,6 +68,7 @@ class BerandaController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
     	$data = [
+            'nav'               => 'beranda',
     		'bidangKeahlian' 	=> BidangKeahlian::get(),
     		'negara' 			=> Negara::get(),
     		'bahasa'            => Bahasa::get(),

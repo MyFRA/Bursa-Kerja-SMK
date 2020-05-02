@@ -19,5 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProvinsiTableSeeder::class);
         $this->call(KabupatenTableSeeder::class);
         $this->call(BahasaTableSeeder::class);
+        $this->call(KompetensiKeahlianTableSeeder::class);
+        $this->call(KeahlianTableSeeder::class);
     }
 }

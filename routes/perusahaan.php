@@ -32,6 +32,12 @@
 		});
 
 
+		// Halaman Lowongan Pekerjaan Perusahaan
+		Route::middleware(['permission:terverifikasi'])->group(function() {
+			Route::resource('/lowongan', 'Perusahaan\LowonganController');
+		});
+
+
 
 
 

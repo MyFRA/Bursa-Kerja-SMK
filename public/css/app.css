@@ -16176,6 +16176,8 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   text-align: center;
   border: 1px solid #ccc;
   transition: all 200ms ease;
+  padding-left: 0%;
+  padding-right: 0%;
 }
 
 .navigasi-perusahaan .col-4 div {
@@ -16189,6 +16191,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 .navigasi-perusahaan .col-4 div.active {
+  width: 100%;
   background-color: #094370;
   color: #eee;
 }
@@ -16620,4 +16623,36 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   .profil-akun .image .judul h1 {
     font-size: 1.5rem;
   }
+}
+
+
+
+/* Perusahaan Lowongan */
+
+.card-tabel-lowongan {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.tabel-list-lowongan {
+  color: #333;
+}
+
+.tabel-list-lowongan thead tr:first-child {
+  background-color: #F6F9FC;   
+  border-top: 2.5px solid #ddd;    
+  border-bottom: 3px solid #ddd;             
+}
+
+.tabel-list-lowongan tbody tr {
+  border-bottom: 2.5px solid #E9ECEF;             
+}
+
+.tabel-list-lowongan tbody tr:last-child {
+  border-bottom: 0px;
+}
+
+.tabel-list-lowongan tbody tr td {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
