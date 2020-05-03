@@ -32,6 +32,7 @@
                     <th width="8px"></th>
                     <th width="8%"></th>
                     <th>NAMA PERUSAHAAN</th>
+                    <th>JABATAN</th>
                     <th width="30%">KOMPETENSI KEAHLIAN</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
@@ -44,11 +45,12 @@
                             <a href="{{ url('/app-admin/lowongan-kerja/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/lowongan-kerja/' . encrypt($val->id)) ?>', '{{ $val->nama }}')" class="mx-1 text-danger">
+                            <a href="#" onclick="onDestroy('<?= url('/app-admin/lowongan-kerja/' . encrypt($val->id)) ?>', '{{ $val->jabatan }}')" class="mx-1 text-danger">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
-                        <td>{{ $val->nama }}</td>
+                        <td>{{ $val->nama_perusahaan }}</td>
+                        <td>{{ $val->jabatan }}</td>
                         <td>{{ $val->kompetensi_keahlian }}</td>
                         <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
                     </tr> 
@@ -103,7 +105,7 @@
     function onDestroy(url, nama) {
         Swal.fire({
             title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus data perusahaan ' + nama + '?',
+            text: 'Apakah anda yakin akan menghapus Lowongan ' + nama + '?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

@@ -273,7 +273,7 @@
 			var inputFile = document.getElementById('image');
 			var pathFile  = inputFile.value;
 
-			var ekstensiOk = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp|\.gif)$/i;
+			var ekstensiOk = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)$/i;
 
 			if( !ekstensiOk.exec(pathFile) ) {
 				alert('Silakan Upload File Yang Memiliki Ekstensi .jpeg, .jpg, .png atau .gif')

@@ -39,7 +39,7 @@ class BerandaController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
     	$data = [
-            'jmlLowongan' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count(),
+            'jmlLowongan' => (Auth::user()->perusahaan == null) ? 0 : Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count(),
             'nav' => 'beranda',
     		'user' => Auth::user(),
             'perusahaan' => $this->getPerusahaan()
