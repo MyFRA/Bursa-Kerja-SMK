@@ -10,7 +10,12 @@
         
         <div class="collapse navbar-collapse" id="navigation">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                @role('siswa')
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url('/beranda') }}">{{ __('Beranda') }}</a>
+                    </li>
+                @endrole
+                <li class="nav-item ">
                     <a class="nav-link" href="{{ url('/lowongan') }}">{{ __('Lowongan') }}</a>
                 </li>
                 <li class="nav-item">
@@ -49,9 +54,13 @@
                             @role('perusahaan')
                                 <a class="dropdown-item" href="{{ url('/perusahaan') }}">Dasbhboard</a>
                             @endrole
+                            @role('siswa')
+                                <a class="dropdown-item" href="{{ url('/siswa/profil') }}"><i class="fa fa-user"></i> Profil</a>
+                                <a class="dropdown-item" href="{{ url('/bantuan') }}"><i class="fa fa-question-circle"></i> Bantuan</a>
+                            @endrole
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
+                                             document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> 
                                 {{ __('Logout') }}
                             </a>
 

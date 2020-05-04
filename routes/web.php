@@ -20,6 +20,18 @@ Route::get('/getKabupaten/{nama_provinsi}', 'AjaxController@getKabupaten');
 Route::get('/apiProvinsi', 'AjaxController@apiProvinsi');
 
 
+Route::middleware(['auth_perusahaan', 'role:siswa'])->group(function() {
+    // Beranda Siswa
+    Route::get('/beranda', 'BerandaController@index');
+});
+
+
+
+
+
+
+
+
 
 /** ADMINISTRATOR */
 Route::prefix('/app-admin')->group(function() {

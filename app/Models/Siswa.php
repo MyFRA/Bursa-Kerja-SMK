@@ -33,4 +33,9 @@ class Siswa extends Model
     	'pengalaman_level_teks',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
 }

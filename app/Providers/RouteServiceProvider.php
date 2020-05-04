@@ -24,6 +24,8 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/home';
     public const ADMIN = '/app-admin/dashboard';
     public const PERUSAHAAN = '/perusahaan';
+    public const BERANDA = '/beranda';
+
 
 
     /**
@@ -48,6 +50,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapPerusahaanRoutes();
+
+        $this->mapSiswaRoutes();
 
         $this->mapWebRoutes();
 
@@ -74,6 +78,14 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware(['web'])
              ->namespace($this->namespace)
              ->group(base_path('routes/perusahaan.php'));
+    }
+
+    protected function mapSiswaRoutes()
+    {
+        Route::prefix('siswa')
+             ->middleware(['web'])
+             ->namespace($this->namespace)
+             ->group(base_path('routes/siswa.php'));
     }
 
     /**

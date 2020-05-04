@@ -16656,3 +16656,108 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
+
+
+
+
+/* Pages Beranda Index */
+
+.pages-beranda-cari-lowongan {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.pages-beranda-cari-lowongan input {
+  width: 35%;
+  height: 6vh;
+  padding: 0px 10px;
+  border: 1.2px solid #ccc;
+  color: #555;
+}
+
+.pages-beranda-cari-lowongan button {
+  background-color: #ddd;
+  color: #111;
+  border: none;
+  height: 6vh;
+  padding: 0px 17px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  transition: all 500ms ease
+}
+
+  .pages-beranda-cari-lowongan button#for-mobile {
+    display: none;
+  }
+
+.pages-beranda-cari-lowongan button:hover {
+  background-color: #eee;
+}
+
+.pages-beranda-lowongan {
+  background-color: #E5E5E5;
+}
+
+#card-lowongan {
+  border-top: 3px solid #0B5188;
+}
+
+@media screen and (max-width: 768px) {
+  .pages-beranda-cari-lowongan {
+    justify-content: flex-end;
+  }
+
+  .pages-beranda-cari-lowongan #for-dekstop {
+    display: none;
+  }
+
+  .pages-beranda-cari-lowongan button#for-mobile {
+    display: inline-block;
+    border-radius: 3px;
+  }
+
+  #atas-kotakan-profil {
+    display: flex;
+  }
+
+  .beranda-lowongan-index .section-profil span {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .beranda-lowongan-index .section-profil span {
+    display: block;
+  }
+
+  #atas-kotakan-profil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .section-perb-profil-saya {
+    flex: 10;
+    display: none;
+  }
+
+  .beranda-lowongan-index .card #deskripsi {
+    display: none;
+  }
+
+  .beranda-lowongan-index .card #lowongan #njero-lowongan {
+    display: block;
+  }
+
+  .beranda-lowongan-index .card #lowongan #njero-lowongan #contain-img {
+    display: none;
+  }
+
+  .beranda-lowongan-index .card #lowongan #njero-lowongan #waktu {
+    font-size: 13px
+  }
+}

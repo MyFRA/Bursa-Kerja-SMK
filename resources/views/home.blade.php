@@ -18,21 +18,51 @@
             </div>
             @guest
                 <div class="col-lg-4">
-                    <div class="card">
+                    <div class="card mt-lg-n4 mt-md-4">
                         <div class="card-body">
-                            <form action="" method="post">
+
+                            <form action="{{ route('siswa.register') }}" method="post">
+                                @csrf
                                 <div class="form-group">
-                                    <label for="username" class="mb-0">{{ __('Username') }}</label>
-                                    <input type="text" name="username" placeholder="{{ __('Tuliskan username') }}" autocomplete="off" class="form-control form-control-lg">
+                                    <label for="nama_depan" class="mb-0">{{ __('Nama Depan') }} <span class="text-danger">*</span></label>
+                                    <input type="text" name="nama_depan" placeholder="{{ __('Tuliskan nama depan') }}" autocomplete="off" class="form-control form-control-lg" required="">
+                                
+                                    @error('nama_depan')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="mb-0">{{ __('E-Mail') }}</label>
-                                    <input type="email" name="email" placeholder="{{ __('mail@example.com') }}" autocomplete="off" class="form-control form-control-lg">
+                                    <label for="nama_belakang" class="mb-0">{{ __('Nama Belakang') }}</label>
+                                    <input type="text" name="nama_belakang" placeholder="{{ __('Tuliskan nama belakang') }}" autocomplete="off" class="form-control form-control-lg">
+                                
+                                    @error('nama_belakang')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="username" class="mb-0">{{ __('Username') }} <span class="text-danger">*</span></label>
+                                    <input type="text" name="username" placeholder="{{ __('Tuliskan username') }}" autocomplete="off" class="form-control form-control-lg" required="">
+                                
+                                    @error('username')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="mb-0">{{ __('E-Mail') }} <span class="text-danger">*</span></label>
+                                    <input type="email" name="email" placeholder="{{ __('mail@example.com') }}" autocomplete="off" class="form-control form-control-lg" required="">
+                                
+                                    @error('email')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="form-group mb-0">
-                                    <label for="password" class="mb-0">{{ __('Kata Sandi') }}</label>
+                                    <label for="password" class="mb-0">{{ __('Kata Sandi') }} <span class="text-danger">*</span></label>
                                     <input type="password" name="password" placeholder="{{ __('Buat kata sandi') }}"
-                                        autocomplete="off" class="form-control form-control-lg">
+                                        autocomplete="off" class="form-control form-control-lg" required="">
+                                
+                                    @error('password')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="role-form mt-2">
                                     {{ __('Pastikan lebih dari 15 karakter ATAU setidaknya 8 karakter termasuk angka dan huruf kecil') }}.
