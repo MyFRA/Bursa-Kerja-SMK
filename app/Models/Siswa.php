@@ -36,6 +36,11 @@ class Siswa extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
+	}
+	
+	public function siswaPendidikan()
+	{
+		return $this->hasOne('App\Models\SiswaPendidikan');
+	}
 
 }

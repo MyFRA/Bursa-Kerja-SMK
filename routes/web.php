@@ -15,6 +15,7 @@ Route::get('/portal/perusahaan', 'PortalController@index');
 
 // Ajax Controller
 Route::get('/getProgramKeahlian/{id}', 'AjaxController@getProgramKeahlian');
+Route::get('/getKompetensiKeahlian/{id}', 'AjaxController@getKompetensiKeahlian');
 Route::get('/getProvinsi/{nama_negara}', 'AjaxController@getProvinsi');
 Route::get('/getKabupaten/{nama_provinsi}', 'AjaxController@getKabupaten');
 Route::get('/apiProvinsi', 'AjaxController@apiProvinsi');

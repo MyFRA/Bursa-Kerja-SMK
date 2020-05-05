@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::BERANDA;
+    protected $redirectTo = RouteServiceProvider::RESUME;
 
     /**
      * Create a new controller instance.
@@ -82,7 +82,6 @@ class RegisterController extends Controller
         ]);
 
         $user->assignRole('siswa');
-        $user->givePermissionTo('siswa mencari lowongan');
 
         return $user;
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
+use App\Models\KompetensiKeahlian;
 use App\Models\ProgramKeahlian;
 use App\Models\Negara;
 use App\Models\Provinsi;
@@ -22,6 +23,12 @@ class AjaxController extends Controller
     {
         $program_keahlian = ProgramKeahlian::select('id', 'nama')->where('bidang_keahlian_id', $id)->get();
         return Response::json($program_keahlian);
+    }
+
+    public function getKompetensiKeahlian($id)
+    {
+        $kompetensi_keahlian = KompetensiKeahlian::select('id', 'nama')->where('program_keahlian_id', $id)->get();
+        return Response::json($kompetensi_keahlian);
     }
 
     public function getProvinsi($nama_negara)

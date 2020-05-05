@@ -8,7 +8,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <div class="collapse navbar-collapse" id="navigation">
+        <div class="collapse navbar-collapse bg-white " id="navigation"  style="z-index: 999000000000000">
             <ul class="navbar-nav mr-auto">
                 @role('siswa')
                     <li class="nav-item active">

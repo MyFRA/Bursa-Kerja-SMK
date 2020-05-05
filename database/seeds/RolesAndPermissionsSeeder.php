@@ -30,7 +30,6 @@ class RolesAndPermissionsSeeder extends Seeder
         $permissions = Permission::create(['name' => 'terverifikasi']);
 
         // Daftar Permission Untuk Siswa
-        $permissions = Permission::create(['name' => 'siswa mencari lowongan']);
 
     }
 }
