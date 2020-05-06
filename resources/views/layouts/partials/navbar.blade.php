@@ -38,7 +38,7 @@
             <ul class="navbar-nav ml-auto">
                 @guest
                     <li class="nav-item mx-2">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Masuk') }}</a>
+                        <a class="nav-link" href="{{ url('/siswa/login') }}">{{ __('Masuk') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-success px-3 py-1 rounded-0" href="{{ url('/portal/perusahaan') }}">

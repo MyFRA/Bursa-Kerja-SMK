@@ -3,18 +3,33 @@
 Auth::routes();
 
 // Login System Siswa
-Route::get('/login', 'Perusahaan\Auth\LoginController@showLoginForm')->name('perusahaan.login-form');
-Route::post('/login', 'Perusahaan\Auth\LoginController@login');
+Route::get('/login', 'Siswa\Auth\LoginController@showLoginForm');
+Route::post('/login', 'Siswa\Auth\LoginController@login');
 Route::post('/register', 'Siswa\Auth\RegisterController@register')->name('siswa.register');
+
+
+
+Route::middleware(['auth', 'role:siswa'])->group(function() {
+
+});
 
 
 // Profil Siswa
 Route::get('/profil', 'Siswa\ProfilControler@index');
 
+Route::middleware(['auth', 'role:siswa'])->group(function() {
 
-// Buat Resume Sisiwa
-Route::get('/create-resume/siswa-pendidikan', 'Siswa\Resume\SiswaPendidikanController@create');
-Route::post('/create-resume/siswa-pendidikan', 'Siswa\Resume\SiswaPendidikanController@store');
+    // Beranda Siswa
+    Route::get('/beranda', 'Siswa\BerandaController@index');
+
+    // Buat Resume Sisiwa
+    Route::get('/create-resume/siswa-pendidikan', 'Siswa\Resume\SiswaPendidikanController@create');
+    Route::post('/create-resume/siswa-pendidikan', 'Siswa\Resume\SiswaPendidikanController@store');
+    Route::get('/create-resume/siswa-lainya', 'Siswa\Resume\SiswaLainyaController@create');
+    Route::post('/create-resume/siswa-lainya', 'Siswa\Resume\SiswaLainyaController@store');
+});
+
+
 
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,6 +12,7 @@ use Artesaos\SEOTools\Facades\SEOTools;
 
 use App\Models\ProgramKeahlian;
 use App\Models\BidangKeahlian;
+use App\Models\KompetensiKeahlian;
 use App\Models\Perusahaan;
 use App\Models\Lowongan;
 use App\Models\Negara;
@@ -27,6 +28,9 @@ class BerandaController extends Controller
 
     public function index()
     {
+        if( is_null(Auth::user()->siswa->siswaPendidikan) ) return redirect('/siswa/create-resume/siswa-pendidikan');
+        if( is_null(Auth::user()->siswa->siswaLainya)) return redirect('/siswa/create-resume/siswa-lainya');
+
         SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
@@ -39,7 +43,8 @@ class BerandaController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
         $data = [
-            'user' => Auth::user()->siswa,
+            'user' => Auth::user(),
+            'kompetensiKeahlian' => KompetensiKeahlian::find(Auth::user()->siswa->siswaPendidikan->kompetensi_keahlian_id),
             'nav' => 'beranda'
         ];
     	

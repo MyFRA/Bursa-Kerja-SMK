@@ -43,4 +43,9 @@ class Siswa extends Model
 		return $this->hasOne('App\Models\SiswaPendidikan');
 	}
 
+	public function siswaLainya()
+	{
+		return $this->hasOne('App\Models\SiswaLainya');
+	}
+
 }

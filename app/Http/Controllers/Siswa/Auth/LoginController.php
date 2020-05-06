@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Perusahaan\Auth;
+namespace App\Http\Controllers\Siswa\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::PERUSAHAAN;
+    protected $redirectTo = RouteServiceProvider::BERANDA;
 
     /**
      * Login username to be used by the controller.
@@ -43,7 +43,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest_perusahaan')->except('logout');
+        $this->middleware('guest')->except('logout');
         $this->username = $this->findUsername();
     }
 
@@ -62,7 +62,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('pages.portal-perusahaan.login');
+        return view('auth.login');
     }
 
     /**

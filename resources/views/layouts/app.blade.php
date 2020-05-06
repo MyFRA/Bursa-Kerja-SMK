@@ -17,6 +17,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('plugins/aos-master/dist/aos.css') }}">
+    @yield('stylesheet')
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

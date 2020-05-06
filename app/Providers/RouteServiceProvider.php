@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/home';
     public const ADMIN = '/app-admin/dashboard';
     public const PERUSAHAAN = '/perusahaan';
-    public const BERANDA = '/beranda';
+    public const BERANDA = '/siswa/beranda';
     public const RESUME = '/siswa/create-resume/siswa-pendidikan';
 
 

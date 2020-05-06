@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="row">
                         <div class=" col-lg-5 p-5">
-                          <span  class="h3 w-100 d-block float-left text-primary align-self-start"> 1 / 3</span>
+                          <span  class="h3 w-100 d-block float-left text-primary align-self-start"> {{__('1 / 2')}}</span>
                             <div class="d-flex h-75 w-100 align-items-center justify-content-center">
                               <img style="animation: tememplek 0.5s;" class="w-50" src="{{ asset('/images/profile.svg') }}" alt="">
                             </div>
@@ -139,8 +139,8 @@
                               <div class="col-lg-6 mt-2">
                                 <div class="form-group">
                                   <label class="font-weight-bold" for="nilai_skor">{{__('Nilai Skor')}} <span class="text-danger">*</span></label>
-                                  <input type="number" class="form-control @error('nilai_skor') is-invalid @enderror" id="nilai_skor" name="nilai_skor" placeholder="Nilai Skor" required value="{{ old('nilai_skor') }}">
-                                
+                                  <input type="text" class="form-control @error('nilai_skor') is-invalid @enderror" id="nilai_skor" name="nilai_skor" placeholder="Nilai Skor" required value="{{ old('nilai_skor') }}">
+                                  <small id="emailHelp" class="form-text text-muted h6">Contoh: 4.5, 34.7, 52, dll</small>
                                   @error('nilai_skor')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                   @enderror

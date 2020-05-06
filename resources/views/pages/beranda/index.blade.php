@@ -12,14 +12,14 @@
 		<div class="container beranda-lowongan-index">
 			<div class="row">
 				<div class="col-lg-8 px-2 mt-3">
-			        <div class="card p-3 ">
+			        <div style="animation: tememplek 0.5s;"  class="card p-3 ">
 			        	<div id="atas-kotakan-profil" class="d-md-flex justify-content-between">
 			        		<div id="kotakan-profil" class="d-md-flex justify-content-start align-items-center" style="flex: 2">
 								<img src="{{ url('/images/resume-no-photo.webp') }}" alt="" width="60px" height="60" style="object-fit: cover;object-position: center;">
 				        		<div class="d-md-flex section-profil flex-column ml-md-4">
-				        			<span class="h4 mb-1 "><a href="">Tomy Wibowo</a></span>
-				        			<span style="font-size: 13px">SMU, Ilmu Komputer/ TI (May 2020)</span>
-				        			<span style="font-size: 13px">SMK NEGERI 1 REMBANG</span>
+				        			<span class="h4 mb-1 "><a href="">{{ $user->name }}</a></span>
+				        			<span style="font-size: 13px">{{ $user->siswa->siswaPendidikan->tingkat_sekolah }}, {{ $kompetensiKeahlian->nama }} ({{ $user->siswa->siswaPendidikan->bulan_lulus }} {{ $user->siswa->siswaPendidikan->tahun_lulus }})</span>
+				        			<span style="font-size: 13px">{{ $user->siswa->siswaPendidikan->nama_sekolah }}</span>
 				        		</div>
 			        		</div>
 				        	<div class="d-md-flex align-items-end flex-column section-perb-profil-saya" style="flex: 1;">
@@ -28,7 +28,7 @@
 				        	</div>
 			        	</div>
 	        		</div>
-	        		<div id="card-lowongan" class="card p-3 mt-3">
+	        		<div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card p-3 mt-3">
 	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i> Rekomendasi Lowongan</span>
 	        			<span class="mt-3">Rekomendasi lowongan berdasarkan profil dan resume Anda</span>
 	        			<div id="lowongan">
@@ -97,7 +97,7 @@
 	        			</div>
 	        		</div>
 	        	</div>
-		        <div class="col-lg-4 px-2 mt-3">
+		        <div style="animation: tememplek 0.5s;"  class="col-lg-4 px-2 mt-3">
 		        	<div class="card p-3">
 	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i> Iklan</span>
 	        			<img class="mt-3 w-100" src="{{ asset('/images/13114884417508000838.gif') }}" alt="">

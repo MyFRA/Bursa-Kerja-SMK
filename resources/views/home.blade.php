@@ -25,7 +25,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="nama_depan" class="mb-0">{{ __('Nama Depan') }} <span class="text-danger">*</span></label>
-                                    <input type="text" name="nama_depan" placeholder="{{ __('Tuliskan nama depan') }}" autocomplete="off" class="form-control form-control-lg" required="">
+                                    <input type="text" name="nama_depan" placeholder="{{ __('Tuliskan nama depan') }}" autocomplete="off" class="form-control form-control-lg" required="" value="{{ old('nama_depan') }}">
                                 
                                     @error('nama_depan')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="nama_belakang" class="mb-0">{{ __('Nama Belakang') }}</label>
-                                    <input type="text" name="nama_belakang" placeholder="{{ __('Tuliskan nama belakang') }}" autocomplete="off" class="form-control form-control-lg">
+                                    <input type="text" name="nama_belakang" placeholder="{{ __('Tuliskan nama belakang') }}" autocomplete="off" class="form-control form-control-lg" value="{{ old('nama_belakang') }}">
                                 
                                     @error('nama_belakang')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="username" class="mb-0">{{ __('Username') }} <span class="text-danger">*</span></label>
-                                    <input type="text" name="username" placeholder="{{ __('Tuliskan username') }}" autocomplete="off" class="form-control form-control-lg" required="">
+                                    <input type="text" name="username" placeholder="{{ __('Tuliskan username') }}" autocomplete="off" class="form-control form-control-lg" required="" value="{{ old('username') }}">
                                 
                                     @error('username')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="mb-0">{{ __('E-Mail') }} <span class="text-danger">*</span></label>
-                                    <input type="email" name="email" placeholder="{{ __('mail@example.com') }}" autocomplete="off" class="form-control form-control-lg" required="">
+                                    <input type="email" name="email" placeholder="{{ __('mail@example.com') }}" autocomplete="off" class="form-control form-control-lg" required="" value="{{ old('email') }}">
                                 
                                     @error('email')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -81,7 +81,7 @@
                         </div>
                         <div class="card-footer text-center">
                             {{ __('Anda sudah memiliki akun') }}?<br />
-                            <a href="">{{ __('Silahkan masuk') }}!</a>
+                            <a href="{{ url('/siswa/login') }}">{{ __('Silahkan masuk') }}!</a>
                         </div>
                     </div>
                 </div>
