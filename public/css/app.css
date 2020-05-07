@@ -16707,10 +16707,6 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   background-color: #eee;
 }
 
-.pages-beranda-lowongan {
-  background-color: #E5E5E5;
-}
-
 #card-lowongan {
   border-top: 3px solid #0B5188;
 }
@@ -16771,3 +16767,72 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
     font-size: 13px
   }
 }
+
+
+
+/*  Siswa Profil  */
+
+.siswa-profil-active {
+  background-color: #f6f6f6;
+  border-left: 5px solid #1C3F94;
+}
+
+.navigasi-siswa-profil:hover {
+  background-color: #f6f6f6;
+  color: blue;
+}
+
+#event-navigasi-profil-siswa {
+  display: none;
+}
+
+    /*  Index  */
+
+    @media screen and (max-width: 768px) {
+      #profil-siswa-index {
+        display: flex;
+        flex-direction: column;
+        /* border: 1px solid black */
+      }
+
+      #profil-siswa-index div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        margin-top: 25px;
+        width: 100%;
+        text-align: center;
+        line-height: 27px;
+      }
+
+      #profil-siswa-index div:nth-child(2) div {
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+        text-align: left;
+        /* border: 1px solid black; */
+      }
+
+      #navigasi-profil-siswa.d-none-sm{
+        display: none;
+      }
+
+      #navigasi-profil-siswa #profil{
+        display: none;
+      }
+
+      #event-navigasi-profil-siswa {
+        display: inline-block;
+      }
+
+      #event-navigasi-profil-siswa a.active {
+        border-bottom: 3px solid #1C3F94;
+      }
+    }
+
+
+
+
+
+
+
+

@@ -31,6 +31,24 @@ class ProgramKeahlianTableSeeder extends Seeder
         		'bidang_keahlian_id' => 3,
         		'kode' => 'TKdI', 
         		'nama' => 'Teknologi Komputer dan Informatika',
+			],       
+			[
+        		'id' => 4,
+        		'bidang_keahlian_id' => 1,
+        		'kode' => 'Coba', 
+        		'nama' => 'coba coba',
+			],
+			[
+        		'id' => 5,
+        		'bidang_keahlian_id' => 2,
+        		'kode' => 'vvds', 
+        		'nama' => 'covdsba cdsoba',
+			],
+			[
+        		'id' => 6,
+        		'bidang_keahlian_id' => 3,
+        		'kode' => 'Cdasfaoba', 
+        		'nama' => 'cobavdsv coba',
         	],
         ];
 

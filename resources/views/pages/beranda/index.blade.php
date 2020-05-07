@@ -23,7 +23,7 @@
 				        		</div>
 			        		</div>
 				        	<div class="d-md-flex align-items-end flex-column section-perb-profil-saya" style="flex: 1;">
-				        		<a class="btn btn-primary" href="">Perbarui Profil Saya</a>
+				        		<a class="btn btn-primary" href="{{ url('/siswa/profil') }}">Perbarui Profil Saya</a>
 				        		<span class="small mt-2">Diperbarui pada 21-09-2020</span>
 				        	</div>
 			        	</div>

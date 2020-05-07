@@ -12,7 +12,7 @@
             <ul class="navbar-nav mr-auto">
                 @role('siswa')
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ url('/beranda') }}">{{ __('Beranda') }}</a>
+                        <a class="nav-link" href="{{ url('/siswa/beranda') }}">{{ __('Beranda') }}</a>
                     </li>
                 @endrole
                 <li class="nav-item ">
