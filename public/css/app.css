@@ -16788,7 +16788,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
     /*  Index  */
 
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 991px) {
       #profil-siswa-index {
         display: flex;
         flex-direction: column;
@@ -16827,6 +16827,31 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
       #event-navigasi-profil-siswa a.active {
         border-bottom: 3px solid #1C3F94;
       }
+    }
+
+
+
+
+    /*  Siswa Pengalaman Kerja  */
+
+    
+    @media screen and (max-width: 768px) {
+      .title-pengalaman div:nth-child(1) {
+        order: 2;
+      }
+
+      .title-pengalaman div:nth-child(2) {
+        order: 1;
+      }
+
+      .title-pengalaman div:nth-child(2) p{
+        margin-top: -25px;
+      }
+
+      .info-lengkap-pengalaman div:nth-child(1) {
+        display: none;
+      }
+
     }
 
 

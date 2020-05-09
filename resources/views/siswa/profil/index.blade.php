@@ -16,7 +16,7 @@
             <div class="card p-3">
                 <div>
                     <div class="float-right">
-                        <span class="d-block small text-muted">Last Updated: 07 May 2020</span>
+                    <span class="d-block small text-muted">{{__('Bergabung Pada ')}}{{ $user->created_at->format('d-m-Y') }}</span>
                         <span class="float-right mt-3">
                             <a class="mx-2" href=""><i class="fa fa-download"></i></a>
                             <a class="mx-2" href=""><i class="fa fa-print"></i></a>
@@ -28,36 +28,36 @@
                         <img width="100px" src="{{ asset('/images/profile.svg') }}" alt="">
                     </div>
                     <div style="flex: 6" class="d-flex flex-column px-2">
-                        <span class="font-weight-bold h5 text-primary">Nama</span>
-                        <span class="text-muted mt-n1">SMK/SMA/MA</span>
-                        <span class="text-muted mt-n1">Konstruksi Jalan, Irigasi, dan Jembatan (September 2020)</span>
-                        <span class="text-muted ">SMK NEGERI 1 REMBANG</span>
+                        <span class="font-weight-bold h5 text-primary">{{( $user->name )}}</span>
+                        <span class="text-muted mt-n1">{{($user->siswa->siswaPendidikan->tingkat_sekolah)}}</span>
+                        <span class="text-muted mt-n1">{{( $user->siswa->siswaPendidikan->kompetensiKeahlian->nama )}}</span>
+                        <span class="text-muted ">{{( $user->siswa->siswaPendidikan->nama_sekolah )}}</span>
                         <div class="mt-2"> 
                             <span>
-                                <i class="fa fa-phone mx-2"></i> (+62) 4234214231 |   
+                                <i class="fa fa-phone mx-2"></i> {{( $user->siswa->hp )}} |   
                             </span>
                             <span>
-                                <i class="fa fa-envelope mx-2"></i> desfae@gmail.com | 
+                                <i class="fa fa-envelope mx-2"></i> {{( $user->siswa->email )}} | 
                             </span>
                             <span>
-                                <i class="fa fa-dollar mx-2"></i> IDR 3,000,000 | 
+                                <i class="fa fa-dollar mx-2"></i> {{( number_format( $user->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.' ) )}} | 
                             </span>
                             <span>
-                                <i class="fa fa-map-marker mx-2"></i> Jawa Tengah</div>
+                                <i class="fa fa-map-marker mx-2"></i> {{( $user->siswa->provinsi )}}</div>
                             </span>
                     </div>
                 </div>
                 <div class="mt-4">
                     <hr class="py-1">
                     <div class="px-2 pb-5">
-                        <span class="mt-5 h5"><i class="fa fa-mortar-board"></i> Pendidikan</span>
+                        <span class="mt-5 h5"><i class="fa fa-mortar-board"></i> {{('Pendidikan')}}</span>
                         <div class="d-flex flex-column flex-md-row mt-3">
                             <div style="flex: 1">
-                                <span class="text-muted">Januari 2020</span>
+                                <span class="text-muted">{{( $user->siswa->siswaPendidikan->bulan_lulus )}} {{( $user->siswa->siswaPendidikan->tahun_lulus )}}</span>
                             </div>
                             <div style="flex: 3">
-                                <span class="font-weight-bold h5 d-block mb-0">SMK NEGERI 1 REMBANG</span>
-                                <span class="" style="font-size: 17px">SMK/SMA/MA, Konstruksi Jalan, Irigasi, dan Jembatan </span>
+                                <span class="font-weight-bold h5 d-block mb-0">{{( $user->siswa->siswaPendidikan->nama_sekolah )}}</span>
+                                <span class="" style="font-size: 17px">{{( $user->siswa->siswaPendidikan->tingkat_sekolah )}}, {{ $user->siswa->siswaPendidikan->kompetensiKeahlian->nama }} </span>
                             </div>
                         </div>
                     </div>
@@ -65,21 +65,21 @@
                 <div class="mt-4">
                     <hr class="py-1">
                     <div class="px-2 pb-5">
-                        <span class="mt-5 h5"><i class="fa fa-align-justify"></i> Info Lainya</span>
+                        <span class="mt-5 h5"><i class="fa fa-align-justify"></i> {{('Info Lainya')}}</span>
                         <div class="d-flex flex-column flex-md-row mt-3">
                             <div style="flex: 1">
-                                <span class="text-muted d-block">Gaji Diharapkan</span>
+                                <span class="text-muted d-block">{{('Gaji Diharapkan')}}</span>
                             </div>
                             <div style="flex: 3">
-                                <span class="d-block">Rp. 3.000.000</span><br>
+                                <span class="d-block">{{('Rp.')}} {{ $user->siswa->siswaLainya->gaji_diharapkan }}</span><br>
                             </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row">
                             <div style="flex: 1">
-                                <span class="text-muted">Lokasi Diharapkan</span>
+                                <span class="text-muted">{{('Lokasi Diharapkan')}}</span>
                             </div>
                             <div style="flex: 3">
-                                <span>Jawa Tengah </span>
+                                <span>{{ implode(', ', json_decode($user->siswa->siswaLainya->lokasi_diharap)) }} </span>
                             </div>
                         </div>
                     </div>
@@ -87,21 +87,21 @@
                 <div>
                     <hr class="py-1">
                     <div class="px-2 pb-5">
-                        <span class="mt-5 h5"><i class="fa fa-user"></i> Tentang Saya</span>
+                        <span class="mt-5 h5"><i class="fa fa-user"></i> {{('Tentang Saya')}}</span>
                         <div class="d-flex flex-column flex-md-row mt-3">
                             <div style="flex: 1">
-                                <span class="text-muted d-block">Alamat</span>
+                                <span class="text-muted d-block">{{'Alamat'}}</span>
                             </div>
                             <div style="flex: 3">
-                                <span class="d-block">Jawa Tengah, Indonesia</span><br>
+                                <span class="d-block">{{ $user->siswa->provinsi }}, {{ $user->siswa->negara }}</span><br>
                             </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row">
                             <div style="flex: 1">
-                                <span class="text-muted">Negara</span>
+                                <span class="text-muted">{{('Negara')}}</span>
                             </div>
                             <div style="flex: 3">
-                                <span>Indonesia </span>
+                                <span>{{( $user->siswa->negara )}} </span>
                             </div>
                         </div>
                     </div>
@@ -125,4 +125,4 @@
         });
     </script>
 
-@endsection()
+@endsection

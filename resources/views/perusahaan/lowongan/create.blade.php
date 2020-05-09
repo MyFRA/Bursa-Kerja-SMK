@@ -234,19 +234,18 @@
 	    	$('#batas_akhir_lamaran').datepicker()
 	    })(jQuery);
 	</script>
-	<script type="text/javascript">
+	<script>
 		
 		var gaji_min = document.getElementById('gaji_min');
 		gaji_min.addEventListener('keyup', function(e){
-			// tambahkan 'Rp.' pada saat form di ketik
-			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+
 			gaji_min.value = formatRupiah(this.value, 'Rp. ');
+
 		});
 
 		var gaji_max = document.getElementById('gaji_max');
 		gaji_max.addEventListener('keyup', function(e){
-			// tambahkan 'Rp.' pada saat form di ketik
-			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+
 			gaji_max.value = formatRupiah(this.value, 'Rp. ');
 		});
  

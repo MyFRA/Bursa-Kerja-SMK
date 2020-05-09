@@ -1,6 +1,6 @@
 <div id="navigasi-profil-siswa" class="d-none-sm mb-2">
     <div id="profil" class="card rounded-0">
-        <a href="{{ url('/siswa/profil') }}" class="d-flex p-3 align-items-center text-decoration-none siswa-profil-active">
+    <a href="{{ url('/siswa/profil') }}" class="d-flex p-3 align-items-center text-decoration-none {{ $nav == 'lihat-profil' ? 'siswa-profil-active' : '' }}">
             <div style="flex: 1" class="px-2">
                 <img src="{{ asset('/images/profile.svg') }}" alt="">
             </div>
@@ -11,7 +11,7 @@
         </a>
     </div>
     <div class="d-flex flex-column card border-top-0">
-        <a href="{{ url('/siswa/profil/pengalaman') }}" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
+        <a href="{{ url('/siswa/profil/pengalaman') }}" class="{{ $nav == 'pengalaman' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
             <i class="fa fa-briefcase mr-3"></i> Pengalaman
         </a>
         <a href="" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
