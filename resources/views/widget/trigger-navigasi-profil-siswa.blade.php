@@ -4,7 +4,7 @@
             ubah <i class="fa fa-caret-down"></i>
         </a>     
         <a class="py-2 {{ $nav == 'lihat-profil' ? 'active' : '' }}" href="{{ url('/siswa/profil') }}" style="flex: 1">
-            Lihat Resume
+            Profil Saya
         </a>     
     </div>
 </div>

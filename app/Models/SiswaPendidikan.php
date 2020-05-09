@@ -27,6 +27,16 @@ class SiswaPendidikan extends Model
         return $this->belongsTo('App\Models\Siswa');
     }
 
+    public function bidangKeahlian()
+    {
+        return $this->belongsTo('App\Models\BidangKeahlian');
+    }
+
+    public function programKeahlian()
+    {
+        return $this->belongsTo('App\Models\ProgramKeahlian');
+    }
+
     public function kompetensiKeahlian()
     {
         return $this->belongsTo('App\Models\KompetensiKeahlian');

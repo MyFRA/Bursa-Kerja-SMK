@@ -12,13 +12,13 @@
     </div>
     <div class="d-flex flex-column card border-top-0">
         <a href="{{ url('/siswa/profil/pengalaman') }}" class="{{ $nav == 'pengalaman' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-briefcase mr-3"></i> Pengalaman
+            <i class="fa fa-briefcase mr-3"></i> {{__("Pengalaman")}}
         </a>
-        <a href="" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-mortar-board mr-3"></i> Pendidikan
+        <a href="{{ url('/siswa/profil/pendidikan') }}" class="{{ $nav == 'pendidikan' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
+            <i class="fa fa-mortar-board mr-3"></i> {{__('Pendidikan')}}
         </a>
-        <a href="" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-joomla mr-3"></i> Keterampilan
+        <a href="{{ url('/siswa/profil/keterampilan') }}" class=" {{ $nav == 'keterampilan' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
+            <i class="fa fa-joomla mr-3"></i> {{__('Keterampilan')}}
         </a>
         <a href="" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
             <i class="fa fa-comments-o mr-3"></i> Bahasa

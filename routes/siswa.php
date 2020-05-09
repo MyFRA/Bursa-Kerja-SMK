@@ -25,6 +25,9 @@ Route::middleware(['auth', 'role:siswa'])->group(function() {
     // Profil Siswa
     Route::get('/profil', 'Siswa\Profil\ProfilController@index');
     Route::resource('/profil/pengalaman', 'Siswa\Profil\PengalamanController');
+    Route::resource('/profil/pendidikan', 'Siswa\Profil\PendidikanController');
+    Route::resource('/profil/keterampilan', 'Siswa\Profil\KeterampilanController');
+
 
 
     // Buat Resume Sisiwa

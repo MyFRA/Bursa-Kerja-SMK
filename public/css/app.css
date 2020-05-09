@@ -16854,6 +16854,22 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
     }
 
+    @media screen and (max-width: 768px) { 
+      .keterampilan-list div:nth-child(1) {
+        order: 1;
+        margin-top: -30px;
+      }
+
+      .title-pengalaman div:nth-child(2) p{
+        margin-top: 1px;
+      }
+
+      .keterampilan-list div:nth-child(2) {
+        order: 2;
+      }
+    }
+
+
 
 
 

@@ -70,10 +70,15 @@ class PengalamanController extends Controller
     public function store(Request $request)
     {
         // Pengubahan Gaji Menjadi Full Angka
-        $gaji_bulanan = explode('Rp. ', $request->gaji_bulanan);
-        $gaji_bulanan = end($gaji_bulanan);
-        $gaji_bulanan = explode('.', $gaji_bulanan);
-        $gaji_bulanan = join('', $gaji_bulanan);
+        if( is_null($request->gaji_bulanan) ) {
+            $gaji_bulanan = $request->gaji_bulanan;
+        } else {
+            $gaji_bulanan = explode('Rp. ', $request->gaji_bulanan);
+            $gaji_bulanan = end($gaji_bulanan);
+            $gaji_bulanan = explode('.', $gaji_bulanan);
+            $gaji_bulanan = join('', $gaji_bulanan);
+        }
+
 
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
@@ -82,9 +87,9 @@ class PengalamanController extends Controller
             'kompetensi_keahlian_id'    => 'required',
             'jabatan'                   => 'required|max:128',
             'perusahaan'                => 'required|max:64',
-            'mulai_kerja_tahun'         => 'required|numeric|digits:4|max:2050',
+            'mulai_kerja_tahun'         => 'required|numeric|digits:4',
             'mulai_kerja_bulan'         => 'required|max:16',
-            'akhir_kerja_tahun'         => 'required|numeric|digits:4|max:2050',
+            'akhir_kerja_tahun'         => 'required|numeric|digits:4',
             'akhir_kerja_bulan'         => 'required|max:16',
             'negara'                    => 'max:32',
             'provinsi'                  => 'max:32',
@@ -151,11 +156,15 @@ class PengalamanController extends Controller
     public function update(Request $request, $id)
     {
 
-        // Pengubahan Gaji Menjadi Full Angka
-        $gaji_bulanan = explode('Rp. ', $request->gaji_bulanan);
-        $gaji_bulanan = end($gaji_bulanan);
-        $gaji_bulanan = explode('.', $gaji_bulanan);
-        $gaji_bulanan = join('', $gaji_bulanan);
+        if( is_null($request->gaji_bulanan) ) {
+            $gaji_bulanan = $request->gaji_bulanan;
+
+        } else {
+            $gaji_bulanan = explode('Rp. ', $request->gaji_bulanan);
+            $gaji_bulanan = end($gaji_bulanan);
+            $gaji_bulanan = explode('.', $gaji_bulanan);
+            $gaji_bulanan = join('', $gaji_bulanan);
+        }
 
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
@@ -164,9 +173,9 @@ class PengalamanController extends Controller
             'kompetensi_keahlian_id'    => 'required',
             'jabatan'                   => 'required|max:128',
             'perusahaan'                => 'required|max:64',
-            'mulai_kerja_tahun'         => 'required|numeric|digits:4|max:2050',
+            'mulai_kerja_tahun'         => 'required|numeric|digits:4',
             'mulai_kerja_bulan'         => 'required|max:16',
-            'akhir_kerja_tahun'         => 'required|numeric|digits:4|max:2050',
+            'akhir_kerja_tahun'         => 'required|numeric|digits:4',
             'akhir_kerja_bulan'         => 'required|max:16',
             'negara'                    => 'max:32',
             'provinsi'                  => 'max:32',
