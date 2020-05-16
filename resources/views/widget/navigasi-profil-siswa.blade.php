@@ -20,16 +20,16 @@
         <a href="{{ url('/siswa/profil/keterampilan') }}" class=" {{ $nav == 'keterampilan' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
             <i class="fa fa-joomla mr-3"></i> {{__('Keterampilan')}}
         </a>
-        <a href="" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
+        <a href="{{ url('/siswa/profil/bahasa') }}" class="{{ $nav == 'bahasa' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
             <i class="fa fa-comments-o mr-3"></i> Bahasa
         </a>
-        <a href="" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
+        <a href="{{ url('/siswa/profil/lainya') }}" class="{{ $nav == 'lainya' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
             <i class="fa fa-align-justify mr-3"></i> Info Lain
         </a>
-        <a href="" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
+        <a href="{{ url('/siswa/profil/profil-saya') }}" class="{{ $nav == 'profil-saya' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
             <i class="fa fa-user mr-3"></i> Profil Saya
         </a>
-        <a href="" class=" text-dark navigasi-siswa-profil text-decoration-none p-3">
+        <a href="{{ url('/siswa/profil/akun') }}" class="{{ $nav == 'akun' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
             <i class="fa fa-cogs mr-3"></i> Pengaturan Akun
         </a>
     </div>

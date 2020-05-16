@@ -27,6 +27,10 @@ Route::middleware(['auth', 'role:siswa'])->group(function() {
     Route::resource('/profil/pengalaman', 'Siswa\Profil\PengalamanController');
     Route::resource('/profil/pendidikan', 'Siswa\Profil\PendidikanController');
     Route::resource('/profil/keterampilan', 'Siswa\Profil\KeterampilanController');
+    Route::resource('/profil/bahasa', 'Siswa\Profil\BahasaController');
+    Route::resource('/profil/lainya', 'Siswa\Profil\LainyaController');
+    Route::resource('/profil/profil-saya', 'Siswa\Profil\ProfilSayaController');
+    Route::resource('/profil/akun', 'Siswa\Profil\AkunController');
 
 
 

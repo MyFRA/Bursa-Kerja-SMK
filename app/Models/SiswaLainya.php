@@ -18,6 +18,11 @@ class SiswaLainya extends Model
 
     public function siswa()
     {
-        return $this->bellongsTo('App\Models\Siswa');
+        return $this->belongsTo('App\Models\Siswa');
+    }
+
+    public function keterampilan()
+    {
+        return $this->belongsTo('App\Models\Keterampilan');
     }
 }

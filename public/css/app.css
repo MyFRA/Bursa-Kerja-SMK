@@ -16873,6 +16873,67 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
 
 
+/*  Siswa Bahasa  */
+
+#screen-kecil {
+  display: none;
+}
+
+.edit-layar-kecil {
+  display: none;
+}
+
+@media screen and (max-width: 768px) { 
+  #screen-kecil {
+    display: inline-block;
+  }
+
+  #screen-besar {
+    display: none;
+  }
+
+  .edit-layar-besar {
+    display: none;
+  }
+
+  .edit-layar-kecil {
+    display: inline-block;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Siswa Profil Lain (Edit) */
+
+
+
+.tombol-update-lainya a { 
+  background-color: #ddd;
+  color: black;
+  border: 1px solid #ddd;
+  margin: 0px 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .tombol-update-lainya button,
+  .tombol-update-lainya a {
+    margin: 10px 0px;
+    display: block;
+    width: 100%;
+  }
+}
+
+
 
 
 
