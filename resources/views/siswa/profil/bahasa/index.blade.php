@@ -128,22 +128,30 @@
                             </form>
                         </div>
                         @else
-                        <div id="container-form-bahasa"  class=" mt-4">
+                        <div id="container-form-bahasa"  class="mt-lg-4">
                             <div id="screen-besar">
 								<div class="form-group language-form-group">
-									<label class="col-sm-3"><b>Bahasa</b></label>
-									<label class="col-sm-2"><b>Lisan</b></label>
-                                    <label class="col-sm-2"><b>Tulisan</b></label>
-									<label class="col-sm-2"><b>Sertifikat</b></label>
-									<label class="col-sm-2"><b>Skor</b></label>
+                                    <div class="row">
+                                        <label class="col-sm-2"><b>Bahasa</b></label>
+                                        <label class="col-sm-2 text-center"><b>Lisan</b></label>
+                                        <label class="col-sm-2 text-center"><b>Tulisan</b></label>
+                                        <label class="col-sm-2 text-center"><b>Sertifikat</b></label>
+                                        <label class="col-sm-2 text-center"><b>Skor</b></label>
+                                        <label class="col-sm-2 text-center"><b>Utama</b></label>
+                                    </div>
+
                                 </div>
                                 @foreach ($siswaBahasa as $item)
                                     <div class="form-group language-form-group">
-                                        <label class="col-sm-3">{{ $item->bahasa->nama }}</label>
-                                        <label class="col-sm-2">{{ $item->lisan }}</label>
-                                        <label class="col-sm-2">{{ $item->tulisan }}</label>
-                                        <label class="col-sm-2">{{ $item->sertifikat }}</label>
-                                        <label class="col-sm-2">{{ $item->skor }}</label>
+                                        <div class="row">
+                                            <label class="col-sm-2">{{ $item->bahasa->nama }}</label>
+                                            <label class="col-sm-2 text-center">{{ $item->lisan }}</label>
+                                            <label class="col-sm-2 text-center">{{ $item->tulisan }}</label>
+                                            <label class="col-sm-2 text-center">{{ $item->sertifikat }}</label>
+                                            <label class="col-sm-2 text-center">{{ $item->skor }}</label>
+                                            <label class="col-sm-2 text-center">{!! ($item->utama == 1) ? '<i class="fa fa-check"></i>' : '' !!}</label>
+                                        </div>
+
                                     </div>
                                 @endforeach
 								<div class="col-xs-12"><br></div>
@@ -156,7 +164,7 @@
 
                             <div id="screen-kecil">
                                 @foreach ($siswaBahasa as $item)
-                                <div class="form-group">
+                                <div class="form-group mt-4">
                                     <div class="col-xs-12">
                                         <div class="row">
                                             <div class="col">
@@ -207,7 +215,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12"><br></div>
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <div class="col">
+                                                <span>Utama</span>
+                                            </div>
+                                            <div class="col">
+                                                <span>{!! ($item->utama == 1) ? '<i class="fa fa-check"></i>' : ''!!}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 @endforeach
 
@@ -266,17 +283,6 @@
         navigasi.classList.toggle('d-none-sm')
     });
 </script>
-
-{{-- <script>
-    const tombolTrigger = document.getElementById('trigger-tambah-bahasa')
-    const containerForm = document.getElementById('container-form-bahasa')
-
-    tombolTrigger.addEventListener('click', function(e) {
-        e.preventDefault()
-
-        containerForm.classList.toggle('d-none')
-    })
-</script> --}}
 
 <script>
     function onHapus(jabatan, url) {

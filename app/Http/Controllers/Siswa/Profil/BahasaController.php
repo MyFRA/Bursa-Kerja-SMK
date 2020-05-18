@@ -65,6 +65,8 @@ class BahasaController extends Controller
                 'sertifikat' => $request->sertifikat[$i],
                 'skor' => $request->skor[$i]
             ]);
+
+            return back();
         }
     }
 
@@ -87,6 +89,10 @@ class BahasaController extends Controller
      */
     public function edit($id)
     {
+        if( SiswaBahasa::where('siswa_id', Auth::user()->siswa->id)->count() <= 0 ) {
+            return redirect('/siswa/profil/bahasa');
+        }
+
         for($i=1; $i<=10; $i++) {
             $lisan[] = $i;
         }
@@ -112,7 +118,41 @@ class BahasaController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         dd($request->all());
+        $siswaBahasaDB = SiswaBahasa::where('siswa_id', Auth::user()->siswa->id)->get();
+
+
+        $index = 0;
+        foreach($siswaBahasaDB as $siswaDB) {
+            $siswaDB->update([
+                'bahasa_id' => $request->bahasa_id[$index],
+                'lisan' => $request->lisan[$index],
+                'tulisan' => $request->tulisan[$index],
+                'utama' => $request->utama[$index],
+                'sertifikat' => $request->sertifikat[$index],
+                'skor' => $request->skor[$index],
+            ]);
+
+            $index++;
+        }
+
+        if( isset($request->bahasa_id[$index]) ) {
+            $jmlArr = count($request->bahasa_id);
+            for( $i = $index; $i < $jmlArr; $i++) {
+                SiswaBahasa::create([
+                    'siswa_id' => Auth::user()->siswa->id,
+                    'bahasa_id' => $request->bahasa_id[$i],
+                    'lisan' => $request->lisan[$i],
+                    'tulisan' => $request->tulisan[$i],
+                    'utama' => $request->utama[$i],
+                    'sertifikat' => $request->sertifikat[$i],
+                    'skor' => $request->skor[$i],
+                ]);
+            }
+        }
+
+        return redirect('/siswa/profil/bahasa');
     }
 
     /**

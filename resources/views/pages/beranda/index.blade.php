@@ -35,7 +35,7 @@
 	        				<hr>
 	        				<div id="njero-lowongan" class="d-flex justify-content-between w-100">
 	        					<div style="flex: 3">
-	        						<a href="" class="h5 font-weight-bold text-primary mb-0">Programmer</a>
+									<a href="{{ url('/lowongan/programmer-pt-dua-putra-5348') }}" class="h5 font-weight-bold text-primary mb-0">Programmer</a>
 			        				<span class="text-muted d-block">PT Dua Putra Utama Makmur Tbk </span>
 			        				<span class="d-block mt-2"><i class="fa fa-map-marker"></i> Bali, Jakarta Raya, Jawa Barat, Jawa Tengah, Jawa Timur</span>
 			        				<span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> IDR 4,000,000 - 6,000,000</span>

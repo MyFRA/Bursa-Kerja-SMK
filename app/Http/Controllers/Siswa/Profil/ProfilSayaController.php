@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 use App\Models\Siswa;
 use App\Models\Negara;
+use App\User;
 
 class ProfilSayaController extends Controller
 {
@@ -194,6 +195,12 @@ class ProfilSayaController extends Controller
                 'pengalaman_level_teks' => $request->pengalaman_level_teks,
             ]);
 
+            $user = User::find(Auth::user()->id);
+
+            $user->update([
+                'name' => $request['nama_pertama'] . ' ' . $request['nama_belakang'],
+            ]);
+
             return true;
         } else {
 
@@ -236,6 +243,13 @@ class ProfilSayaController extends Controller
                 'pengalaman_level'      => $request->pengalaman_level,
                 'pengalaman_level_teks' => $request->pengalaman_level_teks,
             ]);
+
+            $user = User::find(Auth::user()->id);
+
+            $user->update([
+                'name' => $request['nama_pertama'] . ' ' . $request['nama_belakang'],
+            ]);
+
             return true;
         }
     }
