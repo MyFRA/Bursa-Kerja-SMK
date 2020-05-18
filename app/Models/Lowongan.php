@@ -25,5 +25,9 @@ class Lowongan extends Model
     	'image',
     	'jumlah_pelamar',
     	'counter',
-    ];
+	];
+	
+	public function perusahaan() {
+		return $this->belongsTo('App\Models\Perusahaan');
+	}
 }

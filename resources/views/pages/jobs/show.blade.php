@@ -14,20 +14,22 @@
 
 <div class="container mt-3">
     <div>
-        <div class="row">
-            <div class="col image-cover-perusahaan-lowongan px-1">
-                <img class="w-100" class="" src="{{ asset('/images/4866_banner_0_278558.jpg') }}" alt="">
+        @if ($lowongan->perusahaan->image != NULL)
+            <div class="row">
+                <div class="col image-cover-perusahaan-lowongan px-1">
+                    <img class="w-100" class="" src="{{ asset('/storage/assets/daftar-perusahaan/image/' . $lowongan->perusahaan->image) }}" alt="">
+                </div>
             </div>
-        </div>
+        @endif
         <div class="row">
             <div class="col px-1">
                 <div class="card card-header-lowongan-show p-3">
                     <div>
-                        <img class="image-cover-per" src="{{ asset('/images/faralia-shop1529850360.png') }}" alt="">
+                        <img class="image-cover-per" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
                     </div>
                     <div class="p-3">
-                        <h3 class="font-weight-bold">okok</h3>
-                        <a class="h5 mt-n2" href="">cv cahaya merdeka</a>
+                        <h3 class="font-weight-bold">{{ __( $lowongan->jabatan ) }}</h3>
+                        <a class="h5 mt-n2" href="">{{ __($lowongan->nama_perusahaan) }}</a>
                     </div>
                     <div>
                         <div class="">
@@ -40,12 +42,12 @@
                         </div>
                         <div>
                             <span class="">
-                                <i class="fa fa-briefcase mr-2 text-primary "></i> cdsmkm ok siap apik banget mantep banget sumpah
+                                <i class="fa fa-briefcase mr-2 text-primary "></i> {{ __('Fresh Graduate, Are Welcome') }}
                             </span>
                         </div>
                         <div>
                             <span class="">
-                                <i class="fa fa-map-marker mr-2 text-danger font-weight-bold"></i> cdsmkm
+                                <i class="fa fa-map-marker mr-2 text-danger font-weight-bold"></i> {{ __( $lowongan->perusahaan->alamat ) }}
                             </span>
                         </div>
                     </div>
@@ -57,26 +59,22 @@
                 <div class="row">
                     <div class="col-12 mt-2">
                         <div class="card p-3 pb-4">
-                            <h5 class="text-muted"><i class="fa fa-edit mr-2"></i> DESKRIPSI PEKERJAAN</h5>
+                            <h5 class="text-muted"><i class="fa fa-edit mr-2"></i>{{__(' DESKRIPSI PEKERJAAN')}}</h5>
                             <div class="mt-2">
-                                <strong>Kualifikasi:</strong>
-                                <ul>
-                                    <li>Pendidikan minimal STM / D3 elektrikal / mekanikal / sipil.</li>
-                                    <li>Berpengalaman <strong>minimal 2 tahun </strong>menangani MEP, mencakup instalasi listrik, AC, genset, chiller, dan sebagainya.</li>
-                                    <li>Lebih diutamakan yang memiliki pengalaman sebagai teknisi gedung perkantoran/apartemen/gedung bertingkat lainnya.</li>
-                                    <li>Bersedia ditempatkan di area <strong>Tangerang atau Jakarta Selatan (Alam Sutera, Cikokol, Cikupa, Gatot Subroto)</strong></li>
-                                    <li>Mau bekerja keras, jujur, cepat belajar dan beradaptasi.</li>
-                                    <li>Bersedia bekerja secara shift.</li>
-                                </ul>
+                                {!! $lowongan->deskripsi !!}
+                            </div>
+                            <div class="mt-2">
+                                <p class="mb-1">{{__('Persyaratan')}}</p>
+                                {!! $lowongan->persyaratan !!}
                             </div>
                         </div>
                     </div>
                     <div class="col-12 mt-2">
                         <div class="card p-3 pb-4">
-                            <h5 class="text-muted"><i class="fa fa-edit mr-2"></i> LOKASI KERJA</h5>
-                            <p class="text-primary mt-2" style="font-size: 16px"><i class="fa fa-building mr-1"></i> Alamat</p>
+                            <h5 class="text-muted"><i class="fa fa-edit mr-2"></i>{{__(' LOKASI KERJA')}}</h5>
+                            <p class="text-primary mt-2" style="font-size: 16px"><i class="fa fa-building mr-1"></i>{{__(' Alamat')}}</p>
                             <div class="px-4 mt-n2">
-                                Jl. Jalur Sutera Barat 17 Alam Sutera - Tangerang, Banten
+                                {{__( $lowongan->perusahaan->alamat )}}
                             </div>
                         </div>
                     </div>
@@ -86,73 +84,84 @@
                 <div class="row">
                     <div class="col-12 mt-2">
                         <div class="card p-3 pb-4">
-                            <h5 class="text-muted"><i class="fa fa-list-alt mr-2"></i> GAMBARAN PERUSAHAAN</h5>
+                            <h5 class="text-muted"><i class="fa fa-list-alt mr-2"></i>{{__(' GAMBARAN PERUSAHAAN')}}</h5>
                             <div class="row">
                                 <div class="col-lg-6 mt-3">
-                                    <h6 class="font-weight-bold d-block mb-0">Waktu Proses Lamaran</h6>
-                                    <span></span>
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Proses Lamaran')}}</h6>
+                                    <span>{{ __( $lowongan->proses_lamaran ) }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">Industri</h6>
                                     <span>Lainya</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
-                                    <h6 class="font-weight-bold d-block mb-0">Ukuran Perusahaan</h6>
-                                    <span>1 - 50 Pekerja</span>
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Ukuran Perusahaan')}}</h6>
+                                    <span>{{__( $lowongan->perusahaan->jumlah_karyawan )}}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
-                                    <h6 class="font-weight-bold d-block mb-0">Situs</h6>
-                                    <span><a href="">ok.com</a></span>
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Situs')}}</h6>
+                                    <span><a href="">{{__( $lowongan->perusahaan->site )}}</a></span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
-                                    <h6 class="font-weight-bold d-block mb-0">Gaya Berpakaian</h6>
-                                    <span>Bisnis ( Contoh: Kemeja ) </span>
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Gaya Berpakaian')}}</h6>
+                                    <span>{{__( $lowongan->perusahaan->gaya_berpakaian )}}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
-                                    <h6 class="font-weight-bold d-block mb-0">Waktu Bekerja</h6>
-                                    <span>Senin - Jumat</span>
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Waktu Bekerja')}}</h6>
+                                    <span>{{__( $lowongan->perusahaan->waktu_bekerja )}}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
-                                    <h6 class="font-weight-bold d-block mb-0">Tunjangan</h6>
-                                    <span>Kesehatan</span>
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Tunjangan')}}</h6>
+                                    <span>{{__( $lowongan->perusahaan->tunjangan )}}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
-                                    <h6 class="font-weight-bold d-block mb-0">Bahasa Yang Digunakan</h6>
-                                    <span>Bahasa Indonesia</span>
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Bahasa Yang Digunakan')}}</h6>
+                                    <span>{{__( $lowongan->perusahaan->bahasa )}}</span>
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Kompetensi Keahlian')}}</h6>
+                                    <span>
+                                        @php
+                                            $arr = explode(',', json_decode($lowongan->kompetensi_keahlian));
+                                            foreach ($arr as $value) {
+                                                echo "- " . $value . "<br>";
+                                            }
+                                        @endphp
+                                    </span>
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Keahlian')}}</h6>
+                                    <span>
+                                        @php
+                                            $arr = explode(',', json_decode($lowongan->keahlian));
+                                            foreach ($arr as $value) {
+                                                echo "- " . $value . "<br>";
+                                            }
+                                        @endphp
+                                    </span>
+                                </div>
+                                <div class="col-lg-6 mt-3">
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Batas AKhir Lamaran')}}</h6>
+                                    <span> {{ __( date('d-M-Y', strtotime($lowongan->batas_akhir_lamaran)) ) }} </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 mt-2">
                         <div class="card p-3 pb-4">
-                            <h5 class="text-muted"><i class="fa fa-camera-retro mr-2"></i> FOTO PERUSAHAAN</h5>
+                            <h5 class="text-muted"><i class="fa fa-camera-retro mr-2"></i> {{__('FOTO PERUSAHAAN')}}</h5>
                             <div class="px-5 p-3">
                                 <div class="container-thumb-gede">
                                     <div class="row">
                                         <div class="col px-1">
-                                            <img class="w-100" id="img-thumb-gede" src="{{ asset('/images/jakarta-office-building-vector-illustration_47305-12.jpg') }}" alt="">
+                                            <img class="w-100" id="img-thumb-gede" src="{{ asset('/storage/assets/lowongan-kerja/' . $lowongan->image) }}" alt="">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="container-thumb-cilik">
                                     <div class="row">
                                         <div class="col-3 mt-2 px-1">
-                                            <img class="img-thumb-cilik" src="{{ asset('/images/jakarta-office-building-vector-illustration_47305-12.jpg') }}" alt="">
-                                        </div>
-                                        <div class="col-3 mt-2 px-1">
-                                            <img class="img-thumb-cilik" src="{{ asset('/images/pijar-logo.png') }}" alt="">
-                                        </div>
-                                        <div class="col-3 mt-2 px-1">
-                                            <img class="img-thumb-cilik" src="{{ asset('/images/bg-01.webp') }}" alt="">
-                                        </div>
-                                        <div class="col-3 mt-2 px-1">
-                                            <img class="img-thumb-cilik" src="{{ asset('/images/jakarta-office-building-vector-illustration_47305-12.jpg') }}" alt="">
-                                        </div>
-                                        <div class="col-3 mt-2 px-1">
-                                            <img class="img-thumb-cilik" src="{{ asset('/images/offer.png') }}" alt="">
-                                        </div>
-                                        <div class="col-3 mt-2 px-1">
-                                            <img class="img-thumb-cilik" src="{{ asset('/images/employer.jpg') }}" alt="">
+                                            <img class="img-thumb-cilik" src="{{ asset('/storage/assets/lowongan-kerja/' . $lowongan->image) }}" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -161,20 +170,20 @@
                     </div>
                     <div class="col-12 mt-2">
                         <div class="card p-3 pb-4">
-                            <h5 class="text-muted"><i class="fa fa-building mr-2"></i> INFORMASI PERUSAHAAN</h5>
+                            <h5 class="text-muted"><i class="fa fa-building mr-2"></i>{{__(' INFORMASI PERUSAHAAN')}}</h5>
                             <div class="px-3">
                                 <p class="mt-3" style="text-indent: 20px">
-                                    Alam Sutera is an integrated property developer in Indonesia, focusing on innovation to improve people’s quality of life. The township management are focused on the development as well as management of residential areas, commercial districts, industrial areas, shopping centers, leisure centers and hospitality. Alam Sutera has become a pioneer in green living and a dynamic icon of urban development, committed to building a better life. The journey as the leading property developer company began with developing excellent service and quality in comfortable, safe and healthy environments.
+                                    {!! $lowongan->perusahaan->overview !!}
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 mt-2">
                         <div class="card p-3 pb-4">
-                            <h5 class="text-muted"><i class="fa fa-bookmark mr-2"></i> MENGAPA BERGABUNG DENGAN KAMI</h5>
+                            <h5 class="text-muted"><i class="fa fa-bookmark mr-2"></i>{{__(' MENGAPA BERGABUNG DENGAN KAMI')}}</h5>
                             <div class="px-3">
                                 <p class="mt-3" style="text-indent: 20px">
-                                    Alam Sutera is an integrated property developer in Indonesia, focusing on innovation to improve people’s quality of life. The township management are focused on the development as well as management of residential areas, commercial districts, industrial areas, shopping centers, leisure centers and hospitality. Alam Sutera has become a pioneer in green living and a dynamic icon of urban development, committed to building a better life. The journey as the leading property developer company began with developing excellent service and quality in comfortable, safe and healthy environments.
+                                    {!! $lowongan->perusahaan->alasan_harus_melamar !!}
                                 </p>
                             </div>
                         </div>
@@ -194,6 +203,18 @@
                     <div>
                         <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col px-1">
+                <div class="p-3 w-100 d-flex flex-row justify-content-between container-show-waktu-lowongan" style="background-color: #eee">
+                    <p class="my-0 text-muted">
+                        {{__('Ditayangkan ')}}{{ __( date('d-M-Y', strtotime($lowongan->created_at)) ) }}
+                    </p>
+                    <p class="my-0 text-muted">
+                        {{__('Tutup Pada ')}}{{ __( date('d-M-Y', strtotime($lowongan->batas_akhir_lamaran)) ) }}
+                    </p>
                 </div>
             </div>
         </div>

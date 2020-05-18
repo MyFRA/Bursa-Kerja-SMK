@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
+use App\Models\Lowongan;
+
 class JobController extends Controller
 {
 
@@ -28,7 +30,11 @@ class JobController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.jobs.index');
+        $data = [
+            'lowongan' => Lowongan::orderBy('created_at', 'DESC')->get()
+        ];
+
+        return view('pages.jobs.index', $data);
     }
     
     /**
@@ -50,6 +56,10 @@ class JobController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.jobs.show');
+        $data = [
+            'lowongan' => Lowongan::find(decrypt($id))
+        ];
+
+        return view('pages.jobs.show', $data);
     }
 }

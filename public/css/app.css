@@ -16751,7 +16751,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
     display: none;
   }
 
-  .beranda-lowongan-index .card #deskripsi {
+  .beranda-lowongan-index .card div#deskripsi {
     display: none;
   }
 
@@ -17149,6 +17149,14 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
     margin-top: 10px;
   }
 
+  .container-show-waktu-lowongan p:nth-child(1) {
+    display: none;
+  }
+
+  .container-show-waktu-lowongan p:nth-child(2) {
+    float: right;
+    margin-left: auto;
+  }
 }
 
 

@@ -85,25 +85,35 @@
                 </div>
             </div>
 
-            <div class="card rounded-0 mb-2">
-                <div class="card-body p-2">
-                    <div class="title row">
-                        <div class="col-8">
-                            <h4><a href="{{ url('/lowongan/staf-administrasi-193904031') }}">STAFF ADMINISTRASI</a></h4>
-                            <p><a href="">PT Wiratama Kreasi Komputindo</a></p>
+            @foreach ($lowongan as $loker)
+                <div class="card rounded-0 mb-2">
+                    <div class="card-body p-2">
+                        <div class="title row">
+                            <div class="col-8">
+                                <h4><a href="{{ url('lowongan/' . encrypt($loker->id)) }}">{{ __( $loker->jabatan ) }}</a></h4>
+                                <p><a href="">{{__( $loker->nama_perusahaan )}}</a></p>
+                            </div>
+                            <div class="col-4">
+                                <img class="float-right mr-2 rounded" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" width="80%" alt="">
+                            </div>
                         </div>
-                        <div class="col-4">
-                            <img src="https://siva.jsstatic.com/id/71980/images/logo/71980_logo_0_796142.jpg" width="100%" alt="">
+                        <div class="info">
+                            <p><i class="fa fa-map-marker mr-2"></i>{{ __( $loker->perusahaan->alamat ) }}</p>
+                            <p>
+                                <small>{{__('(IDR)')}}</small>
+                                @if (!Auth::guest())
+                                        Login Untuk Melihat Gaji
+                                @else
+                                        {{ number_format($loker->gaji_min, 0, '.', '.') }}
+                                @endif
+                            </p>
                         </div>
+                        <div>{!! __(substr($loker->deskripsi, 0, 290)) !!}</div>
+                        <p>15 menit yang lalu</p>
                     </div>
-                    <div class="info">
-                        <p><i class="fa fa-map-marker mr-2"></i>Bekasi (Jawa Barat), Jakarta Timur (Jakarta Raya), Jakarta Utara (Jakarta Raya)</p>
-                        <p><small>(IDR)</small>Login untuk melihat gaji</p>
-                    </div>
-                    <p>JOBS DESCRIPTION Melakukan kegiatan packing produk. Mempersiapkan barang untuk delivery ke customer. Mengatur dan menata barang di gudang. Menghitung...</p>
-                    <p>15 menit yang lalu</p>
-                </div>
-            </div>
+                </div> 
+            @endforeach
+
         </div>
         <div class="col-md-2 px-2">
             <img src="https://www.wmtips.com/i/art/547/160x600.gif" alt="">

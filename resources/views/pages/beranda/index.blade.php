@@ -24,77 +24,31 @@
 			        		</div>
 				        	<div class="d-md-flex align-items-end flex-column section-perb-profil-saya" style="flex: 1;">
 				        		<a class="btn btn-primary" href="{{ url('/siswa/profil') }}">Perbarui Profil Saya</a>
-				        		<span class="small mt-2">Diperbarui pada 21-09-2020</span>
+				        		<span class="small mt-2">{{__('Diperbarui pada ')}} {{$user->siswa->updated_at->format('d M Y') }}</span>
 				        	</div>
 			        	</div>
 	        		</div>
 	        		<div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card p-3 mt-3">
-	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i> Rekomendasi Lowongan</span>
-	        			<span class="mt-3">Rekomendasi lowongan berdasarkan profil dan resume Anda</span>
-	        			<div id="lowongan">
-	        				<hr>
-	        				<div id="njero-lowongan" class="d-flex justify-content-between w-100">
-	        					<div style="flex: 3">
-									<a href="{{ url('/lowongan/programmer-pt-dua-putra-5348') }}" class="h5 font-weight-bold text-primary mb-0">Programmer</a>
-			        				<span class="text-muted d-block">PT Dua Putra Utama Makmur Tbk </span>
-			        				<span class="d-block mt-2"><i class="fa fa-map-marker"></i> Bali, Jakarta Raya, Jawa Barat, Jawa Tengah, Jawa Timur</span>
-			        				<span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> IDR 4,000,000 - 6,000,000</span>
-	        						<p id="deskripsi" class="mt-4">Deskripsi Pekerjaan: Membuat website, aplikasi, dan report sesuai kebutuhan perusahaan. Mengembangkan aplikasi yang sudah berjalan. Membuat manual...</p>
-	        						<span id="waktu" class="text-muted">30 Apr - 1:00 AM</span>
-	        					</div>
-	        					<div id="contain-img" style="flex: 1">
-	        						<img class="float-right" src="{{ asset('/images/offer.png') }}" alt="" width="150">
-	        					</div>
-	        				</div>
-	        			</div>
-	        			<div id="lowongan">
-	        				<hr>
-	        				<div id="njero-lowongan" class="d-flex justify-content-between w-100">
-	        					<div style="flex: 3">
-	        			        	<a href="" class="h5 font-weight-bold text-primary mb-0">Programmer</a>
-			        				<span class="text-muted d-block">PT Dua Putra Utama Makmur Tbk </span>
-			        				<span class="d-block mt-2"><i class="fa fa-map-marker"></i> Bali, Jakarta Raya, Jawa Barat, Jawa Tengah, Jawa Timur</span>
-			        				<span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> IDR 4,000,000 - 6,000,000</span>
-	        						<p id="deskripsi" class="mt-4">Deskripsi Pekerjaan: Membuat website, aplikasi, dan report sesuai kebutuhan perusahaan. Mengembangkan aplikasi yang sudah berjalan. Membuat manual...</p>
-	        						<span id="waktu" class="text-muted">30 Apr - 1:00 AM</span>
-	        					</div>
-	        					<div id="contain-img" style="flex: 1">
-	        						<img class="float-right" src="{{ asset('/images/13352_logo_0.jpg') }}" alt="" width="150">
-	        					</div>
-	        				</div>
-	        			</div>
-	        			<div id="lowongan">
-	        				<hr>
-	        				<div id="njero-lowongan" class="d-flex justify-content-between w-100">
-	        					<div style="flex: 3">
-	        			        	<a href="" class="h5 font-weight-bold text-primary mb-0">Programmer</a>
-			        				<span class="text-muted d-block">PT Dua Putra Utama Makmur Tbk </span>
-			        				<span class="d-block mt-2"><i class="fa fa-map-marker"></i> Bali, Jakarta Raya, Jawa Barat, Jawa Tengah, Jawa Timur</span>
-			        				<span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> IDR 4,000,000 - 6,000,000</span>
-	        						<p id="deskripsi" class="mt-4">Deskripsi Pekerjaan: Membuat website, aplikasi, dan report sesuai kebutuhan perusahaan. Mengembangkan aplikasi yang sudah berjalan. Membuat manual...</p>
-	        						<span id="waktu" class="text-muted">30 Apr - 1:00 AM</span>
-	        					</div>
-	        					<div id="contain-img" style="flex: 1">
-	        						<img class="float-right" src="{{ asset('/images/offer.png') }}" alt="" width="150">
-	        					</div>
-	        				</div>
-	        			</div>
-	        			<div id="lowongan">
-	        				<hr>
-	        				<div id="njero-lowongan" class="d-flex justify-content-between w-100">
-	        					<div style="flex: 3">
-	        			        	<a href="" class="h5 font-weight-bold text-primary mb-0">Programmer</a>
-			        				<span class="text-muted d-block">PT Dua Putra Utama Makmur Tbk </span>
-			        				<span class="d-block mt-2"><i class="fa fa-map-marker"></i> Bali, Jakarta Raya, Jawa Barat, Jawa Tengah, Jawa Timur</span>
-			        				<span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> IDR 4,000,000 - 6,000,000</span>
-	        						<p id="deskripsi" class="mt-4">Deskripsi Pekerjaan: Membuat website, aplikasi, dan report sesuai kebutuhan perusahaan. Mengembangkan aplikasi yang sudah berjalan. Membuat manual...</p>
-	        						<span id="waktu" class="text-muted">30 Apr - 1:00 AM</span>
-	        					</div>
-	        					<div id="contain-img" style="flex: 1">
-	        						<img class="float-right" src="{{ asset('/images/13352_logo_0.jpg') }}" alt="" width="150">
-	        					</div>
-	        				</div>
-	        			</div>
+	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i>{{__(' Rekomendasi Lowongan')}}</span>
+	        			<span class="mt-3">{{__('Rekomendasi lowongan berdasarkan profil dan resume Anda')}}</span>
+	        			@foreach ($lowongan as $loker)
+							<div id="lowongan">
+								<hr>
+								<div id="njero-lowongan" class="d-flex justify-content-between w-100">
+									<div style="flex: 3">
+										<a href="{{ url('lowongan/' . encrypt($loker->id)) }}" class="h5 font-weight-bold text-primary mb-0">{{__( $loker->jabatan )}}</a>
+										<span class="text-muted d-block">{{__( $loker->nama_perusahaan )}}</span>
+										<span class="d-block mt-2"><i class="fa fa-map-marker"></i> {{__( $loker->perusahaan->alamat )}}</span>
+										<span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> {{__('IDR')}} {{__( number_format($loker->gaji_min, 0, '.', '.') )}} {{__('-')}} {{__( number_format($loker->gaji_max, 0, '.', '.') )}}</span>
+										<div id="deskripsi" class="mt-4">{!! __(substr($loker->deskripsi, 0, 290)) !!}</div>
+										<span id="waktu" class="text-muted">{{__('Sampai,')}} {{ __( date('d M Y', strtotime($loker->batas_akhir_lamaran)) ) }}</span>
+									</div>
+									<div id="contain-img" style="flex: 1">
+										<img class="float-right" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
+									</div>
+								</div>
+							</div>
+						@endforeach
 	        		</div>
 	        	</div>
 		        <div style="animation: tememplek 0.5s;"  class="col-lg-4 px-2 mt-3">

@@ -45,6 +45,7 @@ class BerandaController extends Controller
         $data = [
             'user' => Auth::user(),
             'kompetensiKeahlian' => KompetensiKeahlian::find(Auth::user()->siswa->siswaPendidikan->kompetensi_keahlian_id),
+            'lowongan' => Lowongan::orderBy('created_at', 'DESC')->get(),
             'nav' => 'beranda'
         ];
     	
