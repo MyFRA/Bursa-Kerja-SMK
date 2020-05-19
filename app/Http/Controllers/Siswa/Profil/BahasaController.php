@@ -118,8 +118,6 @@ class BahasaController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        dd($request->all());
         $siswaBahasaDB = SiswaBahasa::where('siswa_id', Auth::user()->siswa->id)->get();
 
 

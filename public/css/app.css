@@ -16883,7 +16883,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   display: none;
 }
 
-.edit-layar-kecil {
+.label-for-mobile {
   display: none;
 }
 
@@ -16896,21 +16896,18 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
     display: none;
   }
 
-  #form-nggo-input-screen-besar {
+  .label-for-mobile {
+    display: block;
+  }
+
+  .label-for-dekstop {
     display: none;
   }
 
-  #form-nggo-input-screen-kecil {
-    display: inline-block;
+  .tombol-hapus-row-bahasa {
+    float: right;
   }
 
-  .edit-layar-besar {
-    display: none;
-  }
-
-  .edit-layar-kecil {
-    display: inline-block;
-  }
 }
 
 
