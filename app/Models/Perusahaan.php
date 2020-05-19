@@ -42,6 +42,16 @@ class Perusahaan extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+	}
+	
+	public function bidangKeahlian()
+    {
+        return $this->belongsTo('App\Models\BidangKeahlian');
+	}
+	
+	public function programKeahlian()
+    {
+        return $this->belongsTo('App\Models\ProgramKeahlian');
     }
 
 }

@@ -91,7 +91,7 @@
                         <div class="title row">
                             <div class="col-8">
                                 <h4><a href="{{ url('lowongan/' . encrypt($loker->id)) }}">{{ __( $loker->jabatan ) }}</a></h4>
-                                <p><a href="">{{__( $loker->nama_perusahaan )}}</a></p>
+                                <p><a href="{{ url('/perusahaan/show/' . encrypt($loker->perusahaan_id)) }}">{{__( $loker->nama_perusahaan )}}</a></p>
                             </div>
                             <div class="col-4">
                                 <img class="float-right mr-2 rounded" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" width="80%" alt="">

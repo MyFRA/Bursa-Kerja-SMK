@@ -37,7 +37,7 @@
 								<div id="njero-lowongan" class="d-flex justify-content-between w-100">
 									<div style="flex: 3">
 										<a href="{{ url('lowongan/' . encrypt($loker->id)) }}" class="h5 font-weight-bold text-primary mb-0">{{__( $loker->jabatan )}}</a>
-										<span class="text-muted d-block">{{__( $loker->nama_perusahaan )}}</span>
+										<a href="{{ url('perusahaan/show/' . encrypt($loker->perusahaan_id)) }}" class="text-primary d-block">{{__( $loker->nama_perusahaan )}}</a>
 										<span class="d-block mt-2"><i class="fa fa-map-marker"></i> {{__( $loker->perusahaan->alamat )}}</span>
 										<span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> {{__('IDR')}} {{__( number_format($loker->gaji_min, 0, '.', '.') )}} {{__('-')}} {{__( number_format($loker->gaji_max, 0, '.', '.') )}}</span>
 										<div id="deskripsi" class="mt-4">{!! __(substr($loker->deskripsi, 0, 290)) !!}</div>
