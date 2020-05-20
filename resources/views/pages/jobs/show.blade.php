@@ -29,7 +29,7 @@
                     </div>
                     <div class="p-3">
                         <h3 class="font-weight-bold">{{ __( $lowongan->jabatan ) }}</h3>
-                        <a class="h5 mt-n2" href="">{{ __($lowongan->nama_perusahaan) }}</a>
+                        <a href="{{ url('/perusahaan/show/' . encrypt($lowongan->perusahaan->id)) }}" class="h5 mt-n2">{{ __($lowongan->nama_perusahaan) }}</a>
                     </div>
                     <div>
                         <div class="">
@@ -37,7 +37,7 @@
                                 <i class="fa fa-dollar mr-2 text-success font-weight-bold"></i> 
                             </span>
                             <span class="text-muted">
-                                Sekitar Gaji Yang Diharapkan
+                                {{__('IDR')}} {{ __(number_format($lowongan->gaji_min, 0, '.', '.')) }} {{__('-')}}  {{__( number_format($lowongan->gaji_max, 0, '.', '.') )}}
                             </span>
                         </div>
                         <div>
@@ -122,7 +122,7 @@
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Kompetensi Keahlian')}}</h6>
                                     <span>
                                         @php
-                                            $arr = explode(',', json_decode($lowongan->kompetensi_keahlian));
+                                            $arr = json_decode($lowongan->kompetensi_keahlian);
                                             foreach ($arr as $value) {
                                                 echo "- " . $value . "<br>";
                                             }
@@ -133,7 +133,7 @@
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Keahlian')}}</h6>
                                     <span>
                                         @php
-                                            $arr = explode(',', json_decode($lowongan->keahlian));
+                                            $arr = json_decode($lowongan->keahlian);
                                             foreach ($arr as $value) {
                                                 echo "- " . $value . "<br>";
                                             }

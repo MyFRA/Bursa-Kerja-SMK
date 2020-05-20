@@ -10,21 +10,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 
-
 use App\Models\KompetensiKeahlian;
 use App\Models\Keterampilan;
-use App\Models\Perusahaan;
 use App\Models\Lowongan;
 use App\User;
 
 class LowonganController extends Controller
 {
-
-    public function getPerusahaan()
-    {
-        return ( User::find(Auth::user()->id)->perusahaan === null ) ? '' : User::find(Auth::user()->id)->perusahaan;
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -46,8 +38,7 @@ class LowonganController extends Controller
         $data = [
             'nav' => 'lowongan',
             'user' => Auth::user(),
-            'perusahaan' => $this->getPerusahaan(),
-            'lowongan'  => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->orderBy('created_at', 'DESC')->paginate(5),
+            'lowongan'  => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->orderBy('created_at', 'DESC')->paginate(4),
             'jmlLowongan' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count()
         ];
 
@@ -73,11 +64,10 @@ class LowonganController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
         $data = [
-            'nav' => 'lowongan',
-            'user' => Auth::user(),
-            'perusahaan' => $this->getPerusahaan(),
-            'kompetensi_keahlian' => KompetensiKeahlian::pluck('nama'),
-            'keterampilan' => Keterampilan::pluck('nama'),
+            'nav'                   => 'lowongan',
+            'user'                  => Auth::user(),
+            'kompetensi_keahlian'   => KompetensiKeahlian::pluck('nama'),
+            'keterampilan'          => Keterampilan::pluck('nama'),
         ];
 
         return view('perusahaan.lowongan.create', $data);
@@ -104,20 +94,20 @@ class LowonganController extends Controller
             'proses_lamaran'       => 'in:Online,Offline|required',
             'status'               => 'in:Draf,Aktif,Nonaktif|required',
         ], [
-            'jabatan.max'           => "jabatan maksimal 128 karakter",
-            'jabatan.required'      => "jabatan harus tidak boleh kosong",
-            'kompetensi_keahlian.required' => "kompetensi keahlian tidak boleh kosong",
-            'keahlian.required'     => "keahlian tidak boleh kosong",
-            'gaji_max.required' => 'gaji max tidak boleh kosong',
-            'gaji_min.required' => 'gaji min tidak boleh kosong',
-            'persyaratan.required'  => "persyaratan tidak boleh kosong",
-            'deskripsi.required'    => "deskripsi tidak boleh kosong",
-            'batas_akhir_lamaran.date'  => "batas akhir lamaran harus tanggal",
+            'jabatan.max'                   => "jabatan maksimal 128 karakter",
+            'jabatan.required'              => "jabatan harus tidak boleh kosong",
+            'kompetensi_keahlian.required'  => "kompetensi keahlian tidak boleh kosong",
+            'keahlian.required'             => "keahlian tidak boleh kosong",
+            'gaji_max.required'             => 'gaji max tidak boleh kosong',
+            'gaji_min.required'             => 'gaji min tidak boleh kosong',
+            'persyaratan.required'          => "persyaratan tidak boleh kosong",
+            'deskripsi.required'            => "deskripsi tidak boleh kosong",
+            'batas_akhir_lamaran.date'      => "batas akhir lamaran harus tanggal",
             'batas_akhir_lamaran.required'  => "batas akhir lamaran tidak boleh kosong",
-            'proses_lamaran.in'         => "Proses lamaran harus diantara Online dan Offline",
-            'proses_lamaran.required'   => "proses lamaran tidak boleh kosong",
-            'status.in'             => "status harus diantara Draf, Aktif dan Nonaktif",
-            'status.required'       => "status tidak boleh kosong",
+            'proses_lamaran.in'             => "Proses lamaran harus diantara Online dan Offline",
+            'proses_lamaran.required'       => "proses lamaran tidak boleh kosong",
+            'status.in'                     => "status harus diantara Draf, Aktif dan Nonaktif",
+            'status.required'               => "status tidak boleh kosong",
         ]);
 
         // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Lowongan Gagal )
@@ -129,20 +119,10 @@ class LowonganController extends Controller
         }else {
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Lowongan Gagal )
             if( $this->storeLowongan($request) != true ) return redirect()->back()->with('gagal', 'File yang kamu upload bukan gambar')->withInput();
+            
             // Lolos Pengecekan, Insert Data Lowongan Berhasil
-            return redirect('/perusahaan/lowongan')->with('success', "Lowongan Pekerjaan telah ditambahkan");
+            return redirect('/perusahaan/lowongan')->with('success', "Lowongan Pekerjaan " . $request->jabatan . " telah ditambahkan");
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -165,12 +145,11 @@ class LowonganController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
         $data = [
-            'nav' => 'lowongan',
-            'user' => Auth::user(),
-            'lowongan' => Lowongan::find(decrypt($id)),
-            'perusahaan' => $this->getPerusahaan(),
-            'kompetensi_keahlian' => KompetensiKeahlian::pluck('nama'),
-            'keterampilan' => Keterampilan::pluck('nama'),
+            'nav'                   => 'lowongan',
+            'user'                  => Auth::user(),
+            'lowongan'              => Lowongan::find(decrypt($id)),
+            'kompetensi_keahlian'   => KompetensiKeahlian::pluck('nama'),
+            'keterampilan'          => Keterampilan::pluck('nama'),
         ];
 
         return view('perusahaan.lowongan.edit', $data);
@@ -198,87 +177,89 @@ class LowonganController extends Controller
             'proses_lamaran'       => 'in:Online,Offline|required',
             'status'               => 'in:Draf,Aktif,Nonaktif|required',
         ], [
-            'jabatan.max'           => "jabatan maksimal 128 karakter",
-            'jabatan.required'      => "jabatan harus tidak boleh kosong",
-            'kompetensi_keahlian.required' => "kompetensi keahlian tidak boleh kosong",
-            'keahlian.required'     => "keahlian tidak boleh kosong",
-            'gaji_max.required' => 'gaji max tidak boleh kosong',
-            'gaji_min.required' => 'gaji min tidak boleh kosong',
-            'persyaratan.required'  => "persyaratan tidak boleh kosong",
-            'deskripsi.required'    => "deskripsi tidak boleh kosong",
-            'batas_akhir_lamaran.date'  => "batas akhir lamaran harus tanggal",
+            'jabatan.max'                   => "jabatan maksimal 128 karakter",
+            'jabatan.required'              => "jabatan harus tidak boleh kosong",
+            'kompetensi_keahlian.required'  => "kompetensi keahlian tidak boleh kosong",
+            'keahlian.required'             => "keahlian tidak boleh kosong",
+            'gaji_max.required'             => 'gaji max tidak boleh kosong',
+            'gaji_min.required'             => 'gaji min tidak boleh kosong',
+            'persyaratan.required'          => "persyaratan tidak boleh kosong",
+            'deskripsi.required'            => "deskripsi tidak boleh kosong",
+            'batas_akhir_lamaran.date'      => "batas akhir lamaran harus tanggal",
             'batas_akhir_lamaran.required'  => "batas akhir lamaran tidak boleh kosong",
-            'proses_lamaran.in'         => "Proses lamaran harus diantara Online dan Offline",
-            'proses_lamaran.required'   => "proses lamaran tidak boleh kosong",
-            'status.in'             => "status harus diantara Draf, Aktif dan Nonaktif",
-            'status.required'       => "status tidak boleh kosong",
+            'proses_lamaran.in'             => "Proses lamaran harus diantara Online dan Offline",
+            'proses_lamaran.required'       => "proses lamaran tidak boleh kosong",
+            'status.in'                     => "status harus diantara Draf, Aktif dan Nonaktif",
+            'status.required'               => "status tidak boleh kosong",
         ]);
 
-        $data = Lowongan::find(decrypt($id));
+        if ( $validator->fails() ) {
+            return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput();
+        }else {
 
-        // Pengubahan Gaji Menjadi Full Angka
-        $gaji_min = explode('Rp. ', $request->gaji_min);
-        $gaji_min = end($gaji_min);
-        $request->gaji_min = $gaji_min;
+            $data = Lowongan::find(decrypt($id));
 
-        $gaji_max = explode('Rp. ', $request->gaji_max);
-        $gaji_max = end($gaji_max);
-        $request->gaji_max = $gaji_max;
+            // Pengubahan Gaji Menjadi Full Angka
+            $gaji_min = explode('Rp. ', $request->gaji_min);
+            $gaji_min = end($gaji_min);
 
+            $gaji_max = explode('Rp. ', $request->gaji_max);
+            $gaji_max = end($gaji_max);
 
-        if (is_null($request->file('image'))) {
+            // Pengecekan Apakah Gambar Diupload
+            if (is_null($request->file('image'))) {
 
-            // Update data Lowongan dan mengembalikan nilai True
-            $data->update([
-                'gambaran_perusahaan' => $request->gambaran_perusahaan,
-                'jabatan' => $request->jabatan,
-                'kompetensi_keahlian' => json_encode($request->kompetensi_keahlian),
-                'keahlian' => json_encode($request->keahlian),
-                'gaji_min' => str_replace('.', '', $request->gaji_min),
-                'gaji_max' => str_replace('.', '', $request->gaji_max),
-                'persyaratan' => $request->persyaratan,
-                'deskripsi' => $request->deskripsi,
-                'batas_akhir_lamaran' => date('Y/m/d', strtotime($request->batas_akhir_lamaran)),
-                'proses_lamaran' => $request->proses_lamaran,
-                'status' => $request->status,
-            ]);
+                // Update data Lowongan dan mengembalikan nilai True
+                $data->update([
+                    'jabatan'               => $request->jabatan,
+                    'kompetensi_keahlian'   => json_encode($request->kompetensi_keahlian),
+                    'keahlian'              => json_encode($request->keahlian),
+                    'gaji_min'              => str_replace('.', '', $gaji_min),
+                    'gaji_max'              => str_replace('.', '', $gaji_max),
+                    'persyaratan'           => $request->persyaratan,
+                    'deskripsi'             => $request->deskripsi,
+                    'batas_akhir_lamaran'   => $request->batas_akhir_lamaran,
+                    'proses_lamaran'        => $request->proses_lamaran,
+                    'status'                => $request->status,
+                ]);
 
-            return redirect('/perusahaan/lowongan')->with('success', 'Lowongan telah diupdate');
-        } else {
+                return redirect('/perusahaan/lowongan')->with('success', 'Lowongan ' . $request->jabatan . ' telah diupdate');
+            } else {
 
-            // Pengecekan file yang diupload apakah gambar / bukan
-            $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
-            if (!in_array($request->file('image')->getClientOriginalExtension(), $ekstensiValid)) return false;
+                // Pengecekan file yang diupload apakah gambar / bukan
+                $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
+                if (!in_array($request->file('image')->getClientOriginalExtension(), $ekstensiValid)) return false;
 
-            // Lolos Pengecekan ( File = Gambar ) & File Siap Diupload
-            $namaGambar = explode('.', $request->file('image')->getClientOriginalName());
-            $namaGambar = $namaGambar[0] . '-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->storeAs('public/assets/lowongan-kerja', $namaGambar);
-        
+                // Lolos Pengecekan ( File = Gambar ) & File Siap Diupload
+                $namaGambar = explode('.', $request->file('image')->getClientOriginalName());
+                $namaGambar = $namaGambar[0] . '-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->storeAs('public/assets/lowongan-kerja', $namaGambar);
+            
+                // Mengecek apakah image terdapat di dalam storage
+                $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $data->image);
 
-            // Mengecek apakah image terdapat di dalam storage
-            $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $data->image);
+                // Jika image terdapat di dalam storage (True), maka hapus image tsb
+                if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $data->image);
 
-            // Jika image terdapat di dalam storage (True), maka hapus image tsb
-            if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $data->image);
+                // Proses Update Data
+                $data->update([
+                    'jabatan'               => $request->jabatan,
+                    'kompetensi_keahlian'   => json_encode($request->kompetensi_keahlian),
+                    'keahlian'              => json_encode($request->keahlian),
+                    'gaji_min'              => str_replace('.', '', $gaji_min),
+                    'gaji_max'              => str_replace('.', '', $gaji_max),
+                    'persyaratan'           => $request->persyaratan,
+                    'deskripsi'             => $request->deskripsi,
+                    'batas_akhir_lamaran'   => $request->batas_akhir_lamaran,
+                    'proses_lamaran'        => $request->proses_lamaran,
+                    'status'                => $request->status,
+                    'image'                 => $namaGambar,
+                ]);
 
-            // Proses Update Data
-            $data->update([
-                'gambaran_perusahaan' => $request->gambaran_perusahaan,
-                'jabatan' => $request->jabatan,
-                'kompetensi_keahlian' => json_encode($request->kompetensi_keahlian),
-                'keahlian' => json_encode($request->keahlian),
-                'gaji_min' => str_replace('.', '', $request->gaji_min),
-                'gaji_max' => str_replace('.', '', $request->gaji_max),
-                'persyaratan' => $request->persyaratan,
-                'deskripsi' => $request->deskripsi,
-                'batas_akhir_lamaran' => date('Y/m/d', strtotime($request->batas_akhir_lamaran)),
-                'proses_lamaran' => $request->proses_lamaran,
-                'status' => $request->status,
-                'image' => $namaGambar,
-            ]);
-
-            return redirect('/perusahaan/lowongan')->with('success', 'Lowongan telah diupdate');
+                return redirect('/perusahaan/lowongan')->with('success', 'Lowongan telah diupdate');
+            }
         }
     }
 
@@ -292,15 +273,14 @@ class LowonganController extends Controller
     {
         $data = Lowongan::find(decrypt($id));
 
-            // Mengecek apakah image terdapat di dalam storage
-            $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $data->image);
+        // Mengecek apakah image terdapat di dalam storage
+        $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $data->image);
 
-            // Jika image terdapat di dalam storage (True), maka hapus image tsb
-            if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $data->image);
-        
+        // Jika image terdapat di dalam storage (True), maka hapus image tsb
+        if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $data->image);
 
         $ok = Lowongan::destroy(decrypt($id));
-        if ($ok) return back()->with('success', 'Lowongan telah dihapus');
+        if ($ok) return back()->with('success', 'Lowongan ' . $data->jabatan . ' telah dihapus');
     }
 
     public function storeLowongan($request)
@@ -317,29 +297,27 @@ class LowonganController extends Controller
         // Pengubahan Gaji Menjadi Full Angka
         $gaji_min = explode('Rp. ', $request->gaji_min);
         $gaji_min = end($gaji_min);
-        $request->gaji_min = $gaji_min;
 
         $gaji_max = explode('Rp. ', $request->gaji_max);
         $gaji_max = end($gaji_max);
-        $request->gaji_max = $gaji_max;
-            // Insert data Lowongan dan mengembalikan nilai True
-            Lowongan::create([
-                'perusahaan_id' => Auth::user()->perusahaan->id,
-                'nama_perusahaan' => Auth::user()->perusahaan->nama,
-                'gambaran_perusahaan' => $request->gambaran_perusahaan,
-                'jabatan' => $request->jabatan,
-                'kompetensi_keahlian' => json_encode($request->kompetensi_keahlian),
-                'keahlian' => json_encode($request->keahlian),
-                'gaji_min' => str_replace('.', '', $request->gaji_min),
-                'gaji_max' => str_replace('.', '', $request->gaji_max),
-                'persyaratan' => $request->persyaratan,
-                'deskripsi' => $request->deskripsi,
-                'batas_akhir_lamaran' => date('Y/m/d', strtotime($request->batas_akhir_lamaran)),
-                'proses_lamaran' => $request->proses_lamaran,
-                'status' => $request->status,
-                'image' => $namaGambar,
-            ]);
 
-            return true;
+        // Insert data Lowongan dan mengembalikan nilai True
+        Lowongan::create([
+            'perusahaan_id'         => Auth::user()->perusahaan->id,
+            'nama_perusahaan'       => Auth::user()->perusahaan->nama,
+            'jabatan'               => $request->jabatan,
+            'kompetensi_keahlian'   => json_encode($request->kompetensi_keahlian),
+            'keahlian'              => json_encode($request->keahlian),
+            'gaji_min'              => str_replace('.', '', $gaji_min),
+            'gaji_max'              => str_replace('.', '', $gaji_max),
+            'persyaratan'           => $request->persyaratan,
+            'deskripsi'             => $request->deskripsi,
+            'batas_akhir_lamaran'   => $request->batas_akhir_lamaran,
+            'proses_lamaran'        => $request->proses_lamaran,
+            'status'                => $request->status,
+            'image'                 => $namaGambar,
+        ]);
+
+        return true;
     }
 }

@@ -16667,6 +16667,12 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   padding-bottom: 1.5rem;
 }
 
+@media screen and (max-width: 768px) {
+  .summernote-lowongan-quote {
+    /* display: none; */
+  }
+}
+
 
 
 

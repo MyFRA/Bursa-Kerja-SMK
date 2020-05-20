@@ -11,7 +11,6 @@
 
 	Route::middleware(['auth_perusahaan', 'role:perusahaan'])->group(function() {
 
-
 		// Halaman Bebas Akses ( Tanpa Permission )
 		Route::get('/', 'Perusahaan\BerandaController@index');
 		Route::post('/logout', 'Perusahaan\BerandaController@logout');
@@ -31,37 +30,8 @@
 			Route::put('/profil/update', 'Perusahaan\ProfilController@update');
 		});
 
-
 		// Halaman Lowongan Pekerjaan Perusahaan
 		Route::middleware(['permission:terverifikasi'])->group(function() {
-			Route::resource('/lowongan', 'Perusahaan\LowonganController');
+			Route::resource('/lowongan', 'Perusahaan\LowonganController')->except(['show']);
 		});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	});
-
-
-
-
-
-
-
-
-
-
-
-
-
-	Route::get('/profil', 'Perusahaan\ProfilController@index');
