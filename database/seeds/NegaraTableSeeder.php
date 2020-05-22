@@ -17,10 +17,6 @@ class NegaraTableSeeder extends Seeder
     		[
     			'id' => 1,
     			'nama_negara' => 'Indonesia'
-    		],
-    		[
-    			'id' => 2,
-    			'nama_negara' => 'Luar Negeri'
     		]
     	];
 

@@ -13,21 +13,11 @@ class BahasaTableSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-    		[
-    			'nama' => 'Indonesia'
-    		],
-    		[
-    			'nama' => 'Inggris'
-    		],
-    		[
-    			'nama' => 'Melayu'
-    		]
-    	];
+        $data = ['Indonesia', 'Inggris', 'Melayu', 'Jepang', 'Korea'];
 
     	foreach ($data as $bahasa) {
     		Bahasa::create([
-    			'nama' => $bahasa['nama'],
+    			'nama' => $bahasa,
     		]);
     	};
     }
