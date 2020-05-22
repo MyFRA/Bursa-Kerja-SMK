@@ -322,7 +322,7 @@
 						</div>
 						<div style="border: 1.3px solid #ddd">
 							<label class="mt-5 mb-2 ml-2 text-muted" for="overview">{{__('Gambaran Perusahaan')}}</label>
-							<textarea name="overview" class="form-control summernote" style="display: none;" required="">{{ old('overview') ? old('overview') : $perusahaan->overview }}</textarea>
+							<textarea name="overview" class="form-control summernote" style="display: none;">{{ old('overview') ? old('overview') : $perusahaan->overview }}</textarea>
 						
 							@error('overview')
 							<h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
@@ -330,7 +330,7 @@
 						</div>
 						<div style="border: 1.3px solid #ddd">
 							<label class="mt-5 mb-2 ml-2 text-muted" for="alasan_harus_melamar">{{__('Alasan Harus Melamar')}}</label>
-							<textarea name="alasan_harus_melamar" class="form-control summernote" style="display: none;" required="">{{ old('alasan_harus_melamar') ? old('alasan_harus_melamar') : $perusahaan->alasan_harus_melamar }}</textarea>
+							<textarea name="alasan_harus_melamar" class="form-control summernote" style="display: none;">{{ old('alasan_harus_melamar') ? old('alasan_harus_melamar') : $perusahaan->alasan_harus_melamar }}</textarea>
 						
 							@error('alasan_harus_melamar')
 							<h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>

@@ -201,7 +201,11 @@
                         <a href="" class="h6 mr-4">Simpan</a>
                     </div>
                     <div>
-                        <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
+                        <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
+                            <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
+                        </form>
                     </div>
                 </div>
             </div>

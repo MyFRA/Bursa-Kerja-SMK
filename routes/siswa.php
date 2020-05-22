@@ -39,6 +39,12 @@ Route::middleware(['auth', 'role:siswa'])->group(function() {
     Route::post('/create-resume/siswa-pendidikan', 'Siswa\Resume\SiswaPendidikanController@store');
     Route::get('/create-resume/siswa-lainya', 'Siswa\Resume\SiswaLainyaController@create');
     Route::post('/create-resume/siswa-lainya', 'Siswa\Resume\SiswaLainyaController@store');
+
+
+    // Siswa Melamar Pekerjaan
+    Route::post('/lowongan/lamar', 'Siswa\PelamaranController@showProposal');
+    Route::post('/lowongan/lamar-sekarang', 'Siswa\PelamaranController@lamarLowongan');
+
 });
 
 
