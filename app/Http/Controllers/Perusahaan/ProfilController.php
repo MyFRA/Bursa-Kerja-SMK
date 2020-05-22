@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
-
 use Artesaos\SEOTools\Facades\SEOTools;
 
 use App\User;
@@ -18,6 +17,8 @@ use App\Models\Perusahaan;
 use App\Models\Lowongan;
 use App\Models\Bahasa;
 use App\Models\Negara;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
 
 class ProfilController extends Controller
 {
@@ -43,10 +44,8 @@ class ProfilController extends Controller
             'jmlLowongan' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count(),
             'nav'   => 'beranda',
             'user' => Auth::user(),
-            'perusahaan' => User::find(Auth::user()->id)->perusahaan,
-            'bidangKeahlian' => BidangKeahlian::select('nama')->where('id', User::find(Auth::user()->id)->perusahaan->bidang_keahlian_id)->first(),
-            'programKeahlian' => ProgramKeahlian::select('nama')->where('id', User::find(Auth::user()->id)->perusahaan->program_keahlian_id)->first()
         ];
+
         return view('perusahaan.profil.index', $data);
     }
 
@@ -68,13 +67,27 @@ class ProfilController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
+        $negaraId = '';
+        if(!is_null(User::find(Auth::user()->id)->perusahaan->negara)) {
+            $namaNegara = User::find(Auth::user()->id)->perusahaan->negara;
+            $negaraId = Negara::where('nama_negara', $namaNegara)->get()[0]->id;
+        };
+
+        $provinsiId = '';
+        if(!is_null(User::find(Auth::user()->id)->perusahaan->provinsi)) {
+            $namaProvinsi = User::find(Auth::user()->id)->perusahaan->provinsi;
+            $provinsiId = Provinsi::where('nama_provinsi', $namaProvinsi)->get()[0]->id;
+        };
+
         $data = [
             'nav'               => 'beranda',
             'user'              => Auth::user(),
             'perusahaan'        => User::find(Auth::user()->id)->perusahaan,
             'bidangKeahlian'    => BidangKeahlian::get(),
-            'programKeahlian'   => ProgramKeahlian::select('nama')->where('id', User::find(Auth::user()->id)->perusahaan->program_keahlian_id)->first(),
+            'programKeahlian'   => ProgramKeahlian::where('bidang_keahlian_id', User::find(Auth::user()->id)->perusahaan->bidang_keahlian_id)->get(),
             'negara'            => Negara::get(),
+            'provinsi'          => Provinsi::where('negara_id', $negaraId)->get(),
+            'kabupaten'         => Kabupaten::where('provinsi_id', $provinsiId)->get(),
             'bahasa'            => Bahasa::get(),
         ];
 
@@ -90,40 +103,35 @@ class ProfilController extends Controller
      */
     public function update(Request $request)
     {
-        // Pengecekan apakah bidang keahlian || program keahlian tidak terdapat di database
-        if( BidangKeahlian::find($request->bidang_keahlian_id) == null || ProgramKeahlian::find($request->program_keahlian_id) == null ) {
-            return redirect()->back()->with('gagal', 'bidang keahlian / program keahlian tidak cocok');
-        }
-
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
-            'bidang_keahlian_id'    => 'required',
-            'program_keahlian_id'   => 'required',
-            'nama'                  => 'required|max:128',
-            'kategori'              => "in:Negeri,Swasta,BUMN|required",
-            'telp'                  => 'max:16',
-            'email'                 => 'max:128',
-            'fax'                   => 'max:32',
-            'site'                  => 'max:32',
-            'facebook'              => 'max:64',
-            'twitter'               => 'max:64',
-            'instagram'             => 'max:64',
-            'linkedin'              => 'max:64',
-            'alamat'                => 'max:128',
-            'kodepos'               => 'max:8',
-            'kabupaten'             => 'max:64',
-            'provinsi'              => 'max:32',
-            'negara'                => 'max:32',
-            'jumlah_karyawan'       => 'max:16',
-            'waktu_proses_perekrutan' => 'max:32',
-            'gaya_berpakaian'       => 'max:128',
-            'bahasa'                => 'max:128',
-            'waktu_bekerja'         => 'max:64',
+            'bidang_keahlian_id'        => 'required',
+            'program_keahlian_id'       => 'required',
+            'nama'                      => 'required|max:128',
+            'kategori'                  => "in:Negeri,Swasta,BUMN|required",
+            'telp'                      => 'max:16',
+            'email'                     => 'max:128',
+            'fax'                       => 'max:32',
+            'site'                      => 'max:32',
+            'facebook'                  => 'max:64',
+            'twitter'                   => 'max:64',
+            'instagram'                 => 'max:64',
+            'linkedin'                  => 'max:64',
+            'alamat'                    => 'max:128',
+            'kodepos'                   => 'max:8',
+            'kabupaten'                 => 'max:32',
+            'provinsi'                  => 'max:32',
+            'negara'                    => 'max:32',
+            'jumlah_karyawan'           => 'max:16',
+            'waktu_proses_perekrutan'   => 'max:32',
+            'gaya_berpakaian'           => 'max:128',
+            'bahasa'                    => 'max:128',
+            'waktu_bekerja'             => 'max:64',
         ], [
             'bidang_keahlian_id.required' => 'bidang keahlian harus diisi',
             'program_keahlian_id.required'=> 'program keahlian harus diisi',
-            'nama.required'               => 'nama harus diisi',
-            'nama.max'                    => 'nama maksimal 128 karakter',
+            'nama.required'               => 'nama perusahaan harus diisi',
+            'nama.max'                    => 'nama perusahaan maksimal 128 karakter',
             'kategori.in'                 => "kategori harus diantara Negeri, Swasta, BUMN",
             'email.max'                   => 'email maksimal 128 karakter',
             'telp.max'                    => 'telp maksimal 16 karakter',
@@ -151,10 +159,16 @@ class ProfilController extends Controller
                              ->withInput();
         // Lolos Validasi
         }else {
+            // Pengecekan apakah bidang keahlian || program keahlian tidak terdapat di database
+            if( BidangKeahlian::find($request->bidang_keahlian_id) == null || ProgramKeahlian::find($request->program_keahlian_id) == null ) {
+                return redirect()->back()->with('gagal', 'bidang keahlian / program keahlian tidak cocok');
+            }
+
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Siswa Gagal )
             if( $this->updatePerusahaan($request) != true ) return redirect()->back()->with('gagal', 'Logo atau Image yang kamu upload bukan gambar')->withInput();
+            
             // Lolos Pengecekan, update Data Perusahaan Berhasil
-            return redirect('/perusahaan/profil');
+            return redirect('/perusahaan/profil')->with('success', 'Perusahaan telah diupdate ');
         }
     }
 
@@ -203,9 +217,9 @@ class ProfilController extends Controller
             return true;
         } else {
             // Pengecekan Logo
-                // Pengecekan apakah logo tidak diupload, jika iya, maka $logo = NULL
+                // Pengecekan apakah logo tidak diupload, jika iya, maka $logo = logoLama
                 if ( is_null($request->file('logo')) ) {
-                    $namaLogo = NULL;
+                    $namaLogo = $data->logo;
                 } else {
                     // Jika ternyata, ada file yang diupload di logo, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
@@ -224,9 +238,9 @@ class ProfilController extends Controller
                 }  
 
             // Pengecekan image
-                // Pengecekan apakah image tidak diupload, jika iya, maka $image = NULL
+                // Pengecekan apakah image tidak diupload, jika iya, maka $image = imageLama
                 if ( is_null($request->file('image')) ) {
-                    $namaImage = NULL;
+                    $namaImage = $data->image;
                 } else {
                     // Jika ternyata, ada file yang diupload di image, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
@@ -245,44 +259,41 @@ class ProfilController extends Controller
                 }
 
             // update data perusahaaan dan mengembalikan nilai True
-                $data->update([
-                'user_id'               => Auth::user()->id,
-                'bidang_keahlian_id'    => $request->bidang_keahlian_id,
-                'program_keahlian_id'   => $request->program_keahlian_id,
-                'nama'                  => $request->nama,
-                'kategori'              => $request->kategori,
-                'logo'                  => $namaLogo,
-                'image'                 => $namaImage,
-                'telp'                  => $request->telp,
-                'email'                 => $request->email,
-                'fax'                   => $request->fax,
-                'site'                  => $request->site,
-                'facebook'              => $request->facebook,
-                'twitter'               => $request->twitter,
-                'instagram'             => $request->instagram,
-                'linkedin'              => $request->linkedin,
-                'alamat'                => $request->alamat,
-                'kabupaten'             => $request->kabupaten,
-                'provinsi'              => $request->provinsi,
-                'negara'                => $request->negara,
-                'kodepos'               => $request->kodepos,
-                'jumlah_karyawan'       => $request->jumlah_karyawan,
-                'waktu_proses_perekrutan' => $request->waktu_proses_perekrutan,
-                'gaya_berpakaian'       => $request->gaya_berpakaian,
-                'bahasa'                => $request->bahasa,
-                'waktu_bekerja'         => $request->waktu_bekerja,
-                'tunjangan'             => $request->tunjangan,
-                'overview'              => $request->overview,
-                'alasan_harus_melamar'  => $request->alasan_harus_melamar,
-                ]);
+            $data->update([
+                'bidang_keahlian_id'        => $request->bidang_keahlian_id,
+                'program_keahlian_id'       => $request->program_keahlian_id,
+                'nama'                      => $request->nama,
+                'kategori'                  => $request->kategori,
+                'logo'                      => $namaLogo,
+                'image'                     => $namaImage,
+                'telp'                      => $request->telp,
+                'email'                     => $request->email,
+                'fax'                       => $request->fax,
+                'site'                      => $request->site,
+                'facebook'                  => $request->facebook,
+                'twitter'                   => $request->twitter,
+                'instagram'                 => $request->instagram,
+                'linkedin'                  => $request->linkedin,
+                'alamat'                    => $request->alamat,
+                'kabupaten'                 => $request->kabupaten,
+                'provinsi'                  => $request->provinsi,
+                'negara'                    => $request->negara,
+                'kodepos'                   => $request->kodepos,
+                'jumlah_karyawan'           => $request->jumlah_karyawan,
+                'waktu_proses_perekrutan'   => $request->waktu_proses_perekrutan,
+                'gaya_berpakaian'           => $request->gaya_berpakaian,
+                'bahasa'                    => $request->bahasa,
+                'waktu_bekerja'             => $request->waktu_bekerja,
+                'tunjangan'                 => $request->tunjangan,
+                'overview'                  => $request->overview,
+                'alasan_harus_melamar'      => $request->alasan_harus_melamar,
+            ]);
 
             User::find(Auth::user()->id)->update([
                 'name' => $request->nama,
                 'email' => $request->email
             ]);
-
             return true;
         }
     }
-
 }

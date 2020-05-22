@@ -1,26 +1,26 @@
 <div class="container-navbar">
     <div class="container d-flex navbar-perusahaan">
-    <div class="d-flex align-items-center justify-content-center inner-navbar">
-        <div class="logo d-flex align-items-center" style="flex: 2">
-            <a href="{{ url('/') }}" class="mb-1"><img src="{{ asset('/images/logo-smk-n-1-bojongsari.jpg') }}" alt=""></a>
-            <a href="{{ url('/') }}" class="ml-2">{{__('Bursa Kerja SMK')}}</a>
-        </div>
-        <div class="nav-item dropdown list-unstyled d-block float-right" style="flex: 1">
-            <a class="nav-link dropdown-toggle float-right d-flex align-items-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img class="mr-2 @can('melakukan verifikasi') rounded-circle @endcan @cannot('melakukan verifikasi') {{ ( $user->perusahaan->logo == null ? 'rounded-circle' : '' ) }} @endcannot" src="@can('melakukan verifikasi'){{ asset('/images/noimagecompany.png') }}@endcan @cannot('melakukan verifikasi'){{ $user->perusahaan->logo == null ? asset('/images/noimagecompany.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $user->perusahaan->logo) }} @endcannot" alt="">
-                <span>{{ $user->name }}</span>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                @cannot('melakukan verifikasi')
-                    <a class="dropdown-item" href="{{ url('/perusahaan/profil') }}"><i class="fa fa-user"></i>{{__(' Profil Perusahaan')}}</a>
-                    <a class="dropdown-item" href="{{ url('/perusahaan/profil/ubah') }}"><i class="fa fa-edit"></i>{{__(' Perbarui Informasi')}}</a>
-                @endcan
-                <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout').submit();"><i class="fa fa-sign-out"></i>{{__(' Keluar')}}</a>
+        <div class="d-flex align-items-center justify-content-center inner-navbar">
+            <div class="logo d-flex align-items-center" style="flex: 2">
+                <a href="{{ url('/') }}" class="mb-1"><img src="{{ asset('/images/logo-smk-n-1-bojongsari.jpg') }}" alt=""></a>
+                <a href="{{ url('/') }}" class="ml-2">{{__('Bursa Kerja SMK')}}</a>
+            </div>
+            <div class="nav-item dropdown list-unstyled d-block float-right" style="flex: 1">
+                <a class="nav-link dropdown-toggle float-right d-flex align-items-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img class="mr-2 @can('melakukan verifikasi') rounded-circle @endcan @cannot('melakukan verifikasi') {{ ( $user->perusahaan->logo == null ? 'rounded-circle' : '' ) }} @endcannot" src="@can('melakukan verifikasi'){{ asset('/images/noimagecompany.png') }}@endcan @cannot('melakukan verifikasi'){{ $user->perusahaan->logo == null ? asset('/images/noimagecompany.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $user->perusahaan->logo) }} @endcannot" alt="{{ $user->perusahaan->nama }}">
+                    <span>{{ $user->name }}</span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    @cannot('melakukan verifikasi')
+                        <a class="dropdown-item" href="{{ url('/perusahaan/profil') }}"><i class="fa fa-user"></i>{{__(' Profil Perusahaan')}}</a>
+                        <a class="dropdown-item" href="{{ url('/perusahaan/profil/ubah') }}"><i class="fa fa-edit"></i>{{__(' Perbarui Informasi')}}</a>
+                    @endcan
+                    <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout').submit();"><i class="fa fa-sign-out"></i>{{__(' Keluar')}}</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<hr>
+    <hr>
 <div class="container navigasi-perusahaan">
     <div class="row">
         <div class="col-4 m-0 p-0">

@@ -16590,6 +16590,16 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   width: 50%;
 }
 
+.tombol-ubah-data-perusahaan {
+  transition: all 350ms;
+  color: #333;
+}
+
+.tombol-ubah-data-perusahaan:hover {
+  background-color: #073559;
+  color: #eee;
+}
+
 @media screen and (max-width: 768px) {
   .profil-akun {
     flex-direction: column;
@@ -16621,6 +16631,11 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
   .profil-akun .profil .informasi {
     margin-top: 1.3rem;
+  }
+
+  .profil-akun .profil .informasi h2{
+    text-align: center;
+    margin-bottom: 15px;
   }
 
   .profil-akun .image .judul {

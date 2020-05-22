@@ -16,13 +16,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('plugins/aos-master/dist/aos.css') }}">
     @yield('stylesheet')
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body style="background-color: #F0F2F7">
+<body style="background-color: #F8FAFC">
     <div id="app">
         <!-- Navbar Component -->
         @include('perusahaan.layouts.partials.navbar')
@@ -33,10 +32,6 @@
         <!-- Footer Component -->
         @include('perusahaan.layouts.partials.footer')
     </div>
-    <script src="{{ asset('plugins/aos-master/dist/aos.js') }}"></script>
     @yield('script')
-    <script>   
-       AOS.init(); 
-    </script>
 </body>
 </html>
