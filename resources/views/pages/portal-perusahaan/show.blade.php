@@ -6,18 +6,12 @@
         <div class="col-md-7 px-0">
             <div class="col mt-4">
                 <div class="own-card d-flex flex-column">
-                    <div class="image">
-                        <div class="judul">
-                            <h1>Informasi Perusahaan</h1>
-                            <hr class="w-75">
-                        </div>
-                    </div>
                     <div class="profil">
                         <div class="foto-profil">
                             @if ( $perusahaan->logo === null )
                                 <img class="rounded-circle" src="{{ asset('/images/noimagecompany.png') }}" alt="">
                             @else
-                                <img src="/storage/assets/daftar-perusahaan/logo/{{ $perusahaan->logo }}" alt="">
+                                <img class="mt-2" src="/storage/assets/daftar-perusahaan/logo/{{ $perusahaan->logo }}" alt="">
                             @endif
                         </div>
                         <div class="informasi ml-2 d-flex flex-column justify-content-start">

@@ -23,9 +23,15 @@
         @endif
         <div class="row">
             <div class="col px-1">
-                <div class="card card-header-lowongan-show p-3">
-                    <div>
-                        <img class="image-cover-per" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
+                <div class="card card-header-lowongan-show p-3 pt-lg-4 pt-5">
+                    <div class="m-auto w-100">
+                        <div class="text-center m-auto w-100">
+                            @if (is_null($lowongan->perusahaan->logo))
+                                <img class="logo-perusahaan-show-lowongan text-center" src="{{ asset('/images/company.png') }}" alt="">
+                            @else 
+                                <img class="logo-perusahaan-show-lowongan text-center" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
+                            @endif
+                        </div>
                     </div>
                     <div class="p-3">
                         <h3 class="font-weight-bold">{{ __( $lowongan->jabatan ) }}</h3>
@@ -47,7 +53,7 @@
                         </div>
                         <div>
                             <span class="">
-                                <i class="fa fa-map-marker mr-2 text-danger font-weight-bold"></i> {{ __( $lowongan->perusahaan->alamat ) }}
+                                <i class="fa fa-map-marker mr-2 text-danger font-weight-bold"></i> {{ $lowongan->perusahaan->alamat != null ? $lowongan->perusahaan->alamat : '-' }}
                             </span>
                         </div>
                     </div>
@@ -74,7 +80,7 @@
                             <h5 class="text-muted"><i class="fa fa-edit mr-2"></i>{{__(' LOKASI KERJA')}}</h5>
                             <p class="text-primary mt-2" style="font-size: 16px"><i class="fa fa-building mr-1"></i>{{__(' Alamat')}}</p>
                             <div class="px-4 mt-n2">
-                                {{__( $lowongan->perusahaan->alamat )}}
+                                {{$lowongan->perusahaan->alamat != null ? $lowongan->perusahaan->alamat : '-'}}
                             </div>
                         </div>
                     </div>
@@ -88,35 +94,35 @@
                             <div class="row">
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Proses Lamaran')}}</h6>
-                                    <span>{{ __( $lowongan->proses_lamaran ) }}</span>
+                                    <span class="ml-1">{{$lowongan->proses_lamaran != null ? $lowongan->proses_lamaran : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
-                                    <h6 class="font-weight-bold d-block mb-0">Industri</h6>
-                                    <span>Lainya</span>
+                                    <h6 class="font-weight-bold d-block mb-0">{{__('Kategori')}}</h6>
+                                    <span class="ml-1">{{$lowongan->kategori != null ? $lowongan->kategori : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Ukuran Perusahaan')}}</h6>
-                                    <span>{{__( $lowongan->perusahaan->jumlah_karyawan )}}</span>
+                                    <span class="ml-1">{{($lowongan->perusahaan->jumlah_karyawan != null) ? $lowongan->perusahaan->jumlah_karyawan : '-'}}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Situs')}}</h6>
-                                    <span><a href="">{{__( $lowongan->perusahaan->site )}}</a></span>
+                                    <span class="ml-1"><a href="">{{ $lowongan->perusahaan->site != null ? $lowongan->perusahaan->site : '-'}}</a></span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Gaya Berpakaian')}}</h6>
-                                    <span>{{__( $lowongan->perusahaan->gaya_berpakaian )}}</span>
+                                    <span class="ml-1">{{$lowongan->gaya_berpakaian != null ? $lowongan->gaya_berpakaian : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Waktu Bekerja')}}</h6>
-                                    <span>{{__( $lowongan->perusahaan->waktu_bekerja )}}</span>
+                                    <span class="ml-1">{{$lowongan->waktu_bekerja != null ? $lowongan->waktu_bekerja : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Tunjangan')}}</h6>
-                                    <span>{{__( $lowongan->perusahaan->tunjangan )}}</span>
+                                    <span class="ml-1">{{$lowongan->tunjangan != null ? $lowongan->tunjangan : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Bahasa Yang Digunakan')}}</h6>
-                                    <span>{{__( $lowongan->perusahaan->bahasa )}}</span>
+                                    <span class="ml-1">{{$lowongan->bahasa != null ? $lowongan->bahasa : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Kompetensi Keahlian')}}</h6>
@@ -195,18 +201,29 @@
             <div class="col mt-2 px-1">
                 <div class="card p-3 row-lamar-sekarang">
                     <div>
-                        <a class="h5" href=""><span><i class="fa fa-list mr-2"></i> Lihat Siapa Yang Telah Melamar <i class="fa fa-caret-right ml-2"></i></span></a>
+                        <a class="h5" href="{{ url('/siswa/lowongan/lihat/pelamar/'. encrypt($lowongan->id)) }}"><span><i class="fa fa-list mr-2"></i> Lihat Siapa Yang Telah Melamar <i class="fa fa-caret-right ml-2"></i></span></a>
                     </div>
-                    <div>
-                        <a href="" class="h6 mr-4">Simpan</a>
-                    </div>
-                    <div>
-                        <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
-                            <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
-                        </form>
-                    </div>
+                    @if ($melamar == 0)
+                        <div>
+                            <a href="" class="h6 mr-4">Simpan</a>
+                        </div>
+                        <div>
+                            <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
+                                <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
+                            </form>
+                        </div>
+                    @else
+                        <div>
+                            <a href="" class="h6 mr-4">Lihat Lamaran</a>
+                        </div>
+                        <div>
+                            <button class="btn btn-secondary" type="button">Telah Dilamar</button>
+                        </div>
+                    @endif
+
+
                 </div>
             </div>
         </div>

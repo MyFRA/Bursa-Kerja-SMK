@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
 use App\Models\Lowongan;
+use App\Models\Pelamaran;
 
 class JobController extends Controller
 {
@@ -57,7 +59,9 @@ class JobController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
         $data = [
-            'lowongan' => Lowongan::find(decrypt($id))
+            'lowongan' => Lowongan::find(decrypt($id)),
+            'melamar' => Pelamaran::where('siswa_id', Auth::user()->siswa->id)
+                                    ->where('lowongan_id', decrypt($id))->count()
         ];
 
         return view('pages.jobs.show', $data);

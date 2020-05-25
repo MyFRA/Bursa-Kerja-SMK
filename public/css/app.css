@@ -17178,11 +17178,16 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 
+@media screen and (min-width: 768px) {
+  .logo-perusahaan-show-lowongan {
+    width:  100% !important;
+  }
+}
 
-
-
-
-
-
+.img-thumb-cilik {
+  object-fit: cover;
+  object-position: center;
+  -o-object-fit: cover;
+}
 
 

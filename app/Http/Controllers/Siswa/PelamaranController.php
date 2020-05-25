@@ -64,4 +64,14 @@ class PelamaranController extends Controller
 
         if($sql) return redirect('/lowongan');
     }
+
+    public function lihatPelamar($id)
+    {
+        $data = [
+            'lowongan' => Lowongan::find(decrypt($id)),
+            'pelamar' => Pelamaran::where('lowongan_id', decrypt($id))->get()
+        ];
+
+        return view('pages.jobs.lihat-pelamar', $data);
+    }
 }

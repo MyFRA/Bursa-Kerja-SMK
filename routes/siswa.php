@@ -32,8 +32,6 @@ Route::middleware(['auth', 'role:siswa'])->group(function() {
     Route::resource('/profil/profil-saya', 'Siswa\Profil\ProfilSayaController');
     Route::resource('/profil/akun', 'Siswa\Profil\AkunController');
 
-
-
     // Buat Resume Sisiwa
     Route::get('/create-resume/siswa-pendidikan', 'Siswa\Resume\SiswaPendidikanController@create');
     Route::post('/create-resume/siswa-pendidikan', 'Siswa\Resume\SiswaPendidikanController@store');
@@ -44,6 +42,7 @@ Route::middleware(['auth', 'role:siswa'])->group(function() {
     // Siswa Melamar Pekerjaan
     Route::post('/lowongan/lamar', 'Siswa\PelamaranController@showProposal');
     Route::post('/lowongan/lamar-sekarang', 'Siswa\PelamaranController@lamarLowongan');
+    Route::get('/lowongan/lihat/pelamar/{id}', 'Siswa\PelamaranController@lihatPelamar');
 
 });
 
