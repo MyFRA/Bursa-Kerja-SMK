@@ -85,35 +85,27 @@
                 </div>
             </div>
 
-            @foreach ($lowongan as $loker)
-                <div class="card rounded-0 mb-2">
-                    <div class="card-body p-2">
-                        <div class="title row">
-                            <div class="col-8">
-                                <h4><a href="{{ url('lowongan/' . encrypt($loker->id)) }}">{{ __( $loker->jabatan ) }}</a></h4>
-                                <p><a href="{{ url('/perusahaan/show/' . encrypt($loker->perusahaan_id)) }}">{{__( $loker->nama_perusahaan )}}</a></p>
+            <div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card p-3 mt-3">
+                <span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i>{{__(' Rekomendasi Lowongan')}}</span>
+                <span class="mt-3">{{__('Rekomendasi lowongan berdasarkan profil dan resume Anda')}}</span>
+                @foreach ($lowongan as $loker)
+                    <div id="lowongan">
+                        <hr>
+                        <div id="njero-lowongan" class="d-flex justify-content-between w-100">
+                            <div style="flex: 3">
+                                <a href="{{ url('lowongan/' . encrypt($loker->id)) }}" class="h5 font-weight-bold text-primary mb-0">{{__( $loker->jabatan )}}</a>
+                                <a href="{{ url('perusahaan/show/' . encrypt($loker->perusahaan_id)) }}" class="text-primary d-block">{{__( $loker->nama_perusahaan )}}</a>
+                                <span class="d-block mt-2"><i class="fa fa-map-marker"></i> {{__( $loker->perusahaan->alamat )}}</span>
+                                <span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> {{__('IDR')}} {{__( number_format($loker->gaji_min, 0, '.', '.') )}} {{__('-')}} {{__( number_format($loker->gaji_max, 0, '.', '.') )}}</span>
+                                <span id="waktu" class="text-muted">{{__('Sampai,')}} {{ __( date('d M Y', strtotime($loker->batas_akhir_lamaran)) ) }}</span>
                             </div>
-                            <div class="col-4">
-                                <img class="float-right mr-2 rounded" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" width="80%" alt="">
+                            <div id="contain-img" style="flex: 1">
+                                <img class="float-right" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
                             </div>
                         </div>
-                        <div class="info">
-                            <p><i class="fa fa-map-marker mr-2"></i>{{ __( $loker->perusahaan->alamat ) }}</p>
-                            <p>
-                                <small>{{__('(IDR)')}}</small>
-                                @if (!Auth::guest())
-                                        Login Untuk Melihat Gaji
-                                @else
-                                        {{ number_format($loker->gaji_min, 0, '.', '.') }}
-                                @endif
-                            </p>
-                        </div>
-                        <div>{!! __(substr($loker->deskripsi, 0, 290)) !!}</div>
-                        <p>15 menit yang lalu</p>
                     </div>
-                </div> 
-            @endforeach
-
+                @endforeach
+            </div>
         </div>
         <div class="col-md-2 px-2">
             <img src="https://www.wmtips.com/i/art/547/160x600.gif" alt="">
