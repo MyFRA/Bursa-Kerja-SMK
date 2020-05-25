@@ -33,5 +33,7 @@
 		// Halaman Lowongan Pekerjaan Perusahaan
 		Route::middleware(['permission:terverifikasi'])->group(function() {
 			Route::resource('/lowongan', 'Perusahaan\LowonganController')->except(['show']);
+			Route::get('/lowongan/{lowonganId}/pelamar', 'Perusahaan\PelamarController@index');
+			Route::get('/lowongan/show/pelamar/{siswaId}', 'Perusahaan\PelamarController@showPelamarById');
 		});
 	});

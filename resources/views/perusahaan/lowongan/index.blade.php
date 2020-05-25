@@ -50,7 +50,7 @@
 													<i class="fa fa-ellipsis-v"></i>
 												</a>
 												<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-													<a class="dropdown-item" href="#"><i class="fa fa-user"></i>{{__(' Lihat Pelamar')}}</a>
+													<a class="dropdown-item" href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/pelamar') }}"><i class="fa fa-user"></i>{{__(' Lihat Pelamar')}}</a>
 													<a class="dropdown-item" href="{{ url('lowongan/' . encrypt($result->id)) }}"><i class="fa fa-eye"></i>{{__(' Lihat')}}</a>
 													<a class="dropdown-item" href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/edit') }}"><i class="fa fa-edit"></i>{{__(' Edit')}}</a>
 													<a class="dropdown-item" href="#" onclick="onDelete('{{ $result->jabatan }}', '{{ url('/perusahaan/lowongan/' . encrypt($result->id)) }}')"><i class="fa fa-trash"></i>{{__(' Hapus')}}</a>
