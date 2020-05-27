@@ -17,6 +17,30 @@
         <div class="row">
             <div class="col-lg-7 px-2 mt-2 order-2 order-lg-1">
                 <div class="card p-4 pb-4">
+                    <h5 class="text-muted "><i class="fa fa-file-text-o mr-2"></i>{{__(' LOWONGAN')}}</h5>
+                    <div>
+                        <table class="table table-responsive">
+                            <tbody>
+                                <tr class="border-0">
+                                    <th class="border-0 pb-0" scope="col">Perusahaan</th>
+                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/profil') }}">{{__( $pelamar->lowongan->perusahaan->nama )}}</a></th>
+                                </tr>
+                                <tr class="border-0">
+                                    <th class="border-0 pb-0" scope="col">Lowongan</th>
+                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($pelamar->lowongan->id)) }}">{{__( $pelamar->lowongan->jabatan )}}</a></th>
+                                </tr>
+                                <tr>
+                                    <th class="border-0 pb-0" scope="col">Gaji</th>
+                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col">IDR {{ (number_format($pelamar->lowongan->gaji_min, 0, '.', '.')) }} - {{ (number_format($pelamar->lowongan->gaji_max, 0, '.', '.')) }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card p-4 pb-4 mt-3">
                     <h5 class="text-muted "><i class="fa fa-file-text-o mr-2"></i>{{__(' PROPOSAL')}}</h5>
                     <div>
                         <table class="table table-responsive">
@@ -72,7 +96,7 @@
                                 </th>
                             </tr>
                             <tr>
-                                <th class="border-0 pb-0" scope="col">Aksi</th>
+                                <th class="border-0 pb-0" scope="col">Lamaran</th>
                                 <th class="border-0 pb-0" scope="col">:</th>
                                 <th class="border-0 pb-0" scope="col">
                                     @if ($pelamar->statusPelamaran->status == 'menunggu')

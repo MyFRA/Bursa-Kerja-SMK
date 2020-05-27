@@ -16,17 +16,20 @@ use App\Models\Perusahaan;
 use App\Models\Lowongan;
 use App\Models\Negara;
 use App\Models\Bahasa;
+use App\Models\Pelamaran;
 use App\User;
 
 class BerandaController extends Controller
 {
 	public function getPerusahaan()
 	{
-		return ( User::find(Auth::user()->id)->perusahaan === null ) ? '' : User::find(Auth::user()->id)->perusahaan;
+        // Mengambil Perusahaan
+		return ( User::find(Auth::user()->id)->perusahaan === null ) ? false : User::find(Auth::user()->id)->perusahaan;
 	}
 
     public function index()
     {
+        // SEO Script
         SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
@@ -38,36 +41,65 @@ class BerandaController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
+        // Deklarasi Variabel
         $panggilanTes = [];
-        $lowongan = Lowongan::get();
+        $lastPelamar = [];
+        $panggilanTes = [];
+        $lastLowongan = [];
+        $jmlLamaran = 0;
+        $jmlLowongan = 0;
+        $idPerusahaan = ($this->getPerusahaan()) ? $this->getPerusahaan()->id : false;
+        $lowongan = Lowongan::where('perusahaan_id', $idPerusahaan)->get(['id', 'jumlah_pelamar', 'jabatan', 'gaji_min', 'gaji_max', 'batas_akhir_lamaran', 'status', 'perusahaan_id', 'created_at']);
+        $pelamaran = Pelamaran::orderBy('created_at', 'DESC')->get(['id', 'lowongan_id']);
+
+        // Pengambilan data, untuk menghitung jml panggilan tes, pada lowongan
         foreach($lowongan as $loker) {
-            if($loker->perusahaan_id == Auth::user()->perusahaan->id) {
-                if( $loker->pelamaran->statusPelamaran->status == 'dipanggil' ) {
-                    $panggilanTes[] = $loker->pelamaran->statusPelamaran;
+            if($loker->perusahaan_id == $idPerusahaan) {
+                if( !is_null($loker->pelamaran) ) {
+                    if($loker->pelamaran->statusPelamaran->status == 'dipanggil') {
+                        $panggilanTes[] = $loker->pelamaran->statusPelamaran;
+                    }
                 }
             }
         }
 
+        // Pengambilan data Pelamar Akhir AKhir ini ( Last Pelamar )
+        foreach($pelamaran as $pelamar) {
+            if($pelamar->lowongan->perusahaan->id == $idPerusahaan){
+                $lastPelamar[] = $pelamar;
+            }
+        }
+
+        // Membatasi data Last Pelamar hanya 5 
+        $lastPelamar = array_slice($lastPelamar, 0, 5);
+
+        // Mengambil data Jml Lamaran & Lowongan terakhir dibuat 
+        if($idPerusahaan) {
+            $jmlLamaran = $lowongan->sum('jumlah_pelamar');
+            $lastLowongan = $lowongan->last();
+        }
+
+        // Mengambil data Jml Lowongan
+        $jmlLowongan = ($idPerusahaan) ? $lowongan->count() : $jmlLowongan;
+
+        // Data Yang Akan Ditampilkan ke user
     	$data = [
-            'jmlLowongan' => (Auth::user()->perusahaan == null) ? 0 : Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count(),
-            'jmlLamaran' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->sum('jumlah_pelamar'),
+            'jmlLowongan' => $jmlLowongan,
+            'jmlLamaran' => $jmlLamaran,
             'panggilanTes' => count($panggilanTes),
+            'lastLowongan' => $lastLowongan,
+            'lastPelamar' => $lastPelamar,
             'nav' => 'beranda',
     		'user' => Auth::user(),
             'perusahaan' => $this->getPerusahaan()
     	];
-    	
+        
     	return view('perusahaan.beranda.index', $data);
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        return redirect('/perusahaan/login');
     }
 
     public function showVerifikasiForm()
     {
+        // SEO Script
         SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
@@ -79,11 +111,12 @@ class BerandaController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
+        // Data Yang Akan Ditampilkan ke user
     	$data = [
             'nav'               => 'beranda',
-    		'bidangKeahlian' 	=> BidangKeahlian::get(),
-    		'negara' 			=> Negara::get(),
-    		'bahasa'            => Bahasa::get(),
+    		'bidangKeahlian' 	=> BidangKeahlian::get(['id', 'nama']),
+    		'negara' 			=> Negara::get(['nama_negara']),
+    		'bahasa'            => Bahasa::get(['nama']),
             'user'              => Auth::user(),
     	];
 
@@ -274,5 +307,12 @@ class BerandaController extends Controller
 
             return true;
         }
+    }
+
+    
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/perusahaan/login');
     }
 }

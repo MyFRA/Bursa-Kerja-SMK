@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 use App\Models\Pelamaran;
+use App\Models\Lowongan;
 
 class LamaranController extends Controller
 {
@@ -102,6 +103,11 @@ class LamaranController extends Controller
     public function destroy($id)
     {
         $data = Pelamaran::find(decrypt($id));
+        $lowongan = Lowongan::find($data->lowongan_id);
+        $jumlahPelamar = $lowongan->jumlah_pelamar - 1;
+        $lowongan->update([
+            'jumlah_pelamar' => $jumlahPelamar,
+        ]);
         Pelamaran::destroy(decrypt($id));
         return back()->with('success', 'Pelamaran ' . $data->lowongan->jabatan . ' telah dihapus');
     }

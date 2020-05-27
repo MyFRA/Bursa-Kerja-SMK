@@ -17191,3 +17191,22 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 
+
+/* Pengaturan Width */
+@media screen and (min-width: 768px) {
+  .w-lg-100 {
+    width: 100% !important;
+  }
+
+  .w-lg-75 {
+    width: 75% !important;
+  }
+
+  .w-lg-50 {
+    width: 50% !important;
+  }
+
+  .w-lg-25 {
+    width: 25% !important;
+  }
+}

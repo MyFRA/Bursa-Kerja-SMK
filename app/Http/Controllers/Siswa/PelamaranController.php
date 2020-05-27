@@ -57,6 +57,12 @@ class PelamaranController extends Controller
 
         $lowonganId = decrypt($request->lowonganId);
 
+        $lowongan = Lowongan::find($lowonganId);
+
+        $lowongan->update([
+            'jumlah_pelamar' => $lowongan->jumlah_pelamar + 1
+        ]);
+
         $pelamaran = Pelamaran::create([
             'siswa_id' => Auth::user()->siswa->id,
             'lowongan_id' => $lowonganId,

@@ -38,11 +38,51 @@ class LowonganController extends Controller
         $data = [
             'nav' => 'lowongan',
             'user' => Auth::user(),
-            'lowongan'  => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->orderBy('created_at', 'DESC')->paginate(4),
+            'lowongan'  => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->orderBy('created_at', 'DESC')->paginate(3),
             'jmlLowongan' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count()
         ];
 
         return view('perusahaan.lowongan.index', $data);
+    }
+
+    public function status(Request $request)
+    {
+        // Validasi Form Input
+        $validator = Validator::make($request->all(), [
+            'status'               => 'in:Draf,Aktif,Nonaktif|required',
+        ], [
+            'status.in'                     => "status harus diantara Draf, Aktif dan Nonaktif",
+            'status.required'               => "status tidak boleh kosong",
+        ]);
+
+        // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Lowongan Gagal )
+        if ( $validator->fails() ) {
+            return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput();
+        // Lolos Validasi
+        }else {
+            SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+            SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
+            SEOTools::setCanonical(URL::current());
+            SEOTools::metatags()
+                ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+            SEOTools::opengraph()
+                ->setUrl(URL::current())
+                ->addProperty('type', 'homepage');
+            SEOTools::twitter()->setSite('@smkbisakerja');
+            SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+    
+            $data = [
+                'nav' => 'lowongan',
+                'user' => Auth::user(),
+                'lowongan'  => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)
+                                        ->where('status', $request->status)->orderBy('created_at', 'DESC')->paginate(3),
+            ];
+    
+            return view('perusahaan.lowongan.index', $data);
+        }
+       
     }
 
     /**

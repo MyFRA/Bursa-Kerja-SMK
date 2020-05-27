@@ -38,9 +38,9 @@
             </a>
         </div>
         <div class="col-4">
-            <a href="">
-                <div class="{{ $nav == 'fitur' ? 'active' : '' }} d-flex flex-column">
-                    <i class="fa fa-th mr-1"></i> <span class="mt-1"> {{__('FITUR PERUSAHAAN')}}</span>
+            <a href="@can('terverifikasi') {{ url('/perusahaan/profil') }} @endcan">
+                <div class="{{ $nav == 'profil' ? 'active' : '' }} d-flex flex-column">
+                    <i class="fa fa-building mr-1"></i> <span class="mt-1"> {{__('PROFIL PERUSAHAAN')}}</span>
                 </div>
             </a>
         </div>

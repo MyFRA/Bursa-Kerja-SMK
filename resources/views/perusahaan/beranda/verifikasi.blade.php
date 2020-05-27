@@ -9,8 +9,8 @@
 			<a href="{{ url('/perusahaan') }}">{{__('Beranda ')}}</a><span class="float-right ml-2 text-secondary">{{__(" / Verifikasi")}}</span>
 		</div>
 	</div>
-	<div class="row mt-4 form-verifikasi-perusahaan">
-		<div class="col-lg-8">
+	<div class="row mt-3 form-verifikasi-perusahaan">
+		<div class="col-lg-8 mt-2 order-2 order-lg-1">
 			<div class="card">
 				<h6 class="font-weight-bold mt-2">{{__("LENGKAPI INFORMASI PERUSAHAAN")}}</h6>
 				<p class="text-secondary mt-1">{{__("Agar dapat menggunakan fitur kami, kelengkapan dan validitas data perusahaan dibutuhkan. Kelengkapan juga digunakan sebagai pertimbangan verifikasi perusahaan anda kepada BKK SMK")}}</p>
@@ -19,7 +19,7 @@
 					<div class="form-group">
 						<div class="title"></div>
 						<h4>{{__('Unggah Logo dan Foto Sampul Perusahaan')}}</h4>
-						<p>{{__('Disarankan, logo perusahaan yang anda unggah adalah persegi guna memaksimalkan tampilan yang ada di portal canaker dan BKK.')}}</p>
+						<p>{{__('Disarankan, logo perusahaan yang anda unggah adalah persegi guna memaksimalkan tampilan.')}}</p>
 					</div>		
 					<div class="form-group">
 					    <label for="logo">{{__('Upload Logo Perusahaan')}}</label>
@@ -67,7 +67,7 @@
 						    <label for="pilih_bidang_keahlian">{{__('Bidang Keahlian')}} <span class="text-danger">*</span></label>
 						    <select class="form-control @error('bidang_keahlian_id') is-invalid @enderror" id="pilih_bidang_keahlian" name="bidang_keahlian_id" required>
 						      	<option value="" selected="" disabled="">{{__('-- Pilih Bidang Keahlian --')}}</option>
-						      @foreach ($bidangKeahlian as $bk)
+							  @foreach ($bidangKeahlian as $bk)
 						      	<option value="{{ $bk->id }}">{{$bk->nama}}</option>
 						      @endforeach
 						    </select>
@@ -235,17 +235,17 @@
 						  </div>						
 						</div>
 					</div>
-					<div class="form-group">
-				    	<label for="overview">{{__('Overview')}}</label>
-				    	<input type="text" class="form-control @error('overview') is-invalid @enderror" id="overview" name="overview" placeholder="Overview" value="{{ old('overview') }}">
+					<div class="p-2" style="border: 1px solid #ccc">
+				    	<label for="overview">{{__('Gambaran Perusahaan')}}</label>
+						<textarea name="overview" class="summernote" style="display: none;" >{{ old('overview') }}</textarea>
 				  	
 					  	@error('overview')
 						 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
 					  	@enderror
 				  	</div>
-				  	<div class="form-group">
+				  	<div class="p-2" style="border: 1px solid #ccc">
 				    	<label for="alasan_harus_melamar">{{__('Alasan Harus Melamar')}}</label>
-				    	<input type="text" class="form-control @error('alasan_harus_melamar') is-invalid @enderror" id="alasan_harus_melamar" name="alasan_harus_melamar" placeholder="Alasan Harus Melamar" value="{{ old('alasan_harus_melamar') }}">
+				    	<textarea name="alasan_harus_melamar" class="summernote" style="display: none;" >{{ old('alasan_harus_melamar') }}</textarea>
 				  	
 					  	@error('alasan_harus_melamar')
 						 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
@@ -328,82 +328,106 @@
 				</form>
 			</div>
 		</div>
-		<div class="col-lg-4">
+		<div class="col-lg-4 mt-2 order-1 order-lg-2">
 			<div class="card">
 				<h6 class="font-weight-bold pb-3">{{__('STATUS KEMITRAAN')}}</h6>
 				<div class="d-flex justify-content-center align-items-center text-center">
 					<i class="fa fa-warning fa-4x text-danger"></i>
 					<span class="mt-1 register d-flex align-items-center justify-content-center flex-column text-center">
 						<h5>{{__("Belum Diproses")}}</h5>
-						<p class="register-at text-muted">{{__("Registrasi pada 19 April 2020")}}</p>
+						<p class="register-at text-muted">{{__("Registrasi pada ")}} {{ __( $user->created_at->format('d M Y') ) }}</p>
 					</span>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
 </div>
 @endsection
 
+@section('stylesheet')
+	<link rel="stylesheet" href="{{ asset('/plugins/summernote/summernote-lite.min.css') }}">
+@endsection
 
 @section('script')
+	<script src="{{ asset('/plugins/tags-autocomplete/jquery.min.js') }}"></script>
+	<script src="{{ asset('/plugins/summernote/summernote-lite.min.js') }}"></script>
 
-<script>
+	<script>
+		// Fungsi Pembuatan Summernote ( WYSIYG ) 
+		(function($) {
+			$(document).ready(function(){
+		    	$('.summernote').summernote({
+		    		height: 175,
+		    		toolbar: [
+						['style', ['style']],
+						['font', ['bold', 'underline', 'clear']],
+						['fontname', ['fontname']],         
+						['color', ['color']], 
+						['para', ['ul', 'ol', 'paragraph']],
+						['table', ['table']],
+						['insert', ['link']],
+						['view', ['fullscreen', 'codeview', 'help']]                 
+		    		]
+		    	})
+			});
+	    })(jQuery);
+	</script>
 
-	const pilihBk = document.getElementById('pilih_bidang_keahlian');
-	const pilihPk = document.getElementById('pilih_program_keahlian');
-	const pilihProv = document.getElementById('provinsi');
-	const pilihKab = document.getElementById('kabupaten');
+	<script>
+		const pilihBk = document.getElementById('pilih_bidang_keahlian');
+		const pilihPk = document.getElementById('pilih_program_keahlian');
+		const pilihProv = document.getElementById('provinsi');
+		const pilihKab = document.getElementById('kabupaten');
 
-	pilihBk.addEventListener('change', function(e) {
-		bkId = e.target.value;
-		fetch('/getProgramKeahlian/' + bkId)
-		.then(response => response.json())
-		.then(response => {
-			let optionPk;
+		pilihBk.addEventListener('change', function(e) {
+			bkId = e.target.value;
+			fetch('/getProgramKeahlian/' + bkId)
+			.then(response => response.json())
+			.then(response => {
+				let optionPk;
 
-			response.forEach(function(m) {
-				optionPk += "<option value='"+ m.id +"'>"+ m.nama +"</option>";
-				pilihPk.innerHTML = optionPk
-			})
+				response.forEach(function(m) {
+					optionPk += "<option value='"+ m.id +"'>"+ m.nama +"</option>";
+					pilihPk.innerHTML = optionPk
+				})
+			});
 		});
-	});
 
-	document.getElementById('negara').addEventListener('change', function(e) {
-		let nama_negara = e.target.value;
-		fetch('/getProvinsi/' + nama_negara)
-		.then(response => response.json())
-		.then(response => {
-			let opsiProv;
+		document.getElementById('negara').addEventListener('change', function(e) {
+			let nama_negara = e.target.value;
+			fetch('/getProvinsi/' + nama_negara)
+			.then(response => response.json())
+			.then(response => {
+				let opsiProv;
 
-			response.forEach(function(m) {
-				opsiProv += "<option value='"+ m.nama_provinsi +"'>"+ m.nama_provinsi +"</option>";
-				pilihProv.innerHTML = opsiProv;
-				pilihKab.innerHTML = '<option value="" selected disabled>Pilih Kabupaten</option>';
-			})
+				response.forEach(function(m) {
+					opsiProv += "<option value='"+ m.nama_provinsi +"'>"+ m.nama_provinsi +"</option>";
+					pilihProv.innerHTML = opsiProv;
+					pilihKab.innerHTML = '<option value="" selected disabled>Pilih Kabupaten</option>';
+				})
+			});
 		});
-	});
 
-	document.getElementById('provinsi').addEventListener('change', function(e) {
-		let nama_provinsi = e.target.value;
-		fetch('/getKabupaten/' + nama_provinsi)
-		.then(response => response.json())
-		.then(response => {
-			let opsiKab;
+		document.getElementById('provinsi').addEventListener('change', function(e) {
+			let nama_provinsi = e.target.value;
+			fetch('/getKabupaten/' + nama_provinsi)
+			.then(response => response.json())
+			.then(response => {
+				let opsiKab;
 
-			response.forEach(function(m) {
-				opsiKab += "<option value='"+ m.nama_kabupaten +"'>"+ m.nama_kabupaten +"</option>";
-				pilihKab.innerHTML = opsiKab
-			})
+				response.forEach(function(m) {
+					opsiKab += "<option value='"+ m.nama_kabupaten +"'>"+ m.nama_kabupaten +"</option>";
+					pilihKab.innerHTML = opsiKab
+				})
+			});
 		});
-	});
 
+	</script>	
 
 	@if (session('gagal'))
-	    alert('{{session('gagal')}}')
+		<script>
+			alert('{{session('gagal')}}')
+		</script>
 	@endif
-
-</script>	
 
 @endsection
