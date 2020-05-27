@@ -8,7 +8,7 @@
                 <h5 class="text-muted"><i class="fa fa-list-alt mr-2"></i>{{__(' Lowongan')}}</h5>
                 <div class="row">
                     <div class="col-lg-4 d-flex justify-content-center align-items-center my-4">
-                        <img src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
+                        <img class="w-75" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
                     </div>
                     <div class="col-lg-8">
                         <div class="row">

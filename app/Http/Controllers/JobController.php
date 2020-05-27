@@ -58,7 +58,11 @@ class JobController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        ( Auth::check() ? $siswaId = Auth::user()->siswa->id : $siswaId = false );
+        if(Auth::check()) {
+            (Auth::user()->hasRole('siswa')) ?  $siswaId = Auth::user()->siswa->id : $siswaId = false;
+        } else {
+            $siswaId = false;
+        }
 
         $data = [
             'lowongan' => Lowongan::find(decrypt($id)),

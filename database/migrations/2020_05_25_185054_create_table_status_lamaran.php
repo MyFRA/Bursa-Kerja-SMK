@@ -16,11 +16,11 @@ class CreateTableStatusLamaran extends Migration
         Schema::create('status_pelamaran', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('pelamaran_id')->unsigned();
-            $table->enum('status', ['diterima', 'ditolak', 'dipanggil']);
-            $table->text('pesan');
+            $table->enum('status', ['menunggu', 'diterima', 'ditolak', 'dipanggil']);
+            $table->text('pesan')->nullable();
             $table->timestamps();
 
-            $table->foreign('pelamaran_id')->references('id')->on('pelamaran');
+            $table->foreign('pelamaran_id')->references('id')->on('pelamaran')->onDelete('cascade');
         });
     }
 

@@ -19,7 +19,7 @@ class CreatePelamaranTable extends Migration
             $table->bigInteger('lowongan_id')->unsigned();
             $table->text('proposal_pelamaran');
             $table->foreign('siswa_id')->references('id')->on('siswa');
-            $table->foreign('lowongan_id')->references('id')->on('lowongan');
+            $table->foreign('lowongan_id')->references('id')->on('lowongan')->onDelete('cascade');
             $table->timestamps();
         });
     }

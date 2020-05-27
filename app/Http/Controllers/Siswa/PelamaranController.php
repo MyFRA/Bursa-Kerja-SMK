@@ -13,6 +13,7 @@ use Artesaos\SEOTools\Facades\SEOTools;
 use App\Models\Lowongan;
 use App\Models\Perusahaan;
 use App\Models\Pelamaran;
+use App\Models\StatusPelamaran;
 use App\User;
 
 
@@ -56,13 +57,19 @@ class PelamaranController extends Controller
 
         $lowonganId = decrypt($request->lowonganId);
 
-        $sql = Pelamaran::create([
+        $pelamaran = Pelamaran::create([
             'siswa_id' => Auth::user()->siswa->id,
             'lowongan_id' => $lowonganId,
             'proposal_pelamaran' => $request->proposal
         ]);
 
-        if($sql) return redirect('/lowongan');
+        StatusPelamaran::create([
+            'pelamaran_id' => $pelamaran->id,
+            'status'       => 'menunggu',
+            'pesan'        => 'menunggu jawaban',
+        ]);
+
+        if($pelamaran) return redirect('/lowongan');
     }
 
     public function lihatPelamar($id)

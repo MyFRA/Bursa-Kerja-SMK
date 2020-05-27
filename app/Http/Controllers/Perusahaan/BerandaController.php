@@ -38,8 +38,20 @@ class BerandaController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
+        $panggilanTes = [];
+        $lowongan = Lowongan::get();
+        foreach($lowongan as $loker) {
+            if($loker->perusahaan_id == Auth::user()->perusahaan->id) {
+                if( $loker->pelamaran->statusPelamaran->status == 'dipanggil' ) {
+                    $panggilanTes[] = $loker->pelamaran->statusPelamaran;
+                }
+            }
+        }
+
     	$data = [
             'jmlLowongan' => (Auth::user()->perusahaan == null) ? 0 : Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count(),
+            'jmlLamaran' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->sum('jumlah_pelamar'),
+            'panggilanTes' => count($panggilanTes),
             'nav' => 'beranda',
     		'user' => Auth::user(),
             'perusahaan' => $this->getPerusahaan()

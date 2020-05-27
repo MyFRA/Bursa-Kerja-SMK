@@ -14,4 +14,14 @@ class Pelamaran extends Model
     {
         return $this->belongsTo('App\Models\Siswa');
     }
+
+    public function lowongan()
+    {
+        return $this->belongsTo('App\Models\Lowongan');
+    }
+
+    public function statusPelamaran()
+    {
+        return $this->hasOne('App\Models\StatusPelamaran');
+    }
 }

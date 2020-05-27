@@ -44,6 +44,7 @@ Route::middleware(['auth', 'role:siswa'])->group(function() {
     Route::post('/lowongan/lamar-sekarang', 'Siswa\PelamaranController@lamarLowongan');
     Route::get('/lowongan/lihat/pelamar/{id}', 'Siswa\PelamaranController@lihatPelamar');
 
+    Route::resource('/lamaran', 'Siswa\LamaranController');
 });
 
 

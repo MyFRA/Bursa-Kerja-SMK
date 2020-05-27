@@ -47,7 +47,7 @@
 			<div class="card p-3 d-flex flex-row justify-content-center align-items-center">
 				<i class="fa fa-users fa-3x text-primary"></i>
 				<div class="d-flex justify-content-center align-items-start flex-column ml-1">
-					<h2>{{__('0')}}</h2>
+					<h2>{{__( $jmlLamaran )}}</h2>
 					<p>{{__('Total Pelamar')}}</p>
 				</div>
 			</div>
@@ -56,7 +56,7 @@
 			<div class="card p-3 d-flex flex-row justify-content-center align-items-center">
 				<i class="fa fa-bullhorn fa-3x text-success"></i>
 				<div class="d-flex justify-content-center align-items-start flex-column ml-1">
-					<h2>{{__('0')}}</h2>
+					<h2>{{__( $panggilanTes )}}</h2>
 					<p>{{__('Panggilan Tes Diposkan')}}</p>
 				</div>
 			</div>

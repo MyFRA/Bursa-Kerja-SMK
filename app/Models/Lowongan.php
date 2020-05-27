@@ -30,4 +30,8 @@ class Lowongan extends Model
 	public function perusahaan() {
 		return $this->belongsTo('App\Models\Perusahaan');
 	}
+
+	public function pelamaran() {
+		return $this->hasOne('App\Models\Pelamaran');
+	}
 }

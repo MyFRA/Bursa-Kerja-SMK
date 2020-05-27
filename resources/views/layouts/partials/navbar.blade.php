@@ -33,6 +33,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/faq') }}">{{ __('FAQ') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/siswa/lamaran') }}">{{ __('Lamaran') }}</a>
+                </li>
             </ul>
 
             <ul class="navbar-nav ml-auto">
