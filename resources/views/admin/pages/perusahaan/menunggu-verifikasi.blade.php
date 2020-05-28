@@ -36,7 +36,7 @@
                         </td>
                         <td>{{ $val->name }}</td>
                         <td class="text-center">
-                            <a href="{{ url('/app-admin/perusahaan/lihat/' . encrypt($val->id)) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Lihat</a>
+                            <a href="{{ url('/app-admin/perusahaan/lihat/' . encrypt($val->perusahaan->id)) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Lihat</a>
                             <button class="btn btn-success btn-sm" onclick="onTerima('{{ url('/app-admin/perusahaan/terima-verifikasi/' . encrypt($val->id)) }}', '{{ $val->name }}')"><i class="fa fa-check"></i> Terima</button>
                             <button class="btn btn-danger btn-sm" onclick="onTolak('{{ url('/app-admin/perusahaan/tolak-verifikasi/' . encrypt($val->id)) }}', '{{ $val->name }}')"><i class="fa fa-exclamation-circle"></i> Tolak</button>
                         </td>

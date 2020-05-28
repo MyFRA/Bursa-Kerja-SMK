@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="text-center">
-                                        <img class="w-75 rounded" src="{{  ($perusahaan->logo == null ) ? asset('/images/company.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $perusahaan->logo) }}" alt="">
+                                        <img class="w-50 w-lg-75 rounded" src="{{  ($perusahaan->logo == null ) ? asset('/images/company.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $perusahaan->logo) }}" alt="">
                                     </div>
                                 </div>
                                 <div class="col-lg-8">
@@ -102,7 +102,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="card p-4 pb-4">
-                            <h5 class="text-muted mt-2 mb-4"><i class="fa fa-user mr-2"></i>{{__(' PELAMAR')}}</h5>
+                            <h5 class="text-muted mt-2"><i class="fa fa-user mr-2"></i>{{__(' PELAMAR')}}</h5>
                             @if (count($pelamaran) == 0 )
 								<h4 class="ml-3 text-muted">{{ ($sidebar == 'Semua Pelamar') ? 'Pelamar belum ada' : 'Pelamar ' . $sidebar . ' belum ada' }}</h4>
 							@else

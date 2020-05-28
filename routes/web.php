@@ -142,8 +142,5 @@ Route::prefix('/app-admin')->group(function() {
         Route::post('/perusahaan/tolak-verifikasi/{id}', 'Admin\VerifikasiPerusahaanController@tolakVerifikasi');
         Route::get('/perusahaan/lihat/{id}', 'Admin\VerifikasiPerusahaanController@lihat');
         Route::get('/perusahaan/terverifikasi', 'Admin\VerifikasiPerusahaanController@terverifikasi');
-
-
     });
 });
-/** /.ADMINISTRATOR */

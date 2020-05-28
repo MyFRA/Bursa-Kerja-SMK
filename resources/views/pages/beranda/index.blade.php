@@ -15,8 +15,8 @@
 			        <div style="animation: tememplek 0.5s;"  class="card p-3 ">
 			        	<div id="atas-kotakan-profil" class="d-md-flex justify-content-between">
 			        		<div id="kotakan-profil" class="d-md-flex justify-content-start align-items-center" style="flex: 2">
-								<img src="{{ url('/images/resume-no-photo.webp') }}" alt="" width="60px" height="60" style="object-fit: cover;object-position: center;">
-				        		<div class="d-md-flex section-profil flex-column ml-md-4">
+								<img class="p-1 w-25 rounded" src="{{ ($user->siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . $user->siswa->photo) }}" alt="" >
+				        		<div class="d-md-flex section-profil flex-column ml-md-4 mt-3 mt-lg-0">
 				        			<span class="h4 mb-1 "><a href="">{{ $user->name }}</a></span>
 				        			<span style="font-size: 13px">{{ $user->siswa->siswaPendidikan->tingkat_sekolah }}, {{ $kompetensiKeahlian->nama }} ({{ $user->siswa->siswaPendidikan->bulan_lulus }} {{ $user->siswa->siswaPendidikan->tahun_lulus }})</span>
 				        			<span style="font-size: 13px">{{ $user->siswa->siswaPendidikan->nama_sekolah }}</span>

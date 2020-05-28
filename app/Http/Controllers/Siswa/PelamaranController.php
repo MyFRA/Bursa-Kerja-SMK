@@ -75,7 +75,7 @@ class PelamaranController extends Controller
             'pesan'        => 'menunggu jawaban',
         ]);
 
-        if($pelamaran) return redirect('/lowongan');
+        if($pelamaran) return redirect('/siswa/lamaran')->with('success', 'Lowongan ' . $lowongan->jabatan . ' telah dilamar');
     }
 
     public function lihatPelamar($id)

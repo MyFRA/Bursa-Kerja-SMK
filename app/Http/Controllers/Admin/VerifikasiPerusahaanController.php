@@ -100,12 +100,10 @@ class VerifikasiPerusahaanController extends Controller
     public function lihat($id)
     {
         $data = [
-            'user' => User::find(decrypt($id)),
-            'perusahaan' => User::find(decrypt($id))->perusahaan,
-            'bidangKeahlian' => BidangKeahlian::select('nama')->where('id', User::find(decrypt($id))->perusahaan->bidang_keahlian_id)->first(),
-            'programKeahlian' => ProgramKeahlian::select('nama')->where('id', User::find(decrypt($id))->perusahaan->program_keahlian_id)->first()
-        ];
+            'user'       => Auth::user(),
+            'perusahaan' => Perusahaan::find(decrypt($id))
+        ];  
 
-        return view('admin.pages.perusahaan.lihat', $data);
+        return view('pages.portal-perusahaan.show', $data);
     }
 }

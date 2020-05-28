@@ -9,8 +9,8 @@
             <div class="d-flex align-items-center justify-content-end">
                 <a href="">{{__('Lowongan')}} </a>
                 <span class="mx-2">/</span>
-                <a href="{{ url()->current() }}">{{__('Pelamar')}} </a>
-                <span class="float-right ml-2">{{__('/ Proposal')}}</span>
+                <a href="{{ url('/perusahaan/lowongan/' . encrypt($pelamar->lowongan->id) . '/pelamar') }}">{{__('Pelamar')}} </a>
+                <span class="float-right ml-2">{{__('/ Proposal Pelamaran')}}</span>
             </div>
         </div>
 
@@ -61,9 +61,9 @@
                     <h5 class="text-muted "><i class="fa fa-user mr-2"></i>{{__(' PELAMAR')}}</h5>
                     <div class="mt-4 d-flex justify-content-center align-items-center">
                         @if(is_null($pelamar->siswa->photo))
-                        <img class="w-50 w-lg-75 rounded" src="{{ asset('/images/profile.svg') }}" alt="">
+                        <img class="w-50 rounded" src="{{ asset('/images/profile.svg') }}" alt="">
                         @else
-                        <img class="w-50 w-lg-75 rounded" src="{{ url('/storage/assets/daftar-siswa/' . $pelamar->siswa->photo) }}" alt="">
+                        <img class="w-50 rounded" src="{{ url('/storage/assets/daftar-siswa/' . $pelamar->siswa->photo) }}" alt="">
                         @endif
                     </div>
                     <hr class="mt-4">

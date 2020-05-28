@@ -7,15 +7,10 @@ Route::get('/login', 'Siswa\Auth\LoginController@showLoginForm');
 Route::post('/login', 'Siswa\Auth\LoginController@login');
 Route::post('/register', 'Siswa\Auth\RegisterController@register')->name('siswa.register');
 
-
-
-Route::middleware(['auth', 'role:siswa'])->group(function() {
-
+Route::middleware(['auth'])->group(function() { 
+    // Melihat siapa saja pelamar
+    Route::get('/lowongan/lihat/pelamar/{id}', 'Siswa\PelamaranController@lihatPelamar');
 });
-
-
-// Profil Siswa
-Route::get('/profil', 'Siswa\ProfilControler@index');
 
 Route::middleware(['auth', 'role:siswa'])->group(function() {
 
@@ -38,20 +33,11 @@ Route::middleware(['auth', 'role:siswa'])->group(function() {
     Route::get('/create-resume/siswa-lainya', 'Siswa\Resume\SiswaLainyaController@create');
     Route::post('/create-resume/siswa-lainya', 'Siswa\Resume\SiswaLainyaController@store');
 
-
     // Siswa Melamar Pekerjaan
     Route::post('/lowongan/lamar', 'Siswa\PelamaranController@showProposal');
     Route::post('/lowongan/lamar-sekarang', 'Siswa\PelamaranController@lamarLowongan');
-    Route::get('/lowongan/lihat/pelamar/{id}', 'Siswa\PelamaranController@lihatPelamar');
 
     Route::resource('/lamaran', 'Siswa\LamaranController');
     Route::get('/lamaran/status/lamaran', 'Siswa\LamaranController@indexByStatus');
     Route::get('/lamaran/{idPelamaran}/pesan', 'Siswa\LamaranController@lihatPesan');
 });
-
-
-
-
-
-
-// Route::get('/siswa/resume', 'Siswa\ResumeController');

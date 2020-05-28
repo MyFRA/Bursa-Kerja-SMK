@@ -43,7 +43,7 @@
                                         <p class=" text-muted">Photo</p>
                                     </div>
                                     <div class="col-md-7">
-                                        <img class="w-25" src="{{ ($siswa->photo == null) ? asset('/images/resume-no-photo.webp') : asset('storage/assets/daftar-siswa/' . $siswa->photo) }}" alt="">
+                                        <img class="w-25" src="{{ ($siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . $siswa->photo) }}" alt="">
                                     </div>
                                 </div>
                                <div class="row title-pengalaman keterampilan-list mt-lg-4 mt-5">

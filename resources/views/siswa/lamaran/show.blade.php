@@ -19,6 +19,11 @@
                                     <th class="border-0 pb-0" scope="col">:</th>
                                     <th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($pelamar->lowongan->id)) }}">{{__( $pelamar->lowongan->jabatan )}}</a></th>
                                 </tr>
+                                <tr class="border-0">
+                                    <th class="border-0 pb-0" scope="col">Berakhir Pada</th>
+                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col"> {{ date('d M Y', strtotime($pelamar->lowongan->batas_akhir_lamaran)) }} </th>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -31,7 +36,7 @@
                                 <tr class="border-0">
                                     <th class="border-0 pb-0" scope="col">Nama</th>
                                     <th class="border-0 pb-0" scope="col">:</th>
-                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
+                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('/siswa/profil') }}"> {{ $pelamar->siswa->user->name }} </a></th>
                                 </tr>
                             </tbody>
                         </table>
@@ -60,7 +65,7 @@
                             <tr class="border-0">
                                 <th class="border-0 pb-0" scope="col">Nama</th>
                                 <th class="border-0 pb-0" scope="col">:</th>
-                                <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/lowongan/show/pelamar/' . encrypt($pelamar->siswa->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
+                                <th class="border-0 pb-0" scope="col"><a href="{{ url('/siswa/profil') }}"> {{ $pelamar->siswa->user->name }} </a></th>
                             </tr>
                             <tr>
                                 <th class="border-0 pb-0" scope="col">Gaji Diharapkan</th>

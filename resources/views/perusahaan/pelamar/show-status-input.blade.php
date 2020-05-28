@@ -14,7 +14,7 @@
                         <textarea name="pesan" id="pesan" class="summernote" style="">{{ old('pesan') }}</textarea>
                         <small style="font-size: 13px" class="form-text mt-3 text-muted">
                           @if ($status == 'diterima')
-                            {{__('Dengan menekan tombol "Kirim Lamaran", Maka anda telah setuju, menerima lamaran siswa tersebut')}}
+                            {{__('Dengan menekan tombol "Terima Lamaran", Maka anda telah setuju, menerima lamaran siswa tersebut')}}
                           @elseif($status == 'ditolak')
                             {{__('Dengan menekan tombol "Tolak Lamaran", Maka anda telah setuju, Menolak lamaran siswa tersebut')}}
                           @else

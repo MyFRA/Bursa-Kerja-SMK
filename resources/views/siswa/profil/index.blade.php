@@ -25,7 +25,7 @@
                 </div>
                 <div id="profil-siswa-index" class="d-flex align-items-center text-decoration-none ">
                     <div class="mx-3" style="flex: 1">
-                        <img width="100px" src="{{ asset('/images/profile.svg') }}" alt="">
+						<img width="100px" class="rounded" src="{{ ($user->siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . $user->siswa->photo) }}" alt="" >
                     </div>
                     <div style="flex: 6" class="d-flex flex-column px-2">
                         <span class="font-weight-bold h5 text-primary">{{( $user->name )}}</span>
@@ -51,18 +51,20 @@
                     <hr class="py-1">
                     <div class="px-2 pb-5">
                         <span class="mt-5 h5"><i class="fa fa-mortar-board"></i> {{('Pendidikan')}}</span>
-                        <div class="d-flex flex-column flex-md-row mt-3">
-                            <div style="flex: 1">
-                                <span class="text-muted">{{( $user->siswa->siswaPendidikan->bulan_lulus )}} {{( $user->siswa->siswaPendidikan->tahun_lulus )}}</span>
+                        @foreach ($siswaPendidikan as $siswaPend)
+                            <div class="d-flex flex-column flex-md-row mt-5">
+                                <div style="flex: 1">
+                                    <span class="text-muted">{{( $siswaPend->bulan_lulus )}} {{( $siswaPend->tahun_lulus )}}</span>
+                                </div>
+                                <div style="flex: 3">
+                                    <span class="font-weight-bold h5 d-block mb-0">{{( $siswaPend->nama_sekolah )}}</span>
+                                    <span class="" style="font-size: 17px">{{( $siswaPend->tingkat_sekolah )}}, {{ $user->siswa->siswaPendidikan->kompetensiKeahlian->nama }} </span>
+                                </div>
                             </div>
-                            <div style="flex: 3">
-                                <span class="font-weight-bold h5 d-block mb-0">{{( $user->siswa->siswaPendidikan->nama_sekolah )}}</span>
-                                <span class="" style="font-size: 17px">{{( $user->siswa->siswaPendidikan->tingkat_sekolah )}}, {{ $user->siswa->siswaPendidikan->kompetensiKeahlian->nama }} </span>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
-                <div class="mt-4">
+                <div>
                     <hr class="py-1">
                     <div class="px-2 pb-5">
                         <span class="mt-5 h5"><i class="fa fa-align-justify"></i> {{('Info Lainya')}}</span>

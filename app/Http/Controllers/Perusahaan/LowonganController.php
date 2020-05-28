@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Perusahaan;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
-use Artesaos\SEOTools\Facades\SEOTools;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Http\Request;
+
+use Artesaos\SEOTools\Facades\SEOTools;
 
 use App\Models\KompetensiKeahlian;
+use App\Models\ProgramKeahlian;
 use App\Models\Keterampilan;
 use App\Models\Lowongan;
 use App\User;
@@ -18,12 +20,12 @@ use App\User;
 class LowonganController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Return a SEO Script.
      *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function getSeo()
     {
+        // SEO Script
         SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
@@ -34,7 +36,19 @@ class LowonganController extends Controller
             ->addProperty('type', 'homepage');
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+    }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        // Mengambil SEO
+        $this->getSeo();
+
+        // Data Yang Akan Ditampilkan ke user
         $data = [
             'nav'       => 'lowongan',
             'user'      => Auth::user(),
@@ -62,17 +76,10 @@ class LowonganController extends Controller
                                 ->withInput();
         // Lolos Validasi
         }else {
-            SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
-            SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
-            SEOTools::setCanonical(URL::current());
-            SEOTools::metatags()
-                ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
-            SEOTools::opengraph()
-                ->setUrl(URL::current())
-                ->addProperty('type', 'homepage');
-            SEOTools::twitter()->setSite('@smkbisakerja');
-            SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+            // Mengambil SEO
+            $this->getSeo();
     
+            // Data Yang Akan Ditampilkan ke user
             $data = [
                 'nav' => 'lowongan',
                 'user' => Auth::user(),
@@ -93,22 +100,16 @@ class LowonganController extends Controller
      */
     public function create()
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
-        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
-        SEOTools::setCanonical(URL::current());
-        SEOTools::metatags()
-            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
-        SEOTools::opengraph()
-            ->setUrl(URL::current())
-            ->addProperty('type', 'homepage');
-        SEOTools::twitter()->setSite('@smkbisakerja');
-        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+        // Mengambil SEO
+        $this->getSeo();
 
+        // Data Yang Akan Ditampilkan ke user
         $data = [
             'nav'                   => 'lowongan',
             'user'                  => Auth::user(),
-            'kompetensi_keahlian'   => KompetensiKeahlian::pluck('nama'),
-            'keterampilan'          => Keterampilan::pluck('nama'),
+            'programKeahlian'       => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'kompetensi_keahlian'   => KompetensiKeahlian::orderBy('nama', 'ASC')->get(),
+            'keterampilan'          => Keterampilan::orderBy('nama', 'ASC')->get(),
         ];
 
         return view('perusahaan.lowongan.create', $data);
@@ -174,23 +175,17 @@ class LowonganController extends Controller
      */
     public function edit($id)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
-        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
-        SEOTools::setCanonical(URL::current());
-        SEOTools::metatags()
-            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
-        SEOTools::opengraph()
-            ->setUrl(URL::current())
-            ->addProperty('type', 'homepage');
-        SEOTools::twitter()->setSite('@smkbisakerja');
-        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+        // Mengambil SEO
+        $this->getSeo();
 
+        // Data Yang Akan Ditampilkan ke user
         $data = [
             'nav'                   => 'lowongan',
             'user'                  => Auth::user(),
             'lowongan'              => Lowongan::find(decrypt($id)),
-            'kompetensi_keahlian'   => KompetensiKeahlian::pluck('nama'),
-            'keterampilan'          => Keterampilan::pluck('nama'),
+            'programKeahlian'       => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'kompetensi_keahlian'   => KompetensiKeahlian::orderBy('nama', 'ASC')->get(),
+            'keterampilan'          => Keterampilan::orderBy('nama', 'ASC')->get(),
         ];
 
         return view('perusahaan.lowongan.edit', $data);

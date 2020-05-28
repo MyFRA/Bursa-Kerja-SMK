@@ -2,7 +2,7 @@
     <div id="profil" class="card rounded-0">
     <a href="{{ url('/siswa/profil') }}" class="d-flex p-3 align-items-center text-decoration-none {{ $nav == 'lihat-profil' ? 'siswa-profil-active' : '' }}">
             <div style="flex: 1" class="px-2">
-                <img src="{{ asset('/images/profile.svg') }}" alt="">
+				<img class="w-100 rounded" src="{{ (Auth::user()->siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . Auth::user()->siswa->photo) }}" alt="" >
             </div>
             <div style="flex: 3" class="d-flex flex-column px-2">
                 <span>Nama</span>

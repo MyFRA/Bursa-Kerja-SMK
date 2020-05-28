@@ -11,6 +11,7 @@ use App\Models\BidangKeahlian;
 use App\Models\ProgramKeahlian;
 use App\Models\KompetensiKeahlian;
 use App\Models\SiswaPengalaman;
+use App\Models\SiswaPendidikan;
 use App\Models\Negara;
 use App\Models\MataUang;
 
@@ -26,7 +27,8 @@ class ProfilController extends Controller
     {
         $data = [
             'user' => Auth::user(),
-            'nav' => 'lihat-profil'
+            'nav' => 'lihat-profil',
+            'siswaPendidikan' => SiswaPendidikan::where('siswa_id', Auth::user()->siswa->id)->get()
         ];
         return view('siswa.profil.index', $data);
     }

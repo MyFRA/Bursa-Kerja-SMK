@@ -20,7 +20,9 @@ class LamaranController extends Controller
     public function index()
     {
         $data = [
-            'lamaran' => Pelamaran::where('siswa_id', Auth::user()->siswa->id)->get(),
+            'lamaran' => Pelamaran::where('siswa_id', Auth::user()->siswa->id)
+                                    ->orderBy('created_at', 'DESC')                        
+                                    ->get(),
             'status' => 'Semua Lamaran'
         ];
 

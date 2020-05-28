@@ -54,23 +54,30 @@
 				<div class="form-group">
 				    <label class="font-weight-bold mt-md-3" for="kompetensi_keahlian">{{__('Kompetensi Keahlian ')}}<span class="text-danger">{{__('*')}}</span></label>
 				    <select class="js-example-basic-multiple form-control @error('kompetensi_keahlian') is-invalid @enderror" id="kompetensi_keahlian" name="kompetensi_keahlian[]" multiple="multiple" required>						
-						@foreach ($kompetensi_keahlian as $item)
-						  <option value="{{ $item }}" 
-							@if (old('kompetensi_keahlian'))
-								@foreach (old('kompetensi_keahlian') as $oldKompetensiKeahlian)
-									@if ($oldKompetensiKeahlian == $item)
-										{{ 'selected' }}
+						@foreach ($programKeahlian as $progKeahlian)
+							<optgroup label="{{ $progKeahlian->nama }}">
+								@foreach ($kompetensi_keahlian as $kompKeahlian)
+									@if ($kompKeahlian->program_keahlian_id == $progKeahlian->id)
+										<option value="{{ $kompKeahlian->nama }}" 
+											@if (old('kompetensi_keahlian'))
+												@foreach (old('kompetensi_keahlian') as $oldKompetensiKeahlian)
+													@if ($oldKompetensiKeahlian == $kompKeahlian->nama)
+														{{ 'selected' }}
+													@endif
+												@endforeach 
+											@else
+												<?php $lowonganKompetensiKeahlian = json_decode($lowongan->kompetensi_keahlian) ?>
+												@foreach ($lowonganKompetensiKeahlian as $lokerKompetensiKeahlian)
+													@if ($lokerKompetensiKeahlian == $kompKeahlian->nama)
+														{{ 'selected' }}
+													@endif
+												@endforeach 
+											@endif
+										>{{$kompKeahlian->nama}}
+										</option>
 									@endif
-								@endforeach 
-							@else
-								<?php $lowonganKompetensiKeahlian = json_decode($lowongan->kompetensi_keahlian) ?>
-								@foreach ($lowonganKompetensiKeahlian as $lokerKompetensiKeahlian)
-									@if ($lokerKompetensiKeahlian == $item)
-										{{ 'selected' }}
-									@endif
-								@endforeach 
-							@endif
-						  >{{$item}}</option>
+								@endforeach
+							</optgroup>
 						@endforeach
 					</select>
 				  
@@ -82,22 +89,22 @@
 				    <label class="font-weight-bold mt-md-3" for="keahlian">{{__('Keahlian ')}}<span class="text-danger">{{__('*')}}</span></label>
 					<select class="js-example-basic-multiple form-control @error('keahlian') is-invalid @enderror" id="keahlian" name="keahlian[]" multiple="multiple" required>
 						@foreach ($keterampilan as $item)
-							<option value="{{ $item }}" 
+							<option value="{{ $item->nama }}" 
 								@if (old('keahlian'))
 									@foreach (old('keahlian') as $oldKeahlian)
-										@if ($oldKeahlian == $item)
+										@if ($oldKeahlian == $item->nama)
 											{{ 'selected' }}
 										@endif
 									@endforeach 
 								@else
 									<?php $keahlian = json_decode($lowongan->keahlian) ?>
 									@foreach ($keahlian as $keahlianBy1)
-										@if ($item == $keahlianBy1)
+										@if ($item->nama == $keahlianBy1)
 											{{ 'selected' }}
 										@endif
 									@endforeach
 								@endif
-							>{{$item}}</option>
+							>{{$item->nama}}</option>
 						@endforeach   
 					</select>
 				  

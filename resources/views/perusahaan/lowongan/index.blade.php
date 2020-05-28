@@ -118,7 +118,7 @@
                         <div class="card p-4 pb-4">
                             <h5 class="text-muted "><i class="fa fa-paperclip mr-2"></i>{{__(' OPSI')}}</h5>
                             <hr class="mt-2">
-                            <div class="w-100">
+                            <div class="w-100 container-opsi-status">
                                 <a class="text-decoration-none" href="{{ url('/perusahaan/lowongan') }}">
                                     <div class="sidebar-opsi-status {{ ($sidebar == 'Semua Lowongan') ? 'active-sidebar-opsi-status' : '' }}">
                                         <span class="ml-2">Semua Lowongan</span>

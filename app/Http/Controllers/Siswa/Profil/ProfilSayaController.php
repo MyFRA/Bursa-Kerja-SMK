@@ -94,7 +94,7 @@ class ProfilSayaController extends Controller
             'nama_pertama'          => 'required|max:64',
             'nama_belakang'         => 'max:64',
             'tempat_lahir'          => 'max:32',
-            'tanggal_lahir'         => 'date',
+            'tanggal_lahir'         => 'date|nullable',
             'email'                 => 'max:128',
             'hp'                    => 'max:16',
             'facebook'              => 'max:64',

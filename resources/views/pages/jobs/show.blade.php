@@ -204,16 +204,29 @@
                         <a class="h5" href="{{ url('/siswa/lowongan/lihat/pelamar/'. encrypt($lowongan->id)) }}"><span><i class="fa fa-list mr-2"></i> Lihat Siapa Yang Telah Melamar <i class="fa fa-caret-right ml-2"></i></span></a>
                     </div>
                     @if (is_null($melamar))
-                        <div>
-                            <a href="" class="h6 mr-4">Simpan</a>
-                        </div>
-                        <div>
-                            <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
-                                <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
-                            </form>
-                        </div>
+                        @if (Auth::check())
+                            @if (Auth::user()->hasRole('siswa'))
+                                <div>
+                                </div>
+                                <div>
+                                    <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
+                                        <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
+                                    </form>
+                                </div> 
+                            @endif
+                        @else
+                            <div>
+                            </div>
+                            <div>
+                                <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
+                                    <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
+                                </form>
+                            </div>
+                        @endif
                     @else
                         <div>
                             <a href="{{ url('/siswa/lamaran/' . encrypt($melamar->id)) }}" class="h6 mr-4">Lihat Lamaran</a>

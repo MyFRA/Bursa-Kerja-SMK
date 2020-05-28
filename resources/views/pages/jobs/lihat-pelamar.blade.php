@@ -8,7 +8,11 @@
                 <h5 class="text-muted"><i class="fa fa-list-alt mr-2"></i>{{__(' Lowongan')}}</h5>
                 <div class="row">
                     <div class="col-lg-4 d-flex justify-content-center align-items-center my-4">
-                        <img class="w-75" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
+                        @if (is_null($lowongan->perusahaan->logo))
+                            <img class="w-50 w-lg-75" src="{{ asset('/images/company.png') }}" alt="">
+                        @else 
+                            <img class="w-50 w-lg-75" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
+                        @endif
                     </div>
                     <div class="col-lg-8">
                         <div class="row">
@@ -20,7 +24,7 @@
                                         <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/show/' . encrypt($lowongan->perusahaan_id)) }}">{{__( $lowongan->perusahaan->nama )}} </a></th>
                                     </tr>
                                     <tr class="border-0">
-                                        <th class="border-0 pb-0" scope="col">Jabatan</th>
+                                        <th class="border-0 pb-0" scope="col">Lowongan</th>
                                         <th class="border-0 pb-0" scope="col">:</th>
                                         <th class="border-0 pb-0" scope="col">{{ __( $lowongan->jabatan ) }}</th>
                                     </tr>

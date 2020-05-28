@@ -54,17 +54,22 @@
 				<div class="form-group">
 				    <label class="font-weight-bold mt-md-3" for="kompetensi_keahlian">{{__('Kompetensi Keahlian')}} <span class="text-danger">{{__('*')}}</span></label>
 					<select class="js-example-basic-multiple form-control @error('kompetensi_keahlian') is-invalid @enderror" id="kompetensi_keahlian" name="kompetensi_keahlian[]" multiple="multiple" required>
-						@foreach ($kompetensi_keahlian as $item)
-						  <option value="{{ $item }}" 
-						  
-						 	@if (old('kompetensi_keahlian'))
-								 @foreach (old('kompetensi_keahlian') as $oldKompetensiKeahlian)
-									 {{ ($oldKompetensiKeahlian == $item ) ? 'selected' : '' }}
-								 @endforeach
-							@endif
-						 
-						  >{{$item}}</option>
-						@endforeach
+						@foreach ($programKeahlian as $progKeahlian)
+							<optgroup label="{{ $progKeahlian->nama }}">
+								@foreach ($kompetensi_keahlian as $kompKeahlian)
+									@if ($kompKeahlian->program_keahlian_id == $progKeahlian->id)
+										<option value="{{ $kompKeahlian->nama }}" 
+											@if (old('kompetensi_keahlian'))
+												@foreach (old('kompetensi_keahlian') as $oldKompetensiKeahlian)
+													{{ ($oldKompetensiKeahlian == $kompKeahlian->nama ) ? 'selected' : '' }}
+												@endforeach
+											@endif
+										>{{$kompKeahlian->nama}}
+										</option>
+									@endif
+								@endforeach
+						  	</optgroup>
+					  	@endforeach
 					</select>
 				  
 					@error('kompetensi_keahlian')
@@ -75,15 +80,15 @@
 				    <label class="font-weight-bold mt-md-3" for="keahlian">{{__('Keahlian')}} <span class="text-danger">*</span></label>
 					<select class="js-example-basic-multiple form-control @error('keahlian') is-invalid @enderror" id="keahlian" name="keahlian[]" multiple="multiple" required>
 						@foreach ($keterampilan as $item)
-						  	<option value="{{ $item }}"
+						  	<option value="{{ $item->nama }}"
 						  
 							  	@if (old('keahlian'))
 									@foreach (old('keahlian') as $oldKeahlian)
-										{{ ($oldKeahlian == $item ) ? 'selected' : '' }}
+										{{ ($oldKeahlian == $item->nama ) ? 'selected' : '' }}
 									@endforeach
 								@endif
 
-						  	>{{$item}}</option>
+						  	>{{$item->nama}}</option>
 						@endforeach
 					</select>
 				  

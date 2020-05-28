@@ -27,7 +27,7 @@
     <div class="container halaman-login-perusahaan d-flex align-items-center justify-content-center">
         <div class="card p-5">
             <a href="{{ url('/') }}"  class="mx-auto" >
-                <img src="{{ asset('/images/BOkOCZhd_400x400.jpg') }}" alt="">
+                <img src="{{ asset('/images/logo-smk-n-1-bojongsari.jpg') }}" alt="">
             </a>
             <h3 class="mt-4 text-center">{{__('Masuk Perusahaan')}}</h3>
             <form class="mt-3" method="POST" action="{{ url('/perusahaan/login') }}">
