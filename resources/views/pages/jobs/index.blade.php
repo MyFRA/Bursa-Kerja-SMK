@@ -86,8 +86,7 @@
             </div>
 
             <div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card p-3 mt-3">
-                <span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i>{{__(' Rekomendasi Lowongan')}}</span>
-                <span class="mt-3">{{__('Rekomendasi lowongan berdasarkan profil dan resume Anda')}}</span>
+                <span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn mr-2"></i>{{__(' Lowongan')}}</span>
                 @foreach ($lowongan as $loker)
                     <div id="lowongan">
                         <hr>
@@ -100,7 +99,11 @@
                                 <span id="waktu" class="text-muted">{{__('Sampai,')}} {{ __( date('d M Y', strtotime($loker->batas_akhir_lamaran)) ) }}</span>
                             </div>
                             <div id="contain-img" style="flex: 1">
-                                <img class="float-right" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
+                                @if (is_null($loker->perusahaan->logo))
+                                    ''
+                                @else
+                                    <img class="float-right" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
+                                @endif
                             </div>
                         </div>
                     </div>

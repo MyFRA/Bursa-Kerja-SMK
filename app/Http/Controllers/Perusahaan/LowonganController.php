@@ -36,10 +36,10 @@ class LowonganController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
         $data = [
-            'nav' => 'lowongan',
-            'user' => Auth::user(),
+            'nav'       => 'lowongan',
+            'user'      => Auth::user(),
             'lowongan'  => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->orderBy('created_at', 'DESC')->paginate(3),
-            'jmlLowongan' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count()
+            'sidebar'   => 'Semua Lowongan',
         ];
 
         return view('perusahaan.lowongan.index', $data);
@@ -78,6 +78,7 @@ class LowonganController extends Controller
                 'user' => Auth::user(),
                 'lowongan'  => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)
                                         ->where('status', $request->status)->orderBy('created_at', 'DESC')->paginate(3),
+                'sidebar'   => $request->status,
             ];
     
             return view('perusahaan.lowongan.index', $data);

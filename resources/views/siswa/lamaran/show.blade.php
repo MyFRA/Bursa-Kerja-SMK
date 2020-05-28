@@ -1,121 +1,92 @@
 @extends('layouts.app')
-
 @section('content')
 
     <div class="container">
-        <div class="row mt-2 mb-4 container-proposal-lamaran">
-            <div class="col-lg-7 px-2 order-lg-1 order-2 mt-3">
-                <div class="card p-4 pb-5">
-                    <h5 class="text-muted mb-4"><i class="fa fa-envelope-open-o mr-2"></i>{{__(' PESAN')}}</h5>
+        <div class="row mt-3">
+            <div class="col-lg-7 px-2 mt-2 order-2 order-lg-1">
+                <div class="card p-4 pb-4">
+                    <h5 class="text-muted "><i class="fa fa-file-text-o mr-2"></i>{{__(' LOWONGAN')}}</h5>
                     <div>
                         <table class="table table-responsive">
                             <tbody>
                                 <tr class="border-0">
-                                    <th class="border-0 pb-0" scope="col">Pengirim</th>
+                                    <th class="border-0 pb-0" scope="col">Perusahaan</th>
                                     <th class="border-0 pb-0" scope="col">:</th>
-                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/show/' . encrypt($pelamaran->lowongan->perusahaan->id)) }}">{{__( $pelamaran->lowongan->perusahaan->nama )}}</a></th>
+                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/show/' . encrypt($pelamar->lowongan->perusahaan->id)) }}">{{__( $pelamar->lowongan->perusahaan->nama )}}</a></th>
                                 </tr>
                                 <tr class="border-0">
-                                    <th class="border-0 pb-1" scope="col">Lamaran</th>
-                                    <th class="border-0 pb-1" scope="col">:</th>
-                                    <th class="border-0 pb-1" scope="col"> {{ $pelamaran->statusPelamaran->status }} </th>
+                                    <th class="border-0 pb-0" scope="col">Lowongan</th>
+                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($pelamar->lowongan->id)) }}">{{__( $pelamar->lowongan->jabatan )}}</a></th>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <hr>
-                    <div class="px-3">
-                        {!! $pelamaran->statusPelamaran->pesan !!}
+                </div>
+                <div class="card p-4 pb-4 mt-3">
+                    <h5 class="text-muted "><i class="fa fa-file-text-o mr-2"></i>{{__(' PROPOSAL')}}</h5>
+                    <div>
+                        <table class="table table-responsive">
+                            <tbody>
+                                <tr class="border-0">
+                                    <th class="border-0 pb-0" scope="col">Nama</th>
+                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="px-4 mt-3">
+                        {!! $pelamar->proposal_pelamaran !!}
                     </div>
                     <div class="mt-2">
-                        <a class="float-right mr-3" href="{{ url('/perusahaan/show/' . encrypt($pelamaran->lowongan->perusahaan->id)) }}">{{__( $pelamaran->lowongan->perusahaan->nama )}}</a>
+                        <a class="float-right mr-3" href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></a>
                     </div>
-
                 </div>
             </div>
-            <div class="col-lg-5 px-2 order-lg-2 order-1 mt-3">
-                <div class="card p-4 pb-4">
-                    <h5 class="text-muted mb-4"><i class="fa fa-paperclip mr-2"></i>{{__(' LOWONGAN')}}</h5>
-                    <div class="text-center mt-2">
-                        <img class="w-50 rounded" src="{{  ($pelamaran->lowongan->perusahaan->logo == null ) ? asset('/images/company.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $pelamaran->lowongan->perusahaan->logo) }}" alt="">
+            <div class="col-lg-5 px-2 mt-2 order-1 order-lg-2">
+                <div class="card p-4 ">
+                    <h5 class="text-muted "><i class="fa fa-user mr-2"></i>{{__(' PELAMAR')}}</h5>
+                    <div class="mt-4 d-flex justify-content-center align-items-center">
+                        @if(is_null($pelamar->siswa->photo))
+                            <img class="w-50 w-lg-50 rounded" src="{{ asset('/images/profile.svg') }}" alt="">
+                        @else
+                            <img class="w-50 w-lg-50 rounded" src="{{ url('/storage/assets/daftar-siswa/' . $pelamar->siswa->photo) }}" alt="">
+                        @endif
                     </div>
-                    <div class="text-center mt-2">
-                      <hr class="w-75 mb-0">
+                    <hr class="mt-4">
+                    <div>
+                        <table class="table table-responsive">
+                            <tr class="border-0">
+                                <th class="border-0 pb-0" scope="col">Nama</th>
+                                <th class="border-0 pb-0" scope="col">:</th>
+                                <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/lowongan/show/pelamar/' . encrypt($pelamar->siswa->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
+                            </tr>
+                            <tr>
+                                <th class="border-0 pb-0" scope="col">Gaji Diharapkan</th>
+                                <th class="border-0 pb-0" scope="col">:</th>
+                                <th class="border-0 pb-0" scope="col">IDR {{ (number_format($pelamar->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.')) }}</th>
+                            </tr>
+                            <tr class="border-0">
+                                <th class="border-0 pb-0" scope="col">Status</th>
+                                <th class="border-0 pb-0" scope="col">:</th>
+                                <th class="border-0 pb-0" scope="col">
+                                    @if ($pelamar->statusPelamaran->status == 'menunggu')
+                                        <span class="btn btn-sm btn-secondary"><i class="fa fa-warning mr-1"></i> Menunggu</span>
+                                    @elseif ($pelamar->statusPelamaran->status == 'diterima')
+                                        <span class="btn btn-sm btn-success"><i class="fa fa-check mr-1"></i> Diterima</span>
+                                    @elseif ($pelamar->statusPelamaran->status == 'ditolak')
+                                        <span class="btn btn-sm btn-danger"><i class="fa fa-close mr-1"></i> Ditolak</span>
+                                    @elseif ($pelamar->statusPelamaran->status == 'dipanggil')
+                                        <span class="btn btn-sm btn-primary"><i class="fa fa-bullhorn mr-1"></i> Dipanggil </span>
+                                    @endif
+                                </th>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="mt-3">
-                      <table class="table table-responsive">
-                        <tbody>
-                          <tr class="border-0">
-                            <th class="border-0 pb-1" scope="col">Perusahaan</th>
-                            <th class="border-0 pb-1" scope="col">:</th>
-                            <th class="border-0 pb-1" scope="col"><a href="{{ url('/perusahaan/show/' . encrypt($pelamaran->lowongan->perusahaan->id)) }}">{{__( $pelamaran->lowongan->perusahaan->nama )}}</a></th>
-                          </tr>
-                          <tr>
-                            <th class="border-0 pb-1" scope="col">Jabatan</th>
-                            <th class="border-0 pb-1" scope="col">:</th>
-                            <th class="border-0 pb-1" scope="col"><a href="{{ url('lowongan/' . encrypt($pelamaran->lowongan->id)) }}">{{__( $pelamaran->lowongan->jabatan )}}</a></th>
-                          </tr>
-                          <tr>
-                            <th class="border-0 pb-1" scope="col">Gaji</th>
-                            <th class="border-0 pb-1" scope="col">:</th>
-                            <th class="border-0 pb-1" scope="col">IDR {{ (number_format($pelamaran->lowongan->gaji_min, 0, '.', '.')) }} {{('-')}} {{ (number_format($pelamaran->lowongan->gaji_max, 0, '.', '.')) }}</th>
-                          </tr>
-                          <tr>
-                            <th class="border-0 pb-1" scope="col">Alamat</th>
-                            <th class="border-0 pb-1" scope="col">:</th>
-                            <th class="border-0 pb-1" scope="col">{{ __( ($pelamaran->lowongan->perusahaan->alamat == null) ? '-' : $pelamaran->lowongan->perusahaan->alamat  ) }}</th>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-
                 </div>
             </div>
         </div>
     </div>
 
-@endsection
-
-@section('stylesheet')
-  <link rel="stylesheet" href="{{ asset('/plugins/summernote/summernote-lite.min.css') }}">
-@endsection
-
-@section('script')
-	<script src="{{ asset('/plugins/tags-autocomplete/jquery.min.js') }}"></script>
-    <script src="{{ asset('/plugins/summernote/summernote-lite.min.js') }}"></script>
-    
-    <script>
-		// Fungsi Pembuatan Summernote ( WYSIYG ) 
-		(function($) {
-			$(document).ready(function(){
-		    	$('.summernote').summernote({
-		    		height: 175,
-            placeholder: 'Beritahu perusahaan mengapa Anda paling cocok untuk posisi ini. Sebutkan keterampilan khusus dan bagaimana Anda berkontribusi. Hindari hal generik seperti Saya bertanggung jawab.',
-		    		toolbar: [
-						['style', ['style']],
-						['font', ['bold', 'underline', 'clear']],
-						['fontname', ['fontname']],         
-						['color', ['color']], 
-						['para', ['ul', 'ol', 'paragraph']],
-						['table', ['table']],
-						['insert', ['link']],
-						['view', ['fullscreen', 'codeview', 'help']]                 
-		    		]
-		    	})
-			});
-	    })(jQuery);
-  </script>
-  
-  <script>
-    const form = document.getElementById('input-form');
-    const proposal = document.getElementById('proposal');
-
-    form.addEventListener('submit', function() {
-      if( proposal.value == '' ) {
-        event.preventDefault();
-        alert('Proposal tidak boleh kosong');
-      }
-    });
-
-  </script>
 @endsection

@@ -203,7 +203,7 @@
                     <div>
                         <a class="h5" href="{{ url('/siswa/lowongan/lihat/pelamar/'. encrypt($lowongan->id)) }}"><span><i class="fa fa-list mr-2"></i> Lihat Siapa Yang Telah Melamar <i class="fa fa-caret-right ml-2"></i></span></a>
                     </div>
-                    @if ($melamar == 0)
+                    @if (is_null($melamar))
                         <div>
                             <a href="" class="h6 mr-4">Simpan</a>
                         </div>
@@ -216,7 +216,7 @@
                         </div>
                     @else
                         <div>
-                            <a href="" class="h6 mr-4">Lihat Lamaran</a>
+                            <a href="{{ url('/siswa/lamaran/' . encrypt($melamar->id)) }}" class="h6 mr-4">Lihat Lamaran</a>
                         </div>
                         <div>
                             <button class="btn btn-secondary" type="button">Telah Dilamar</button>

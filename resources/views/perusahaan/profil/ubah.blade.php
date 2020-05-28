@@ -6,7 +6,7 @@
 				<h2 class="m-0 pl-2">{{__('Edit Data Perusahaan')}}</h2>
 			</div>
 			<div class="d-flex align-items-center justify-content-end">
-				<a href="{{ url('/perusahaan') }}">{{__('Beranda ')}}</a><span class="float-right ml-2 text-secondary">{{__(" / Verifikasi")}}</span>
+				<a href="{{ url('/perusahaan/profil') }}">{{__('Profil ')}}</a><span class="float-right ml-2 text-secondary">{{__(" / Edit Data")}}</span>
 			</div>
 		</div>
 

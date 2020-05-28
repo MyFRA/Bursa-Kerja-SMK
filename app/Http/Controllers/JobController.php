@@ -67,7 +67,7 @@ class JobController extends Controller
         $data = [
             'lowongan' => Lowongan::find(decrypt($id)),
             'melamar' => Pelamaran::where('siswa_id', $siswaId)
-                                    ->where('lowongan_id', decrypt($id))->count()
+                                    ->where('lowongan_id', decrypt($id))->first()
         ];
 
         return view('pages.jobs.show', $data);

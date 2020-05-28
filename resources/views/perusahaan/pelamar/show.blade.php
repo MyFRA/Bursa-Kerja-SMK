@@ -31,11 +31,6 @@
                                     <th class="border-0 pb-0" scope="col">:</th>
                                     <th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($pelamar->lowongan->id)) }}">{{__( $pelamar->lowongan->jabatan )}}</a></th>
                                 </tr>
-                                <tr>
-                                    <th class="border-0 pb-0" scope="col">Gaji</th>
-                                    <th class="border-0 pb-0" scope="col">:</th>
-                                    <th class="border-0 pb-0" scope="col">IDR {{ (number_format($pelamar->lowongan->gaji_min, 0, '.', '.')) }} - {{ (number_format($pelamar->lowongan->gaji_max, 0, '.', '.')) }}</th>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -62,12 +57,16 @@
                 </div>
             </div>
             <div class="col-lg-5 px-2 mt-2 order-1 order-lg-2">
-                <div class="card p-4 pb-4">
+                <div class="card p-4 ">
                     <h5 class="text-muted "><i class="fa fa-user mr-2"></i>{{__(' PELAMAR')}}</h5>
                     <div class="mt-4 d-flex justify-content-center align-items-center">
-                        <img class="w-50" src="{{ asset('/storage/assets/daftar-siswa/'. $pelamar->siswa->photo) }}" alt="">
+                        @if(is_null($pelamar->siswa->photo))
+                        <img class="w-50 w-lg-75 rounded" src="{{ asset('/images/profile.svg') }}" alt="">
+                        @else
+                        <img class="w-50 w-lg-75 rounded" src="{{ url('/storage/assets/daftar-siswa/' . $pelamar->siswa->photo) }}" alt="">
+                        @endif
                     </div>
-                    <hr>
+                    <hr class="mt-4">
                     <div>
                         <table class="table table-responsive">
                             <tr class="border-0">

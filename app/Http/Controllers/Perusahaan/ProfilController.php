@@ -42,7 +42,7 @@ class ProfilController extends Controller
 
         $data = [
             'jmlLowongan' => Lowongan::where('perusahaan_id', Auth::user()->perusahaan->id)->count(),
-            'nav'   => 'beranda',
+            'nav'   => 'profil',
             'user' => Auth::user(),
         ];
 
@@ -80,7 +80,7 @@ class ProfilController extends Controller
         };
 
         $data = [
-            'nav'               => 'beranda',
+            'nav'   => 'profil',
             'user'              => Auth::user(),
             'perusahaan'        => User::find(Auth::user()->id)->perusahaan,
             'bidangKeahlian'    => BidangKeahlian::get(),

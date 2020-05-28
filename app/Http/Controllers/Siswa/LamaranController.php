@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Siswa;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 use App\Models\Pelamaran;
@@ -20,9 +21,64 @@ class LamaranController extends Controller
     {
         $data = [
             'lamaran' => Pelamaran::where('siswa_id', Auth::user()->siswa->id)->get(),
+            'status' => 'Semua Lamaran'
         ];
 
         return view('siswa.lamaran.index', $data);
+    }
+
+        /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexByStatus(Request $request)
+    {
+        // Validasi Form Input
+        $validator = Validator::make($request->all(), [
+            'status'               => 'in:menunggu,diterima,ditolak,dipanggil|required',
+        ], [
+            'status.in'           => "status harus diantara menunggu, diterima, ditolak atau dipanggil",
+            'status.required'     => "status tidak boleh kosong",
+        ]);
+
+        // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Lowongan Gagal )
+        if ( $validator->fails() ) {
+            return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput();
+        // Lolos Validasi
+        } else {
+            $lamaran = [];
+            $pelamaran = Pelamaran::where('siswa_id', Auth::user()->siswa->id)->get();
+            foreach($pelamaran as $pelamar) {
+                if($pelamar->statusPelamaran->status == $request->status) {
+                    $lamaran[] = $pelamar;
+                }
+            }
+
+
+            $data = [
+                'lamaran' => $lamaran,
+                'status' => $request->status,
+            ];
+    
+            return view('siswa.lamaran.index', $data);
+        }
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $data = [
+            'pelamar' => Pelamaran::find(decrypt($id)),
+        ];
+
+        return view('siswa.lamaran.show', $data);
     }
 
     /**
@@ -52,13 +108,13 @@ class LamaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function lihatPesan($id)
     {
         $data = [
             'pelamaran' => Pelamaran::find(decrypt($id))
         ];
 
-        return view('siswa.lamaran.show', $data);
+        return view('siswa.lamaran.lihat-pesan', $data);
     }
 
     /**

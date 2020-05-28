@@ -47,11 +47,63 @@ class PelamarController extends Controller
             'nav'   => 'lowongan',
             'user' => Auth::user(),
             'perusahaan' => Perusahaan::find($lowongan->perusahaan_id),
-            'pelamar' => Pelamaran::where('lowongan_id', $lowongan->id)->get(),
+            'pelamaran' => Pelamaran::where('lowongan_id', $lowongan->id)->get(),
             'lowongan' => $lowongan,
+            'sidebar' => 'Semua Pelamar'
         ];
 
         return view('perusahaan.pelamar.index', $data);
+    }
+
+    public function showAllByStatus(Request $request, $lowonganId)
+    {
+        // Validasi Form Input
+        $validator = Validator::make($request->all(), [
+            'status'               => 'in:menunggu,diterima,ditolak,dipanggil|required',
+        ], [
+            'status.in'                     => "status harus diantara menunggu, diterima, ditolak atau dipanggil",
+            'status.required'               => "status tidak boleh kosong",
+        ]);
+
+        // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Lowongan Gagal )
+        if ( $validator->fails() ) {
+            return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput();
+        // Lolos Validasi
+        }else {
+            SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+            SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
+            SEOTools::setCanonical(URL::current());
+            SEOTools::metatags()
+                ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+            SEOTools::opengraph()
+                ->setUrl(URL::current())
+                ->addProperty('type', 'homepage');
+            SEOTools::twitter()->setSite('@smkbisakerja');
+            SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+
+            $pelamarByStatus = [];
+            $lowongan = Lowongan::find(decrypt($lowonganId));
+            $pelamaran = Pelamaran::where('lowongan_id', $lowongan->id)->get();
+            foreach($pelamaran as $pelamar) {
+                if($pelamar->statusPelamaran->status == $request->status) {
+                    $pelamarByStatus[] = $pelamar;
+                }
+            }
+
+            $data = [
+                'nav'   => 'lowongan',
+                'user' => Auth::user(),
+                'perusahaan' => Perusahaan::find($lowongan->perusahaan_id),
+                'lowongan' => $lowongan,
+                'sidebar' => $request->status,
+                'pelamaran' => $pelamarByStatus
+            ];
+
+            return view('perusahaan.pelamar.index', $data);
+        }
+       
     }
 
     /**

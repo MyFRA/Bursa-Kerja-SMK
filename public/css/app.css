@@ -17210,3 +17210,29 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
     width: 25% !important;
   }
 }
+
+
+
+/* Sidebar Opsi Status */
+
+.sidebar-opsi-status {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+
+.sidebar-opsi-status:hover {
+  background-color: rgba(0, 0, 0, 0.11);
+  border-radius: 4px
+}
+
+.active-sidebar-opsi-status {
+  background-color: #073559; 
+  color: #eee;
+  border-radius: 4px
+}
+
+.active-sidebar-opsi-status:hover {
+  background-color: #073559; 
+  color: #eee;
+  border-radius: 4px
+}

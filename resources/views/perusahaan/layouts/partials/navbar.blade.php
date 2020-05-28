@@ -40,7 +40,7 @@
         <div class="col-4">
             <a href="@can('terverifikasi') {{ url('/perusahaan/profil') }} @endcan">
                 <div class="{{ $nav == 'profil' ? 'active' : '' }} d-flex flex-column">
-                    <i class="fa fa-building mr-1"></i> <span class="mt-1"> {{__('PROFIL PERUSAHAAN')}}</span>
+                    <i class="fa fa-building mr-1"></i> <span class="mt-1"> {{__('PROFIL')}}</span>
                 </div>
             </a>
         </div>

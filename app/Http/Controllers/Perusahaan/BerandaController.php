@@ -50,7 +50,7 @@ class BerandaController extends Controller
         $jmlLowongan = 0;
         $idPerusahaan = ($this->getPerusahaan()) ? $this->getPerusahaan()->id : false;
         $lowongan = Lowongan::where('perusahaan_id', $idPerusahaan)->get(['id', 'jumlah_pelamar', 'jabatan', 'gaji_min', 'gaji_max', 'batas_akhir_lamaran', 'status', 'perusahaan_id', 'created_at']);
-        $pelamaran = Pelamaran::orderBy('created_at', 'DESC')->get(['id', 'lowongan_id']);
+        $pelamaran = Pelamaran::orderBy('created_at', 'DESC')->get(['id', 'lowongan_id', 'siswa_id']);
 
         // Pengambilan data, untuk menghitung jml panggilan tes, pada lowongan
         foreach($lowongan as $loker) {
