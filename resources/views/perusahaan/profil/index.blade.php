@@ -28,6 +28,12 @@
 				<div class="row">
 					<div class="col {{ session('success') ? 'mt-2' : 'mt-4' }} urutan-1">
 						<div class="own-card d-flex flex-column">
+							<div class="image">
+								<div class="judul">
+									<h1>{{__('Informasi Perusahaan')}}</h1>
+									<hr class="w-75">
+								</div>
+							</div>
 							<div class="profil">
 								<div class="foto-profil">
 									@if ( $user->perusahaan->logo === null )

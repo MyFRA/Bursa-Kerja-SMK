@@ -11,6 +11,19 @@
 		</div>
 	</div>
 
+	@if (session('success'))
+		<div class="row">
+			<div class="col mt-4">
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					<strong>{{__('Terima Kasih')}}</strong>{{ session('success') }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	@endif
+
 	@can('melakukan verifikasi')
 	  	<div class="row minta-verivikasi">
 			<div class="col">
@@ -22,6 +35,7 @@
 			</div>
 		</div>
 	@endcan
+
 	@can('menunggu verifikasi diterima')
 		<div class="row minta-verivikasi">
 			<div class="col">
@@ -88,8 +102,9 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="row kumpulan-card-beranda-bawah ">
-		<div class="col-lg-3 mt-4">
+		<div class="col-lg-3 mt-4 order-3 order-lg-1">
 			<div class="card p-0">
 				<div class="header pt-3 pb-2">
 					<h6 class="font-weight-bold">{{__('LOG AKTIVITAS')}}</h6>
@@ -99,7 +114,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6  mt-4">
+		<div class="col-lg-6 mt-4 order-1 order-lg-2">
 			<div class="card p-0">
 				<div class="header pt-3 pb-2">
 					<h6 class="font-weight-bold">{{__('LOWONGAN BARU DIPOSKAN')}}</h6>
@@ -108,62 +123,61 @@
 					@if (empty($lastLowongan))
 						<img src="{{ asset('/images/lightboard_dribbble_-_recent_illustration11.png') }}" alt="">
 					@else
-					<div class="row px-2 d-flex align-items-center justify-content-center">
-						<div class="col-lg-4">
-							<div class="text-center">
-								<img class="rounded w-50 w-lg-75" src="{{  ($perusahaan->logo == null ) ? asset('/images/company.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $perusahaan->logo) }}" alt="">
+						<div class="row px-2 d-flex align-items-center justify-content-center">
+							<div class="col-lg-4">
+								<div class="text-center">
+									<img class="rounded w-50 w-lg-75" src="{{  ($perusahaan->logo == null ) ? asset('/images/company.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $perusahaan->logo) }}" alt="">
+								</div>
+							</div>
+							<div class="col-lg-8">
+								<div class="mt-3">
+									<table class="table table-responsive">
+										<tr>
+											<th class="border-0 pb-0" scope="col">Lowongan</th>
+											<th class="border-0 pb-0" scope="col">:</th>
+											<th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($lastLowongan->id)) }}">{{__( $lastLowongan->jabatan )}}</a></th>
+										</tr>
+										<tr>
+											<th class="border-0 pb-0" scope="col">Jumlah Pelamar</th>
+											<th class="border-0 pb-0" scope="col">:</th>
+											<th class="border-0 pb-0" scope="col"> {{ $lastLowongan->jumlah_pelamar }} </th>
+										</tr>
+										<tr>
+											<th class="border-0 pb-0" scope="col">Pelamar</th>
+											<th class="border-0 pb-0" scope="col">:</th>
+											<th class="border-0 pb-0" scope="col"> 
+												<a href="{{ url('/perusahaan/lowongan/' . encrypt($lastLowongan->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>	
+											</th>
+										</tr>
+										<tr>
+											<th class="border-0 pb-0" scope="col">Status</th>
+											<th class="border-0 pb-0" scope="col">:</th>
+											<th class="border-0 pb-0" scope="col"> 
+												@if ($lastLowongan->status == 'Aktif')
+													<span class="btn btn-sm btn-success"><i class="fa fa-check mr-2"></i> {{$lastLowongan->status}} </span>
+												@elseif($lastLowongan->status == 'Nonaktif')
+													<span class="btn btn-sm btn-danger"><i class="fa fa-ban mr-2"></i> {{$lastLowongan->status}} </span>
+												@elseif($lastLowongan->status == 'Draf')
+													<span class="btn btn-sm btn-secondary"><i class="fa fa-file-text-o mr-2"></i> {{$lastLowongan->status}} </span>
+												@endif
+											</th>
+										</tr>
+										<tr>
+											<th class="border-0 pb-0" scope="col">Berakhir</th>
+											<th class="border-0 pb-0" scope="col">:</th>
+											<th class="border-0 pb-0" scope="col"> 
+												{{ date('d M Y', strtotime($lastLowongan->batas_akhir_lamaran)) }}
+											</th>
+										</tr>
+									</table>
+								</div> 
 							</div>
 						</div>
-						<div class="col-lg-8">
-							<div class="mt-3">
-								<table class="table table-responsive">
-									<tr>
-										<th class="border-0 pb-0" scope="col">Lowongan</th>
-										<th class="border-0 pb-0" scope="col">:</th>
-										<th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($lastLowongan->id)) }}">{{__( $lastLowongan->jabatan )}}</a></th>
-									</tr>
-									<tr>
-										<th class="border-0 pb-0" scope="col">Jumlah Pelamar</th>
-										<th class="border-0 pb-0" scope="col">:</th>
-										<th class="border-0 pb-0" scope="col"> {{ $lastLowongan->jumlah_pelamar }} </th>
-									</tr>
-									<tr>
-										<th class="border-0 pb-0" scope="col">Pelamar</th>
-										<th class="border-0 pb-0" scope="col">:</th>
-										<th class="border-0 pb-0" scope="col"> 
-											<a href="{{ url('/perusahaan/lowongan/' . encrypt($lastLowongan->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>	
-										</th>
-									</tr>
-									<tr>
-										<th class="border-0 pb-0" scope="col">Status</th>
-										<th class="border-0 pb-0" scope="col">:</th>
-										<th class="border-0 pb-0" scope="col"> 
-											@if ($lastLowongan->status == 'Aktif')
-												<span class="btn btn-sm btn-success"><i class="fa fa-check mr-2"></i> {{$lastLowongan->status}} </span>
-											@elseif($lastLowongan->status == 'Nonaktif')
-												<span class="btn btn-sm btn-danger"><i class="fa fa-ban mr-2"></i> {{$lastLowongan->status}} </span>
-											@elseif($lastLowongan->status == 'Draf')
-												<span class="btn btn-sm btn-secondary"><i class="fa fa-file-text-o mr-2"></i> {{$lastLowongan->status}} </span>
-											@endif
-										</th>
-									</tr>
-									<tr>
-										<th class="border-0 pb-0" scope="col">Berakhir</th>
-										<th class="border-0 pb-0" scope="col">:</th>
-										<th class="border-0 pb-0" scope="col"> 
-											{{ date('d M Y', strtotime($lastLowongan->batas_akhir_lamaran)) }}
-										</th>
-									</tr>
-								</table>
-							</div> 
-						</div>
-					</div>
 					@endif
-
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-3  mt-4">
+		<div class="col-lg-3 mt-4 order-2 order-lg-3">
 			<div class="card p-0">
 				<div class="header pt-3 pb-2">
 					<h6 class="font-weight-bold">{{__('PENDAFTAR LOKER TERBARU')}}</h6>
@@ -185,4 +199,5 @@
 		</div>
 	</div>
 </div>
+
 @endsection

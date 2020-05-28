@@ -9,6 +9,20 @@
 			<a href="{{ url('/perusahaan') }}">{{__('Beranda ')}}</a><span class="float-right ml-2 text-secondary">{{__(" / Verifikasi")}}</span>
 		</div>
 	</div>
+
+	@if (session('gagal'))
+		<div class="row">
+			<div class="col mt-4">
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<strong>{{__('Gagal')}}</strong> {{ session('gagal') }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	@endif
+
 	<div class="row mt-3 form-verifikasi-perusahaan">
 		<div class="col-lg-8 mt-2 order-2 order-lg-1">
 			<div class="card">
@@ -20,14 +34,15 @@
 						<div class="title"></div>
 						<h4>{{__('Unggah Logo dan Foto Sampul Perusahaan')}}</h4>
 						<p>{{__('Disarankan, logo perusahaan yang anda unggah adalah persegi guna memaksimalkan tampilan.')}}</p>
+						<p>{{__('Disarankan, Sampul perusahaan yang anda unggah adalah persegi panjang guna memaksimalkan tampilan.')}}</p>
 					</div>		
 					<div class="form-group">
 					    <label for="logo">{{__('Upload Logo Perusahaan')}}</label>
-					    <input type="file" class="form-control-file" id="logo" name="logo">
+					    <input type="file" onChange='return validasiFile(this)' class="form-control-file" id="logo" name="logo">
 					</div>
 					<div class="form-group">
 					    <label for="image">{{__('Upload Foto Sampul Perusahaan')}}</label>
-					    <input type="file" class="form-control-file" id="image" name="image">
+					    <input type="file" onChange='return validasiFile(this)' class="form-control-file" id="image" name="image">
 					</div>
 					<div class="form-group">
 						<div class="title"></div>
@@ -50,9 +65,9 @@
 						    <label for="kategori">{{__('Kategori ')}}<span class="text-danger">*</span></label>
 						    <select class="form-control @error('kategori') is-invalid @enderror" id="kategori" name="kategori" required>
 						      <option value="">{{__('-- Pilih Kategori --')}}</option>
-						      <option value="Negeri">{{__('Negeri')}}</option>
-						      <option value="Swasta">{{__('Swasta')}}</option>
-						      <option value="BUMN">{{__('BUMN')}}</option>
+						      <option value="Negeri" {{ old('kategori') == 'Negeri' ? 'selected' : '' }}>{{__('Negeri')}}</option>
+						      <option value="Swasta" {{ old('kategori') == 'Swasta' ? 'selected' : '' }}>{{__('Swasta')}}</option>
+							  <option value="BUMN" {{ old('kategori') == 'BUMN' ? 'selected' : '' }}>{{__('BUMN')}}</option>
 						    </select>
 						  
 						  	@error('kategori')
@@ -67,9 +82,9 @@
 						    <label for="pilih_bidang_keahlian">{{__('Bidang Keahlian')}} <span class="text-danger">*</span></label>
 						    <select class="form-control @error('bidang_keahlian_id') is-invalid @enderror" id="pilih_bidang_keahlian" name="bidang_keahlian_id" required>
 						      	<option value="" selected="" disabled="">{{__('-- Pilih Bidang Keahlian --')}}</option>
-							  @foreach ($bidangKeahlian as $bk)
-						      	<option value="{{ $bk->id }}">{{$bk->nama}}</option>
-						      @endforeach
+								@foreach ($bidangKeahlian as $bk)
+									<option value="{{ $bk->id }}" {{ old('bidang_keahlian_id') == $bk->id ? 'selected' : '' }}>{{$bk->nama}}</option>
+								@endforeach
 						    </select>
 						  
 						  	@error('bidang_keahlian_id')
@@ -81,11 +96,17 @@
 						  <div class="form-group">
 						    <label for="pilih_program_keahlian">{{__('Program Keahlian')}} <span class="text-danger">*</span></label>
 						    <select class="form-control @error('program_keahlian_id') is-invalid @enderror" id="pilih_program_keahlian" name="program_keahlian_id" required> 
-						      <option value="" selected="" disabled="">{{__('-- Pilih Program Keahlian --')}}</option>
-						    </select>
+						      	<option value="" selected="" disabled="">{{__('-- Pilih Program Keahlian --')}}</option>
+									@foreach ($programKeahlian as $pK)
+										@if ($pK->bidang_keahlian_id == old('bidang_keahlian_id')) {
+											<option value="{{ $pK->id }}" {{ old('program_keahlian_id') == $pK->id ? 'selected' : '' }}>{{$pK->nama}}</option>
+										}
+										@endif  
+									@endforeach
+							</select>
 						  
 						  	@error('program_keahlian_id')
-							 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+							 <h6 class="mt-1 ml-1 mb-0 text-danger">{{ $message }}</h6>
 						  	@enderror
 						  </div>
 						</div>
@@ -310,9 +331,9 @@
 						  <div class="form-group">
 						    <label for="bahasa">{{__('Bahasa')}}</label>
 						    <select class="form-control @error('bahasa') is-invalid @enderror" id="bahasa" name="bahasa">
-						      	<option value="" selected="" disabled="">Pilih Bahasa</option>
+						      	<option value="" selected="" disabled="">{{__('Pilih Bahasa')}}</option>
 						      @foreach ($bahasa as $bhs)
-						      	<option value="{{ $bhs->nama }}">{{$bhs->nama}}</option>
+						      	<option value="{{ $bhs->nama }}" {{ old('bahasa') == $bhs->nama ? 'selected' : '' }}>{{$bhs->nama}}</option>
 						      @endforeach
 						    </select>
 						  
@@ -424,10 +445,20 @@
 
 	</script>	
 
-	@if (session('gagal'))
-		<script>
-			alert('{{session('gagal')}}')
-		</script>
-	@endif
+	<script>
+		// Fungsi Validasi File Photo
+		function validasiFile(element) {
+			var inputFile = element;
+			var pathFile  = inputFile.value;
 
+			var ekstensiOk = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)$/i;
+
+			if( !ekstensiOk.exec(pathFile) ) {
+				alert('Silakan Upload File Yang Memiliki Ekstensi .jpeg, .jpg, .png, .bmp, . webp atau .gif');
+			
+				inputFile.value = '';
+				return false;
+			};
+		}
+	</script>
 @endsection

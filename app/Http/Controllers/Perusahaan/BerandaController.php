@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Perusahaan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
@@ -13,21 +13,19 @@ use Artesaos\SEOTools\Facades\SEOTools;
 use App\Models\ProgramKeahlian;
 use App\Models\BidangKeahlian;
 use App\Models\Perusahaan;
+use App\Models\Pelamaran;
 use App\Models\Lowongan;
 use App\Models\Negara;
 use App\Models\Bahasa;
-use App\Models\Pelamaran;
 use App\User;
 
 class BerandaController extends Controller
 {
-	public function getPerusahaan()
-	{
-        // Mengambil Perusahaan
-		return ( User::find(Auth::user()->id)->perusahaan === null ) ? false : User::find(Auth::user()->id)->perusahaan;
-	}
-
-    public function index()
+    /**
+     * Return a SEO Script.
+     *
+     */
+    public function getSeo()
     {
         // SEO Script
         SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
@@ -40,6 +38,27 @@ class BerandaController extends Controller
             ->addProperty('type', 'homepage');
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+    }
+
+     /**
+     * Return a Perusahaan resource.
+     *
+     */
+	public function getPerusahaan()
+	{
+        // Mengambil Perusahaan
+		return ( User::find(Auth::user()->id)->perusahaan === null ) ? false : User::find(Auth::user()->id)->perusahaan;
+	}
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */  
+    public function index()
+    {
+        // Mengambil SEO
+        $this->getSeo();
 
         // Deklarasi Variabel
         $panggilanTes = [];
@@ -84,37 +103,33 @@ class BerandaController extends Controller
 
         // Data Yang Akan Ditampilkan ke user
     	$data = [
-            'jmlLowongan' => $jmlLowongan,
-            'jmlLamaran' => $jmlLamaran,
-            'panggilanTes' => count($panggilanTes),
-            'lastLowongan' => $lastLowongan,
-            'lastPelamar' => $lastPelamar,
-            'nav' => 'beranda',
-    		'user' => Auth::user(),
-            'perusahaan' => $this->getPerusahaan()
+            'jmlLowongan'   => $jmlLowongan,
+            'jmlLamaran'    => $jmlLamaran,
+            'panggilanTes'  => count($panggilanTes),
+            'lastLowongan'  => $lastLowongan,
+            'lastPelamar'   => $lastPelamar,
+            'nav'           => 'beranda',
+    		'user'          => Auth::user(),
+            'perusahaan'    => $this->getPerusahaan()
     	];
         
     	return view('perusahaan.beranda.index', $data);
     }
 
+    /**
+     * Show the form for verification perusahaan.
+     *
+     */
     public function showVerifikasiForm()
     {
-        // SEO Script
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
-        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
-        SEOTools::setCanonical(URL::current());
-        SEOTools::metatags()
-            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
-        SEOTools::opengraph()
-            ->setUrl(URL::current())
-            ->addProperty('type', 'homepage');
-        SEOTools::twitter()->setSite('@smkbisakerja');
-        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+        // Mengambil SEO
+        $this->getSeo();
 
         // Data Yang Akan Ditampilkan ke user
     	$data = [
             'nav'               => 'beranda',
-    		'bidangKeahlian' 	=> BidangKeahlian::get(['id', 'nama']),
+            'bidangKeahlian' 	=> BidangKeahlian::get(['id', 'nama']),
+    		'programKeahlian' 	=> ProgramKeahlian::get(['id', 'nama', 'bidang_keahlian_id']),
     		'negara' 			=> Negara::get(['nama_negara']),
     		'bahasa'            => Bahasa::get(['nama']),
             'user'              => Auth::user(),
@@ -123,6 +138,10 @@ class BerandaController extends Controller
     	return view('perusahaan.beranda.verifikasi', $data);
     }
 
+    /**
+     * Validate data verification perusahaan.
+     *
+     */
     public function verifikasi(Request $request)
     {
         // Pengecekan apakah bidang keahlian || program keahlian tidak terdapat di database
@@ -132,28 +151,28 @@ class BerandaController extends Controller
 
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
-            'bidang_keahlian_id'    => 'required',
-            'program_keahlian_id'   => 'required',
-            'nama'                  => 'required|max:128',
-            'kategori'              => "in:Negeri,Swasta,BUMN|required",
-            'telp'                  => 'max:16',
-            'email'                 => 'max:128',
-            'fax'                   => 'max:32',
-            'site'                  => 'max:32',
-            'facebook'              => 'max:64',
-            'twitter'               => 'max:64',
-            'instagram'             => 'max:64',
-            'linkedin'              => 'max:64',
-            'alamat'                => 'max:128',
-            'kodepos'               => 'max:8',
-            'kabupaten'             => 'max:64',
-            'provinsi'              => 'max:32',
-            'negara'                => 'max:32',
-            'jumlah_karyawan'       => 'max:16',
-            'waktu_proses_perekrutan' => 'max:32',
-            'gaya_berpakaian'       => 'max:128',
-            'bahasa'                => 'max:128',
-            'waktu_bekerja'         => 'max:64',
+            'bidang_keahlian_id'        => 'required',
+            'program_keahlian_id'       => 'required',
+            'nama'                      => 'required|max:128',
+            'kategori'                  => "in:Negeri,Swasta,BUMN|required",
+            'telp'                      => 'max:16',
+            'email'                     => 'max:128',
+            'fax'                       => 'max:32',
+            'site'                      => 'max:32',
+            'facebook'                  => 'max:64',
+            'twitter'                   => 'max:64',
+            'instagram'                 => 'max:64',
+            'linkedin'                  => 'max:64',
+            'alamat'                    => 'max:128',
+            'kodepos'                   => 'max:8',
+            'kabupaten'                 => 'max:64',
+            'provinsi'                  => 'max:32',
+            'negara'                    => 'max:32',
+            'jumlah_karyawan'           => 'max:16',
+            'waktu_proses_perekrutan'   => 'max:32',
+            'gaya_berpakaian'           => 'max:128',
+            'bahasa'                    => 'max:128',
+            'waktu_bekerja'             => 'max:64',
         ], [
             'bidang_keahlian_id.required' => 'bidang keahlian harus diisi',
             'program_keahlian_id.required'=> 'program keahlian harus diisi',
@@ -189,46 +208,51 @@ class BerandaController extends Controller
         }else {
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Perusahaan Gagal )
             if( $this->verifikasiPerusahaan($request) != true ) return redirect()->back()->with('gagal', 'Logo atau Image yang kamu upload bukan gambar')->withInput();
+            
             // Lolos Pengecekan, Insert Data Perusahaan Berhasil
             $user = User::find(Auth::user()->id);
             $user->revokePermissionTo('melakukan verifikasi');
             $user->givePermissionTo('menunggu verifikasi diterima');
-            return redirect('/perusahaan');
+            return redirect('/perusahaan')->with('success', ', telah melakukan proses verifikasi, harap menunggu sampai verifikasi diterima.');
         }
     }
 
+    /**
+     * Store data verification perusahaan.
+     *
+     */
     public function verifikasiPerusahaan($request)
     {   
         // Pengecekan jika tidak ada gambar yang diupload, baik logo ataupun image
         if (is_null($request->file('image')) && is_null($request->file('logo'))) {
             // Insert data Perusahaan dan mengembalikan nilai True
             Perusahaan::create([
-                'user_id'               => Auth::user()->id,
-                'bidang_keahlian_id'    => $request->bidang_keahlian_id,
-                'program_keahlian_id'   => $request->program_keahlian_id,
-                'nama'                  => $request->nama,
-                'kategori'              => $request->kategori,
-                'telp'                  => $request->telp,
-                'email'                 => $request->email,
-                'fax'                   => $request->fax,
-                'site'                  => $request->site,
-                'facebook'              => $request->facebook,
-                'twitter'               => $request->twitter,
-                'instagram'             => $request->instagram,
-                'linkedin'              => $request->linkedin,
-                'alamat'                => $request->alamat,
-                'kabupaten'             => $request->kabupaten,
-                'provinsi'              => $request->provinsi,
-                'negara'                => $request->negara,
-                'kodepos'               => $request->kodepos,
-                'jumlah_karyawan'       => $request->jumlah_karyawan,
-                'waktu_proses_perekrutan' => $request->waktu_proses_perekrutan,
-                'gaya_berpakaian'       => $request->gaya_berpakaian,
-                'bahasa'                => $request->bahasa,
-                'waktu_bekerja'         => $request->waktu_bekerja,
-                'tunjangan'             => $request->tunjangan,
-                'overview'              => $request->overview,
-                'alasan_harus_melamar'  => $request->alasan_harus_melamar,
+                'user_id'                   => Auth::user()->id,
+                'bidang_keahlian_id'        => $request->bidang_keahlian_id,
+                'program_keahlian_id'       => $request->program_keahlian_id,
+                'nama'                      => $request->nama,
+                'kategori'                  => $request->kategori,
+                'telp'                      => $request->telp,
+                'email'                     => $request->email,
+                'fax'                       => $request->fax,
+                'site'                      => $request->site,
+                'facebook'                  => $request->facebook,
+                'twitter'                   => $request->twitter,
+                'instagram'                 => $request->instagram,
+                'linkedin'                  => $request->linkedin,
+                'alamat'                    => $request->alamat,
+                'kabupaten'                 => $request->kabupaten,
+                'provinsi'                  => $request->provinsi,
+                'negara'                    => $request->negara,
+                'kodepos'                   => $request->kodepos,
+                'jumlah_karyawan'           => $request->jumlah_karyawan,
+                'waktu_proses_perekrutan'   => $request->waktu_proses_perekrutan,
+                'gaya_berpakaian'           => $request->gaya_berpakaian,
+                'bahasa'                    => $request->bahasa,
+                'waktu_bekerja'             => $request->waktu_bekerja,
+                'tunjangan'                 => $request->tunjangan,
+                'overview'                  => $request->overview,
+                'alasan_harus_melamar'      => $request->alasan_harus_melamar,
             ]);
 
             User::find(Auth::user()->id)->update([
@@ -270,46 +294,48 @@ class BerandaController extends Controller
 
             // Insert data perusahaaan dan mengembalikan nilai True
             Perusahaan::create([
-                'user_id'               => Auth::user()->id,
-                'bidang_keahlian_id'    => $request->bidang_keahlian_id,
-                'program_keahlian_id'   => $request->program_keahlian_id,
-                'nama'                  => $request->nama,
-                'kategori'              => $request->kategori,
-                'logo'                  => $namaLogo,
-                'image'                 => $namaImage,
-                'telp'                  => $request->telp,
-                'email'                 => $request->email,
-                'fax'                   => $request->fax,
-                'site'                  => $request->site,
-                'facebook'              => $request->facebook,
-                'twitter'               => $request->twitter,
-                'instagram'             => $request->instagram,
-                'linkedin'              => $request->linkedin,
-                'alamat'                => $request->alamat,
-                'kabupaten'             => $request->kabupaten,
-                'provinsi'              => $request->provinsi,
-                'negara'                => $request->negara,
-                'kodepos'               => $request->kodepos,
-                'jumlah_karyawan'       => $request->jumlah_karyawan,
-                'waktu_proses_perekrutan' => $request->waktu_proses_perekrutan,
-                'gaya_berpakaian'       => $request->gaya_berpakaian,
-                'bahasa'                => $request->bahasa,
-                'waktu_bekerja'         => $request->waktu_bekerja,
-                'tunjangan'             => $request->tunjangan,
-                'overview'              => $request->overview,
-                'alasan_harus_melamar'  => $request->alasan_harus_melamar,
+                'user_id'                   => Auth::user()->id,
+                'bidang_keahlian_id'        => $request->bidang_keahlian_id,
+                'program_keahlian_id'       => $request->program_keahlian_id,
+                'nama'                      => $request->nama,
+                'kategori'                  => $request->kategori,
+                'logo'                      => $namaLogo,
+                'image'                     => $namaImage,
+                'telp'                      => $request->telp,
+                'email'                     => $request->email,
+                'fax'                       => $request->fax,
+                'site'                      => $request->site,
+                'facebook'                  => $request->facebook,
+                'twitter'                   => $request->twitter,
+                'instagram'                 => $request->instagram,
+                'linkedin'                  => $request->linkedin,
+                'alamat'                    => $request->alamat,
+                'kabupaten'                 => $request->kabupaten,
+                'provinsi'                  => $request->provinsi,
+                'negara'                    => $request->negara,
+                'kodepos'                   => $request->kodepos,
+                'jumlah_karyawan'           => $request->jumlah_karyawan,
+                'waktu_proses_perekrutan'   => $request->waktu_proses_perekrutan,
+                'gaya_berpakaian'           => $request->gaya_berpakaian,
+                'bahasa'                    => $request->bahasa,
+                'waktu_bekerja'             => $request->waktu_bekerja,
+                'tunjangan'                 => $request->tunjangan,
+                'overview'                  => $request->overview,
+                'alasan_harus_melamar'      => $request->alasan_harus_melamar,
             ]);
 
             User::find(Auth::user()->id)->update([
             	'name' => $request->nama,
             	'email' => $request->email
             ]);
-
             return true;
         }
     }
-
-    
+ 
+    /**
+     * Method for logout perusahaan.
+     *
+     */
     public function logout()
     {
         Auth::logout();
