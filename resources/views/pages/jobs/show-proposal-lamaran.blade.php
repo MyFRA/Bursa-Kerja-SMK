@@ -40,22 +40,22 @@
                       <table class="table table-responsive">
                         <thead>
                           <tr class="border-0">
-                            <th class="border-0 pb-1" scope="col">Perusahaan</th>
+                            <th class="border-0 pb-1" scope="col">{{__('Perusahaan')}}</th>
                             <th class="border-0 pb-1" scope="col">:</th>
                             <th class="border-0 pb-1" scope="col"><a href="{{ url('/perusahaan/show/' . encrypt($perusahaan->id)) }}">{{__( $perusahaan->nama )}}</a></th>
                           </tr>
                           <tr>
-                            <th class="border-0 pb-1" scope="col">Jabatan</th>
+                            <th class="border-0 pb-1" scope="col">{{__('Lowongan')}}</th>
                             <th class="border-0 pb-1" scope="col">:</th>
                             <th class="border-0 pb-1" scope="col"><a href="{{ url('lowongan/' . encrypt($lowongan->id)) }}">{{__( $lowongan->jabatan )}}</a></th>
                           </tr>
                           <tr>
-                            <th class="border-0 pb-1" scope="col">Gaji</th>
+                            <th class="border-0 pb-1" scope="col">{{__('Gaji')}}</th>
                             <th class="border-0 pb-1" scope="col">:</th>
-                            <th class="border-0 pb-1" scope="col">IDR {{ (number_format($lowongan->gaji_min, 0, '.', '.')) }} {{('-')}} {{ (number_format($lowongan->gaji_max, 0, '.', '.')) }}</th>
+                            <th class="border-0 pb-1" scope="col">{{__('IDR')}} {{ (number_format($lowongan->gaji_min, 0, '.', '.')) }} {{('-')}} {{ (number_format($lowongan->gaji_max, 0, '.', '.')) }}</th>
                           </tr>
                           <tr>
-                            <th class="border-0 pb-1" scope="col">Alamat</th>
+                            <th class="border-0 pb-1" scope="col">{{__('Alamat')}}</th>
                             <th class="border-0 pb-1" scope="col">:</th>
                             <th class="border-0 pb-1" scope="col">{{ __( ($perusahaan->alamat == null) ? '-' : $perusahaan->alamat  ) }}</th>
                           </tr>

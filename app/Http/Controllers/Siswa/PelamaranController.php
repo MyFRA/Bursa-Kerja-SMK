@@ -19,7 +19,29 @@ use App\User;
 
 class PelamaranController extends Controller
 {
+     /**
+     * Return a SEO Script.
+     *
+     */
+    public function getSeo()
+    {
+        // SEO Script
+        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
+        SEOTools::setCanonical(URL::current());
+        SEOTools::metatags()
+            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+        SEOTools::opengraph()
+            ->setUrl(URL::current())
+            ->addProperty('type', 'homepage');
+        SEOTools::twitter()->setSite('@smkbisakerja');
+        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+    }
+
     public function showProposal(Request $request) {
+       
+        // Mengambil SEO
+        $this->getSeo();
 
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
@@ -79,7 +101,10 @@ class PelamaranController extends Controller
     }
 
     public function lihatPelamar($id)
-    {
+    {       
+        // Mengambil SEO
+        $this->getSeo();
+        
         $data = [
             'lowongan' => Lowongan::find(decrypt($id)),
             'pelamar' => Pelamaran::where('lowongan_id', decrypt($id))->get()

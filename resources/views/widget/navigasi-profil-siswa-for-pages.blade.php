@@ -2,11 +2,11 @@
     <div id="profil" class="card rounded-0">
     <a href="{{ url('profil-siswa/' . encrypt($pelamar->id)) }}" class="d-flex p-3 align-items-center text-decoration-none {{ $sidebar == 'lihat-profil' ? 'siswa-profil-active' : '' }}">
             <div style="flex: 1" class="px-2">
-                <img src="{{ asset('/images/profile.svg') }}" alt="">
+				<img class="w-100 rounded" src="{{ ($pelamar->siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . $pelamar->siswa->photo) }}" alt="" >
             </div>
             <div style="flex: 3" class="d-flex flex-column px-2">
                 <span>{{ __( $pelamar->name ) }}</span>
-                <span class="small text-muted">Lihat Profil</span>
+                <span class="small text-muted">{{__('Lihat Profil')}}</span>
             </div>
         </a>
     </div>
@@ -21,13 +21,13 @@
             <i class="fa fa-joomla mr-3"></i> {{__('Keterampilan')}}
         </a>
         <a href="{{ url('profil-siswa/' . encrypt($pelamar->id) . '/bahasa') }}" class="{{ $sidebar == 'bahasa' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-comments-o mr-3"></i> Bahasa
+            <i class="fa fa-comments-o mr-3"></i> {{__('Bahasa')}}
         </a>
         <a href="{{ url('profil-siswa/' . encrypt($pelamar->id) . '/lainya') }}" class="{{ $sidebar == 'lainya' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-align-justify mr-3"></i> Info Lain
+            <i class="fa fa-align-justify mr-3"></i> {{__('Info Lain')}}
         </a>
         <a href="{{ url('profil-siswa/' . encrypt($pelamar->id) . '/profil-lengkap') }}" class="{{ $sidebar == 'profil-saya' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-user mr-3"></i> Profil Lengkap
+            <i class="fa fa-user mr-3"></i> {{__('Profil Lengkap')}}
         </a>
     </div>
 </div>

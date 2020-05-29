@@ -14,7 +14,7 @@
 
 		<div class="row mt-4">
 			<div class="col">
-				<a href="{{ url('/perusahaan/lowongan/create') }}" class="btn btn-success"><i class="fa fa-plus mr-2"></i> Buat Lowongan</a>
+				<a href="{{ url('/perusahaan/lowongan/create') }}" class="btn btn-success"><i class="fa fa-plus mr-2"></i> {{__('Buat Lowongan')}}</a>
 			</div>
 		</div>
 
@@ -48,30 +48,30 @@
                                     <div>
                                         <table class="table table-responsive">
                                             <tr>
-                                                <th class="border-0 pb-0" scope="col">Lowongan</th>
-                                                <th class="border-0 pb-0" scope="col">:</th>
+                                                <th class="border-0 pb-0" scope="col">{{__('Lowongan')}}</th>
+                                                <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
                                                 <th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($result->id)) }}">{{__( $result->jabatan )}}</a></th>
                                             </tr>
                                             <tr>
-                                                <th class="border-0 pb-0" scope="col">Gaji</th>
-                                                <th class="border-0 pb-0" scope="col">:</th>
-                                                <th class="border-0 pb-0" scope="col">IDR {{ (number_format($result->gaji_min, 0, '.', '.')) }} {{('-')}} {{ (number_format($result->gaji_max, 0, '.', '.')) }}</th>
+                                                <th class="border-0 pb-0" scope="col">{{__('Gaji')}}</th>
+                                                <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
+                                                <th class="border-0 pb-0" scope="col">{{__('IDR')}} {{ (number_format($result->gaji_min, 0, '.', '.')) }} {{('-')}} {{ (number_format($result->gaji_max, 0, '.', '.')) }}</th>
                                             </tr>
 											<tr>
-												<th class="border-0 pb-0" scope="col">Jumlah Pelamar</th>
-												<th class="border-0 pb-0" scope="col">:</th>
+												<th class="border-0 pb-0" scope="col">{{__('Jumlah Pelamar')}}</th>
+												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
 												<th class="border-0 pb-0" scope="col"> {{ $result->jumlah_pelamar }} </th>
 											</tr>
 											<tr>
-												<th class="border-0 pb-0" scope="col">Pelamar</th>
-												<th class="border-0 pb-0" scope="col">:</th>
+												<th class="border-0 pb-0" scope="col">{{__('Pelamar')}}</th>
+												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
 												<th class="border-0 pb-0" scope="col"> 
 													<a href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>	
 												</th>
 											</tr>
 											<tr>
-												<th class="border-0 pb-0" scope="col">Status</th>
-												<th class="border-0 pb-0" scope="col">:</th>
+												<th class="border-0 pb-0" scope="col">{{__('Status')}}</th>
+												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
 												<th class="border-0 pb-0" scope="col"> 
 													@if ($result->status == 'Aktif')
 														<span class="btn btn-sm btn-success"><i class="fa fa-check mr-2"></i> {{$result->status}} </span>
@@ -83,15 +83,15 @@
 												</th>
 											</tr>
 											<tr>
-												<th class="border-0 pb-0" scope="col">Berakhir</th>
-												<th class="border-0 pb-0" scope="col">:</th>
+												<th class="border-0 pb-0" scope="col">{{__('Berakhir')}}</th>
+												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
 												<th class="border-0 pb-0" scope="col"> 
 													{{ date('d M Y', strtotime($result->batas_akhir_lamaran)) }}
 												</th>
 											</tr>
 											<tr>
-												<th class="border-0 pb-0" scope="col">Aksi</th>
-												<th class="border-0 pb-0" scope="col">:</th>
+												<th class="border-0 pb-0" scope="col">{{__('Aksi')}}</th>
+												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
 												<th class="border-0 pb-0" scope="col"> 
 													<a href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/edit') }}" class="btn btn-sm btn-primary mt-2 mt-lg-0 "><i class="fa fa-edit mr-2"></i> Edit</a>
 													<a href="#" onclick="onDelete('{{ $result->jabatan }}', '{{ url('/perusahaan/lowongan/' . encrypt($result->id)) }}')" class="btn btn-sm btn-danger mt-2 mt-lg-0"><i class="fa fa-trash mr-2"></i> Hapus</a>
@@ -121,22 +121,22 @@
                             <div class="w-100 container-opsi-status">
                                 <a class="text-decoration-none" href="{{ url('/perusahaan/lowongan') }}">
                                     <div class="sidebar-opsi-status {{ ($sidebar == 'Semua Lowongan') ? 'active-sidebar-opsi-status' : '' }}">
-                                        <span class="ml-2">Semua Lowongan</span>
+                                        <span class="ml-2">{{__('Semua Lowongan')}}</span>
                                     </div>
                                 </a>
                                 <a class="text-decoration-none" onclick="lowonganByStatus('Aktif')" href="">
                                     <div class="sidebar-opsi-status {{ ($sidebar == 'Aktif') ? 'active-sidebar-opsi-status' : '' }}">
-										<span class="ml-2">Lowongan Aktif</span>
+										<span class="ml-2">{{__('Lowongan Aktif')}}</span>
                                     </div>
                                 </a>
                                 <a class="text-decoration-none" onclick="lowonganByStatus('Nonaktif')" href="">
                                     <div class="sidebar-opsi-status {{ ($sidebar == 'Nonaktif') ? 'active-sidebar-opsi-status' : '' }}">
-										<span class="ml-2">Lowongan Nonaktif</span>
+										<span class="ml-2">{{__('Lowongan Nonaktif')}}</span>
                                     </div>
                                 </a>
                                 <a class="text-decoration-none" onclick="lowonganByStatus('Draf')" href="">
 									<div class="sidebar-opsi-status {{ ($sidebar == 'Draf') ? 'active-sidebar-opsi-status' : '' }}">
-										<span class="ml-2">Lowongan Draf</span>
+										<span class="ml-2">{{__('Lowongan Draf')}}</span>
                                     </div>
                                 </a>
                             </div>

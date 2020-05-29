@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
+
+use Artesaos\SEOTools\Facades\SEOTools;
 
 use App\User;
 use App\Models\SiswaPendidikan;
@@ -22,20 +25,46 @@ use App\Models\SiswaLainya;
 
 class ProfilSiswaController extends Controller
 {
+    /**
+     * Return a SEO Script.
+     *
+     */
+    public function getSeo()
+    {
+        // SEO Script
+        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
+        SEOTools::setCanonical(URL::current());
+        SEOTools::metatags()
+            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+        SEOTools::opengraph()
+            ->setUrl(URL::current())
+            ->addProperty('type', 'homepage');
+        SEOTools::twitter()->setSite('@smkbisakerja');
+        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+    }
     
     public function index($id) 
     {
+        // Mengambil SEO
+        $this->getSeo();
+
         $data = [
             'user' => Auth::user(),
             'nav' => 'lowongan',
-            'pelamar' => User::where('id', decrypt($id))->first(),
+            'pelamar' => User::find(decrypt($id)),
+            'siswaPendidikan' => SiswaPendidikan::where('siswa_id', User::find(decrypt($id))->siswa->id)->get(),
             'sidebar' => 'lihat-profil'
         ];
+
         return view('pages.profil-siswa.index', $data);
     }
 
     public function pendidikan($id)
     {
+        // Mengambil SEO
+        $this->getSeo();
+
         $data = [
             'user' => Auth::user(),
             'nav' => 'lowongan',
@@ -49,6 +78,9 @@ class ProfilSiswaController extends Controller
 
     public function pengalaman($id)
     {
+        // Mengambil SEO
+        $this->getSeo();
+
         $data = [
             'user' => Auth::user(),
             'nav' => 'lowongan',
@@ -62,6 +94,9 @@ class ProfilSiswaController extends Controller
 
     public function keterampilan($id)
     {
+        // Mengambil SEO
+        $this->getSeo();
+
         $data = [
             'user' => Auth::user(),
             'nav' => 'lowongan',
@@ -75,6 +110,9 @@ class ProfilSiswaController extends Controller
 
     public function bahasa($id)
     {
+        // Mengambil SEO
+        $this->getSeo();
+
         $data = [
             'user' => Auth::user(),
             'nav' => 'lowongan',
@@ -88,6 +126,9 @@ class ProfilSiswaController extends Controller
 
     public function lainya($id)
     {
+        // Mengambil SEO
+        $this->getSeo();
+
         $data = [
             'user' => Auth::user(),
             'nav' => 'lowongan',
@@ -101,6 +142,9 @@ class ProfilSiswaController extends Controller
 
     public function profilLengkap($id)
     {
+        // Mengambil SEO
+        $this->getSeo();
+
         $data = [
             'user' => Auth::user(),
             'nav' => 'lowongan',

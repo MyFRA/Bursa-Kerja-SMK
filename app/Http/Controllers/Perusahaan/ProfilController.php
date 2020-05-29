@@ -168,7 +168,7 @@ class ProfilController extends Controller
             if( $this->updatePerusahaan($request) != true ) return redirect()->back()->with('gagal', 'Logo atau Image yang kamu upload bukan gambar')->withInput();
             
             // Lolos Pengecekan, update Data Perusahaan Berhasil
-            return redirect('/perusahaan/profil')->with('success', 'Perusahaan telah diupdate ');
+            return redirect('/perusahaan/profil')->with('success', 'Profil Perusahaan telah diupdate ');
         }
     }
 

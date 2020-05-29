@@ -32,7 +32,7 @@
 	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i>{{__(' Rekomendasi Lowongan')}}</span>
 	        			<span class="mt-3">{{__('Rekomendasi lowongan berdasarkan profil dan resume Anda')}}</span>
 	        			@foreach ($lowongan as $loker)
-							<div id="lowongan">
+							<div id="lowongan" class="my-3">
 								<hr>
 								<div id="njero-lowongan" class="d-flex justify-content-between w-100">
 									<div style="flex: 3">
@@ -48,7 +48,10 @@
 								</div>
 							</div>
 						@endforeach
-	        		</div>
+					</div>
+					<div class="mt-2 ml-2">
+						{{ $lowongan->onEachSide(5)->links() }}
+					</div>
 	        	</div>
 		        <div style="animation: tememplek 0.5s;"  class="col-lg-4 px-2 mt-3">
 		        	<div class="card p-3">

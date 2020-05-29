@@ -21,16 +21,13 @@ use App\User;
 
 class BerandaController extends Controller
 {
-	public function getPerusahaan()
-	{
-		return ( User::find(Auth::user()->id)->perusahaan === null ) ? '' : User::find(Auth::user()->id)->perusahaan;
-	}
-
-    public function index()
+    /**
+     * Return a SEO Script.
+     *
+     */
+    public function getSeo()
     {
-        if( is_null(Auth::user()->siswa->siswaPendidikan) ) return redirect('/siswa/create-resume/siswa-pendidikan');
-        if( is_null(Auth::user()->siswa->siswaLainya)) return redirect('/siswa/create-resume/siswa-lainya');
-
+        // SEO Script
         SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
@@ -41,11 +38,27 @@ class BerandaController extends Controller
             ->addProperty('type', 'homepage');
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+    }
+
+	public function getPerusahaan()
+	{
+		return ( User::find(Auth::user()->id)->perusahaan === null ) ? '' : User::find(Auth::user()->id)->perusahaan;
+	}
+
+    public function index()
+    {
+        if( is_null(Auth::user()->siswa->siswaPendidikan) ) return redirect('/siswa/create-resume/siswa-pendidikan');
+        if( is_null(Auth::user()->siswa->siswaLainya)) return redirect('/siswa/create-resume/siswa-lainya');
+
+        // Mengambil SEO
+        $this->getSeo();
 
         $data = [
             'user' => Auth::user(),
             'kompetensiKeahlian' => KompetensiKeahlian::find(Auth::user()->siswa->siswaPendidikan->kompetensi_keahlian_id),
-            'lowongan' => Lowongan::orderBy('created_at', 'DESC')->get(),
+            'lowongan' => Lowongan::where('status', 'aktif')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(6),
             'nav' => 'beranda'
         ];
     	
@@ -60,16 +73,8 @@ class BerandaController extends Controller
 
     public function showVerifikasiForm()
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
-        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
-        SEOTools::setCanonical(URL::current());
-        SEOTools::metatags()
-            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
-        SEOTools::opengraph()
-            ->setUrl(URL::current())
-            ->addProperty('type', 'homepage');
-        SEOTools::twitter()->setSite('@smkbisakerja');
-        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+        // Mengambil SEO
+        $this->getSeo();
 
     	$data = [
             'nav'               => 'beranda',

@@ -203,7 +203,7 @@
 			  		@enderror	
 				</div>
 				<div class="form-group">
-				    <label class="font-weight-bold mt-md-3" for="image">{{__('Image')}} <span class="text-danger">{{__('*')}}</span></label>
+				    <label class="font-weight-bold mt-md-3" for="image">{{__('Image')}}</label>
 				    <input type="file" onChange='return validasiFile()' class="form-control-file @error('image') is-invalid @enderror" id="image" name="image" >
 				
 					@error('image')

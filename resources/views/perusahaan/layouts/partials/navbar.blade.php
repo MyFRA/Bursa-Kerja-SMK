@@ -7,8 +7,8 @@
             </div>
             <div class="nav-item dropdown list-unstyled d-block float-right" style="flex: 1">
                 <a class="nav-link dropdown-toggle float-right d-flex align-items-center" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="mr-2 @can('melakukan verifikasi') rounded-circle @endcan @cannot('melakukan verifikasi') {{ ( $user->perusahaan->logo == null ? 'rounded-circle' : '' ) }} @endcannot" src="@can('melakukan verifikasi'){{ asset('/images/noimagecompany.png') }}@endcan @cannot('melakukan verifikasi'){{ $user->perusahaan->logo == null ? asset('/images/noimagecompany.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $user->perusahaan->logo) }} @endcannot" alt=" @cannot('melakukan verifikasi') {{ $user->perusahaan->nama }} @endcannot">
-                    <span>{{ $user->name }}</span>
+                    <img class="mr-2 rounded {{ (Auth::user()->can('melakukan verifikasi')) ? 'rounded-circle bordered' : ( Auth::user()->perusahaan->logo == null ) ? 'rounded-circle bordered' : '' }}" src="{{ Auth::user()->can('melakukan verifikasi') ? asset('/images/noimagecompany.png') : ( is_null(Auth::user()->perusahaan->logo) ? asset('/images/noimagecompany.png') :  asset('/storage/assets/daftar-perusahaan/logo/' . Auth::user()->perusahaan->logo) ) }}" alt="">
+                    <span>{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     @cannot('melakukan verifikasi')
@@ -31,14 +31,14 @@
             </a>
         </div>
         <div class="col-4">
-            <a href="@can('terverifikasi') {{ url('/perusahaan/lowongan') }} @endcan">
+            <a href="{{ (Auth::user()->can('terverifikasi')) ? url('/perusahaan/lowongan') : url('/perusahaan') }}">
                 <div class="{{ $nav == 'lowongan' ? 'active' : '' }} d-flex flex-column">
                     <i class="fa fa-suitcase mr-1"></i> <span class="mt-1">{{__(' MANAJEMEN LOWONGAN')}}</span>
                 </div>
             </a>
         </div>
         <div class="col-4">
-            <a href="@cannot('melakukan verifikasi') {{ url('/perusahaan/profil') }} @endcan">
+            <a href="{{ (Auth::user()->cannot('melakukan verifikasi')) ? url('/perusahaan/profil') : url('/perusahaan') }}">
                 <div class="{{ $nav == 'profil' ? 'active' : '' }} d-flex flex-column">
                     <i class="fa fa-building mr-1"></i> <span class="mt-1"> {{__('PROFIL')}}</span>
                 </div>

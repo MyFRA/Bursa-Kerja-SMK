@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-check">
                     <label class="form-check-label mt-4">
-                    <input type="checkbox" name="remember" class="form-check-input">
+                    <input type="checkbox" name="remember" class="form-check-input" <?= old('remember') ? 'checked' : '' ?>>
                         {{__('Ingat Saya')}}
                     </label>
                 </div>

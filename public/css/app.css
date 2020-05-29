@@ -16175,10 +16175,14 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   font-size: 1rem;
 }
 
+.bordered {
+  border: 1px solid #094370;
+}
+
+
 .navbar-perusahaan .inner-navbar .dropdown img { 
   box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
   width: 2.8rem;
-  border: 1px solid #094370;
   background-color: white;
 }
 
@@ -16647,6 +16651,10 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
   .profil-akun .image .judul h1 {
     font-size: 1.5rem;
+  }
+
+  .profil-akun .image {
+    display: none;
   }
 }
 

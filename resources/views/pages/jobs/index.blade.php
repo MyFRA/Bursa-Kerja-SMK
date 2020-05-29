@@ -88,7 +88,7 @@
             <div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card p-3 mt-3">
                 <span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn mr-2"></i>{{__(' Lowongan')}}</span>
                 @foreach ($lowongan as $loker)
-                    <div id="lowongan">
+                    <div id="lowongan" class="my-3">
                         <hr>
                         <div id="njero-lowongan" class="d-flex justify-content-between w-100">
                             <div style="flex: 3">
@@ -99,15 +99,16 @@
                                 <span id="waktu" class="text-muted">{{__('Sampai,')}} {{ __( date('d M Y', strtotime($loker->batas_akhir_lamaran)) ) }}</span>
                             </div>
                             <div id="contain-img" style="flex: 1">
-                                @if (is_null($loker->perusahaan->logo))
-                                    ''
-                                @else
-                                    <img class="float-right" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
+                                @if (!is_null($loker->perusahaan->logo))
+                                    <img class="float-right w-100" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
                                 @endif
                             </div>
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <div class="mt-2 ml-2">
+                {{ $lowongan->onEachSide(5)->links() }}
             </div>
         </div>
         <div class="col-md-2 px-2">

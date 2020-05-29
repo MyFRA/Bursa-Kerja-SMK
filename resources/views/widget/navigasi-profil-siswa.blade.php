@@ -5,8 +5,8 @@
 				<img class="w-100 rounded" src="{{ (Auth::user()->siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . Auth::user()->siswa->photo) }}" alt="" >
             </div>
             <div style="flex: 3" class="d-flex flex-column px-2">
-                <span>Nama</span>
-                <span class="small text-muted">Lihat profil saya</span>
+                <span>{{__('Nama')}}</span>
+                <span class="small text-muted">{{__('Lihat profil saya')}}</span>
             </div>
         </a>
     </div>
@@ -21,16 +21,16 @@
             <i class="fa fa-joomla mr-3"></i> {{__('Keterampilan')}}
         </a>
         <a href="{{ url('/siswa/profil/bahasa') }}" class="{{ $nav == 'bahasa' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-comments-o mr-3"></i> Bahasa
+            <i class="fa fa-comments-o mr-3"></i> {{__('Bahasa')}}
         </a>
         <a href="{{ url('/siswa/profil/lainya') }}" class="{{ $nav == 'lainya' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-align-justify mr-3"></i> Info Lain
+            <i class="fa fa-align-justify mr-3"></i> {{__('Info Lain')}}
         </a>
         <a href="{{ url('/siswa/profil/profil-saya') }}" class="{{ $nav == 'profil-saya' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-user mr-3"></i> Profil Saya
+            <i class="fa fa-user mr-3"></i> {{__('Profil Saya')}}
         </a>
         <a href="{{ url('/siswa/profil/akun') }}" class="{{ $nav == 'akun' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
-            <i class="fa fa-cogs mr-3"></i> Pengaturan Akun
+            <i class="fa fa-cogs mr-3"></i> {{__('Pengaturan Akun')}}
         </a>
     </div>
 </div>

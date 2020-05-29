@@ -128,10 +128,10 @@ class BerandaController extends Controller
         // Data Yang Akan Ditampilkan ke user
     	$data = [
             'nav'               => 'beranda',
-            'bidangKeahlian' 	=> BidangKeahlian::get(['id', 'nama']),
-    		'programKeahlian' 	=> ProgramKeahlian::get(['id', 'nama', 'bidang_keahlian_id']),
-    		'negara' 			=> Negara::get(['nama_negara']),
-    		'bahasa'            => Bahasa::get(['nama']),
+            'bidangKeahlian' 	=> BidangKeahlian::orderBy('nama', 'ASC')->get(['id', 'nama']),
+    		'programKeahlian' 	=> ProgramKeahlian::orderBy('nama', 'ASC')->get(['id', 'nama', 'bidang_keahlian_id']),
+    		'negara' 			=> Negara::orderBy('nama_negara', 'ASC')->get(['nama_negara']),
+    		'bahasa'            => Bahasa::orderBy('nama', 'ASC')->get(['nama']),
             'user'              => Auth::user(),
     	];
 

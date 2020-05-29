@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Kategori')}}</h6>
-                                    <span class="ml-1">{{$lowongan->kategori != null ? $lowongan->kategori : '-' }}</span>
+                                    <span class="ml-1">{{$lowongan->perusahaan->kategori != null ? $lowongan->perusahaan->kategori : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Ukuran Perusahaan')}}</h6>
@@ -110,19 +110,19 @@
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Gaya Berpakaian')}}</h6>
-                                    <span class="ml-1">{{$lowongan->gaya_berpakaian != null ? $lowongan->gaya_berpakaian : '-' }}</span>
+                                    <span class="ml-1">{{$lowongan->perusahaan->gaya_berpakaian != null ? $lowongan->perusahaan->gaya_berpakaian : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Waktu Bekerja')}}</h6>
-                                    <span class="ml-1">{{$lowongan->waktu_bekerja != null ? $lowongan->waktu_bekerja : '-' }}</span>
+                                    <span class="ml-1">{{$lowongan->perusahaan->waktu_bekerja != null ? $lowongan->perusahaan->waktu_bekerja : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Tunjangan')}}</h6>
-                                    <span class="ml-1">{{$lowongan->tunjangan != null ? $lowongan->tunjangan : '-' }}</span>
+                                    <span class="ml-1">{{$lowongan->perusahaan->tunjangan != null ? $lowongan->perusahaan->tunjangan : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Bahasa Yang Digunakan')}}</h6>
-                                    <span class="ml-1">{{$lowongan->bahasa != null ? $lowongan->bahasa : '-' }}</span>
+                                    <span class="ml-1">{{$lowongan->perusahaan->bahasa != null ? $lowongan->perusahaan->bahasa : '-' }}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Kompetensi Keahlian')}}</h6>
@@ -148,14 +148,14 @@
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Batas AKhir Lamaran')}}</h6>
-                                    <span> {{ __( date('d-M-Y', strtotime($lowongan->batas_akhir_lamaran)) ) }} </span>
+                                    <span> {{ __( date('d M Y', strtotime($lowongan->batas_akhir_lamaran)) ) }} </span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 mt-2">
                         <div class="card p-3 pb-4">
-                            <h5 class="text-muted"><i class="fa fa-camera-retro mr-2"></i> {{__('FOTO PERUSAHAAN')}}</h5>
+                            <h5 class="text-muted"><i class="fa fa-camera-retro mr-2"></i> {{__('IMAGE')}}</h5>
                             <div class="px-5 p-3">
                                 <div class="container-thumb-gede">
                                     <div class="row">

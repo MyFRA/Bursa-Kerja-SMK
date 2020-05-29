@@ -10,6 +10,15 @@
                     <div class="d-flex flex-column justify-content-center align-items-center">
                         <img class="w-25" src="{{ asset('/images/profile.svg') }}" alt="">
                         <h1 class="font-weight-bold mt-4">Masuk</h1>
+                        @if ($errors->any())
+                            <div class="alert mb-0 alert-danger pb-0">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                         <div class=" w-75 form-group mt-3 d-flex align-items-center flex-column">
                             <p class="h5">Username / Email <span class="text-danger">*</span> </p>
                             <input type="text" class="form-control mt-2 text-center border-0" style="background-color: #e2e2e2;" id="username" name="username" placeholder="Masukan username / email">
@@ -21,7 +30,7 @@
                             @enderror
                         </div>
                         <div class=" w-75 form-group mt-3 d-flex align-items-center flex-column">
-                            <p class="h5">Passowrd <span class="text-danger">*</span> </p>
+                            <p class="h5">Password <span class="text-danger">*</span> </p>
                             <input type="password" class="form-control mt-2 text-center border-0" style="background-color: #e2e2e2;" id="password" name="password" placeholder="Masukan password">
                         
                             @error('username')

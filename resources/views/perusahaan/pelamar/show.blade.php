@@ -22,13 +22,13 @@
                         <table class="table table-responsive">
                             <tbody>
                                 <tr class="border-0">
-                                    <th class="border-0 pb-0" scope="col">Perusahaan</th>
-                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col">{{__('Perusahaan')}}</th>
+                                    <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
                                     <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/profil') }}">{{__( $pelamar->lowongan->perusahaan->nama )}}</a></th>
                                 </tr>
                                 <tr class="border-0">
-                                    <th class="border-0 pb-0" scope="col">Lowongan</th>
-                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col">{{__('Lowongan')}}</th>
+                                    <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
                                     <th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($pelamar->lowongan->id)) }}">{{__( $pelamar->lowongan->jabatan )}}</a></th>
                                 </tr>
                             </tbody>
@@ -41,8 +41,8 @@
                         <table class="table table-responsive">
                             <tbody>
                                 <tr class="border-0">
-                                    <th class="border-0 pb-0" scope="col">Nama</th>
-                                    <th class="border-0 pb-0" scope="col">:</th>
+                                    <th class="border-0 pb-0" scope="col">{{__('Nama')}}</th>
+                                    <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
                                     <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
                                 </tr>
                             </tbody>
@@ -72,31 +72,31 @@
                             <tr class="border-0">
                                 <th class="border-0 pb-0" scope="col">Nama</th>
                                 <th class="border-0 pb-0" scope="col">:</th>
-                                <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/lowongan/show/pelamar/' . encrypt($pelamar->siswa->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
+                                <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
                             </tr>
                             <tr>
-                                <th class="border-0 pb-0" scope="col">Gaji Diharapkan</th>
-                                <th class="border-0 pb-0" scope="col">:</th>
-                                <th class="border-0 pb-0" scope="col">IDR {{ (number_format($pelamar->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.')) }}</th>
+                                <th class="border-0 pb-0" scope="col">{{__('Gaji Diharapkan')}}</th>
+                                <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
+                                <th class="border-0 pb-0" scope="col">{{__('IDR')}} {{ (number_format($pelamar->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.')) }}</th>
                             </tr>
                             <tr class="border-0">
-                                <th class="border-0 pb-0" scope="col">Status</th>
-                                <th class="border-0 pb-0" scope="col">:</th>
+                                <th class="border-0 pb-0" scope="col">{{__('Status')}}</th>
+                                <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
                                 <th class="border-0 pb-0" scope="col">
                                     @if ($pelamar->statusPelamaran->status == 'menunggu')
-                                        <span class="btn btn-sm btn-secondary"><i class="fa fa-warning mr-1"></i> Menunggu</span>
+                                        <span class="btn btn-sm btn-secondary"><i class="fa fa-warning mr-1"></i> {{__('Menunggu')}}</span>
                                     @elseif ($pelamar->statusPelamaran->status == 'diterima')
-                                        <span class="btn btn-sm btn-success"><i class="fa fa-check mr-1"></i> Diterima</span>
+                                        <span class="btn btn-sm btn-success"><i class="fa fa-check mr-1"></i> {{__('Diterima')}}</span>
                                     @elseif ($pelamar->statusPelamaran->status == 'ditolak')
-                                        <span class="btn btn-sm btn-danger"><i class="fa fa-close mr-1"></i> Ditolak</span>
+                                        <span class="btn btn-sm btn-danger"><i class="fa fa-close mr-1"></i> {{__('Ditolak')}}</span>
                                     @elseif ($pelamar->statusPelamaran->status == 'dipanggil')
-                                        <span class="btn btn-sm btn-primary"><i class="fa fa-bullhorn mr-1"></i> Dipanggil </span>
+                                        <span class="btn btn-sm btn-primary"><i class="fa fa-bullhorn mr-1"></i> {{__('Dipanggil')}} </span>
                                     @endif
                                 </th>
                             </tr>
                             <tr>
-                                <th class="border-0 pb-0" scope="col">Lamaran</th>
-                                <th class="border-0 pb-0" scope="col">:</th>
+                                <th class="border-0 pb-0" scope="col">{{__('Lamaran')}}</th>
+                                <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
                                 <th class="border-0 pb-0" scope="col">
                                     @if ($pelamar->statusPelamaran->status == 'menunggu')
                                         <a href="" onclick="statusPelamaran('diterima', '{{ encrypt($pelamar->id) }}')" class="btn btn-sm btn-success mt-1"><i class="fa fa-check mr-1"></i> Terima</a>

@@ -34,17 +34,18 @@
                         <span class="text-muted ">{{( $user->siswa->siswaPendidikan->nama_sekolah )}}</span>
                         <div class="mt-2"> 
                             <span>
-                                <i class="fa fa-phone mx-2"></i> {{( $user->siswa->hp )}} |   
+                                <i class="fa fa-phone mx-2"></i>{{( $user->siswa->hp )}} |  
                             </span>
                             <span>
-                                <i class="fa fa-envelope mx-2"></i> {{( $user->siswa->email )}} | 
+                                <i class="fa fa-envelope mx-2"></i>{{( $user->siswa->email )}} |
                             </span>
                             <span>
-                                <i class="fa fa-dollar mx-2"></i> {{( number_format( $user->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.' ) )}} | 
+                                <i class="fa fa-dollar mx-2"></i>{{( number_format( $user->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.' ) )}} |
                             </span>
                             <span>
-                                <i class="fa fa-map-marker mx-2"></i> {{( $user->siswa->provinsi )}}</div>
+                                <i class="fa fa-map-marker mx-2"></i>{{( $user->siswa->provinsi )}} |
                             </span>
+                        </div>
                     </div>
                 </div>
                 <div class="mt-4">
