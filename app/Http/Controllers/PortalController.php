@@ -22,6 +22,10 @@ class PortalController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.portal-perusahaan.index');
+        $data = [
+            'navbarForPerusahaan' => true,
+        ];
+
+        return view('pages.portal-perusahaan.index', $data);
     }
 }
