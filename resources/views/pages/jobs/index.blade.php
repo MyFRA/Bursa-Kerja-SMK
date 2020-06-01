@@ -21,7 +21,7 @@
                 <div class="card-body p-3">
                     <h4 class="widget-title">Pilih Kriteria</h4>
                     
-                    <form action="" method="get">
+                    <form action="{{ url('/lowongan/cari/pekerjaan') }}" method="get">
                         <div class="form-group">
                             <div class="input-group input-group-sm">
                                 <div class="input-group-prepend">
@@ -29,24 +29,38 @@
                                         <i class="fa fa-search"></i>
                                     </span>
                                 </div>
-                                <input type="text" name="judul" class="form-control" placeholder="Judul, Posisi, Kata Kunci atau ...">
+                                <input type="text" name="judul" class="form-control" placeholder="Judul, Posisi, Kata Kunci atau ..." value="{{ (isset($oldInput['judul'])) ? $oldInput['judul'] : '' }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <select name="" id="" class="form-control form-control-sm">
+                            <select name="provinsi" id="" class="form-control form-control-sm">
                                 <option value="">Semua Lokasi</option>
+                                @foreach ($provinsi as $prov)
+                                    <option value="{{ $prov->nama_provinsi }}" 
+                                    @if (isset($oldInput['provinsi']))
+                                        {{ ($oldInput['provinsi'] == $prov->nama_provinsi) ? 'selected' : '' }}
+                                    @endif    
+                                    >{{ $prov->nama_provinsi }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <select name="" id="" class="form-control form-control-sm">
+                            <select name="program_keahlian_id" id="" class="form-control form-control-sm">
                                 <option value="">Semua Program Keahlian</option>
+                                @foreach ($programKeahlian as $progKeahlian)
+                                    <option value="{{ $progKeahlian->id }}" 
+                                    @if (isset($oldInput['program_keahlian_id']))
+                                        {{ ($oldInput['program_keahlian_id'] == $progKeahlian->id) ? 'selected' : '' }}
+                                    @endif    
+                                    >{{ $progKeahlian->nama }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="" id="" placeholder="Gaji Minimum (IDR)" class="form-control form-control-sm">
+                            <input type="text" name="gaji_min" id="gaji_min" placeholder="Gaji Minimum (IDR)" class="form-control form-control-sm" value="{{ (isset($oldInput['gaji_min'])) ? $oldInput['gaji_min'] : '' }}">
                         </div>
 
                         <div class="form-group">
@@ -58,8 +72,11 @@
                 </div>
             </div>
 
-            <!-- navigation-list-page -->
-            @include('widget.navigation-list-page')
+            <div class="nav-list-page-for-dekstop">
+                <!-- navigation-list-page -->
+                @include('widget.navigation-list-page')
+            </div>
+
         </div>
         <div class="col-md-7 px-2">
             <div class="card mb-3 rounded-0">
@@ -87,25 +104,29 @@
 
             <div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card p-3 mt-3">
                 <span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn mr-2"></i>{{__(' Lowongan')}}</span>
-                @foreach ($lowongan as $loker)
-                    <div id="lowongan" class="my-3">
-                        <hr>
-                        <div id="njero-lowongan" class="d-flex justify-content-between w-100">
-                            <div style="flex: 3">
-                                <a href="{{ url('lowongan/' . encrypt($loker->id)) }}" class="h5 font-weight-bold text-primary mb-0">{{__( $loker->jabatan )}}</a>
-                                <a href="{{ url('perusahaan/show/' . encrypt($loker->perusahaan_id)) }}" class="text-primary d-block">{{__( $loker->nama_perusahaan )}}</a>
-                                <span class="d-block mt-2"><i class="fa fa-map-marker"></i> {{__( $loker->perusahaan->alamat )}}</span>
-                                <span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> {{__('IDR')}} {{__( number_format($loker->gaji_min, 0, '.', '.') )}} {{__('-')}} {{__( number_format($loker->gaji_max, 0, '.', '.') )}}</span>
-                                <span id="waktu" class="text-muted">{{__('Sampai,')}} {{ __( date('d M Y', strtotime($loker->batas_akhir_lamaran)) ) }}</span>
-                            </div>
-                            <div id="contain-img" style="flex: 1">
-                                @if (!is_null($loker->perusahaan->logo))
-                                    <img class="float-right w-100" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
-                                @endif
+                @if ($lowongan->isEmpty($lowongan))
+                    <h2 class="my-3 mx-2 text-muted">Maaf, Lowongan tidak tersedia</h2>
+                @else
+                    @foreach ($lowongan as $loker)
+                        <div id="lowongan" class="my-3">
+                            <hr>
+                            <div id="njero-lowongan" class="d-flex justify-content-between w-100">
+                                <div style="flex: 3">
+                                    <a href="{{ url('lowongan/' . encrypt($loker->id)) }}" class="h5 font-weight-bold text-primary mb-0">{{__( $loker->jabatan )}}</a>
+                                    <a href="{{ url('perusahaan/show/' . encrypt($loker->perusahaan_id)) }}" class="text-primary d-block">{{__( $loker->nama_perusahaan )}}</a>
+                                    <span class="d-block mt-2"><i class="fa fa-map-marker"></i> {{__( $loker->perusahaan->alamat )}}</span>
+                                    <span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> {{__('IDR')}} {{__( number_format($loker->gaji_min, 0, '.', '.') )}} {{__('-')}} {{__( number_format($loker->gaji_max, 0, '.', '.') )}}</span>
+                                    <span id="waktu" class="text-muted">{{__('Sampai,')}} {{ __( date('d M Y', strtotime($loker->batas_akhir_lamaran)) ) }}</span>
+                                </div>
+                                <div id="contain-img" style="flex: 1">
+                                    @if (!is_null($loker->perusahaan->logo))
+                                        <img class="float-right w-100" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
+                                    @endif
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @endif
             </div>
             <div class="mt-2 ml-2">
                 {{ $lowongan->onEachSide(5)->links() }}
@@ -114,6 +135,47 @@
         <div class="col-md-2 px-2">
             <img src="https://www.wmtips.com/i/art/547/160x600.gif" alt="">
         </div>
+            <div class="col-12 px-2 mt-2">
+                <div class="nav-list-page-for-mobile">
+                    <!-- navigation-list-page -->
+                    @include('widget.navigation-list-page')
+                </div>
+            </div>
     </div>
 </div>
+@endsection
+
+
+
+@section('script')
+
+<script>
+
+    // Fungsi Penambahan RP, di Gaji Min & Gaji Max
+		var gaji_min = document.getElementById('gaji_min');
+		gaji_min.addEventListener('keyup', function(e){
+
+			gaji_min.value = formatRupiah(this.value, 'Rp. ');
+
+		});
+
+    /* Fungsi formatRupiah */
+		function formatRupiah(angka, prefix){
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split   		= number_string.split(','),
+			sisa     		= split[0].length % 3,
+			rupiah     		= split[0].substr(0, sisa),
+			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+ 
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if(ribuan){
+				separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+ 
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+		}
+</script>
+
 @endsection

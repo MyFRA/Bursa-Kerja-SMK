@@ -17250,3 +17250,28 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
       box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
   }
 }
+
+
+
+
+/* nav list page */
+
+.nav-list-page-for-mobile {
+  display: inline;
+}
+
+.nav-list-page-for-dekstop {
+  display: none;
+}
+
+
+@media screen and (min-width: 768px) {
+  .nav-list-page-for-mobile {
+    display: none;
+  }
+  
+  .nav-list-page-for-dekstop {
+    display: inline;
+  }
+  
+}

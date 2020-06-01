@@ -7,7 +7,7 @@
             <li><a href="{{ url('hubungi-kami') }}">Hubungi Kami</a></li>
             <li><a href="{{ url('kebijakan-privasi') }}">Kebijakan Privasi</a></li>
             <li><a href="{{ url('syarat-kententuan') }}">Syarat &amp; Ketentuan</a></li>
-            <li><a href="{{ url('disklaimer') }}">Disklaimer</a></li>
+            <li><a href="{{ url('disklaimer') }}">Disclaimer</a></li>
             <li><a href="{{ url('faq') }}">FAQ</a></li>
         </ul>
     </div>

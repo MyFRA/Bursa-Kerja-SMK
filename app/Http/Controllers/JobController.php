@@ -10,6 +10,10 @@ use Artesaos\SEOTools\Facades\SEOTools;
 
 use App\Models\Lowongan;
 use App\Models\Pelamaran;
+use App\Models\Perusahaan;
+use App\Models\ProgramKeahlian;
+use App\Models\Provinsi;
+
 
 class JobController extends Controller
 {
@@ -45,12 +49,53 @@ class JobController extends Controller
         $data = [
             'lowongan' => Lowongan::where('status', 'aktif')
                                     ->orderBy('created_at', 'DESC')
-                                    ->paginate(6)
+                                    ->paginate(6),
+            'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get()
         ];
 
         return view('pages.jobs.index', $data);
     }
     
+    /**
+     * Show the application job list with condidition from input.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function indexByConditionCari(Request $request)
+    {
+        // Mengambil SEO
+        $this->getSeo();
+        // Pengubahan Gaji Menjadi Full Angka
+        $gaji_min = explode('Rp. ', $request->gaji_min);
+        $gaji_min = end($gaji_min);
+        $gaji_min = str_replace('.', '', $gaji_min);
+
+        $perusahaanProgramKeahlianId = (!is_null($request->program_keahlian_id)) ? 'perusahaan.program_keahlian_id' : 'lowongan.status';
+        $programKeahlianId = (!is_null($request->program_keahlian_id)) ? $request->program_keahlian_id : 'aktif';
+
+        $perusahaanProvinsi = (!is_null($request->provinsi)) ? 'perusahaan.provinsi' : 'lowongan.status';
+        $provinsi = (!is_null($request->provinsi)) ? $request->provinsi : 'aktif';
+
+        // lowongan berdasarkan kondisi
+        $lowongan = Lowongan::where('lowongan.status', 'aktif')
+                            ->where('lowongan.jabatan', 'like', '%' . $request->judul . '%')
+                            ->where('lowongan.gaji_min', '>=', $gaji_min)
+                            ->where($perusahaanProvinsi, $provinsi)
+                            ->where($perusahaanProgramKeahlianId, $programKeahlianId)
+                            ->join('perusahaan', 'lowongan.perusahaan_id', 'perusahaan.id')
+                            ->orderBy('lowongan.created_at', 'DESC');
+
+        $data = [
+            'lowongan' => $lowongan->paginate(6),
+            'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
+            'oldInput' => $request->all(),
+        ];
+
+        return view('pages.jobs.index', $data);
+    }
+
     /**
      * Display the specified resource.
      *
