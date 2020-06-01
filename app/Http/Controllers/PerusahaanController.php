@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Perusahaan;
+use App\Models\Lowongan;
 
 class PerusahaanController extends Controller
 {
@@ -29,7 +30,9 @@ class PerusahaanController extends Controller
     {
         $data = [
             'user'       => Auth::user(),
-            'perusahaan' => Perusahaan::find(decrypt($id))
+            'perusahaan' => Perusahaan::find(decrypt($id)),
+            'jmlLowongan' => Lowongan::where('perusahaan_id', decrypt($id))
+                                    ->count(),
         ];  
 
         return view('pages.portal-perusahaan.show', $data);

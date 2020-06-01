@@ -5,6 +5,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/lowongan', 'JobController@index')->name('lowongan');
 Route::get('/lowongan/{link}', 'JobController@show')->name('lowongan.show');
 Route::get('/lowongan/cari/pekerjaan', 'JobController@indexByConditionCari');
+Route::get('/lowongan/cari/pekerjaan/urut-berdasarkan/{metode}', 'JobController@indexByUrutBerdasarkan');
 Route::get('/faq', 'FaqController@index')->name('faq');
 Route::get('/produk-siswa', 'ProductController@index');
 Route::get('/produk-siswa/{link}', 'ProductController@show');

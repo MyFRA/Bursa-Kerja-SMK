@@ -163,7 +163,7 @@
                     <div class="own-card p-4 mt-4">
                         <h5 class="font-weight-bold pb-3">Lowongan</h5>
                         <div class="d-flex align-items-center justify-content-around">
-                            <h1 class="mt-n1">10</h1>
+                            <h1 class="mt-n1">{{ $jmlLowongan }}</h1>
                             <h5 class="font-weight-bold w-75 h-100 my-auto ml-3">Lowongan Pekerjaan Diposkan</h5>
                         </div>
                     </div>

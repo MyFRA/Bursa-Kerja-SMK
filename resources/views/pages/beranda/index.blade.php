@@ -4,10 +4,11 @@
 		<div class="pages-beranda-cari-lowongan">
 			{{-- For Dekstop --}}
 			<input id="for-dekstop" type="text" placeholder="Mencari berdasarkan posisi, keahlian dan kata kunci">
-			<button id="for-dekstop"><i class="fa fa-search"></i></button>
+			<button id="for-dekstop" onclick="cariLoker(this)"><i class="fa fa-search"></i></button>
+			
 			{{-- For Mobile --}}
 			<input id="for-mobile" class="d-none w-100" type="text" placeholder="Mencari berdasarkan posisi, keahlian dan kata kunci">
-			<button id="for-mobile" ><i class="fa fa-search"></i></button>
+			<button id="for-mobile"><i class="fa fa-search"></i></button>
 		</div>
 		<div class="container beranda-lowongan-index">
 			<div class="row">
@@ -43,7 +44,7 @@
 										<span id="waktu" class="text-muted">{{__('Sampai,')}} {{ __( date('d M Y', strtotime($loker->batas_akhir_lamaran)) ) }}</span>
 									</div>
 									<div id="contain-img" style="flex: 1">
-										<img class="float-right" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
+										<img class="float-right rounded" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $loker->perusahaan->logo) }}" alt="" width="150">
 									</div>
 								</div>
 							</div>
@@ -81,25 +82,38 @@
 		<br>
 		<br>
 	</div>
+
+
+	<form id="form-to-search-jobs" action="{{ url('/lowongan/cari/pekerjaan') }}" method="get">
+		<input type="hidden" name="judul" value="">
+	</form>
+
 @endsection
 
 
 @section('script')
 
 	<script>
-		const tombol = document.querySelector('.pages-beranda-cari-lowongan button#for-mobile');
-		const input  = document.querySelector('.pages-beranda-cari-lowongan input#for-mobile');
+		const buttonForMobile = document.querySelector('.pages-beranda-cari-lowongan button#for-mobile');
+		const inputForMobile = document.querySelector('.pages-beranda-cari-lowongan input#for-mobile');
 
-
-
-		tombol.addEventListener('click', function () {
-			if( input.classList.contains('d-none') ) {
-				input.classList.remove('d-none');
+		buttonForMobile.addEventListener('click', function () {
+			if( inputForMobile.classList.contains('d-none') ) {
+				inputForMobile.classList.remove('d-none');
 			} else {
-				alert(input.value)
+				cariLoker(buttonForMobile);
 			}
 		});
 
+	</script>
+
+
+	<script>
+		function cariLoker(element) {
+			let formForSearchJobs = document.getElementById('form-to-search-jobs');
+			formForSearchJobs.children[0].value = element.previousElementSibling.value;
+			formForSearchJobs.submit();
+		}
 	</script>
 
 @endsection

@@ -47,7 +47,8 @@ class JobController extends Controller
         $this->getSeo();
 
         $data = [
-            'lowongan' => Lowongan::where('status', 'aktif')
+            'lowongan' => Lowongan::select('lowongan.*', 'lowongan.id AS id_from_lowongan')
+                                    ->where('status', 'aktif')
                                     ->orderBy('created_at', 'DESC')
                                     ->paginate(6),
             'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
@@ -66,6 +67,7 @@ class JobController extends Controller
     {
         // Mengambil SEO
         $this->getSeo();
+
         // Pengubahan Gaji Menjadi Full Angka
         $gaji_min = explode('Rp. ', $request->gaji_min);
         $gaji_min = end($gaji_min);
@@ -77,14 +79,39 @@ class JobController extends Controller
         $perusahaanProvinsi = (!is_null($request->provinsi)) ? 'perusahaan.provinsi' : 'lowongan.status';
         $provinsi = (!is_null($request->provinsi)) ? $request->provinsi : 'aktif';
 
+
+        // Pengaturan urut berdasarkan
+        $kolom;
+        $nilai;
+
+        switch ($request->urutBerdasarkan) {
+            case 'terbaru':
+                $kolom = 'lowongan.created_at';
+                $nilai = 'DESC';
+                break;
+            case 'gaji_terendah':
+                $kolom = 'lowongan.gaji_min';
+                $nilai = 'ASC';
+                break;
+            case 'gaji_tertinggi':
+                $kolom = 'lowongan.gaji_max';
+                $nilai = 'DESC';
+                break;
+            default:
+                $kolom = 'lowongan.created_at';
+                $nilai = 'DESC';
+            break;
+        }
+
         // lowongan berdasarkan kondisi
-        $lowongan = Lowongan::where('lowongan.status', 'aktif')
+        $lowongan = Lowongan::select('lowongan.*', 'lowongan.id AS id_from_lowongan')
+                            ->where('lowongan.status', 'aktif')
                             ->where('lowongan.jabatan', 'like', '%' . $request->judul . '%')
                             ->where('lowongan.gaji_min', '>=', $gaji_min)
                             ->where($perusahaanProvinsi, $provinsi)
                             ->where($perusahaanProgramKeahlianId, $programKeahlianId)
                             ->join('perusahaan', 'lowongan.perusahaan_id', 'perusahaan.id')
-                            ->orderBy('lowongan.created_at', 'DESC');
+                            ->orderBy($kolom, $nilai);
 
         $data = [
             'lowongan' => $lowongan->paginate(6),
@@ -94,6 +121,13 @@ class JobController extends Controller
         ];
 
         return view('pages.jobs.index', $data);
+    }
+
+
+    public function indexByUrutBerdasarkan($metode)
+    {
+        $program_keahlian = ProgramKeahlian::select('id', 'nama')->where('bidang_keahlian_id', $id)->get();
+        return Response::json($program_keahlian);
     }
 
     /**
