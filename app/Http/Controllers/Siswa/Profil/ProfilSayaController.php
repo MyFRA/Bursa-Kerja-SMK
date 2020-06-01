@@ -47,7 +47,8 @@ class ProfilSayaController extends Controller
 
         $data = [
             'nav' => 'profil-saya',
-            'siswa' => Siswa::find(Auth::user()->siswa->id)
+            'siswa' => Siswa::find(Auth::user()->siswa->id),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.profil-saya.index', $data);
@@ -99,7 +100,7 @@ class ProfilSayaController extends Controller
             'nav' => 'profil-saya',
             'siswa' => Siswa::find(Auth::user()->siswa->id),
             'negara' => Negara::orderBy('nama_negara', 'ASC')->pluck('nama_negara'),
-
+            'navLink' => ''
         ];
 
         return view('siswa.profil.profil-saya.edit', $data);

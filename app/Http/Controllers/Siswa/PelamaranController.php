@@ -64,7 +64,8 @@ class PelamaranController extends Controller
 
             $data = [
                 'perusahaan' => Perusahaan::find($lowongan->perusahaan_id),
-                'lowongan' => $lowongan
+                'lowongan' => $lowongan,
+                'navLink' => 'lamaran'
             ];
 
             return view('pages.jobs.show-proposal-lamaran', $data);
@@ -107,7 +108,8 @@ class PelamaranController extends Controller
         
         $data = [
             'lowongan' => Lowongan::find(decrypt($id)),
-            'pelamar' => Pelamaran::where('lowongan_id', decrypt($id))->orderBy('created_at', 'DESC')->paginate(10)
+            'pelamar' => Pelamaran::where('lowongan_id', decrypt($id))->orderBy('created_at', 'DESC')->paginate(10),
+            'navLink' => 'lamaran'
         ];
 
         return view('pages.jobs.lihat-pelamar', $data);

@@ -45,7 +45,8 @@ class KeterampilanController extends Controller
 
         $data = [
             'nav' => 'keterampilan',
-            'keterampilan' => SiswaKeterampilan::where('siswa_id', Auth::user()->siswa->id)->get()
+            'keterampilan' => SiswaKeterampilan::where('siswa_id', Auth::user()->siswa->id)->get(),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.keterampilan.index', $data);
@@ -122,6 +123,7 @@ class KeterampilanController extends Controller
         $data = [
             'nav' => 'keterampilan',
             'keterampilan' => SiswaKeterampilan::find(decrypt($id)),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.keterampilan.edit', $data);

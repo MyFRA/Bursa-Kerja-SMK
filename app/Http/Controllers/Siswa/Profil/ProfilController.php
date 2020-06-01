@@ -53,7 +53,8 @@ class ProfilController extends Controller
         $data = [
             'user' => Auth::user(),
             'nav' => 'lihat-profil',
-            'siswaPendidikan' => SiswaPendidikan::where('siswa_id', Auth::user()->siswa->id)->get()
+            'siswaPendidikan' => SiswaPendidikan::where('siswa_id', Auth::user()->siswa->id)->get(),
+            'navLink' => ''
         ];
         return view('siswa.profil.index', $data);
     }

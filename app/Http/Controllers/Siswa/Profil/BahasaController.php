@@ -54,6 +54,7 @@ class BahasaController extends Controller
             'lisan' => $lisan,
             'sertifikat' => $sertifikat,
             'siswaBahasa' => SiswaBahasa::where('siswa_id', Auth::user()->siswa->id)->get(),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.bahasa.index', $data);
@@ -80,7 +81,6 @@ class BahasaController extends Controller
         $jmlArr = count($request->bahasa_id);
 
         for($i=0; $i < $jmlArr; $i++) {
-
             SiswaBahasa::create([
                 'siswa_id' => Auth::user()->siswa->id,
                 'bahasa_id' => $request->bahasa_id[$i],
@@ -90,9 +90,9 @@ class BahasaController extends Controller
                 'sertifikat' => $request->sertifikat[$i],
                 'skor' => $request->skor[$i]
             ]);
-
-            return back();
         }
+
+        return back();
     }
 
     /**
@@ -130,7 +130,8 @@ class BahasaController extends Controller
             'bahasa' => Bahasa::orderBy('nama', 'ASC')->get(),
             'lisan' => $lisan,
             'sertifikat' => $sertifikat,
-            'siswaBahasa' => SiswaBahasa::where('siswa_id', Auth::user()->siswa->id)->get()
+            'siswaBahasa' => SiswaBahasa::where('siswa_id', Auth::user()->siswa->id)->get(),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.bahasa.edit', $data);

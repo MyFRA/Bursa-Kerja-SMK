@@ -12,30 +12,30 @@
             <ul class="navbar-nav mr-auto">
                 @role('siswa')
                     <li class="nav-item active">
-                        <a class="nav-link" href="{{ url('/siswa/beranda') }}">{{ __('Beranda') }}</a>
+                        <a class="nav-link {{ ($navLink == 'beranda') ? 'active-for-nav-link' : '' }}" href="{{ url('/siswa/beranda') }}">{{ __('Beranda') }}</a>
                     </li>
                 @endrole
                 <li class="nav-item ">
-                    <a class="nav-link" href="{{ url('/lowongan') }}">{{ __('Lowongan') }}</a>
+                    <a class="nav-link {{ ($navLink == 'lowongan') ? 'active-for-nav-link' : '' }}" href="{{ url('/lowongan') }}">{{ __('Lowongan') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/agenda') }}">{{ __('Agenda') }}</a>
+                    <a class="nav-link {{ ($navLink == 'agenda') ? 'active-for-nav-link' : '' }}" href="{{ url('/agenda') }}">{{ __('Agenda') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/pengumuman') }}">{{ __('Pengumuman') }}</a>
+                    <a class="nav-link {{ ($navLink == 'pengumuman') ? 'active-for-nav-link' : '' }}" href="{{ url('/pengumuman') }}">{{ __('Pengumuman') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/produk-siswa') }}">{{ __('Produk Siswa') }}</a>
+                    <a class="nav-link {{ ($navLink == 'produk-siswa') ? 'active-for-nav-link' : '' }}" href="{{ url('/produk-siswa') }}">{{ __('Produk Siswa') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/artikel') }}">{{ __('Artikel') }}</a>
+                    <a class="nav-link {{ ($navLink == 'artikel') ? 'active-for-nav-link' : '' }}" href="{{ url('/artikel') }}">{{ __('Artikel') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/faq') }}">{{ __('FAQ') }}</a>
+                    <a class="nav-link {{ ($navLink == 'faq') ? 'active-for-nav-link' : '' }}" href="{{ url('/faq') }}">{{ __('FAQ') }}</a>
                 </li>
                 @role('siswa')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/siswa/lamaran') }}">{{ __('Lamaran') }}</a>
+                    <a class="nav-link {{ ($navLink == 'lamaran') ? 'active-for-nav-link' : '' }}" href="{{ url('/siswa/lamaran') }}">{{ __('Lamaran') }}</a>
                 </li>
                 @endrole
             </ul>

@@ -52,7 +52,8 @@ class JobController extends Controller
                                     ->orderBy('created_at', 'DESC')
                                     ->paginate(6),
             'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
-            'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get()
+            'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
+            'navLink' => 'lowongan'
         ];
 
         return view('pages.jobs.index', $data);
@@ -118,6 +119,7 @@ class JobController extends Controller
             'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
             'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
             'oldInput' => $request->all(),
+            'navLink' => 'lowongan'
         ];
 
         return view('pages.jobs.index', $data);
@@ -143,7 +145,8 @@ class JobController extends Controller
         $data = [
             'lowongan' => Lowongan::find(decrypt($id)),
             'melamar' => Pelamaran::where('siswa_id', $siswaId)
-                                    ->where('lowongan_id', decrypt($id))->first()
+                                    ->where('lowongan_id', decrypt($id))->first(),
+            'navLink' => 'lowongan'
         ];
 
         return view('pages.jobs.show', $data);

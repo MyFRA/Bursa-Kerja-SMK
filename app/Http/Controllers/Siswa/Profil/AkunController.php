@@ -41,7 +41,8 @@ class AkunController extends Controller
 
         $data = [
             'nav' => 'akun',
-            'siswa' => Auth::user()
+            'siswa' => Auth::user(),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.akun.index', $data);

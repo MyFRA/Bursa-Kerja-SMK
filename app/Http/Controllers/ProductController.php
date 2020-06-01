@@ -27,7 +27,11 @@ class ProductController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.product.index');
+        $data = [
+            'navLink' => 'produk-siswa'
+        ];
+
+        return view('pages.product.index', $data);
     }
 
     /**
@@ -49,6 +53,10 @@ class ProductController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('pages.product.show');
+        $data = [
+            'navLink' => 'produk-siswa'
+        ];
+
+        return view('pages.product.show', $data);
     }
 }

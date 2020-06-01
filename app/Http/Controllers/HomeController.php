@@ -26,7 +26,12 @@ class HomeController extends Controller
             ->addProperty('type', 'homepage');
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+        
+        $data = [
+            'navLink' => 'artikel',
+        ];
 
-        return view('home');
+        return view('home', $data);
+
     }
 }

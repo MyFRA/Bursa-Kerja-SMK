@@ -86,7 +86,11 @@ class LoginController extends Controller
     {
         $this->getSeo();
 
-        return view('auth.login');
+        $data = [
+            'navLink' => 'siswaLogin'
+        ];
+
+        return view('auth.login', $data);
     }
 
     /**

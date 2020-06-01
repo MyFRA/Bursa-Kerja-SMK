@@ -47,6 +47,7 @@ class LainyaController extends Controller
         $data = [
             'nav' => 'lainya',
             'siswaLainya' => SiswaLainya::where('siswa_id', Auth::user()->siswa->id)->first(),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.lainya.index', $data);
@@ -99,7 +100,8 @@ class LainyaController extends Controller
             'siswaLainya' => SiswaLainya::find(decrypt($id)),
             'lokasiDiharap' => json_decode(SiswaLainya::where('siswa_id', Auth::user()->siswa->id)->pluck('lokasi_diharap')[0]),
             'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
-            'keterampilan' => Keterampilan::orderBy('nama', 'ASC')->get()
+            'keterampilan' => Keterampilan::orderBy('nama', 'ASC')->get(),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.lainya.edit', $data);

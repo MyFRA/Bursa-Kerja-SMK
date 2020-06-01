@@ -94,8 +94,8 @@
                         </div>
                         <hr>
                     @endforeach
+                    {{ $pelamar->onEachSide(5)->links() }}
                 @endif
-
             </div>
         </div>
     </div>

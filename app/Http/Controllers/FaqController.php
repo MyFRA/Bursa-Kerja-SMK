@@ -27,6 +27,10 @@ class FaqController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('faq');
+        $data = [
+            'navLink' => 'faq',
+        ];
+
+        return view('faq', $data);
     }
 }

@@ -47,7 +47,8 @@ class LamaranController extends Controller
             'lamaran' => Pelamaran::where('siswa_id', Auth::user()->siswa->id)
                                     ->orderBy('created_at', 'DESC')                        
                                     ->get(),
-            'status' => 'Semua Lamaran'
+            'status' => 'Semua Lamaran',
+            'navLink' => 'lamaran'
         ];
 
         return view('siswa.lamaran.index', $data);
@@ -89,6 +90,7 @@ class LamaranController extends Controller
             $data = [
                 'lamaran' => $lamaran,
                 'status' => $request->status,
+                'navLink' => 'lamaran'
             ];
     
             return view('siswa.lamaran.index', $data);
@@ -106,6 +108,7 @@ class LamaranController extends Controller
 
         $data = [
             'pelamar' => Pelamaran::find(decrypt($id)),
+            'navLink' => 'lamaran'
         ];
 
         return view('siswa.lamaran.show', $data);
@@ -143,7 +146,8 @@ class LamaranController extends Controller
         $this->getSeo();
 
         $data = [
-            'pelamaran' => Pelamaran::find(decrypt($id))
+            'pelamaran' => Pelamaran::find(decrypt($id)),
+            'navLink' => 'lamaran'
         ];
 
         return view('siswa.lamaran.lihat-pesan', $data);
@@ -161,6 +165,7 @@ class LamaranController extends Controller
 
         $data = [
             'pelamaran' => Pelamaran::find(decrypt($id)),
+            'navLink' => 'lamaran'
         ];
 
         return view('siswa.lamaran.edit', $data);

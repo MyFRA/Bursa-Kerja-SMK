@@ -27,7 +27,11 @@ class ArtikelController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('artikel');
+        $data = [
+            'navLink' => 'artikel',
+        ];
+
+        return view('artikel', $data);
     }
 
     /**
@@ -48,6 +52,10 @@ class ArtikelController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('artikel-show');
+        $data = [
+            'navLink' => 'artikel',
+        ];
+
+        return view('artikel-show', $data);
     }
 }

@@ -17243,11 +17243,36 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   border-radius: 4px
 }
 
+.active-for-nav-link {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Pengaturan nav aktif untuk mobile */
 @media screen and (max-width: 991px) {
+
+  .navbar-light .navbar-nav .nav-link:hover,
+  .navbar-light .navbar-nav .nav-link:focus {
+    color: rgba(0, 0, 0, 0.7);
+    transition: all .2s;
+  }
+
+  .navbar-light .navbar-nav .nav-link:hover,
+  .navbar-light .navbar-nav .nav-link:focus > .navbar-light .navbar-nav .nav-link::before {
+    content: '';
+    margin-left: 10px;
+  }
+
   .nav-for-mobile {
-      /* box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important; */
-      /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important; */
       box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  }
+
+  .active-for-nav-link {
+    color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  .active-for-nav-link::before {
+    content: '';
+    margin-left: 15px;
   }
 }
 
@@ -17273,5 +17298,4 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   .nav-list-page-for-dekstop {
     display: inline;
   }
-  
 }

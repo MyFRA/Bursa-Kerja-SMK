@@ -43,6 +43,7 @@ class PerusahaanController extends Controller
             'perusahaan' => Perusahaan::find(decrypt($id)),
             'jmlLowongan' => Lowongan::where('perusahaan_id', decrypt($id))
                                     ->count(),
+            'navLink' => 'lowongan'
         ];  
 
         return view('pages.portal-perusahaan.show', $data);

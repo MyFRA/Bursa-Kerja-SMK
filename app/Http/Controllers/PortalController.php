@@ -24,6 +24,7 @@ class PortalController extends Controller
 
         $data = [
             'navbarForPerusahaan' => true,
+            'navLink' => 'perusahaan'
         ];
 
         return view('pages.portal-perusahaan.index', $data);

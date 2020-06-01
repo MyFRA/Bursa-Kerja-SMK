@@ -54,7 +54,8 @@ class PendidikanController extends Controller
             'nav' => 'pendidikan',
             'bidangKeahlian' => BidangKeahlian::orderBy('nama', 'ASC')->get(),
             'tahun' => $tahun,
-            'pendidikan' => SiswaPendidikan::where('siswa_id', Auth::user()->siswa->id)->get()
+            'pendidikan' => SiswaPendidikan::where('siswa_id', Auth::user()->siswa->id)->get(),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.pendidikan.index', $data);
@@ -169,6 +170,7 @@ class PendidikanController extends Controller
             'bidangKeahlian' => BidangKeahlian::orderBy('nama', 'ASC')->get(),
             'tahun' => $tahun,
             'pendidikan' => SiswaPendidikan::find(decrypt($id)),
+            'navLink' => ''
         ];
 
         return view('siswa.profil.pendidikan.edit', $data);

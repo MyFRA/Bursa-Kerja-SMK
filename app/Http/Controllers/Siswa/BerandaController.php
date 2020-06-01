@@ -52,14 +52,15 @@ class BerandaController extends Controller
 
         // Mengambil SEO
         $this->getSeo();
-
+        
         $data = [
             'user' => Auth::user(),
             'kompetensiKeahlian' => KompetensiKeahlian::find(Auth::user()->siswa->siswaPendidikan->kompetensi_keahlian_id),
             'lowongan' => Lowongan::where('status', 'aktif')
             ->orderBy('created_at', 'DESC')
             ->paginate(6),
-            'nav' => 'beranda'
+            'nav' => 'beranda',
+            'navLink' => 'beranda'
         ];
     	
     	return view('pages.beranda.index', $data);

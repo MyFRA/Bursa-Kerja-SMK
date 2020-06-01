@@ -59,7 +59,8 @@ class PengalamanController extends Controller
             'bidangKeahlian' => BidangKeahlian::orderBy('nama', 'ASC')->get(),
             'pengalaman' => SiswaPengalaman::where('siswa_id', Auth::user()->siswa->id)->orderBy('created_at', 'DESC')->get(),
             'tahun' => $tahun,
-            'nav' => 'pengalaman'
+            'nav' => 'pengalaman',
+            'navLink' => ''
         ];
 
         return view('siswa.profil.pengalaman.index', $data);
@@ -80,8 +81,8 @@ class PengalamanController extends Controller
             'bidangKeahlian' => BidangKeahlian::orderBy('nama', 'ASC')->get(),
             'pengalaman' => SiswaPengalaman::find(decrypt($id)),
             'tahun' => $tahun,
-            'nav' => 'pengalaman'
-
+            'nav' => 'pengalaman',
+            'navLink' => ''
         ];
 
         return view('siswa.profil.pengalaman.edit', $data);
