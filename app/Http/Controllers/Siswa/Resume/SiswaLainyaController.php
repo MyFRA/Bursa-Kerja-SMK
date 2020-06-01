@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\URL;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 use App\Models\Keterampilan;
 use App\Models\Provinsi;
@@ -33,6 +34,18 @@ class SiswaLainyaController extends Controller
      */
     public function create()
     {
+        // SEO Script
+        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
+        SEOTools::setCanonical(URL::current());
+        SEOTools::metatags()
+            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+        SEOTools::opengraph()
+            ->setUrl(URL::current())
+            ->addProperty('type', 'homepage');
+        SEOTools::twitter()->setSite('@smkbisakerja');
+        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+
         if( is_null(Auth::user()->siswa->siswaPendidikan) ) {
             return redirect('/siswa/create-resume/siswa-pendidikan');
 

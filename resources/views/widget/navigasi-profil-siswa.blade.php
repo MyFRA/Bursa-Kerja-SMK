@@ -5,7 +5,7 @@
 				<img class="w-100 rounded" src="{{ (Auth::user()->siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . Auth::user()->siswa->photo) }}" alt="" >
             </div>
             <div style="flex: 3" class="d-flex flex-column px-2">
-                <span>{{__('Nama')}}</span>
+                <span>{{__(Auth::user()->siswa->nama_pertama)}} {{__(Auth::user()->siswa->nama_belakang)}}</span>
                 <span class="small text-muted">{{__('Lihat profil saya')}}</span>
             </div>
         </a>

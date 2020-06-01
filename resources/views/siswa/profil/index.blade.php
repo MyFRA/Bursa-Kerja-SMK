@@ -16,10 +16,10 @@
             <div class="card p-3">
                 <div>
                     <div class="float-right">
-                    <span class="d-block small text-muted">{{__('Bergabung Pada ')}}{{ $user->created_at->format('d-m-Y') }}</span>
+                    <span class="d-block small text-muted">{{__('Bergabung Pada ')}}{{ $user->created_at->format('d M Y') }}</span>
                         <span class="float-right mt-3">
-                            <a class="mx-2" href=""><i class="fa fa-download"></i></a>
-                            <a class="mx-2" href=""><i class="fa fa-print"></i></a>
+                            {{-- <a class="mx-2" href=""><i class="fa fa-download"></i></a>
+                            <a class="mx-2" href=""><i class="fa fa-print"></i></a> --}}
                         </span>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                                 <span class="text-muted d-block">{{('Gaji Diharapkan')}}</span>
                             </div>
                             <div style="flex: 3">
-                                <span class="d-block">{{('Rp.')}} {{ $user->siswa->siswaLainya->gaji_diharapkan }}</span><br>
+                                <span class="d-block">{{('Rp.')}} {{ number_format($user->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.') }}</span><br>
                             </div>
                         </div>
                         <div class="d-flex flex-column flex-md-row">

@@ -23,23 +23,25 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th>NAMA</th>
+                    <th>PERUSAHAAN</th>
                     <th class="text-center" width="30%">AKSI</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($items as $val)
-                    <tr>
-                        <td class="text-center"></td>
-                        <td class="text-center">
-                        </td>
-                        <td>{{ $val->name }}</td>
-                        <td class="text-center">
-                            <a href="{{ url('/app-admin/perusahaan/lihat/' . encrypt($val->id)) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Lihat</a>
-                        </td>
-                        <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
-                    </tr> 
+                    @if ($val->user->hasRole('perusahaan') && $val->user->hasPermissionTo('terverifikasi'))
+                        <tr>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                            </td>
+                            <td>{{ $val->nama }}</td>
+                            <td class="text-center">
+                                <a href="{{ url('/app-admin/perusahaan/lihat/' . encrypt($val->id)) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Lihat</a>
+                            </td>
+                            <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
+                        </tr> 
+                    @endif
                 @endforeach
             </tbody>
         </table>

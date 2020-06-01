@@ -71,10 +71,15 @@
                               <div class="col-lg-6 mt-2">
                                 <div class="form-group">
                                   <label class="font-weight-bold" for="tahun_lulus">{{__('Tahun Lulus')}} <span class="text-danger">*</span></label>
-                                  <input type="number" class="form-control @error('tahun_lulus') is-invalid @enderror" id="tahun_lulus" name="tahun_lulus" placeholder="Tahun Lulus" required value="{{ old('tahun_lulus') }}">
-                                
+                                  <select class="form-control @error('tahun_lulus') is-invalid @enderror" id="tahun_lulus" name="tahun_lulus" required>
+                                    <option value="" selected="" disabled="">{{__(' Tahun ')}}</option>
+                                      @foreach ($tahun as $item)
+                                        <option value="{{ $item }}" {{ old('tahun_lulus') == $item ? 'selected' : '' }}>{{$item}}</option>
+                                      @endforeach
+                                  </select>
+                            
                                   @error('tahun_lulus')
-                                    <div class="alert alert-danger">{{ $message }}</div>
+                                  <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                   @enderror
                                 </div>
                               </div>

@@ -18,7 +18,7 @@
             <div class="card p-3">
                 <div>
                     <div class="px-2 mt-4 pb-5">
-                        <span class="mt- h5 "><i class="fa fa-mortar-board"></i> {{('Pendidikan')}}</span>
+                        <span class=" h5 "><i class="fa fa-mortar-board"></i> {{('Pendidikan')}}</span>
                         <a id="trigger-tambah-pendidikan" class="float-right" href=""><i class="fa fa-plus-circle"></i> Tambah</a>
                         
                         <div id="container-form-pendidikan" class="d-none mt-4">

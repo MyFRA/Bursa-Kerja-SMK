@@ -123,13 +123,6 @@ class JobController extends Controller
         return view('pages.jobs.index', $data);
     }
 
-
-    public function indexByUrutBerdasarkan($metode)
-    {
-        $program_keahlian = ProgramKeahlian::select('id', 'nama')->where('bidang_keahlian_id', $id)->get();
-        return Response::json($program_keahlian);
-    }
-
     /**
      * Display the specified resource.
      *

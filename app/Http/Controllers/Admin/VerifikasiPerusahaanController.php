@@ -9,12 +9,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
+
+use Artesaos\SEOTools\Facades\SEOTools;
 
 use DB;
 use App\User;
 use App\Models\BidangKeahlian;
 use App\Models\ProgramKeahlian;
 use App\Models\Perusahaan;
+use App\Models\Lowongan;
 
 class VerifikasiPerusahaanController extends Controller
 {
@@ -87,9 +91,7 @@ class VerifikasiPerusahaanController extends Controller
     public function terverifikasi()
     {
         $data = array(
-            'items' => User::join('model_has_permissions', 'users.id', '=', 'model_has_permissions.model_id')
-                                ->where('model_has_permissions.permission_id', 3)
-                                ->get(),
+            'items' => Perusahaan::orderBy('created_at', 'DESC')->get(),
             'title' => 'Perusahaan Terverifikasi',
             'nav'   => 'terverifikasi',
         );
@@ -99,9 +101,22 @@ class VerifikasiPerusahaanController extends Controller
 
     public function lihat($id)
     {
+        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
+        SEOTools::setCanonical(URL::current());
+        SEOTools::metatags()
+            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+        SEOTools::opengraph()
+            ->setUrl(URL::current())
+            ->addProperty('type', 'homepage');
+        SEOTools::twitter()->setSite('@smkbisakerja');
+        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+
         $data = [
             'user'       => Auth::user(),
-            'perusahaan' => Perusahaan::find(decrypt($id))
+            'perusahaan' => Perusahaan::find(decrypt($id)),
+            'jmlLowongan' => Lowongan::where('perusahaan_id', decrypt($id))
+                                    ->count(),
         ];  
 
         return view('pages.portal-perusahaan.show', $data);

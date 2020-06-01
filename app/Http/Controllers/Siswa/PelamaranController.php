@@ -107,7 +107,7 @@ class PelamaranController extends Controller
         
         $data = [
             'lowongan' => Lowongan::find(decrypt($id)),
-            'pelamar' => Pelamaran::where('lowongan_id', decrypt($id))->get()
+            'pelamar' => Pelamaran::where('lowongan_id', decrypt($id))->orderBy('created_at', 'DESC')->paginate(10)
         ];
 
         return view('pages.jobs.lihat-pelamar', $data);
