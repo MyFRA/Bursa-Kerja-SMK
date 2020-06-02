@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
+use App\Models\Faq;
+
 class FaqController extends Controller
 {
     /**
@@ -28,6 +30,7 @@ class FaqController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
         $data = [
+            'faqs' => Faq::orderBy('created_at', 'DESC')->get(),
             'navLink' => 'faq',
         ];
 

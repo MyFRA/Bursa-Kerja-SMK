@@ -28,7 +28,7 @@ class HomeController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
         
         $data = [
-            'navLink' => 'artikel',
+            'navLink' => '',
         ];
 
         return view('home', $data);
