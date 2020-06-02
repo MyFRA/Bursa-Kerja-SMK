@@ -24,7 +24,7 @@
 @endsection
 
 @section('content')
-<div class="row">
+<div class="row py-2">
     <div class="col-md-12">
         <form action="{{ route('artikel.store') }}" method="post" class="row" enctype="multipart/form-data">
             @csrf
@@ -38,7 +38,86 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="border p-3">
+                <div>
+                    <div class="card collapsed-card">
+                        <div class="card-header p-2">
+                            <h5 class="card-title">Tags</h5>
+                            <div class="card-tools">
+                                <button id="tombolAktifTags" type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="form-group" data-select2-id="39">
+                                <input type="text" id="tags" name="tags">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card collapsed-card">
+                        <div class="card-header p-2">
+                            <h5 class="card-title">Images</h5>
+    
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-2">
+                                <div class="card-body " id="imagePreview">
+                                    <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
+                                    <span class="image-preview__default-text">Image Preview</span>
+                                </div>
+                            <div class="form-group">
+                                <!-- <label for="customFile">Custom File</label> -->
+    
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" id="image" name="image">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="card collapsed-card">
+                        <div class="card-header p-2">
+                            <h5 class="card-title">Status</h5>
+    
+                            <div class="card-tools">
+                                <button type="button" id="tombolAktifStatus" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="form-group">
+                                <select name="status" class="form-control" id="select-status" required="">
+                                    <option value="">--Pilih Status--</option>
+                                    <option value="Aktif">Aktif</option>
+                                    <option value="Nonaktif">Nonaktif</option>
+                                    <option value="Draf">Draf</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card collapsed-card">
+                        <div class="card-header p-2">
+                            <h5 class="card-title">Deskripsi</h5>
+    
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-2">
+                            <div class="form-group">
+                                <textarea id="inputDeskripsi" onkeyup="getValue('inputDeskripsi', 'tdDeskripsi')" class="form-control" rows="3" name="deskripsi" placeholder="Tulis Deskripsi ...">{{ @old('deskripsi') }}</textarea>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="border p-3">
                     <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
                         <i class="fas fa-info-circle mr-2"></i>DETAIL ARTIKEL
                     </h6>
@@ -64,7 +143,7 @@
                             <td style="overflow-x: auto" id="statusNow">{{ old('status') ? old('status') : '' }}  @error('status') {!! $message !!} @enderror</td>
                         </tr>
                     </table>
-                </div>
+                </div> --}}
                 <div class="card-footer text-right p-2">
                     <button id="simpan-draf" type="submit" class="btn btn-default btn-sm">
                         SIMPAN KE DRAF
@@ -73,83 +152,7 @@
                         <i class="fas fa-paper-plane mr-1"></i> PUBLISH
                     </button>
                 </div>
-                <div class="card collapsed-card">
-                    <div class="card-header p-2">
-                        <h5 class="card-title">Tags</h5>
-                        <div class="card-tools">
-                            <button id="tombolAktifTags" type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body p-2">
-                        <div class="form-group" data-select2-id="39">
-                            <input type="text" id="tags" name="tags">
-                        </div>
-                    </div>
-                </div>
-                <div class="card collapsed-card">
-                    <div class="card-header p-2">
-                        <h5 class="card-title">Images</h5>
 
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body p-2">
-                            <div class="card-body " id="imagePreview">
-                                <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
-                                <span class="image-preview__default-text">Image Preview</span>
-                            </div>
-                        <div class="form-group">
-                            <!-- <label for="customFile">Custom File</label> -->
-
-                            <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="image" name="image">
-                              <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                          </div>
-                    </div>
-                </div>
-                <div class="card collapsed-card">
-                    <div class="card-header p-2">
-                        <h5 class="card-title">Status</h5>
-
-                        <div class="card-tools">
-                            <button type="button" id="tombolAktifStatus" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body p-2">
-                        <div class="form-group">
-                            <select name="status" class="form-control" id="select-status" required="">
-                                <option value="">--Pilih Status--</option>
-                                <option value="Aktif">Aktif</option>
-                                <option value="Nonaktif">Nonaktif</option>
-                                <option value="Draf">Draf</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="card collapsed-card">
-                    <div class="card-header p-2">
-                        <h5 class="card-title">Deskripsi</h5>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body p-2">
-                        <div class="form-group">
-                            <textarea id="inputDeskripsi" onkeyup="getValue('inputDeskripsi', 'tdDeskripsi')" class="form-control" rows="3" name="deskripsi" placeholder="Tulis Deskripsi ...">{{ @old('deskripsi') }}</textarea>
-                      </div>
-                    </div>
-                </div>
             </div>
         </form>
     </div>
@@ -184,9 +187,20 @@
   $(function () {
     $('.summernote').summernote({
         height: 340,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],         
+            ['color', ['color']], 
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link']],
+            ['view', ['fullscreen', 'codeview', 'help']]                 
+        ]
     })
   })
 </script>
+
 <script>
     function getValue(id, tdata) {
         let inputForm = document.getElementById(id);

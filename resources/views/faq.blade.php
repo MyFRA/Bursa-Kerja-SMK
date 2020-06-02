@@ -4,14 +4,18 @@
 <section class="pages py-5">
     <div class="container">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 mt-n3 mb-3 d-flex justify-content-between align-items-center">
                 <h3 class="page-title"><i class="fa fa-question-circle mr-3"></i>{{__('Tanya Jawab')}}</h3>
     
-                <ol class="breadcrumb float-right">
+                <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{__('FAQ')}}</li>
                 </ol>
-                <div class="d-block mt-3 mb-2">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="d-block mt-n3 mb-2">
                     <a href="{{ url()->previous() }}"><i class="fa fa-arrow-left mr-2"></i>{{__('Kembali')}}</a>
                 </div>
             </div>

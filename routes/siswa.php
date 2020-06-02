@@ -3,7 +3,7 @@
 Auth::routes();
 
 // Login System Siswa
-Route::get('/login', 'Siswa\Auth\LoginController@showLoginForm');
+Route::get('/login', 'Siswa\Auth\LoginController@showLoginForm')->name('siswa.login');
 Route::post('/login', 'Siswa\Auth\LoginController@login');
 Route::post('/register', 'Siswa\Auth\RegisterController@register')->name('siswa.register');
 

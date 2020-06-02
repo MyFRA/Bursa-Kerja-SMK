@@ -4,10 +4,10 @@
             <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ url('/app-admin/dashboard') }}" class="nav-link">BERANDA</a>
+            <a href="{{ url('/app-admin/dashboard') }}" class="nav-link">{{__('BERANDA')}}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ url('/') }}" target="_blank" class="nav-link">LIHAT SITUS</a>
+            <a href="{{ url('/') }}" target="_blank" class="nav-link">{{__('LIHAT SITUS')}}</a>
         </li>
     </ul>
 
@@ -19,7 +19,7 @@
                 onclick="event.preventDefault();document.getElementById('logout-form').submit();"
             >
                 <i class="fas fa-sign-out-alt mr-1"></i>
-                KELUAR
+                {{__('KELUAR')}}
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf

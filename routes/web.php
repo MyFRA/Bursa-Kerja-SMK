@@ -1,6 +1,9 @@
 <?php
 
 Auth::routes();
+Route::get('/login', function() {
+    return redirect('/siswa/login');
+})->name('login');
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/lowongan', 'JobController@index')->name('lowongan');
 Route::get('/lowongan/{link}', 'JobController@show')->name('lowongan.show');

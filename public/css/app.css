@@ -5727,8 +5727,35 @@ a.badge-dark.focus {
   align-items: flex-start;
 }
 
-.media-body {
+.media a {
+  overflow: hidden;
   flex: 1;
+}
+
+.media a img {
+  height: 140px;
+  object-fit: cover; 
+  object-position: center;
+  transition: all 0.5s ease;
+}
+
+.media a img:hover {
+  transform: scale(1.15);
+}
+
+.media div.media-body {
+  flex: 2;
+}
+
+@media screen and (max-width: 768px) {
+  .media {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .media a img {
+    height: 200px;
+  }
 }
 
 .list-group {
@@ -17298,4 +17325,15 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   .nav-list-page-for-dekstop {
     display: inline;
   }
+}
+
+
+.tag-for-artikel {
+  text-transform: uppercase;
+  background-color: #eee;
+  display: inline-block;
+  padding: .3rem .8rem;
+  font-size: 12px;
+  border-radius: 20px;
+  margin: .3rem .2rem;
 }
