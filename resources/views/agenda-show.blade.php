@@ -5,11 +5,11 @@
     <div class="container">
         <div class="row">
             <div class="col-12 mt-n3 d-flex justify-content-between align-items-center">
-                <h3 class="page-title"><i class="fa fa-newspaper-o mr-3"></i>{{__('Artikel')}}</h3>
+                <h3 class="page-title"><i class="fa fa-list mr-3"></i>{{__('Agenda')}}</h3>
     
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/artikel') }}">{{__('Artikel')}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/agenda') }}">{{__('agenda')}}</a></li>
                 </ol>
             </div>
         </div>
@@ -18,24 +18,32 @@
                 <div class="card rounded-0">
                     <div class="card-body">
                         <div class="title d-flex flex-column">
-                            <small class="mt-n1 d-block text-right">{{__('Diposting Pada: ')}}{{__($artikel->created_at->format('d F Y'))}}</small>
-                            <h2 class="pb-0 pt-3 text-center">{{__($artikel->judul)}}</h2>
+                            <small class="mt-n1 d-block text-right">{{__('Diposting Pada: ')}}{{__($agenda->created_at->format('d F Y'))}}</small>
+                            <h3 class="pb-0 pt-3 text-center font-weight-bold ">{{__($agenda->judul)}}</h3>
                         </div>
                         <hr class="mt-3">
-                        <small class="float-right">{{__('Dilihat')}} <i class="fa fa-eye ml-1"></i> {{__($artikel->counter)}} {{__('kali')}}</small>
-                        <img src="{{ url('/storage/assets/artikel/' . $artikel->image) }}" width="100%" class="align-self-end my-3 rounded" alt="...">
-                        <hr>
-                        <div class="mt-4">
-                            {!! $artikel->konten !!}
+                        <img src="{{ url('/storage/assets/agenda/' . $agenda->image) }}" width="100%" class="align-self-end my-3 rounded" alt="...">
+                        <div class="px-4">
+                            <table class="table table-responsive">
+                                <tbody>
+                                    <tr class="border-0">
+                                        <td class="border-0 pb-0" scope="col">Pelaksanaan</td>
+                                        <td class="border-0 pb-0 px-0" scope="col">:</td>
+                                        <td class="border-0 pb-0" scope="col">{{__($agenda->pelaksanaan)}}</td>
+                                    </tr>
+                                    <tr class="border-0">
+                                        <td class="border-0 pb-0" scope="col">Lokasi</td>
+                                        <td class="border-0 pb-0 px-0" scope="col">:</td>
+                                        <td class="border-0 pb-0" scope="col">{{__($agenda->lokasi)}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                         <hr>
-                        <div class="row px-4 mt-2 d-flex flex-row">
-                            <h5 class="font-weight-bold d-inline-block mr-2" style="margin-top: 7.5px">{{__('Tags: ')}}</h5>
-                            @foreach ($tags as $tag)
-                                <a href="" class="tag-for-artikel text-decoration-none">{{__($tag)}}</a>
-                            @endforeach
+                        <div class="px-4 pb-4" style="text-indent: 20px">
+                            {!! $agenda->deskripsi !!}
                         </div>
-                        <div class="row px-2 mt-4">
+                        <div class="px-4 row mt-1 mb-4">
                             <div class="col-12">
                                 <h5 class="font-weight-bold d-inline mr-2">{{__('Bagikan ke: ')}}</h5>
                                 <button class="btn btn-primary btn-sm rounded-0">
@@ -57,29 +65,26 @@
 
                         <div class="row my-3">
                             <div class="col-12">
-                                <h5>{{__('Artikel Terkait')}}</h5>
+                                <h5>{{__('Agenda Terbaru')}}</h5>
                             </div>
-                            @foreach ($randomArtikel as $randArtikel)
+                            @foreach ($agendaTerbaru as $newAgenda)
                             <div class="col-md-4 px-2">
                                 <div class="media my-4 d-flex flex-column">
-                                    <a class="w-100" href="{{ url('artikel/' . $randArtikel->link) }}">
-                                        <img src="{{ asset('/storage/assets/artikel/' . $randArtikel->image) }}" width="100%" class="align-self-end mr-3 rounded" alt="...">
+                                    <a class="w-100" href="{{ url('agenda/' . $newAgenda->link) }}">
+                                        <img src="{{ asset('/storage/assets/agenda/' . $newAgenda->image) }}" width="100%" class="align-self-end mr-3 rounded" alt="...">
                                     </a>
                                     <div class="media-body px-3 mt-4 ml-md-2 mt-md-0">
-                                        <a href="{{ url('artikel/' . $randArtikel->link) }}">
-                                            <h5 class="font-weight-bold m-0 mt-lg-3">{{ $randArtikel->judul }}</h5>
+                                        <a href="{{ url('agenda/' . $newAgenda->link) }}">
+                                            <h5 class="font-weight-bold m-0 mt-lg-3">{{ $newAgenda->judul }}</h5>
                                         </a>
                                         <div class="my-2 mt-lg-1">
-                                            <small class="text-gainsboro mt-3 d-block">
-                                               {{__(' Oleh SMK N 1 Bojongsari')}}
-                                            </small>
                                             <small class="text-gainsboro my-3">
-                                                {{__( $randArtikel->created_at->format('d F Y'))}}
+                                                {{__('Diposting Pada')}} {{__( $newAgenda->created_at->format('d F Y'))}}
                                              </small>
                                         </div>
                                     </div>
                                 </div>
-                                <hr class="hr-from-rand-artikel">
+                                <hr class="hr-from-rand-agenda">
                             </div>
                             @endforeach
                         </div>
@@ -100,7 +105,7 @@
 
 <style>
     @media screen and (min-width: 768px) {
-        hr.hr-from-rand-artikel {
+        hr.hr-from-rand-agenda {
             display: none
         }
     }

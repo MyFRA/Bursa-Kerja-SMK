@@ -26,42 +26,47 @@
                     <div class="card-body">
                         <h4>{{__('Artikel Terbaru')}}</h4>
                         <hr>
-                        @foreach ($items as $artikel)
-                            <div class="media my-4">
-                                <a class="w-100" href="{{ url('artikel/' . $artikel->link) }}">
-                                    <img src="{{ asset('/storage/assets/artikel/' . $artikel->image) }}" width="100%" class="align-self-end mr-3 rounded" alt="...">
-                                </a>
-                                <div class="media-body px-3 mt-4 ml-md-2 mt-md-0">
-                                    <a href="{{ url('artikel/' . $artikel->link) }}">
-                                        <h5 class="font-weight-bold m-0">{{ $artikel->judul }}</h5>
+                        @if ($items->isEmpty())
+                            <h1 class="p-4 text-muted">{{__('Artikel Belum ada')}}</h1>
+                        @else
+                            @foreach ($items as $artikel)
+                                <div class="media my-4">
+                                    <a class="w-100" href="{{ url('artikel/' . $artikel->link) }}">
+                                        <img src="{{ asset('/storage/assets/artikel/' . $artikel->image) }}" width="100%" class="align-self-end mr-3 rounded" alt="...">
                                     </a>
-                                    <div class="my-2 mt-lg-1">
-                                        <small class="text-gainsboro my-3">
-                                           {{__(' Oleh SMK N 1 Bojongsari, Diposting pada: ')}}{{ $artikel->created_at->format('d F Y') }}
-                                        </small>
+                                    <div class="media-body px-3 mt-4 ml-md-2 mt-md-0">
+                                        <a href="{{ url('artikel/' . $artikel->link) }}">
+                                            <h5 class="font-weight-bold m-0">{{ $artikel->judul }}</h5>
+                                        </a>
+                                        <div class="my-2 mt-lg-1">
+                                            <small class="text-gainsboro my-3">
+                                            {{__(' Oleh SMK N 1 Bojongsari, Diposting pada: ')}}{{ $artikel->created_at->format('d F Y') }}
+                                            </small>
+                                        </div>
+
+                                        <p class=" text-justify" style="text-indent: 20px">{{ __(substr($artikel->deskripsi, 0, 225) . '...') }}</p>
                                     </div>
-
-                                    <p class=" text-justify" style="text-indent: 20px">{{ __(substr($artikel->deskripsi, 0, 225) . '...') }}</p>
                                 </div>
-                            </div>
-                            <div>
-                                <div class="row px-4 mt-n3 d-flex flex-row">
-                                    <h5 class="font-weight-bold d-inline-block mr-2" style="margin-top: 7.5px">{{__('Tags: ')}}</h5>
-                                    @php
-                                        // Pengubahan tags menjadi arrray
-                                        $tags = explode(';', $artikel->tags);
+                                <div>
+                                    <div class="row px-4 mt-n3 d-flex flex-row">
+                                        <h5 class="font-weight-bold d-inline-block mr-2" style="margin-top: 7.5px">{{__('Tags: ')}}</h5>
+                                        @php
+                                            // Pengubahan tags menjadi arrray
+                                            $tags = explode(';', $artikel->tags);
 
-                                        // menghapus index array terakhir
-                                        unset($tags[count($tags) - 1]);
+                                            // menghapus index array terakhir
+                                            unset($tags[count($tags) - 1]);
 
-                                    @endphp
-                                    @foreach ($tags as $tag)
-                                        <a href="" class="tag-for-artikel text-decoration-none">{{__($tag)}}</a>
-                                    @endforeach
+                                        @endphp
+                                        @foreach ($tags as $tag)
+                                            <a href="" class="tag-for-artikel text-decoration-none">{{__($tag)}}</a>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            </div>
-                            <hr>
-                        @endforeach
+                                <hr>
+                            @endforeach
+                        @endif
+
 
                         <div class="mt-4"></div>
                         <div class="d-flex justify-content-center">

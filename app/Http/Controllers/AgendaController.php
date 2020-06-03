@@ -7,16 +7,34 @@ use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
+use App\Models\Agenda;
 use App\Models\Artikel;
 
-class ProductController extends Controller
+class AgendaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
+    {        
+        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
+        SEOTools::setCanonical(URL::current());
+        SEOTools::metatags()
+            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+        SEOTools::opengraph()
+            ->setUrl(URL::current())
+            ->addProperty('type', 'homepage');
+        SEOTools::twitter()->setSite('@smkbisakerja');
+        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+
+        $data = [
+            'navLink' => 'agenda',
+            'agenda' => Agenda::where('status', 'aktif')->orderBy('created_at', 'DESC')->paginate(5),
+            'artikelPopuler' => Artikel::where('status', 'Aktif')->orderBy('counter', 'DESC')->limit(4)->get()
+        ];
+
+        return view('agenda', $data);
+    }
+
+    public function show($link)
     {
         SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
@@ -30,41 +48,16 @@ class ProductController extends Controller
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
         $data = [
-            'navLink' => 'produk-siswa',
+            'navLink' => 'agenda',
+            'agenda' => Agenda::where('link', $link)->first(),
+            'agendaTerbaru' => Agenda::orderBy('created_at', 'DESC')->limit(3)->get(),
             'artikelPopuler' => Artikel::where('status', 'Aktif')->orderBy('counter', 'DESC')->limit(4)->get()
         ];
 
-        return view('pages.product.index', $data);
+        return view('agenda-show', $data);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
-        SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
-        SEOTools::setCanonical(URL::current());
-        SEOTools::metatags()
-            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
-        SEOTools::opengraph()
-            ->setUrl(URL::current())
-            ->addProperty('type', 'homepage');
-        SEOTools::twitter()->setSite('@smkbisakerja');
-        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
-
-        $data = [
-            'navLink' => 'produk-siswa',
-            'artikelPopuler' => Artikel::where('status', 'Aktif')->orderBy('counter', 'DESC')->limit(4)->get()
-        ];
-
-        return view('pages.product.show', $data);
-    }
-
-    public function html_cut($text, $max_length)
+    static function html_cut($text, $max_length)
     {
         $tags   = array();
         $result = "";

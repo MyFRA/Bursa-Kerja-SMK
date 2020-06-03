@@ -28,7 +28,7 @@
     <div class="col-md-12">
         <form action="{{ route('agenda.store') }}" method="post" class="row" enctype="multipart/form-data">
             @csrf
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="inputDeskripsi">Deskripsi</label>
-                                    <textarea id="inputDeskripsi" name="deskripsi" onkeyup="getValue('inputDeskripsi')" class="form-control" rows="4">{{ old('deskripsi') }}</textarea>
+                                    <textarea name="deskripsi" rows="15" class="form-control summernote">{!! old('deskripsi') !!}</textarea>
                                 
                                     @error('deskripsi')
                                         <span class="invalid-feedback" role="alert">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="border p-3">
                     <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
                         <i class="fas fa-info-circle mr-2"></i>DETAIL AGENDA
@@ -119,11 +119,6 @@
                             <td width="30%">Judul</td>
                             <td width="5px">:</td>
                             <td style="overflow-x: auto;" id="inputJudul">-</td>
-                        </tr>
-                        <tr>
-                            <td width="30%">Deskripsi</td>
-                            <td width="5px">:</td>
-                            <td style="overflow-x: auto;" id="inputDeskripsi">-</td>
                         </tr>
                         <tr>
                             <td width="30%">Pelaksanaan</td>
@@ -188,12 +183,22 @@
 <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('/app-admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script>
-  $(function () {
-    $('.summernote').summernote({
-        height: 340,
+    $(function () {
+      $('.summernote').summernote({
+          height: 340,
+          toolbar: [
+              ['style', ['style']],
+              ['font', ['bold', 'underline', 'clear']],
+              ['fontname', ['fontname']],         
+              ['color', ['color']], 
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['table', ['table']],
+              ['insert', ['link']],
+              ['view', ['fullscreen', 'codeview', 'help']]                 
+          ]
+      })
     })
-  })
-</script>
+  </script>
 <script>
     let selectStatus = document.getElementById('select-status');
     let opsiStatus = document.getElementsByTagName('option');

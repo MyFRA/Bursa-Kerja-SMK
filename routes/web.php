@@ -17,6 +17,8 @@ Route::get('/artikel/{link}', 'ArtikelController@show')->name('artikel.show');
 Route::get('/kebijakan-privasi', 'PageController@privacy_police')->name('privacy-police');
 Route::get('/perusahaan/show/{id}', 'PerusahaanController@show');
 Route::get('/portal/perusahaan', 'PortalController@index');
+Route::get('/agenda', 'AgendaController@index');
+Route::get('/agenda/{link}', 'AgendaController@show');
 
 // Ajax Controller
 Route::get('/getProgramKeahlian/{id}', 'AjaxController@getProgramKeahlian');
