@@ -16,6 +16,13 @@
                 </ol>
             </div>
         </div>
+        <div class="row">
+            <div class="col py-3">
+                <div class="d-block mt-n3 mb-2">
+                    <a href="{{ url()->previous() }}"><i class="fa fa-arrow-left mr-2"></i>{{__('Kembali')}}</a>
+                </div>
+            </div>
+        </div>
         <div class="row mt-n2">
             <div class="col-md-8">
                 <div class="row">
@@ -27,7 +34,7 @@
                             <div class="card">
                                 <small class="text-gainsboro text-right pr-4 pt-4">{{__('Diposting Pada:')}} {{ $item->created_at->format('d F Y') }}</small>
                                 <a href="{{ url('/agenda/' . $item->link) }}"><h3 class="font-weight-bold pt-3 text-center px-2">{{__($item->judul)}}</h3></a> 
-                                <img class="w-100 px-3 px-md-5 rounded my-b mt-3 rounded" style="height: 250px; object-fit: cover; object-position: center" src="{{ asset('/storage/assets/agenda/' . $item->image) }}" alt="">
+                                <img class="w-100 px-3 px-md-5 rounded my-b mt-3" style="height: 250px; object-fit: cover; object-position: center" src="{{ asset('/storage/assets/agenda/' . $item->image) }}" alt="">
                                 <div class="px-4">
                                     <table class="table table-responsive">
                                         <tbody>

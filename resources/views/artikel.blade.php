@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 mt-2">
+            <div class="col-md-8 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <h4>{{__('Artikel Terbaru')}}</h4>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mt-3 mt-lg-0">
+            <div class="col-md-4 mt-3">
                 @include('widget.popular-post-article')
             </div>
         </div>

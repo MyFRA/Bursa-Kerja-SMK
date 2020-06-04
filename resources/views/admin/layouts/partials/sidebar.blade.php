@@ -162,6 +162,14 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a href="{{ url('/app-admin/pengumuman') }}"
+                        class="nav-link {{ $nav == 'pengumuman' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-paragraph"></i>
+                        <p>Pengumuman</p>
+                    </a>
+                </li>
+
                 <li class="nav-header">Lainnya</li>
 
                 <li class="nav-item has-treeview 

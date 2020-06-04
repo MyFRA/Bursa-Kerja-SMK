@@ -19,6 +19,8 @@ Route::get('/perusahaan/show/{id}', 'PerusahaanController@show');
 Route::get('/portal/perusahaan', 'PortalController@index');
 Route::get('/agenda', 'AgendaController@index');
 Route::get('/agenda/{link}', 'AgendaController@show');
+Route::get('/pengumuman', 'PengumumanController@index');
+Route::get('/pengumuman/{link}', 'PengumumanController@show');
 
 // Ajax Controller
 Route::get('/getProgramKeahlian/{id}', 'AjaxController@getProgramKeahlian');
@@ -112,6 +114,12 @@ Route::prefix('/app-admin')->group(function() {
             Route::post('/kabupaten/imported', 'Admin\KabupatenController@imported')->name('kabupaten.imported');
             Route::get('/kabupaten/format-excel-import', 'Admin\KabupatenController@download')->name('kabupaten.download');
             Route::resource('/kabupaten', 'Admin\KabupatenController')->except(['show']);
+
+            /** Pengumuman Router */
+            Route::get('/pengumuman/import', 'Admin\PengumumanController@import')->name('pengumuman.import');
+            Route::post('/pengumuman/imported', 'Admin\PengumumanController@imported')->name('pengumuman.imported');
+            Route::get('/pengumuman/format-excel-import', 'Admin\PengumumanController@download')->name('pengumuman.download');
+            Route::resource('/pengumuman', 'Admin\PengumumanController')->except(['show']);
 
         /** Akhir Master File */
 
