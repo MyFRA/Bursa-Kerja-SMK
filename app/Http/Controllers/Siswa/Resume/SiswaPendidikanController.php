@@ -57,6 +57,7 @@ class SiswaPendidikanController extends Controller
                 'programKeahlian' => ProgramKeahlian::get(),
                 'kompetensiKeahlian' => KompetensiKeahlian::get(),
                 'tahun' => $tahun,
+                'navLink' => '',
             ];
     
             return view('siswa/resume/siswa-pendidikan', $data);

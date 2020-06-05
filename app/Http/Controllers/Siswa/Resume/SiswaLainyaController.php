@@ -54,7 +54,8 @@ class SiswaLainyaController extends Controller
         } else {
             $data = [
                 'keterampilan' => Keterampilan::orderBy('nama', 'ASC')->get(),
-                'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get()
+                'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
+                'navLink' => '',
             ];
     
             return view('siswa/resume/siswa-lainya', $data);
