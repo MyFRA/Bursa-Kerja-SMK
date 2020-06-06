@@ -60,6 +60,7 @@ class ArtikelController extends Controller
             'status.required'   => 'status tidak boleh kosong',
             'konten.required'   => 'konten tidak boleh kosong',
             'deskripsi.required' => 'deskripsi tidak boleh kosong',
+            'status.in' => 'status harus diantara aktif, nonaktif dan draf',
         ]);
 
         if ( $validator->fails() ) {
@@ -116,6 +117,7 @@ class ArtikelController extends Controller
             'status' => 'required|in:Aktif,Draf,Nonaktif',
             'konten' => 'required',
             'deskripsi' => 'required',
+            'status.in' => 'status harus diantara aktif, nonaktif dan draf',
         ], [
             'judul.required'    => 'judul tidak boleh kosong',
             'judul.max'         => 'judul maksimal 255 karakter',

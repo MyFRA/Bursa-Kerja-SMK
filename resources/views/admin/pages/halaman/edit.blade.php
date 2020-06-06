@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    HALAMAN
+                    {{__('HALAMAN')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{ url('/app-admin/halaman') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Halaman
+                    <i class="fas fa-table mr-1"></i> {{__('Daftar Halaman')}}
                 </a>
                 <a href="{{ url('/app-admin/halaman/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Halaman Baru
+                    <i class="fas fa-plus-circle mr-1"></i> {{__('Halaman Baru')}}
                 </a>
             </div>
         </div>
@@ -41,13 +41,17 @@
                 </div>
                 <div class="form-group">
                     <textarea name="konten" rows="15" class="form-control summernote">{{ $item->konten }}</textarea>
+
+                    @error('konten')
+                        <span class="text-danger">{{ __($message) }}</span>
+                    @enderror
                 </div>
 
             </div>
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-header p-2">
-                        <h5 class="card-title">Detail Halaman</h5>
+                        <h5 class="card-title">{{__('Detail Halaman')}}</h5>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -58,29 +62,29 @@
                     <div class="card-body p-2">
                         <table class="table table-striped table-sm">
                         <tr>
-                            <td width="30%">Judul</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Judul')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="word-break: break-all;" id="inputJudul">{{ $item->judul }}</td>
                         </tr>
                         <tr>
-                            <td width="30%">Status</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Status')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="word-break: break-all;" id="statusNow">{{ $item->status }}</td>
                         </tr>
                     </table>
                     </div>
                     <div class="card-footer text-right p-2">
                         <button id="simpan-draf" type="submit" class="btn btn-default btn-sm">
-                            SIMPAN KE DRAF
+                            {{__('SIMPAN KE DRAF')}}
                         </button>
-                        <button type="submit" class="btn btn-primary btn-sm">
-                            <i class="fas fa-paper-plane mr-1"></i> PUBLISH
+                        <button id="publish" type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-paper-plane mr-1"></i> {{__('UPDATE')}}
                         </button>
                     </div>
                 </div>
                 <div class="card">
                     <div class="card-header p-2">
-                        <h5 class="card-title">Status</h5>
+                        <h5 class="card-title">{{__('Status')}}</h5>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -91,10 +95,27 @@
                     <div class="card-body p-2">
                         <div class="form-group">
                             <select id="select-status" name="status" id="select-status" required="" class="form-control">
-                                <option value="{{ $item->status }}">{{ $item->status }}</option>
-                                <option value="Aktif" style="{{ $item->status == 'Aktif' ? 'display: none' : '' }}">Aktif</option>
-                                <option value="Nonaktif" style="{{ $item->status == 'Nonaktif' ? 'display: none' : '' }}">Nonaktif</option>
-                                <option value="Draf" style="{{ $item->status == 'Draf' ? 'display: none' : '' }}">Draf</option>
+                                <option value="Aktif" 
+                                @if (old('status'))
+                                    {{ old('status') == 'Aktif' ? 'selected' : '' }}
+                                @else
+                                    {{ $item->status == 'Aktif' ? 'selected' : '' }}
+                                @endif
+                                >{{__('Aktif')}}</option>
+                                <option value="Nonaktif" 
+                                @if (old('status'))
+                                    {{ old('status') == 'Nonaktif' ? 'selected' : '' }}
+                                @else
+                                    {{ $item->status == 'Nonaktif' ? 'selected' : '' }}
+                                @endif
+                                >{{__('Nonaktif')}}</option>
+                                <option value="Draf" 
+                                @if (old('status'))
+                                    {{ old('status') == 'Draf' ? 'selected' : '' }}
+                                @else
+                                    {{ $item->status == 'Draf' ? 'selected' : '' }}
+                                @endif
+                                >{{__('Draf')}}</option>
                             </select>
                         </div>
                     </div>
@@ -127,6 +148,17 @@
   $(function () {
     $('.summernote').summernote({
         height: 340,
+        toolbar: [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],         
+            ['color', ['color']], 
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['insert', ['link']],
+            ['view', ['fullscreen', 'codeview', 'help']]                 
+        ],
+        placeholder: 'Tulis Isi Halaman...'
     })
   })
 </script>
@@ -143,26 +175,41 @@
 
 <script>
     let selectStatus = document.getElementById('select-status');
-    let opsiStatus = document.getElementsByTagName('option');
     let statusNow = document.getElementById('statusNow');
+    let opsiStatus = document.querySelectorAll('select option');
 
     selectStatus.addEventListener('change', function() {
         for (let i = 0; i < opsiStatus.length ; i++) {
             let dipilih = opsiStatus[i];
             if( dipilih.selected === true ) {
-                statusNow.innerHTML = opsiStatus[i].value;
+                statusNow.innerHTML = opsiStatus[i].text;
             }
         }
     })
-</script>
 
-<script>
-    let simpanDraf = document.getElementById('simpan-draf');
+
+    // Tombol di klik
+    const simpanDraf = document.getElementById('simpan-draf');
+    const publish = document.getElementById('publish');
 
     simpanDraf.addEventListener('click', function() {
-        for (let i = 0; i < opsiStatus.length ; i++) {
-            opsiStatus[i].setAttribute('value', 'Draf');
-        }
+        opsiStatus.forEach((e) => {
+            e.value = 'Draf';
+            if( e.text == 'Draf') {
+                e.setAttribute('selected', '');
+            }
+        });
     });
+
+    publish.addEventListener('click', function() {
+        opsiStatus.forEach((e) => {
+            if(e.text == '--Pilih Status--') {
+                e.value = '';
+            } else {
+                e.value = e.text;
+            }
+        });
+    });
+
 </script>
 @endsection

@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Halaman;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 
 class HalamanController extends Controller
@@ -39,6 +38,7 @@ class HalamanController extends Controller
             'title' => 'Halaman',
             'nav'   => 'halaman'
         );
+
         return view('admin.pages.halaman.create', $data);
     }
 
@@ -50,29 +50,26 @@ class HalamanController extends Controller
      */
     public function store(Request $request)
     {
-        $this->allslots = array('Draf', 'Aktif', 'Nonaktif');
-
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
-            'status' => ['required', Rule::in($this->allslots)],
+            'status' => 'required|in:Aktif,Nonaktif,Draf',
         ], [
             'judul.required' => 'judul harus diisi',
             'judul.max' => 'judul maksimal 255 karakter',
             'status.required' => 'status harus diisi',
+            'status.in' => 'status harus diantara aktif, nonaktif dan draf',
         ]);
 
         if ( $validator->fails() ) {
             return redirect()->back()
                              ->withErrors($validator)
                              ->withInput();
-        }
-
-        else {
+        } else {
             $data = Halaman::create([
                 'judul' => $request->judul,
                 'konten' => $request->konten,
                 'status' => $request->status,
-                'link' => Str::slug($request->judul),
+                'link' => Str::slug($request->judul) . '-' . time(),
             ]);
             return redirect('/app-admin/halaman')->with('success', "Halaman $request->judul Telah Ditambahkan");
         }
@@ -104,29 +101,25 @@ class HalamanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->allslots = array('Draf', 'Aktif', 'Nonaktif');
-
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
-            'status' => ['required', Rule::in($this->allslots)],
+            'status' => 'required|in:Aktif,Nonaktif,Draf',
         ], [
             'judul.required' => 'judul harus diisi',
             'judul.max' => 'judul maksimal 255 karakter',
             'status.required' => 'status harus diisi',
+            'status.in' => 'status harus diantara aktif, nonaktif dan draf',
         ]);
 
         if ( $validator->fails() ) {
             return redirect()->back()
                              ->withErrors($validator)
                              ->withInput();
-        }
-
-        else {
+        } else {
             $update = Halaman::find(decrypt($id));
             $update->judul   = $request['judul'];
             $update->konten  = $request->konten;
             $update->status  = $request->status;   
-            $update->link    = Str::slug($request->judul);
             $update->save();
 
             return redirect('/app-admin/halaman')->with('success', "Halaman $request->judul Telah Diubah");
@@ -142,9 +135,20 @@ class HalamanController extends Controller
     public function destroy($id)
     {
         $data = Halaman::find(decrypt($id));
-        $judul = $data->judul;
         $data->delete();
 
-        return back()->with('success', "Halaman $judul Telah Dihapus");
+        return back()->with('success', "Halaman $data->judul Telah Dihapus");
+    }
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Halaman::get();
+
+        foreach($data as $halaman) {
+            Halaman::destroy($halaman->id);
+        }
+
+        return back()->with('success', 'Semua Halaman Telah Dihapus');
     }
 }

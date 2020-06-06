@@ -135,6 +135,7 @@ Route::prefix('/app-admin')->group(function() {
 
         /** Halaman Router */
         Route::resource('/halaman', 'Admin\HalamanController');
+        Route::delete('/halaman/hapus/semua-halaman', 'Admin\HalamanController@hapusMassal');
 
         /** Agenda Router */
         Route::resource('/agenda', 'Admin\AgendaController');

@@ -131,7 +131,7 @@
         event.preventDefault();
         Swal.fire({
             title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus massal, semua artikel akan terhapus secara permanen !',
+            text: 'Apakah anda yakin akan menghapus massal ?, semua artikel akan terhapus secara permanen !',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
