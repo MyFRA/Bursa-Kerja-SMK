@@ -51,20 +51,20 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->allslots = array('Draf', 'Aktif', 'Nonaktif');
-
         $validator = Validator::make($request->all(), [
-            'judul' => 'required|max:255',
-            'pelaksanaan' => 'max:255',
-            'lokasi'      => 'max:255',
-            'status' => ['required', Rule::in($this->allslots)],
+            'judul'         => 'required|max:255',
+            'pelaksanaan'   => 'required|max:255',
+            'lokasi'        => 'required|max:255',
+            'status'        => 'required|in:Aktif,Nonaktif,Draf',
         ], [
-            'judul.required'    => 'judul harus diisi',
-            'judul.max'         => 'judul maksimal 255 karakter',
-            'status.required'   => 'status harus diisi',
-            'status.in'         => 'status harus diantara Draf, Aktif dan Nonaktif',
-            'lokasi.max'        => 'lokasi maksimal 255 karakter',
-            'pelaksanaan.max'   => 'pelaksanaan maksimal 255 karakter'
+            'judul.required'        => 'judul harus diisi',
+            'judul.max'             => 'judul maksimal 255 karakter',
+            'status.required'       => 'status harus diisi',
+            'status.in'             => 'status harus diantara Draf, Aktif dan Nonaktif',
+            'lokasi.max'            => 'lokasi maksimal 255 karakter',
+            'lokasi.required'       => 'lokasi harus diisi',
+            'pelaksanaan.max'       => 'pelaksanaan maksimal 255 karakter',
+            'pelaksanaan.required'  => 'pelaksanaan harus diisi',
         ]);
 
         if ( $validator->fails() ) {
@@ -72,8 +72,14 @@ class AgendaController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         }else {
+
+
+
             if ( $request->file('image') == null ) {
-                $jawaban = $this->uploadAgenda($request);
+                return redirect()->back()
+                             ->withErrors($validator)
+                             ->withInput()
+                             ->with('gagal', 'Gambar tidak boleh kosong');
             } else {
                 $jawaban = $this->uploadAgenda($request, $request->file('image'));
             }
@@ -116,20 +122,20 @@ class AgendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->allslots = array('Draf', 'Aktif', 'Nonaktif');
-
         $validator = Validator::make($request->all(), [
-            'judul' => 'required|max:255',
-            'pelaksanaan' => 'max:255',
-            'lokasi'      => 'max:255',
-            'status' => ['required', Rule::in($this->allslots)],
+            'judul'         => 'required|max:255',
+            'pelaksanaan'   => 'required|max:255',
+            'lokasi'        => 'required|max:255',
+            'status'        => 'required|in:Aktif,Nonaktif,Draf',
         ], [
-            'judul.required' => 'judul harus diisi',
-            'judul.max' => 'judul maksimal 255 karakter',
-            'status.required' => 'status harus diisi',
-            'status.in'         => 'status harus diantara Draf, Aktif dan Nonaktif',
-            'lokasi.max'        => 'lokasi maksimal 255 karakter',
-            'pelaksanaan.max'   => 'pelaksanaan maksimal 255 karakter'
+            'judul.required'        => 'judul harus diisi',
+            'judul.max'             => 'judul maksimal 255 karakter',
+            'status.required'       => 'status harus diisi',
+            'status.in'             => 'status harus diantara Draf, Aktif dan Nonaktif',
+            'lokasi.max'            => 'lokasi maksimal 255 karakter',
+            'lokasi.required'       => 'lokasi harus diisi',
+            'pelaksanaan.max'       => 'pelaksanaan maksimal 255 karakter',
+            'pelaksanaan.required'  => 'pelaksanaan harus diisi',
         ]);
 
         if ( $validator->fails() ) {
@@ -177,15 +183,7 @@ class AgendaController extends Controller
     public function uploadAgenda($request, $fileGambar = null)
     {
         if ( is_null($fileGambar) ) {
-            Agenda::create([
-                'judul' => $request->judul,
-                'link'  => Str::slug($request->judul),
-                'pelaksanaan' => $request->pelaksanaan,
-                'deskripsi' => $request->deskripsi,
-                'lokasi'      => $request->lokasi,
-                'status'    => $request->status
-            ]);
-            return true;
+            return false;
         }
 
         else {
@@ -201,7 +199,7 @@ class AgendaController extends Controller
 
                 Agenda::create([
                     'judul' => $request->judul,
-                    'link'  => Str::slug($request->judul),
+                    'link'  => Str::slug($request->judul) . '-' . time(),
                     'pelaksanaan' => $request->pelaksanaan,
                     'deskripsi' => $request->deskripsi,
                     'lokasi'      => $request->lokasi,
@@ -220,7 +218,6 @@ class AgendaController extends Controller
             $update = Agenda::find(decrypt($id));
             $update->judul = $request->judul;
             $update->pelaksanaan = $request->pelaksanaan;
-            $update->link = Str::slug($request->judul);
             $update->lokasi = $request->lokasi;
             $update->status = $request->status;
             $update->deskripsi = $request->deskripsi;
@@ -248,7 +245,6 @@ class AgendaController extends Controller
                 $update = Agenda::find(decrypt($id));
                 $update->judul = $request->judul;
                 $update->pelaksanaan = $request->pelaksanaan;
-                $update->link = Str::slug($request->judul);
                 $update->lokasi = $request->lokasi;
                 $update->status = $request->status;
                 $update->deskripsi = $request->deskripsi;
@@ -259,4 +255,16 @@ class AgendaController extends Controller
             }
         }
     }
+
+        // Fungsi Hapus Massal
+        public function hapusMassal()
+        {
+            $data = Agenda::get();
+    
+            foreach($data as $agenda) {
+                Agenda::destroy($agenda->id);
+            }
+    
+            return back()->with('success', 'Semua Agenda Telah Dihapus');
+        }
 }

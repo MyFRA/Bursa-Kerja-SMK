@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    AGENDA
+                    {{__('AGENDA')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{ url('/app-admin/agenda') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Agenda
+                    <i class="fas fa-table mr-1"></i> {{__('Daftar Agenda')}}
                 </a>
                 <a href="{{ url('/app-admin/agenda/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Agenda Baru
+                    <i class="fas fa-plus-circle mr-1"></i> {{__('Agenda Baru')}}
                 </a>
             </div>
         </div>
@@ -29,12 +29,12 @@
         <form action="{{ url('/app-admin/agenda/' . encrypt($item->id)) }}" method="post" class="row" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Agenda</h3>
+                                <h3 class="card-title">{{__('Agenda')}}</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                         <i class="fas fa-minus"></i>
@@ -43,7 +43,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputJudul">Judul Agenda</label>
+                                    <label for="inputJudul">{{__('Judul Agenda')}} <span class="text-danger">*</span> </label>
                                     <input type="text" id="inputJudul" name="judul" onkeyup="getValue('inputJudul')" class="form-control @error('judul') is-invalid @enderror" value="{{ old('judul') ? old('judul') : $item->judul }}" required="">
                                 
                                     @error('judul')
@@ -53,18 +53,16 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputDeskripsi">Deskripsi</label>
-                                    <textarea id="inputDeskripsi" name="deskripsi" onkeyup="getValue('inputDeskripsi')" class="form-control @error('deskripsi') is-invalid @enderror" rows="4">{{ old('deskripsi') ? old('deskripsi') : $item->deskripsi }}</textarea>
+                                    <label for="inputDeskripsi">{{__('Deskripsi')}}</label>
+                                    <textarea id="inputDeskripsi" name="deskripsi" onkeyup="getValue('inputDeskripsi')" class="form-control summernote" rows="4">{!! old('deskripsi') ? old('deskripsi') : $item->deskripsi !!}</textarea>
                                 
                                     @error('deskripsi')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <span class="error invalid-feedback">{{ __($message) }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPelaksanaan">Pelaksanaan</label>
-                                    <input type="text" id="inputPelaksanaan" name="pelaksanaan" onkeyup="getValue('inputPelaksanaan')" class="form-control @error('pelaksanaan') is-invalid @enderror" value="{{ old('pelaksanaan') ? old('pelaksanaan') : $item->pelaksanaan }}">
+                                    <label for="inputPelaksanaan">{{__('Pelaksanaan')}} <span class="text-danger">*</span> </label>
+                                    <input type="text" id="inputPelaksanaan" name="pelaksanaan" onkeyup="getValue('inputPelaksanaan')" class="form-control @error('pelaksanaan') is-invalid @enderror" value="{{ old('pelaksanaan') ? old('pelaksanaan') : $item->pelaksanaan }}" required>
                                 
                                     @error('pelaksanaan')
                                         <span class="invalid-feedback" role="alert">
@@ -73,8 +71,8 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputLokasi">Lokasi</label>
-                                    <input type="text" id="inputLokasi" name="lokasi" onkeyup="getValue('inputLokasi')" class="form-control @error('lokasi') is-invalid @enderror" value="{{ old('lokasi') ? old('lokasi') : $item->lokasi }}">
+                                    <label for="inputLokasi">{{__('Lokasi')}} <span class="text-danger">*</span>  </label>
+                                    <input type="text" id="inputLokasi" name="lokasi" onkeyup="getValue('inputLokasi')" class="form-control @error('lokasi') is-invalid @enderror" value="{{ old('lokasi') ? old('lokasi') : $item->lokasi }}" required>
                                 
                                     @error('lokasi')
                                         <span class="invalid-feedback" role="alert">
@@ -83,61 +81,74 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStatus">Status</label>
+                                    <label for="inputStatus">{{__('Status')}} <span class="text-danger">*</span> </label>
                                     <select id="select-status" name="status" class="form-control custom-select" required="">
-                                        <option value="Aktif" {{ $item->status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
-                                        <option value="Nonaktif" {{ $item->status == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                                        <option value="Draf" {{ $item->status == 'Draf' ? 'selected' : '' }}>Draf</option>
+                                        <option value="Aktif" 
+                                        @if (old('status'))
+                                            {{ old('status') == 'Aktif' ? 'selected' : '' }}
+                                        @else
+                                            {{ $item->status == 'Aktif' ? 'selected' : '' }}
+                                        @endif
+                                        >{{__('Aktif')}}</option>
+                                        <option value="Nonaktif" 
+                                        @if (old('status'))
+                                            {{ old('status') == 'Nonaktif' ? 'selected' : '' }}
+                                        @else
+                                            {{ $item->status == 'Nonaktif' ? 'selected' : '' }}
+                                        @endif
+                                        >{{__('Nonaktif')}}</option>
+                                        <option value="Draf" 
+                                        @if (old('status'))
+                                            {{ old('status') == 'Draf' ? 'selected' : '' }}
+                                        @else
+                                            {{ $item->status == 'Draf' ? 'selected' : '' }}
+                                        @endif
+                                        >{{__('Draf')}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="image">Gambar</label>
-                                    <input id="image" name="image" type="file" class="form-control-file" id="image">
+                                    <label for="image">{{__('Gambar')}}</label>
+                                    <input id="image" name="image" onChange='return validasiFile()' type="file" class="form-control-file" id="image">
                                 </div>
                             </div>
                             <div class="card-footer text-right">
                                 <button type="reset" class="btn btn-default">
                                     <i class="fas fa-undo mr-1"></i>
-                                    RESET
+                                    {{__('RESET')}}
                                 </button>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save mr-1"></i>
-                                    SIMPAN
+                                    {{__('UPDATE')}}
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="border p-3">
                     <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                        <i class="fas fa-info-circle mr-2"></i>DETAIL AGENDA
+                        <i class="fas fa-info-circle mr-2"></i>{{__('DETAIL AGENDA')}}
                     </h6>
                     <table class="table table-striped table-sm">
                         <tr>
-                            <td width="30%">Judul</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Judul')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="word-break: break-all;" id="inputJudul">{{ $item->judul }}</td>
                         </tr>
                         <tr>
-                            <td width="30%">Deskripsi</td>
-                            <td width="5px">:</td>
-                            <td style="word-break: break-all;" id="inputDeskripsi">{{ $item->deskripsi }}</td>
-                        </tr>
-                        <tr>
-                            <td width="30%">Pelaksanaan</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Pelaksanaan')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="word-break: break-all;" id="inputPelaksanaan">{{ $item->pelaksanaan }}</td>
                         </tr>
                         <tr>
-                            <td width="30%">Lokasi</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Lokasi')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="word-break: break-all;" id="inputLokasi">{{ $item->lokasi }}</td>
                         </tr>
                         <tr>
-                            <td width="30%">Status</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Status')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="word-break: break-all;" id="statusNow">{{ $item->status }}</td>
                         </tr>
                     </table>
@@ -145,7 +156,7 @@
                 <br>
                 <div class="card collapsed-card">
                     <div class="card-header p-2">
-                        <h3 class="card-title"><b>Gambar Lama</b></h3>
+                        <h3 class="card-title"><b>{{__('Gambar Lama')}}</b></h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-plus"></i>
@@ -160,7 +171,7 @@
                 </div>
                 <div class="card collapsed-card">
                     <div class="card-header p-2">
-                        <h3 class="card-title"><b>Gambar Baru</b></h3>
+                        <h3 class="card-title"><b>{{__('Gambar Baru')}}</b></h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-plus"></i>
@@ -171,7 +182,7 @@
                         <div class="card shadow">
                           <div class="card-body " id="imagePreview">
                             <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
-                            <span class="image-preview__default-text">Image Preview</span>
+                            <span class="image-preview__default-text">{{__('Image Preview')}}</span>
                           </div>
                         </div>
                     </div>
@@ -200,12 +211,24 @@
 
 @section('script')
 <script src="{{ asset('/app-admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
+<script src="{{ asset('/app-admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script>
-  $(function () {
-    $('.summernote').summernote({
-        height: 340,
+    $(function () {
+      $('.summernote').summernote({
+          height: 340,
+          toolbar: [
+              ['style', ['style']],
+              ['font', ['bold', 'underline', 'clear']],
+              ['fontname', ['fontname']],         
+              ['color', ['color']], 
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['table', ['table']],
+              ['insert', ['link']],
+              ['view', ['fullscreen', 'codeview', 'help']]                 
+          ],
+          placeholder: 'Deskripsi Agenda' 
+      })
     })
-  })
 </script>
 
 <script>
@@ -260,5 +283,22 @@
 
       }
     });
+</script>
+
+{{-- Fungsi Validasi File Image --}}
+<script>
+    function validasiFile() {
+        var inputFile = document.getElementById('image');
+        var pathFile  = inputFile.value;
+
+        var ekstensiOk = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)$/i;
+
+        if( !ekstensiOk.exec(pathFile) ) {
+            alert('Silakan Upload File Yang Memiliki Ekstensi .jpeg, .jpg, .png, .bmp, . webp atau .gif');
+        
+            inputFile.value = '';
+            return false;
+        };
+    }
 </script>
 @endsection

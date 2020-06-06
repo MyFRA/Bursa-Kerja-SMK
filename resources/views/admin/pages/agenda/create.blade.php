@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    AGENDA
+                    {{__('AGENDA')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{ url('/app-admin/agenda') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Agenda
+                    <i class="fas fa-table mr-1"></i> {{__('Daftar Agenda')}}
                 </a>
                 <a href="{{ url('/app-admin/agenda/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Agenda Baru
+                    <i class="fas fa-plus-circle mr-1"></i>{{__(' Agenda Baru')}}
                 </a>
             </div>
         </div>
@@ -33,7 +33,7 @@
                     <div class="col-md-12">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Agenda</h3>
+                                <h3 class="card-title">{{__('Agenda')}}</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                         <i class="fas fa-minus"></i>
@@ -42,7 +42,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="inputJudul">Judul Agenda</label>
+                                    <label for="inputJudul">{{__('Judul Agenda')}} <span class="text-danger">*</span> </label>
                                     <input type="text" id="inputJudul" value="{{ old('judul') }}" name="judul" onkeyup="getValue('inputJudul')" class="form-control @error('judul') is-invalid @enderror" required="">
                                 
                                     @error('judul')
@@ -52,18 +52,16 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputDeskripsi">Deskripsi</label>
+                                    <label for="inputDeskripsi">{{__('Deskripsi')}}</label>
                                     <textarea name="deskripsi" rows="15" class="form-control summernote">{!! old('deskripsi') !!}</textarea>
                                 
                                     @error('deskripsi')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                        <span class="error invalid-feedback">{{ __($message) }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPelaksanaan">Pelaksanaan</label>
-                                    <input type="text" value="{{ old('pelaksanaan') }}" id="inputPelaksanaan" name="pelaksanaan" onkeyup="getValue('inputPelaksanaan')" class="form-control @error('pelaksanaan') is-invalid @enderror">
+                                    <label for="inputPelaksanaan">{{__('Pelaksanaan')}} <span class="text-danger">*</span> </label>
+                                    <input type="text" value="{{ old('pelaksanaan') }}" id="inputPelaksanaan" name="pelaksanaan" onkeyup="getValue('inputPelaksanaan')" class="form-control @error('pelaksanaan') is-invalid @enderror" required>
                                 
                                     @error('pelaksanaan')
                                         <span class="invalid-feedback" role="alert">
@@ -72,8 +70,8 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputLokasi">Lokasi</label>
-                                    <input type="text"  value="{{ old('lokasi') }}" id="inputLokasi" name="lokasi" onkeyup="getValue('inputLokasi')" class="form-control @error('lokasi') is-invalid @enderror">
+                                    <label for="inputLokasi">{{__('Lokasi')}} <span class="text-danger">*</span> </label>
+                                    <input type="text" value="{{ old('lokasi') }}" id="inputLokasi" name="lokasi" onkeyup="getValue('inputLokasi')" class="form-control @error('lokasi') is-invalid @enderror" required>
                                 
                                     @error('lokasi')
                                         <span class="invalid-feedback" role="alert">
@@ -82,27 +80,31 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputStatus">Status</label>
+                                    <label for="inputStatus">{{__('Status')}} <span class="text-danger">*</span> </label>
                                     <select id="select-status" name="status" class="form-control custom-select  @error('status') is-invalid @enderror" required="">
-                                        <option value="" selected="" disabled="">-- Pilih Status --</option>
-                                        <option value="Aktif" {{ (old('status') == "Aktif") ? 'selected' : '' }}>Aktif</option>
-                                        <option value="Nonaktif" {{ (old('status') == "Nonaktif") ? 'selected' : '' }}>Nonaktif</option>
-                                        <option value="Draf" {{ (old('status') == "Draf") ? 'selected' : '' }}>Draf</option>
+                                        <option value="" selected disabled>{{__('-- Pilih Status --')}}</option>
+                                        <option value="Aktif" {{ old('status') == "Aktif" ? 'selected' : '' }}>{{__('Aktif')}}</option>
+                                        <option value="Nonaktif" {{ old('status') == "Nonaktif" ? 'selected' : '' }}>{{__('Nonaktif')}}</option>
+                                        <option value="Draf" {{ old('status') == "Draf" ? 'selected' : '' }}>{{__('Draf')}}</option>
                                     </select>
+
+                                    @error('status')
+                                        <span class="error invalid-feedback">{{ __($message) }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="image">Gambar</label>
-                                    <input id="image" name="image" type="file" class="form-control-file" >
+                                    <label for="image">{{__('Gambar')}} <span class="text-danger">*</span> </label>
+                                    <input id="image" name="image" type="file" onChange='return validasiFile()' class="form-control-file" required>
                                 </div>
                             </div>
                             <div class="card-footer text-right">
                                 <button type="reset" class="btn btn-default">
                                     <i class="fas fa-undo mr-1"></i>
-                                    RESET
+                                    {{__('RESET')}}
                                 </button>
                                 <button type="submit" class="btn btn-primary">
                                     <i class="fas fa-save mr-1"></i>
-                                    SIMPAN
+                                    {{__('SIMPAN')}}
                                 </button>
                             </div>
                         </div>
@@ -112,27 +114,27 @@
             <div class="col-md-4">
                 <div class="border p-3">
                     <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                        <i class="fas fa-info-circle mr-2"></i>DETAIL AGENDA
+                        <i class="fas fa-info-circle mr-2"></i>{{__('DETAIL AGENDA')}}
                     </h6>
                     <table class="table table-striped table-sm">
                         <tr>
-                            <td width="30%">Judul</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Judul')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="overflow-x: auto;" id="inputJudul">-</td>
                         </tr>
                         <tr>
-                            <td width="30%">Pelaksanaan</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Pelaksanaan')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="overflow-x: auto;" id="inputPelaksanaan">-</td>
                         </tr>
                         <tr>
-                            <td width="30%">Lokasi</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Lokasi')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="overflow-x: auto;" id="inputLokasi">-</td>
                         </tr>
                         <tr>
-                            <td width="30%">Status</td>
-                            <td width="5px">:</td>
+                            <td width="30%">{{__('Status')}}</td>
+                            <td width="5px">{{__(':')}}</td>
                             <td style="overflow-x: auto;" id="statusNow">-</td>
                         </tr>
                     </table>
@@ -140,7 +142,7 @@
                 <br>
                 <div class="card">
                     <div class="card-header p-2">
-                        <h3 class="card-title"><b>Image Preview</b></h3>
+                        <h3 class="card-title"><b>{{__('Image Preview')}}</b></h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -151,7 +153,7 @@
                         <div class="card shadow">
                           <div class="card-body " id="imagePreview">
                             <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
-                            <span class="image-preview__default-text">Image Preview</span>
+                            <span class="image-preview__default-text">{{__('Image Preview')}}</span>
                           </div>
                         </div>
                     </div>
@@ -195,10 +197,11 @@
               ['table', ['table']],
               ['insert', ['link']],
               ['view', ['fullscreen', 'codeview', 'help']]                 
-          ]
+          ],
+          placeholder: 'Deskripsi Agenda' 
       })
     })
-  </script>
+</script>
 <script>
     let selectStatus = document.getElementById('select-status');
     let opsiStatus = document.getElementsByTagName('option');
@@ -252,21 +255,39 @@
       }
     });
 </script>
-@if(Session::get('success'))
+
+{{-- Fungsi Validasi File Image --}}
 <script>
-Swal.fire(
-  'Berhasil',
-  '{{ Session::get('success') }}',
-  'success'
-)
+    function validasiFile() {
+        var inputFile = document.getElementById('image');
+        var pathFile  = inputFile.value;
+
+        var ekstensiOk = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)$/i;
+
+        if( !ekstensiOk.exec(pathFile) ) {
+            alert('Silakan Upload File Yang Memiliki Ekstensi .jpeg, .jpg, .png, .bmp, . webp atau .gif');
+        
+            inputFile.value = '';
+            return false;
+        };
+    }
 </script>
-@elseif(Session::get('gagal'))
-<script>
-Swal.fire(
-  'Oops ...',
-  '{{ Session::get('gagal') }}',
-  'error'
-)
-</script>
-@endif
+
+    @if(Session::get('success'))
+        <script>
+        Swal.fire(
+        'Berhasil',
+        '{{ Session::get('success') }}',
+        'success'
+        )
+        </script>
+    @elseif(Session::get('gagal'))
+        <script>
+        Swal.fire(
+        'Oops ...',
+        '{{ Session::get('gagal') }}',
+        'error'
+        )
+        </script>
+    @endif
 @endsection

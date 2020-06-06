@@ -134,11 +134,12 @@ Route::prefix('/app-admin')->group(function() {
         Route::resource('/faq', 'Admin\FaqController');
 
         /** Halaman Router */
-        Route::resource('/halaman', 'Admin\HalamanController');
+        Route::resource('/halaman', 'Admin\HalamanController')->except(['show']);
         Route::delete('/halaman/hapus/semua-halaman', 'Admin\HalamanController@hapusMassal');
 
         /** Agenda Router */
         Route::resource('/agenda', 'Admin\AgendaController');
+        Route::delete('/agenda/hapus/semua-agenda', 'Admin\AgendaController@hapusMassal');
 
         /** Daftar Siswa Router */
         Route::resource('/daftar-siswa', 'Admin\SiswaController')->except(['show']);;

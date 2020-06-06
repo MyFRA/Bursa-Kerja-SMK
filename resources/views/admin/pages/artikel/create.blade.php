@@ -89,16 +89,16 @@
                             </div>
                         </div>
                         <div class="card-body p-2">
-                                <div class="card-body" id="imagePreview">
-                                    <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
-                                    <span class="image-preview__default-text">{{__('Image Preview')}}</span>
-                                </div>
+                            <div class="card-body" id="imagePreview">
+                                <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
+                                <span class="image-preview__default-text">{{__('Image Preview')}}</span>
+                            </div>
                             <div class="form-group">
                                 <div class="custom-file">
                                   <input type="file" class="custom-file-input" onChange='return validasiFile()' id="image" name="image" required>
                                   <label class="custom-file-label" for="customFile">{{__('Choose file')}}</label>
                                 </div>
-                              </div>
+                            </div>
                         </div>
                     </div>
 
@@ -120,6 +120,10 @@
                                     <option value="Nonaktif" {{ old('status') == 'Nonaktif' ? 'selected' : '' }}>{{__('Nonaktif')}}</option>
                                     <option value="Draf" {{ old('status') == 'Draf' ? 'selected' : '' }}>{{__('Draf')}}</option>
                                 </select>
+
+                                @error('status')
+                                    <span class="error invalid-feedback">{{ __($message) }}</span>
+                                @enderror
                             </div>
                         </div>
                     </div>

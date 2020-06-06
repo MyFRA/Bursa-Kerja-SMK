@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    AGENDA
+                    {{__('AGENDA')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
-                    <i class="fas fa-trash mr-1"></i> Hapus Masal
+                <a href="" onclick="onHapusMassal('<?= url('/app-admin/agenda/hapus/semua-agenda') ?>')" class="btn btn-danger rounded-0">
+                    <i class="fas fa-trash mr-1"></i> {{__('Hapus Masal')}}
                 </a>
                 <a href="{{ url('/app-admin/agenda/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Agenda Baru
+                    <i class="fas fa-plus-circle mr-1"></i> {{__('Agenda Baru')}}
                 </a>
             </div>
         </div>
@@ -31,9 +31,9 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th>JUDUL</th>
-                    <th width="20%">STATUS</th>
-                    <th width="20%">DIPERBARUI PADA</th>
+                    <th>{{__('JUDUL')}}</th>
+                    <th width="20%">{{__('STATUS')}}</th>
+                    <th width="20%">{{__('DIPERBARUI PADA')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -117,7 +117,29 @@
                     event.preventDefault();
                     document.getElementById('deleted-form').submit();
                 }
-            })
+            }
+        )
+    }
+
+    function onHapusMassal(url) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'KONFIRMASI',
+            text: 'Apakah anda yakin akan menghapus massal ?, semua Agenda akan terhapus secara permanen !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleted-form").attr('action', url);
+
+                    document.getElementById('deleted-form').submit();
+                }
+            }
+        )
     }
 </script>
 
