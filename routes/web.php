@@ -59,6 +59,7 @@ Route::prefix('/app-admin')->group(function() {
 
         /** Artikel Router */ 
         Route::resource('/artikel', 'Admin\ArtikelController')->except(['show']);
+        Route::delete('/artikel/hapus/semua-artikel', 'Admin\ArtikelController@hapusMassal');
 
         /**  Master File */
             /** Kompetensi Keahlian Router */

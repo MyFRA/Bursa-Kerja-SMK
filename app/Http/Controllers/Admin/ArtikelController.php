@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\Artikel;
@@ -50,15 +49,17 @@ class ArtikelController extends Controller
      */
     public function store(Request $request)
     {
-        $this->allslots = array('Draf', 'Aktif', 'Nonaktif');
-
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
-            'status' => ['required', Rule::in($this->allslots)],
+            'status' => 'required|in:Aktif,Draf,Nonaktif',
+            'konten' => 'required',
+            'deskripsi' => 'required',
         ], [
-            'judul.required' => 'judul harus diisi',
-            'judul.max' => 'judul maksimal 255 karakter',
-            'status.required' => '<span style="color:red">status harus diisi</span>',
+            'judul.required'    => 'judul tidak boleh kosong',
+            'judul.max'         => 'judul maksimal 255 karakter',
+            'status.required'   => 'status tidak boleh kosong',
+            'konten.required'   => 'konten tidak boleh kosong',
+            'deskripsi.required' => 'deskripsi tidak boleh kosong',
         ]);
 
         if ( $validator->fails() ) {
@@ -98,7 +99,7 @@ class ArtikelController extends Controller
             'item'  => Artikel::find(decrypt($id)),
         );
 
-        return view('/admin.pages.artikel.edit', $data);
+        return view('admin.pages.artikel.edit', $data);
     }
 
     /**
@@ -110,15 +111,17 @@ class ArtikelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->allslots = array('Draf', 'Aktif', 'Nonaktif');
-
         $validator = Validator::make($request->all(), [
             'judul' => 'required|max:255',
-            'status' => ['required', Rule::in($this->allslots)],
+            'status' => 'required|in:Aktif,Draf,Nonaktif',
+            'konten' => 'required',
+            'deskripsi' => 'required',
         ], [
-            'judul.required' => 'judul harus diisi',
-            'judul.max' => 'judul maksimal 255 karakter',
-            'status.required' => 'status harus diisi',
+            'judul.required'    => 'judul tidak boleh kosong',
+            'judul.max'         => 'judul maksimal 255 karakter',
+            'status.required'   => 'status tidak boleh kosong',
+            'konten.required'   => 'konten tidak boleh kosong',
+            'deskripsi.required' => 'deskripsi tidak boleh kosong',
         ]);
 
         if ( $validator->fails() ) {
@@ -150,14 +153,13 @@ class ArtikelController extends Controller
     public function destroy($id)
     {
         $data = Artikel::find(decrypt($id));
-        $nama = $data->judul;
         $exists = Storage::disk('local')->exists('/public/assets/artikel/' . $data->image);
         if ( $exists === true ) {
             Storage::disk('local')->delete('/public/assets/artikel/' . $data->image);
         }
         Artikel::destroy(decrypt($id));
 
-        return back()->with('success', "Artikel $nama Telah Dihapus");
+        return back()->with('success', "Artikel $data->judul Telah Dihapus");
 
     }
 
@@ -166,16 +168,14 @@ class ArtikelController extends Controller
         if ( is_null($fileGambar) ) {
             Artikel::create([
                 'judul' => $request->judul,
-                'link'  => Str::slug($request->judul),
+                'link'  => Str::slug($request->judul) . '-' . time(),
                 'konten' => $request->konten,
                 'deskripsi' => $request->deskripsi,
                 'tags'      => $request->tags,
                 'status'    => $request->status
             ]);
             return true;
-        }
-
-        else {
+        } else {
             $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
             if (!in_array($fileGambar->getClientOriginalExtension(), $ekstensiValid)) {
                 return false;
@@ -187,9 +187,9 @@ class ArtikelController extends Controller
                 $fileGambar->storeAs('public/assets/artikel', $namaGambar);
 
                 Artikel::create([
-                    'judul' => $request->judul,
-                    'link'  => Str::slug($request->judul),
-                    'konten' => $request->konten,
+                    'judul'     => $request->judul,
+                    'link'      => Str::slug($request->judul) . '-' . time(),
+                    'konten'    => $request->konten,
                     'deskripsi' => $request->deskripsi,
                     'tags'      => $request->tags,
                     'image'     => $namaGambar,
@@ -205,18 +205,16 @@ class ArtikelController extends Controller
     {
         if ( is_null($fileGambar) ) {
             $update = Artikel::find(decrypt($id));
+
             $update->judul = $request->judul;
             $update->konten = $request->konten;
-            $update->link = Str::slug($request->judul);
             $update->tags = $request->tags;
             $update->status = $request->status;
             $update->deskripsi = $request->deskripsi;
             $update->save();
 
             return true;
-        }
-
-        else {
+        } else {
             $artikelById = Artikel::find(decrypt($id));
             $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
             if (!in_array($fileGambar->getClientOriginalExtension(), $ekstensiValid)) {
@@ -235,7 +233,6 @@ class ArtikelController extends Controller
                 $update = Artikel::find(decrypt($id));
                 $update->judul = $request->judul;
                 $update->konten = $request->konten;
-                $update->link = Str::slug($request->judul);
                 $update->tags = $request->tags;
                 $update->status = $request->status;
                 $update->deskripsi = $request->deskripsi;
@@ -245,5 +242,18 @@ class ArtikelController extends Controller
                 return true;
             }
         }
+    }
+
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Artikel::get();
+
+        foreach($data as $artikel) {
+            Artikel::destroy($artikel->id);
+        }
+
+        return back()->with('success', 'Semua Artikel Telah Dihapus');
     }
 }

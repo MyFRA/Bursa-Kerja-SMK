@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Artikel
+                    {{__('Artikel')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{ url('/app-admin/artikel') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Artikel
+                    <i class="fas fa-table mr-1"></i> {{__('Daftar Artikel')}}
                 </a>
                 <a href="{{ url('/app-admin/artikel/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Artikel Baru
+                    <i class="fas fa-plus-circle mr-1"></i>{{__(' Artikel Baru')}}
                 </a>
             </div>
         </div>
@@ -31,17 +31,41 @@
 
             <div class="col-md-9">
                 <div class="form-group">
-                    <input type="text" id="inputJudul" onkeyup="getValue('inputJudul', 'tdJudul')" name="judul" class="form-control form-control-lg" placeholder="Masukan judul artikel disini" value="{{ old('judul') }}" required="" />
+                    <label for="judul">{{__('Judul Artikel')}} <span class="text-danger">*</span> </label>
+                    <input type="text" id="judul" name="judul" class="form-control form-control-lg @error('judul') is-invalid @enderror" placeholder="Masukan judul artikel disini" value="{{ old('judul') }}" required=""/>
+                
+                    @error('judul')
+                        <span class="error invalid-feedback">{{ __($message) }}</span>
+                    @enderror
                 </div>
+
                 <div class="form-group">
-                    <textarea name="konten" rows="15" class="form-control summernote">{{ @old('konten') }}</textarea>
+                    <label for="konten">{{__('Konten')}} <span class="text-danger">*</span> </label>
+                    <textarea name="konten" rows="15" class="form-control summernote">{!! old('konten') !!}</textarea>
+                
+                    @error('konten')
+                        <span class="text-danger">{{ __($message) }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="deskripsi">{{__('Deskripsi')}} <span class="text-danger">*</span> </label>
+                    <textarea id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" name="deskripsi" placeholder="Tulis Deskripsi Artikel" required>{{ old('deskripsi') }}</textarea>
+                    
+                    @error('deskripsi')
+                        <span class="error invalid-feedback">{{ __($message) }}</span>
+                    @enderror
+                    <span id="help" class="form-text text-muted">{{__('Deskripsi, berisi penjelasan singkat mengenai artikel. Disarankan Maksimal 225 Karakter')}}</span>
                 </div>
             </div>
+
             <div class="col-md-3">
-                <div>
+                <div class="mt-md-2">
+                    <br>
+
                     <div class="card collapsed-card">
                         <div class="card-header p-2">
-                            <h5 class="card-title">Tags</h5>
+                            <h5 class="card-title">{{__('Tags')}}</h5>
                             <div class="card-tools">
                                 <button id="tombolAktifTags" type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-plus"></i>
@@ -50,38 +74,37 @@
                         </div>
                         <div class="card-body p-2">
                             <div class="form-group" data-select2-id="39">
-                                <input type="text" id="tags" name="tags">
+                                <input type="text" id="tags" name="tags" value="{{ old('tags') }}">
                             </div>
                         </div>
                     </div>
+
                     <div class="card collapsed-card">
                         <div class="card-header p-2">
-                            <h5 class="card-title">Images</h5>
-    
+                            <h5 class="card-title">{{__('Image')}} <span class="text-danger">*</span> </h5>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <button type="button" id="tombolAktifImage" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </div>
                         <div class="card-body p-2">
-                                <div class="card-body " id="imagePreview">
+                                <div class="card-body" id="imagePreview">
                                     <img class="img-thumbnail img-fluid image-preview__image" src="" alt="">
-                                    <span class="image-preview__default-text">Image Preview</span>
+                                    <span class="image-preview__default-text">{{__('Image Preview')}}</span>
                                 </div>
                             <div class="form-group">
-                                <!-- <label for="customFile">Custom File</label> -->
-    
                                 <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="image" name="image">
-                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                  <input type="file" class="custom-file-input" onChange='return validasiFile()' id="image" name="image" required>
+                                  <label class="custom-file-label" for="customFile">{{__('Choose file')}}</label>
                                 </div>
                               </div>
                         </div>
                     </div>
+
                     <div class="card collapsed-card">
                         <div class="card-header p-2">
-                            <h5 class="card-title">Status</h5>
+                            <h5 class="card-title">{{__('Status')}} <span class="text-danger">*</span> </h5>
     
                             <div class="card-tools">
                                 <button type="button" id="tombolAktifStatus" class="btn btn-tool" data-card-widget="collapse">
@@ -91,68 +114,26 @@
                         </div>
                         <div class="card-body p-2">
                             <div class="form-group">
-                                <select name="status" class="form-control" id="select-status" required="">
-                                    <option value="">--Pilih Status--</option>
-                                    <option value="Aktif">Aktif</option>
-                                    <option value="Nonaktif">Nonaktif</option>
-                                    <option value="Draf">Draf</option>
+                                <select name="status" class="form-control" id="status" required="">
+                                    <option value="" selected>{{__('--Pilih Status--')}}</option>
+                                    <option value="Aktif" {{ old('status') == 'Aktif' ? 'selected' : '' }}>{{__('Aktif')}}</option>
+                                    <option value="Nonaktif" {{ old('status') == 'Nonaktif' ? 'selected' : '' }}>{{__('Nonaktif')}}</option>
+                                    <option value="Draf" {{ old('status') == 'Draf' ? 'selected' : '' }}>{{__('Draf')}}</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="card collapsed-card">
-                        <div class="card-header p-2">
-                            <h5 class="card-title">Deskripsi</h5>
-    
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body p-2">
-                            <div class="form-group">
-                                <textarea id="inputDeskripsi" onkeyup="getValue('inputDeskripsi', 'tdDeskripsi')" class="form-control" rows="3" name="deskripsi" placeholder="Tulis Deskripsi ...">{{ @old('deskripsi') }}</textarea>
-                          </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- <div class="border p-3">
-                    <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                        <i class="fas fa-info-circle mr-2"></i>DETAIL ARTIKEL
-                    </h6>
-                    <table class="table table-striped table-sm">
-                        <tr>
-                            <td width="30%">Judul</td>
-                            <td width="5px">:</td>
-                            <td style="overflow-x: auto" id="tdJudul">{{ old('judul') ? old('judul') : '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td width="30%">Deskripsi</td>
-                            <td width="5px">:</td>
-                            <td style="overflow-x: auto" id="tdDeskripsi">{{ old('deskripsi') ? old('deskripsi') : '-' }}</td>
-                        </tr>
-                        <tr>
-                            <td width="30%">Tags</td>
-                            <td width="5px">:</td>
-                            <td style="overflow-x: auto" id="tdTags"><a style="color: blue; cursor: pointer;" onclick="tampilkanCollapse('tombolAktifTags')"><i class="fas fa-edit"></i></a></td>
-                        </tr>
-                        <tr>
-                            <td width="30%">Status</td>
-                            <td width="5px">:</td>
-                            <td style="overflow-x: auto" id="statusNow">{{ old('status') ? old('status') : '' }}  @error('status') {!! $message !!} @enderror</td>
-                        </tr>
-                    </table>
-                </div> --}}
-                <div class="card-footer text-right p-2">
-                    <button id="simpan-draf" type="submit" class="btn btn-default btn-sm">
-                        SIMPAN KE DRAF
-                    </button>
-                    <button onclick="tampilkanCollapse('tombolAktifStatus')" type="submit" class="btn btn-primary btn-sm">
-                        <i class="fas fa-paper-plane mr-1"></i> PUBLISH
-                    </button>
                 </div>
 
+
+                <div class="card-footer text-right p-2">
+                    <button id="simpan-draf" type="submit" onclick="tampilkanCollapse('tombolAktifStatus', 'tombolAktifImage')" class="btn btn-default btn-sm">
+                        {{__('SIMPAN KE DRAF')}}
+                    </button>
+                    <button id="publish" type="submit" onclick="tampilkanCollapse('tombolAktifStatus', 'tombolAktifImage')" class="btn btn-primary btn-sm">
+                        <i class="fas fa-paper-plane mr-1"></i> {{__('PUBLISH')}}
+                    </button>
+                </div>
             </div>
         </form>
     </div>
@@ -180,9 +161,12 @@
 <script src="{{ asset('/app-admin/plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script src="{{ asset('/app-admin/plugins/tagging-Input-Bootstrap-4/src/jquery-tagsinput.js') }}"></script>
 
+{{-- Tags Input --}}
 <script>
     $('#tags').tagsInput();
 </script>
+
+{{-- Summernote --}}
 <script>
   $(function () {
     $('.summernote').summernote({
@@ -201,41 +185,25 @@
   })
 </script>
 
+{{-- Tampilkan Collapse --}}
 <script>
-    function getValue(id, tdata) {
-        let inputForm = document.getElementById(id);
-        let selector = 'table tr td#' + tdata;
-        let td        = document.querySelector(selector);
-
-        td.innerHTML = inputForm.value;
-    }
-</script>
-<script>
-    let selectStatus = document.getElementById('select-status');
-    let opsiStatus = document.getElementsByTagName('option');
-    let statusNow = document.getElementById('statusNow');
-
-    selectStatus.addEventListener('change', function() {
-        for (let i = 0; i < opsiStatus.length ; i++) {
-            let dipilih = opsiStatus[i];
-            if( dipilih.selected === true ) {
-                statusNow.innerHTML = opsiStatus[i].value;
-            }
-        }
-    })
-</script>
-<script>
-    function tampilkanCollapse(id)
+    function tampilkanCollapse(id1, id2)
     {
-        let opened = document.getElementById(id);
-        opened.click();
+        let collapse1 = document.getElementById(id1);
+        let collapse2 = document.getElementById(id2);
+
+        collapse1.click();
+        collapse2.click();
     }
 </script>
+
 @if (Session::get('alert'))
     <script>
         alert('file yang kamu upload bukan gambar');
     </script>
 @endif
+
+{{-- Preview Image --}}
 <script>
     const inpFile = document.getElementById('image');
     const previewContainer = document.getElementById('imagePreview');
@@ -264,13 +232,50 @@
       }
     });
 </script>
+
+
+{{-- Tombol di Klik --}}
 <script>
-    let simpanDraf = document.getElementById('simpan-draf');
-    
+    const simpanDraf = document.getElementById('simpan-draf');
+    const publish = document.getElementById('publish');
+    let opsiStatus = document.querySelectorAll('select option');
+
     simpanDraf.addEventListener('click', function() {
-        for (let i = 0; i < opsiStatus.length ; i++) {
-            opsiStatus[i].setAttribute('value', 'Draf');
-        }
+        opsiStatus.forEach((e) => {
+            e.value = 'Draf';
+            if( e.text == 'Draf') {
+                e.setAttribute('selected', '');
+            }
+        });
     });
+
+    publish.addEventListener('click', function() {
+        opsiStatus.forEach((e) => {
+            if(e.text == '--Pilih Status--') {
+                e.value = '';
+            } else {
+                e.value = e.text;
+            }
+        });
+    });
+
+</script>
+
+
+{{-- Fungsi Validasi File Image --}}
+<script>
+    function validasiFile() {
+        var inputFile = document.getElementById('image');
+        var pathFile  = inputFile.value;
+
+        var ekstensiOk = /(\.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)$/i;
+
+        if( !ekstensiOk.exec(pathFile) ) {
+            alert('Silakan Upload File Yang Memiliki Ekstensi .jpeg, .jpg, .png, .bmp, . webp atau .gif');
+        
+            inputFile.value = '';
+            return false;
+        };
+    }
 </script>
 @endsection

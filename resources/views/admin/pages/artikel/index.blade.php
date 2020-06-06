@@ -8,15 +8,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    ARTIKEL
+                    {{__('ARTIKEL')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
-                    <i class="fas fa-trash mr-1"></i> Hapus Masal
+                <a href="" onclick="onHapusMassal('<?= url('/app-admin/artikel/hapus/semua-artikel') ?>')" class="btn btn-danger rounded-0">
+                    <i class="fas fa-trash mr-1"></i> {{__('Hapus Masal')}}
                 </a>
                 <a href="{{ url('/app-admin/artikel/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Artikel Baru
+                    <i class="fas fa-plus-circle mr-1"></i> {{__('Artikel Baru')}}
                 </a>
             </div>
         </div>
@@ -32,10 +32,10 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th>JUDUL</th>
-                    <th width="10%">STATUS</th>
-                    <th width="10%">COUNTER</th>
-                    <th width="20%">DIPERBARUI PADA</th>
+                    <th>{{__('JUDUL')}}</th>
+                    <th width="10%">{{__('STATUS')}}</th>
+                    <th width="10%">{{__('TAYANGAN')}}</th>
+                    <th width="20%">{{__('DIPERBARUI PADA')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -122,7 +122,30 @@
                     event.preventDefault();
                     document.getElementById('deleted-form').submit();
                 }
-            })
+            }
+        )
+    }
+
+
+    function onHapusMassal(url) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'KONFIRMASI',
+            text: 'Apakah anda yakin akan menghapus massal, semua artikel akan terhapus secara permanen !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleted-form").attr('action', url);
+
+                    document.getElementById('deleted-form').submit();
+                }
+            }
+        )
     }
 </script>
 
