@@ -189,4 +189,22 @@ class BidangKeahlianController extends Controller
     {
         return response()->download(public_path('/assets/excel/file-format-import-bidang-keahlian.xlsx'));
     }
+
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = BidangKeahlian::get();
+        $programKeahlian = ProgramKeahlian::get();
+
+        foreach($data as $bidangKeahlian) {
+            foreach ($programKeahlian as $progKeahlian) {
+                if ( $bidangKeahlian->id == $progKeahlian->bidang_keahlian_id ) {
+                    return back()->with('gagal', ' Bidang Keahlian Gagal Dihapus, Karena masih terikat dengan program keahlian');
+                }
+            }
+        }
+
+        return back()->with('success', 'Semua BidangKeahlian Telah Dihapus');
+    }
 }

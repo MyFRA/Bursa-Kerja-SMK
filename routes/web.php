@@ -73,6 +73,7 @@ Route::prefix('/app-admin')->group(function() {
             Route::post('/bidang-keahlian/imported', 'Admin\BidangKeahlianController@imported')->name('bidang-keahlian.imported');
             Route::get('/bidang-keahlian/format-excel-import', 'Admin\BidangKeahlianController@download')->name('bidang-keahlian.download');
             Route::resource('/bidang-keahlian', 'Admin\BidangKeahlianController')->except(['show']);
+            Route::delete('/bidang-keahlian/hapus/semua-bidang-keahlian', 'Admin\BidangKeahlianController@hapusMassal');
 
             /** Program Keahlian Router */
             Route::get('/program-keahlian/import', 'Admin\ProgramKeahlianController@import')->name('program-keahlian.import');

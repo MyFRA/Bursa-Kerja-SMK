@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Bidang Keahlian
+                    {{__('Bidang Keahlian')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{ url('/app-admin/bidang-keahlian') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Bidang Keahlian
+                    <i class="fas fa-table mr-1"></i> {{__('Daftar Bidang Keahlian')}}
                 </a>
                 <a href="{{ url('/app-admin/bidang-keahlian/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Bidang Keahlian Baru
+                    <i class="fas fa-plus-circle mr-1"></i> {{__('Bidang Keahlian Baru')}}
                 </a>
             </div>
         </div>
@@ -31,21 +31,21 @@
 
             <div class="border p-2">
                 <h5 class="border-bottom pb-2 mb-2">
-                    IMPORT DATA BIDANG KEAHLIAN
+                    {{__('IMPORT DATA BIDANG KEAHLIAN')}}
                 </h5>
-                <p>Impor data bidang keahlian dari berkas Excel. Silahkan <a href="{{ url('/app-admin/bidang-keahlian/format-excel-import') }}">download panduan format file excel</a>.</p>
+                <p>{{__('Impor data bidang keahlian dari berkas Excel. Silahkan ')}}<a href="{{ url('/app-admin/bidang-keahlian/format-excel-import') }}">{{__('download panduan format file excel')}}</a>.</p>
 
                 <div class="form-group col-6 px-0">
                     <div class="input-group">
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" id="exampleInputFile">
-                            <label class="custom-file-label" for="exampleInputFile">Pilih File Import</label>
+                            <label class="custom-file-label" for="exampleInputFile">{{__('Pilih File Import')}}</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group col-6 px-0 text-right">
                     <button class="btn btn-primary">
-                        <i class="fas fa-upload mr-1"></i> UPLOAD
+                        <i class="fas fa-upload mr-1"></i>{{__(' UPLOAD')}}
                     </button>
                 </div>
             </div>
