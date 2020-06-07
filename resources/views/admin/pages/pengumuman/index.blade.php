@@ -11,7 +11,7 @@
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
+                <a href=""  onclick="onHapusMassal('<?= url('/app-admin/pengumuman/hapus/semua-pengumuman') ?>')" class="btn btn-danger rounded-0">
                     <i class="fas fa-trash mr-1"></i> {{__('Hapus Masal')}}
                 </a>
                 <a href="{{ url('/app-admin/pengumuman/create') }}" class="btn btn-primary rounded-0">
@@ -118,6 +118,28 @@
                     document.getElementById('deleted-form').submit();
                 }
             })
+    }
+
+
+    function onHapusMassal(url) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'KONFIRMASI',
+            text: 'Apakah anda yakin akan menghapus massal ?, semua Pengumuman akan terhapus secara permanen !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleted-form").attr('action', url);
+
+                    document.getElementById('deleted-form').submit();
+                }
+            }
+        )
     }
 </script>
 

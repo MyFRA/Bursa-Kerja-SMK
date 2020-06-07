@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="inputJudul">{{__('Judul Pengumuman')}}</label>
+                                        <label for="inputJudul">{{__('Judul Pengumuman')}} <span class="text-danger">*</span> </label>
                                         <input type="text" id="inputJudul" value="{{ old('judul') }}" name="judul" onkeyup="getValue('inputJudul')" class="form-control @error('judul') is-invalid @enderror" required="">
                                     
                                         @error('judul')
@@ -60,12 +60,12 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputStatus">{{__('Status')}}</label>
+                                        <label for="inputStatus">{{__('Status')}} <span class="text-danger">*</span> </label>
                                         <select id="select-status" name="status" class="form-control custom-select  @error('status') is-invalid @enderror" required="">
                                             <option value="" selected="" disabled="">{{__('-- Pilih Status --')}}</option>
-                                            <option value="Aktif" {{ (old('status') == "Aktif") ? 'selected' : '' }}>{{__('Aktif')}}</option>
-                                            <option value="Nonaktif" {{ (old('status') == "Nonaktif") ? 'selected' : '' }}>{{__('Nonaktif')}}</option>
-                                            <option value="Draf" {{ (old('status') == "Draf") ? 'selected' : '' }}>{{__('Draf')}}</option>
+                                            <option value="Aktif" {{ old('status') == "Aktif" ? 'selected' : '' }}>{{__('Aktif')}}</option>
+                                            <option value="Nonaktif" {{ old('status') == "Nonaktif" ? 'selected' : '' }}>{{__('Nonaktif')}}</option>
+                                            <option value="Draf" {{ old('status') == "Draf" ? 'selected' : '' }}>{{__('Draf')}}</option>
                                         </select>
 
                                         @error('status')
@@ -162,36 +162,7 @@
         let td        = document.querySelector(selector);
 
         td.innerHTML = inputForm.value;
-
     }
-</script>
-<script>
-    const inpFile = document.getElementById('image');
-    const previewContainer = document.getElementById('imagePreview');
-    const previewImage = previewContainer.querySelector(".image-preview__image");
-    const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
-
-    inpFile.addEventListener("change", function() {
-      const file = this.files[0];
-
-      if (file) {
-        const reader = new FileReader();
-
-        previewDefaultText.style.display = 'none';
-        previewImage.style.display = 'block';
-
-        reader.addEventListener('load', function() {
-          previewImage.setAttribute('src', this.result);
-        });
-
-        reader.readAsDataURL(file); 
-      } else {
-        previewDefaultText.style.display = null;
-        previewImage.style.display = null;
-        previewImage.setAttribute('src', '');
-
-      }
-    });
 </script>
 @if(Session::get('success'))
 <script>

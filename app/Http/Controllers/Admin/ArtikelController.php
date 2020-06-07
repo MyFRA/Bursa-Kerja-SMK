@@ -253,6 +253,10 @@ class ArtikelController extends Controller
         $data = Artikel::get();
 
         foreach($data as $artikel) {
+            $exists = Storage::disk('local')->exists('/public/assets/artikel/' . $artikel->image);
+            if ( $exists === true ) {
+                Storage::disk('local')->delete('/public/assets/artikel/' . $artikel->image);
+            }
             Artikel::destroy($artikel->id);
         }
 

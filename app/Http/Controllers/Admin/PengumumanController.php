@@ -20,7 +20,7 @@ class PengumumanController extends Controller
     {
         $data = [
             'navLink' => 'pengumuman',
-            'items' => Pengumuman::orderBy('created_at', 'DESC')->get(),
+            'items' => Pengumuman::orderBy('updated_at', 'DESC')->get(),
             'title' => 'Pengumuman',
             'nav' => 'pengumuman'
         ];
@@ -145,4 +145,16 @@ class PengumumanController extends Controller
 
         return back()->with('success', "Pengumuman $data->judul Telah Dihapus");
     }
+
+        // Fungsi Hapus Massal
+        public function hapusMassal()
+        {
+            $data = Pengumuman::get();
+    
+            foreach($data as $pengumuman) {
+                Pengumuman::destroy($pengumuman->id);
+            }
+    
+            return back()->with('success', 'Semua Pengumuman Telah Dihapus');
+        }
 }

@@ -120,6 +120,7 @@ Route::prefix('/app-admin')->group(function() {
             Route::get('/pengumuman/import', 'Admin\PengumumanController@import')->name('pengumuman.import');
             Route::post('/pengumuman/imported', 'Admin\PengumumanController@imported')->name('pengumuman.imported');
             Route::get('/pengumuman/format-excel-import', 'Admin\PengumumanController@download')->name('pengumuman.download');
+            Route::delete('/pengumuman/hapus/semua-pengumuman', 'Admin\PengumumanController@hapusMassal');
             Route::resource('/pengumuman', 'Admin\PengumumanController')->except(['show']);
 
         /** Akhir Master File */

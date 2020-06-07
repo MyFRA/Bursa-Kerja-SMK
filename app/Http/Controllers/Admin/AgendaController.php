@@ -262,6 +262,10 @@ class AgendaController extends Controller
             $data = Agenda::get();
     
             foreach($data as $agenda) {
+                $exists = Storage::disk('local')->exists('/public/assets/agenda/' . $agenda->image);
+                if ( $exists === true ) {
+                    Storage::disk('local')->delete('/public/assets/agenda/' . $agenda->image);
+                }
                 Agenda::destroy($agenda->id);
             }
     
