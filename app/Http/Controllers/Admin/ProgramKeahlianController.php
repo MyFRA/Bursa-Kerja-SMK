@@ -125,7 +125,15 @@ class ProgramKeahlianController extends Controller
                 ->withErrors($validation)
                 ->withInput();
         } else {
+            $programKeahlian = ProgramKeahlian::get();
             $data = ProgramKeahlian::find(decrypt($id));
+
+            foreach($programKeahlian as $progKeahlian) {
+                if($progKeahlian->kode == $request->kode && $request->kode != $data->kode ) {
+                    return back()->with('gagal', "Kode Program Keahlian sudah digunakan");
+                }
+            }
+
             $data->kode = $request->kode;
             $data->nama = $request->nama;
             $data->bidang_keahlian_id = $request->bidang_keahlian_id;
@@ -188,5 +196,26 @@ class ProgramKeahlianController extends Controller
     public function download()
     {
         return response()->download(public_path('/assets/excel/file-format-import-program-keahlian.xlsx'));
+    }
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = ProgramKeahlian::get();
+        $kompetensiKeahlian = KompetensiKeahlian::get();
+
+        foreach($data as $programKeahlian) {
+            foreach ($kompetensiKeahlian as $kompKeahlian) {
+                if ( $programKeahlian->id == $kompKeahlian->program_keahlian_id ) {
+                    return back()->with('gagal', ' Program Keahlian Gagal Dihapus, Karena masih terikat dengan kompetensi keahlian');
+                }
+            }
+        }
+
+        foreach($data as $programKeahlian) {
+            ProgramKeahlian::destroy($programKeahlian->id);
+        }
+
+        return back()->with('success', 'Semua Program Keahlian Telah Dihapus');
     }
 }

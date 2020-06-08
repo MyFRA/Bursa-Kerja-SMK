@@ -80,6 +80,7 @@ Route::prefix('/app-admin')->group(function() {
             Route::post('/program-keahlian/imported', 'Admin\ProgramKeahlianController@imported')->name('program-keahlian.imported');
             Route::get('/program-keahlian/format-excel-import', 'Admin\ProgramKeahlianController@download')->name('program-keahlian.download');
             Route::resource('/program-keahlian', 'Admin\ProgramKeahlianController')->except(['show']);
+            Route::delete('/program-keahlian/hapus/semua-program-keahlian', 'Admin\ProgramKeahlianController@hapusMassal');
 
             /** Bahasa Router */
             Route::get('/bahasa/import', 'Admin\BahasaController@import')->name('bahasa.import');

@@ -205,6 +205,10 @@ class BidangKeahlianController extends Controller
             }
         }
 
-        return back()->with('success', 'Semua BidangKeahlian Telah Dihapus');
+        foreach($data as $bidangKeahlian) {
+            BidangKeahlian::destroy($bidangKeahlian->id);
+        }
+
+        return back()->with('success', 'Semua Bidang Keahlian Telah Dihapus');
     }
 }
