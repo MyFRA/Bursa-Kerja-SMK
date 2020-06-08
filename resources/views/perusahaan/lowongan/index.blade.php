@@ -4,7 +4,7 @@
     <div class="container">
         <div class="route">
             <div class="d-flex align-items-center">
-                <h2 class="m-0 pl-2">{{__('Portal Perusahaan Monokrom')}}</h2>
+                <h2 class="m-0 pl-2">{{__('Portal Perusahaan ')}} {{ Auth::user()->perusahaan->nama }}</h2>
             </div>
             <div class="d-flex align-items-center justify-content-end">
                 <a href="{{ url('/perusahaan') }}">{{__('Lowongan')}} </a>
