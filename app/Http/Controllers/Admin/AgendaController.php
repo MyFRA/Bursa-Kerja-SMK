@@ -256,19 +256,19 @@ class AgendaController extends Controller
         }
     }
 
-        // Fungsi Hapus Massal
-        public function hapusMassal()
-        {
-            $data = Agenda::get();
-    
-            foreach($data as $agenda) {
-                $exists = Storage::disk('local')->exists('/public/assets/agenda/' . $agenda->image);
-                if ( $exists === true ) {
-                    Storage::disk('local')->delete('/public/assets/agenda/' . $agenda->image);
-                }
-                Agenda::destroy($agenda->id);
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Agenda::get();
+
+        foreach($data as $agenda) {
+            $exists = Storage::disk('local')->exists('/public/assets/agenda/' . $agenda->image);
+            if ( $exists === true ) {
+                Storage::disk('local')->delete('/public/assets/agenda/' . $agenda->image);
             }
-    
-            return back()->with('success', 'Semua Agenda Telah Dihapus');
+            Agenda::destroy($agenda->id);
         }
+
+        return back()->with('success', 'Semua Agenda Telah Dihapus');
+    }
 }

@@ -67,6 +67,7 @@ Route::prefix('/app-admin')->group(function() {
             Route::post('/kompetensi-keahlian/imported', 'Admin\KompetensiKeahlianController@imported')->name('kompetensi-keahlian.imported');
             Route::get('/kompetensi-keahlian/format-excel-import', 'Admin\KompetensiKeahlianController@download')->name('kompetensi-keahlian.download');
             Route::resource('/kompetensi-keahlian', 'Admin\KompetensiKeahlianController')->except(['show']);
+            Route::delete('/kompetensi-keahlian/hapus/semua-kompetensi-keahlian', 'Admin\KompetensiKeahlianController@hapusMassal');
 
             /** Bidang Keahlian Router */
             Route::get('/bidang-keahlian/import', 'Admin\BidangKeahlianController@import')->name('bidang-keahlian.import');

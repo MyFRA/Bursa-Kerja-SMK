@@ -58,7 +58,7 @@ class KompetensiKeahlianController extends Controller
         ], [
             "kode.required"                 => "Kode kompetensi keahlian harus diisi",
             "kode.max"                      => "Kode kompetensi keahlian max: 8 karakter",
-            "kode.unique"                   => "Kode kompetensi keahlian tidak boleh sama",
+            "kode.unique"                   => "Kode kompetensi keahlian sudah digunakan",
             "nama.required"                 => "Nama kompetensi keahlian harus diisi",
             "nama.min"                      => "Nama kompetensi keahlian min: 3 karakter",
             "nama.max"                      => "Nama kompetensi keahlian max: 128 karakter",
@@ -123,12 +123,20 @@ class KompetensiKeahlianController extends Controller
                 ->withInput();
         } else {
             $data = KompetensiKeahlian::find(decrypt($id));
+            $kompetensiKeahlian = KompetensiKeahlian::get();
+
+            foreach($kompetensiKeahlian as $kompKeahlian) {
+                if($kompKeahlian->kode == $request->kode && $request->kode != $data->kode ) {
+                    return back()->with('gagal', "Kode Kompetensi Keahlian sudah digunakan");
+                }
+            }
+
             $data->kode = $request->kode;
             $data->nama = $request->nama;
             $data->deskripsi = $request->deskripsi;
             $data->save();
 
-            return back()->with('success', true);
+            return back()->with('success', "Kompetensi Keahlian $request->nama Telah Diubah");
         }
     }
 
@@ -181,4 +189,17 @@ class KompetensiKeahlianController extends Controller
     {
         return response()->download(public_path('/assets/excel/file-format-import-kompetensi-keahlian.xlsx'));
     }
+
+
+        // Fungsi Hapus Massal
+        public function hapusMassal()
+        {
+            $data = KompetensiKeahlian::get();
+    
+            foreach($data as $kompetensiKeahlian) {
+                KompetensiKeahlian::destroy($kompetensiKeahlian->id);
+            }
+    
+            return back()->with('success', 'Semua Kompetensi Keahlian Telah Dihapus');
+        }
 }

@@ -7,18 +7,18 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Kompetensi Keahlian
+                    {{__('Kompetensi Keahlian')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
-                    <i class="fas fa-trash mr-1"></i> Hapus Masal
+                <a href="" onclick="onHapusMassal('<?= url('/app-admin/kompetensi-keahlian/hapus/semua-kompetensi-keahlian') ?>')" class="btn btn-danger rounded-0">
+                    <i class="fas fa-trash mr-1"></i> {{__('Hapus Masal')}}
                 </a>
                 <a href="{{ url('/app-admin/kompetensi-keahlian/import') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-download mr-1"></i> Import
+                    <i class="fas fa-download mr-1"></i> {{__('Import')}}
                 </a>
                 <a href="{{ url('/app-admin/kompetensi-keahlian/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Kompetensi Keahlian Baru
+                    <i class="fas fa-plus-circle mr-1"></i> {{__('Kompetensi Keahlian Baru')}}
                 </a>
             </div>
         </div>
@@ -34,10 +34,10 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th width="10%">KODE</th>
-                    <th>PROGRAM KEAHLIAN</th>
-                    <th>KOMPETENSI KEAHLIAN</th>
-                    <th width="20%">DIPERBARUI PADA</th>
+                    <th width="10%">{{__('KODE')}}</th>
+                    <th>{{__('KOMPETENSI KEAHLIAN')}}</th>
+                    <th>{{__('PROGRAM KEAHLIAN')}}</th>
+                    <th width="20%">{{__('DIPERBARUI PADA')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,8 +53,8 @@
                             </a>
                         </td>
                         <td>{{ $val->kode }}</td>
-                        <td>{{ $val->nama_program_keahlian }}</td>
                         <td>{{ $val->nama }}</td>
+                        <td>{{ $val->nama_program_keahlian }}</td>
                         <td>{{ Carbon\Carbon::parse($val->updated_at)->format('d M Y H:i:s') }}</td>
                     </tr> 
                 @endforeach
@@ -122,7 +122,29 @@
                     event.preventDefault();
                     document.getElementById('deleted-form').submit();
                 }
-            })
+            }
+        )
+    }
+
+    function onHapusMassal(url) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'KONFIRMASI',
+            text: 'Apakah anda yakin akan menghapus massal ?, semua Kompetensi Keahlian akan terhapus secara permanen !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleted-form").attr('action', url);
+
+                    document.getElementById('deleted-form').submit();
+                }
+            }
+        )
     }
 </script>
 

@@ -34,8 +34,8 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th width="25%">NEGARA</th>
                     <th>PROVINSI</th>
+                    <th width="25%">NEGARA</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
             </thead>
@@ -51,8 +51,8 @@
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
-                        <td>{{ $val->nama_negara }}</td>
                         <td>{{ $val->nama_provinsi }}</td>
+                        <td>{{ $val->nama_negara }}</td>
                         <td>{{ Carbon\Carbon::parse($val->updated_at)->format('d M Y H:i:s') }}</td>
                     </tr> 
                 @endforeach

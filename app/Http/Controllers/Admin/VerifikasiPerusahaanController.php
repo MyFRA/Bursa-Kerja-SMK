@@ -117,6 +117,7 @@ class VerifikasiPerusahaanController extends Controller
             'perusahaan' => Perusahaan::find(decrypt($id)),
             'jmlLowongan' => Lowongan::where('perusahaan_id', decrypt($id))
                                     ->count(),
+            'navLink' => ''
         ];  
 
         return view('pages.portal-perusahaan.show', $data);
