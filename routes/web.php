@@ -146,14 +146,15 @@ Route::prefix('/app-admin')->group(function() {
         Route::delete('/agenda/hapus/semua-agenda', 'Admin\AgendaController@hapusMassal');
 
         /** Daftar Siswa Router */
-        Route::resource('/daftar-siswa', 'Admin\SiswaController')->except(['show']);;
+        Route::resource('/daftar-siswa', 'Admin\SiswaController')->except(['show']);
 
         // Daftar Perusahaan Router
         Route::resource('/daftar-perusahaan', 'Admin\PerusahaanController');
         Route::get('/daftar-perusahaan/ajax/{id}', 'Admin\PerusahaanController@ajax');
 
         // Lowongan Kerja Router
-        Route::resource('/lowongan-kerja', 'Admin\LowonganController');
+        Route::resource('/lowongan-kerja', 'Admin\LowonganController')->except(['show']);
+        Route::delete('/lowongan/hapus/semua-lowongan', 'Admin\LowonganController@hapusMassal');
 
         // Dafar Pengguna Router
         Route::resource('/daftar-pengguna', 'Admin\DaftarPenggunaController');

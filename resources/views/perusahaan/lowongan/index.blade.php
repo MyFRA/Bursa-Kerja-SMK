@@ -11,7 +11,6 @@
 				<span class="float-right ml-2">{{__('/')}} {{ ($sidebar == 'Semua Lowongan') ? $sidebar : 'Lowongan ' . $sidebar }}</span>
             </div>
         </div>
-
 		<div class="row mt-4">
 			<div class="col">
 				<a href="{{ url('/perusahaan/lowongan/create') }}" class="btn btn-success"><i class="fa fa-plus mr-2"></i> {{__('Buat Lowongan')}}</a>
@@ -60,13 +59,17 @@
 											<tr>
 												<th class="border-0 pb-0" scope="col">{{__('Jumlah Pelamar')}}</th>
 												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
-												<th class="border-0 pb-0" scope="col"> {{ $result->jumlah_pelamar }} </th>
+												<th class="border-0 pb-0 d-flex align-items-center" scope="col"> {!! ($result->proses_lamaran == 'Offline') ? '<i class="fa fa-circle text-danger mr-1" style="font-size: 8px"></i> <span>Offline</span>' : $result->jumlah_pelamar !!} </th>
 											</tr>
 											<tr>
 												<th class="border-0 pb-0" scope="col">{{__('Pelamar')}}</th>
 												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
 												<th class="border-0 pb-0" scope="col"> 
-													<a href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>	
+													@if ($result->proses_lamaran == 'Offline')
+														<i class="fa fa-circle text-danger mr-1" style="font-size: 8px"></i> <span>Offline</span>
+													@else
+														<a href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>	
+													@endif
 												</th>
 											</tr>
 											<tr>
@@ -81,6 +84,15 @@
 														<span class="btn btn-sm btn-secondary"><i class="fa fa-file-text-o mr-2"></i> {{$result->status}} </span>
 													@endif
 												</th>
+											</tr>
+											<tr>
+												<th class="border-0 pb-0" scope="col">{{__('Proses Lamaran')}}</th>
+												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
+												<th class="border-0 pb-0 d-flex align-items-center" scope="col">
+													<i class="fa fa-circle mr-1 {{ ($result->proses_lamaran == 'Online') ? 'text-success' : 'text-danger' }}" style="font-size: 8px"></i>
+													<span>{{ $result->proses_lamaran }}</span>
+												</th>
+
 											</tr>
 											<tr>
 												<th class="border-0 pb-0" scope="col">{{__('Berakhir')}}</th>

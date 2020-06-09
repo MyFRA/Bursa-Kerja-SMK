@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Lowongan Kerja
+                    {{__('Lowongan Kerja')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
                 <a href="{{ url('/app-admin/lowongan-kerja') }}" class="btn btn-default rounded-0">
-                    <i class="fas fa-table mr-1"></i> Daftar Lowongan
+                    <i class="fas fa-table mr-1"></i> {{__('Daftar Lowongan')}}
                 </a>
                 <a href="{{ url('/app-admin/lowongan-kerja/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Lowongan Baru
+                    <i class="fas fa-plus-circle mr-1"></i> {{__('Lowongan Baru')}}
                 </a>
             </div>
         </div>
@@ -25,22 +25,27 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6">
         <form id="form-create-lowongan" action="{{ route('lowongan-kerja.store') }}" method="post" class="card" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nama_perusahaan">Nama Perusahaan<span class="text-danger">*</span></label>
-                    <input required="" type="text" name="nama_perusahaan" value="{{ old('nama_perusahaan') }}" class="form-control @error('nama_perusahaan') is-invalid @enderror" / >
+                    <label>{{__('Perusahaan')}} <span class="text-danger">*</span></label>
+                    <select name="perusahaan_id" class="form-control select2 @error('perusahaan_id') is-invalid @enderror" style="width: 100%;" required>
+                        <option></option>
+                        @foreach($list_perusahaan as $perusahaan)
+                            <option value="{{ $perusahaan->id }}" {{ old('perusahaan_id') == $perusahaan->id ? 'selected' : '' }}>{{ $perusahaan->nama }}</option>
+                        @endforeach
+                    </select>
 
-                    @error('nama_perusahaan')
+                    @error('perusahaan_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="jabatan">Jabatan <span class="text-danger">*</span></label> 
+                    <label for="jabatan">{{__('Jabatan')}} <span class="text-danger">*</span></label> 
                     <input type="text" name="jabatan" value="{{ old('jabatan') }}" class="form-control @error('jabatan') is-invalid @enderror" required />
 
                     @error('jabatan')
@@ -50,7 +55,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label class="font-weight-bold" for="deskripsi">Deskripsi Pekerjaan <span class="text-danger font-italic">* Wajib Diisi</span></label>
+                    <label class="font-weight-bold" for="deskripsi">{{__('Deskripsi Pekerjaan')}} <span class="text-danger font-italic">* Wajib Diisi</span></label>
                     <textarea name="deskripsi" class="summernote" style="display: none;" required="">{{ old('deskripsi') }}</textarea>
                     <small style="font-size: 13px" class="form-text font-italic mt-3">Contoh : PT. Loker Indonesia Bergerak dibidang teknologi informasi saat ini membutuhkan kandidat untuk mengisi posisi sebagai : IT Programmer</small>
                 
@@ -71,38 +76,42 @@
                         </div>
                     @enderror
                 </div>
-                <div class="form-group mt-2">
-                    <label class="font-weight-bold" for="gambaran_perusahaan">Gambaran Perusahaan</label>
-                    <textarea name="gambaran_perusahaan" class="summernote" style="display: none;">{{ old('gambaran_perusahaan') }}</textarea>
-                    <small style="font-size: 13px" class="form-text font-italic mt-3">Contoh : PT. Loker Indonesia Bergerak dibidang teknologi informasi</small>
-                
-                    @error('gambaran_perusahaan')
-                        <div>
-                            <p class="font-italic text-danger ml-2">{{ $message }}</p>
-                        </div>
-                    @enderror               
+                <div class="form-group">
+                    <label class="font-weight-bold" for="kompetensi_keahlian">Kompetensi Keahlian <span class="text-danger">*</span></label>
+                    <select class="select2" multiple="multiple" style="width: 100%;" id="kompetensi_keahlian" name="kompetensi_keahlian[]" required>
+                        @foreach ($programKeahlian as $progKeahlian)
+                            <optgroup label="{{ $progKeahlian->nama }}">
+                                @foreach ($kompetensi_keahlian as $kompKeahlian)
+                                    @if ($kompKeahlian->program_keahlian_id == $progKeahlian->id)
+                                        <option value="{{ $kompKeahlian->nama }}" 
+                                            @if (old('kompetensi_keahlian'))
+                                                @foreach (old('kompetensi_keahlian') as $oldKompetensiKeahlian)
+                                                    {{ ($oldKompetensiKeahlian == $kompKeahlian->nama ) ? 'selected' : '' }}
+                                                @endforeach
+                                            @endif
+                                        >{{$kompKeahlian->nama}}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
-                    <input type="hidden" id="kompetensi_keahlian-hidden" name="kompetensi_keahlian">
-                    <label class="font-weight-bold mt-md-3" for="kompetensi_keahlian">Kompetensi Keahlian <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control " name="kompetensi_keahlian" @error('kompetensi_keahlian') style="border: 1px solid red" @enderror id="kompetensi_keahlian" value="{{ old('kompetensi_keahlian') }}" required="">
-                
-                    @error('kompetensi_keahlian')
-                        <div>
-                            <p class="font-italic text-danger ml-2">{{ $message }}</p>
-                        </div>
-                    @enderror                       
-                </div>
-                <div class="form-group">
-                    <input type="hidden" id="keahlian-hidden" name="keahlian">
-                    <label class="font-weight-bold mt-md-3" for="keahlian">Keahlian <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('keahlian') is-invalid @enderror" id="keahlian" value="{{ old('keahlian') }}" required="">
+                    <label class="font-weight-bold" for="keahlian">Keahlian <span class="text-danger">*</span></label>
+                    <select class="select2" multiple="multiple" style="width: 100%;" id="keahlian" name="keahlian[]" required>
+                        @foreach ($keterampilan as $item)
+                                <option value="{{ $item->nama }}"
+                            
+                                    @if (old('keahlian'))
+                                    @foreach (old('keahlian') as $oldKeahlian)
+                                        {{ ($oldKeahlian == $item->nama ) ? 'selected' : '' }}
+                                    @endforeach
+                                @endif
 
-                    @error('keahlian')
-                        <div>
-                            <p class="font-italic text-danger ml-2">{{ $message }}</p>
-                        </div>
-                    @enderror       
+                                >{{$item->nama}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="font-weight-bold mt-md-3" for="gaji_min">Gaji Min <span class="text-danger">*</span></label>
@@ -184,7 +193,7 @@
             </div>
         </form>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-6">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
                 <i class="fas fa-info-circle mr-2"></i>DETAIL LOWONGAN
@@ -220,14 +229,16 @@
     <link rel="stylesheet" href="{{ asset('/plugins/summernote/summernote-lite.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-admin/plugins/jquery-ui/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('/plugins/tags-autocomplete/bootstrap-tokenfield.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
 @endsection
 
 @section('script')
     <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('/plugins/summernote/summernote-lite.min.js') }}"></script>
     <script src="{{ asset('/app-admin/plugins/jquery-ui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('/plugins/tags-autocomplete/bootstrap-tokenfield.js') }}"></script>
+    <script src="{{ asset('/app-admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
 
     <script>
@@ -248,6 +259,14 @@
                 })
             });
         })(jQuery);
+    </script>
+
+    <script>
+        $(function () {
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            })
+        });
     </script>
 
     <script type="text/javascript">
@@ -355,44 +374,4 @@ Swal.fire({
 @endif
 
 
-    <script type="text/javascript">
-        (function($) {
-            $(document).ready(function(){
-                $('#keahlian').tokenfield({
-                    autocomplete: {
-                        source: [
-                            @foreach ($keterampilan as $nama_keterampilan)
-                                <?= "'". $nama_keterampilan ."'," ?>
-                            @endforeach
-                        ],
-                        delay: 100
-                    },
-                    showAutocompleteOnFocus: true
-                });
-            });
-        })(jQuery);
-    </script>
-    <script type="text/javascript">
-        (function($) {
-            $(document).ready(function(){
-                $('#kompetensi_keahlian').tokenfield({
-                    autocomplete: {
-                        source: [
-                            @foreach ($kompetensi_keahlian as $nama_kompetensi_keahlian)
-                                <?= "'". $nama_kompetensi_keahlian ."'," ?>
-                            @endforeach                         
-                        ],
-                        delay: 100
-                    },
-                    showAutocompleteOnFocus: true
-                });
-            });
-        })(jQuery);
-    </script>
-    <script>
-        document.getElementById('form-create-lowongan').addEventListener('submit', function() {
-            document.getElementById('keahlian-hidden').value = document.getElementById('keahlian').value
-            document.getElementById('kompetensi_keahlian-hidden').value = document.getElementById('kompetensi_keahlian').value
-        });
-    </script>
 @endsection

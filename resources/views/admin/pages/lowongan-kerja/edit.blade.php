@@ -31,79 +31,110 @@
             @method('PUT')
             <div class="card-body">
                 <div class="form-group">
-                    <label for="nama_perusahaan">Nama Perusahaan<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('nama_perusahaan') is-invalid @enderror" name="nama_perusahaan" id="nama_perusahaan" value="{{ old('nama_perusahaan') ? old('nama_perusahaan') : $lowongan->nama_perusahaan }}" required="">
+                    <label>{{__('Perusahaan')}} <span class="text-danger">*</span></label>
+                    <select name="perusahaan_id" class="form-control select2 @error('perusahaan_id') is-invalid @enderror" style="width: 100%;" required>
+                        <option></option>
+                        @foreach($list_perusahaan as $perusahaan)
+                        <option value="{{ $perusahaan->id }}" 
+                            @if (old('perusahaan_id'))
+                                {{ old('perusahaan_id') == $perusahaan->id ? 'selected' : '' }}
+                            @else
+                                {{ $lowongan->perusahaan_id == $perusahaan->id ? 'selected' : '' }}
+                            @endif   
+                                >{{ $perusahaan->nama }}</option>
+                        @endforeach
+                    </select>
 
-                        @error('nama_perusahaan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                    @error('perusahaan_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="jabatan">Posisi Pekerjaan <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" id="jabatan" value="{{ old('jabatan') ? old('jabatan') : $lowongan->jabatan }}" required="">
-                        
-                        @error('jabatan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                  </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold" for="deskripsi">Deskripsi Pekerjaan <span class="text-danger font-italic">* Wajib Diisi</span></label>
-                        <textarea name="deskripsi" class="summernote" style="display: none;" required="">{{ old('deskripsi') ? old('deskripsi') : $lowongan->deskripsi }}</textarea>
-                        <small style="font-size: 13px" class="form-text font-italic mt-3">Contoh : PT. Loker Indonesia Bergerak dibidang teknologi informasi saat ini membutuhkan kandidat untuk mengisi posisi sebagai : IT Programmer</small>
-                    
-                        @error('deskripsi')
-                            <div>
-                                <p class="font-italic text-danger ml-2">{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group mt-2">
-                        <label class="font-weight-bold" for="persyaratan">Persyaratan <span class="text-danger font-italic">* Wajib Diisi</span></label>
-                        <textarea name="persyaratan" class="summernote" style="display: none;" required="">{{ old('persyaratan') ? old('persyaratan') : $lowongan->persyaratan }}</textarea>
-                        <small style="font-size: 13px" class="form-text font-italic mt-3">Contoh : Maksimal Berusia 25 Tahun, dan tidak terikat dengan perusahaan manapun</small>
-                    
-                        @error('persyaratan')
-                            <div>
-                                <p class="font-italic text-danger ml-2">{{ $message }}</p>
-                            </div>
-                        @enderror
-                    </div>
-                    <div class="form-group mt-2">
-                        <label class="font-weight-bold" for="gambaran_perusahaan">Gambaran Perusahaan</label>
-                        <textarea name="gambaran_perusahaan" class="summernote" style="display: none;">{{ old('gambaran_perusahaan') ? old('gambaran_perusahaan') : $lowongan->gambaran_perusahaan }}</textarea>
-                        <small style="font-size: 13px" class="form-text font-italic mt-3">Contoh : PT. Loker Indonesia Bergerak dibidang teknologi informasi</small>
-                    
-                        @error('gambaran_perusahaan')
-                            <div>
-                                <p class="font-italic text-danger ml-2">{{ $message }}</p>
-                            </div>
-                        @enderror               
-                    </div>
                 <div class="form-group">
-                    <input type="hidden" id="kompetensi_keahlian-hidden" name="kompetensi_keahlian">
-                    <label class="font-weight-bold mt-md-3" for="kompetensi_keahlian">Kompetensi Keahlian <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control " name="kompetensi_keahlian" @error('kompetensi_keahlian') style="border: 1px solid red" @enderror id="kompetensi_keahlian" value="{{ old('kompetensi_keahlian') ? old('kompetensi_keahlian') : json_decode($lowongan->kompetensi_keahlian) }}" required="">
+                    <label class="font-weight-bold" for="jabatan">{{__('Posisi Pekerjaan ')}}<span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" id="jabatan" value="{{ old('jabatan') ? old('jabatan') : $lowongan->jabatan }}" required="">
+                    
+                    @error('jabatan')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold" for="deskripsi">{{__('Deskripsi Pekerjaan ')}}<span class="text-danger font-italic">{{__('* Wajib Diisi')}}</span></label>
+                    <textarea name="deskripsi" class="summernote" style="display: none;" required="">{!! old('deskripsi') ? old('deskripsi') : $lowongan->deskripsi !!}</textarea>
+                    <small style="font-size: 13px" class="form-text font-italic mt-3">{{__('Contoh : PT. Loker Indonesia Bergerak dibidang teknologi informasi saat ini membutuhkan kandidat untuk mengisi posisi sebagai : IT Programmer')}}</small>
                 
-                    @error('kompetensi_keahlian')
+                    @error('deskripsi')
                         <div>
                             <p class="font-italic text-danger ml-2">{{ $message }}</p>
                         </div>
-                    @enderror                       
+                    @enderror
+                </div>
+                <div class="form-group mt-2">
+                    <label class="font-weight-bold" for="persyaratan">{{__('Persyaratan')}} <span class="text-danger font-italic">{{__('* Wajib Diisi')}}</span></label>
+                    <textarea name="persyaratan" class="summernote" style="display: none;" required="">{{ old('persyaratan') ? old('persyaratan') : $lowongan->persyaratan }}</textarea>
+                    <small style="font-size: 13px" class="form-text font-italic mt-3">{{__('Contoh : Maksimal Berusia 25 Tahun, dan tidak terikat dengan perusahaan manapun')}}</small>
+                
+                    @error('persyaratan')
+                        <div>
+                            <p class="font-italic text-danger ml-2">{{ $message }}</p>
+                        </div>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <input type="hidden" id="keahlian-hidden" name="keahlian">
-                    <label class="font-weight-bold mt-md-3" for="keahlian">Keahlian <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control @error('keahlian') is-invalid @enderror" id="keahlian" value="{{ old('keahlian') ? old('keahlian') : json_decode($lowongan->keahlian) }}" required="">
-
-                    @error('keahlian')
-                        <div>
-                            <p class="font-italic text-danger ml-2">{{ $message }}</p>
-                        </div>
-                    @enderror       
+                    <label class="font-weight-bold" for="kompetensi_keahlian">{{__('Kompetensi Keahlian ')}}<span class="text-danger">*</span></label>
+                    <select class="select2" multiple="multiple" style="width: 100%;" id="kompetensi_keahlian" name="kompetensi_keahlian[]" required>
+                        @foreach ($programKeahlian as $progKeahlian)
+                            <optgroup label="{{ $progKeahlian->nama }}">
+                                @foreach ($kompetensi_keahlian as $kompKeahlian)
+                                    @if ($kompKeahlian->program_keahlian_id == $progKeahlian->id)
+                                        <option value="{{ $kompKeahlian->nama }}" 
+                                            @if (old('kompetensi_keahlian'))
+                                                @foreach (old('kompetensi_keahlian') as $oldKompetensiKeahlian)
+                                                    @if ($oldKompetensiKeahlian == $kompKeahlian->nama)
+                                                        {{ 'selected' }}
+                                                    @endif
+                                                @endforeach 
+                                            @else
+                                                <?php $lowonganKompetensiKeahlian = json_decode($lowongan->kompetensi_keahlian) ?>
+                                                @foreach ($lowonganKompetensiKeahlian as $lokerKompetensiKeahlian)
+                                                    @if ($lokerKompetensiKeahlian == $kompKeahlian->nama)
+                                                        {{ 'selected' }}
+                                                    @endif
+                                                @endforeach 
+                                            @endif
+                                        >{{$kompKeahlian->nama}}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </optgroup>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="font-weight-bold" for="keahlian">Keahlian <span class="text-danger">*</span></label>
+                    <select class="select2" multiple="multiple" style="width: 100%;" id="keahlian" name="keahlian[]" required>
+                        @foreach ($keterampilan as $item)
+                            <option value="{{ $item->nama }}" 
+                                @if (old('keahlian'))
+                                    @foreach (old('keahlian') as $oldKeahlian)
+                                        @if ($oldKeahlian == $item->nama)
+                                            {{ 'selected' }}
+                                        @endif
+                                    @endforeach 
+                                @else
+                                    <?php $keahlian = json_decode($lowongan->keahlian) ?>
+                                    @foreach ($keahlian as $keahlianBy1)
+                                        @if ($item->nama == $keahlianBy1)
+                                            {{ 'selected' }}
+                                        @endif
+                                    @endforeach
+                                @endif
+                            >{{$item->nama}}</option>
+                        @endforeach   
+                    </select>
                 </div>
                 <div class="form-group">
                     <label class="font-weight-bold mt-md-3" for="gaji_min">Gaji Min <span class="text-danger">*</span></label>
@@ -135,25 +166,58 @@
                         </div>
                     @enderror
                 </div>
-                    <div class="form-group">
-                        <label class="font-weight-bold mt-md-3" for="proses_lamaran">Proses Lamaran <span class="text-danger">*</span></label>
-                        <select class="form-control @error('proses_lamaran') is-invalid @enderror" id="proses_lamaran" name="proses_lamaran" required="">
-                            <option value="Online"  {{ old('proses_lamaran') == 'Online' ? 'selected' : '' }} {{ $lowongan->proses_lamaran == 'Online' ? 'selected' : '' }} >Online</option>
-                            <option value="Offline" {{ old('proses_lamaran') == 'Offline' ? 'selected' : '' }} {{ $lowongan->proses_lamaran == 'Offline' ? 'selected' : '' }}>Offline</option>
-                        </select>
-                    
-                        @error('proses_lamaran')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+                <div class="form-group">
+                    <label class="font-weight-bold mt-md-3" for="proses_lamaran">Proses Lamaran <span class="text-danger">*</span></label>
+                    <select class="form-control @error('proses_lamaran') is-invalid @enderror" id="proses_lamaran" name="proses_lamaran" required="">
+                        <option value="Online" 
+                        @if (old('proses_lamaran'))
+                            {{ (old('proses_lamaran') == 'Online') ? 'selected' : '' }}
+                        @else
+                            {{ ($lowongan->proses_lamaran == 'Online') ? 'selected' : '' }}
+                        @endif
+                    >{{__('Online')}}</option>
+
+                    <option value="Offline" 
+                        @if (old('proses_lamaran'))
+                            {{ (old('proses_lamaran') == 'Offline') ? 'selected' : '' }}
+                        @else
+                            {{ ($lowongan->proses_lamaran == 'Offline') ? 'selected' : '' }}
+                        @endif
+                    >{{__('Offline')}}</option>
+                    </select>
+                
+                    @error('proses_lamaran')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
                 <div class="form-group">
                     <label class="font-weight-bold mt-md-3" for="status">Status <span class="text-danger">*</span></label>
                     <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required="">
-                        <option value="Aktif"  {{ old('status') == 'Aktif' ? 'selected' : '' }} {{ $lowongan->status == 'Aktif' ? 'selected' : '' }} >Aktif</option>
-                        <option value="Nonaktif"  {{ old('status') == 'Nonaktif' ? 'selected' : '' }} {{ $lowongan->status == 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                        <option value="Draf"  {{ old('status') == 'Draf' ? 'selected' : '' }} {{ $lowongan->status == 'Draf' ? 'selected' : '' }}>Draf</option>             
+                        <option value="Aktif" 
+                        @if (old('status'))
+                            {{ (old('status') == 'Aktif') ? 'selected' : '' }}
+                        @else
+                            {{ ($lowongan->status == 'Aktif') ? 'selected' : '' }}
+                        @endif
+                    >{{__('Aktif')}}</option>
+
+                    <option value="Nonaktif" 
+                        @if (old('status'))
+                            {{ (old('status') == 'Nonaktif') ? 'selected' : '' }}
+                        @else
+                            {{ ($lowongan->status == 'Nonaktif') ? 'selected' : '' }}
+                        @endif
+                    >{{__('Nonaktif')}}</option>
+
+                    <option value="Draf" 
+                        @if (old('status'))
+                            {{ (old('status') == 'Draf') ? 'selected' : '' }}
+                        @else
+                            {{ ($lowongan->status == 'Draf') ? 'selected' : '' }}
+                        @endif
+                    >{{__('Draf')}}</option>	
                     </select>
 
                     @error('status')
@@ -204,22 +268,36 @@
                 <tr>
                     <td width="30%">KOMPETENSI KEAHLIAN</td>
                     <td width="5px">:</td>
-                    <td>{{ json_decode($lowongan->kompetensi_keahlian) }}</td>
+                    <td>
+                        @php
+                            $arr = json_decode($lowongan->kompetensi_keahlian);
+                            foreach ($arr as $value) {
+                                echo "- " . $value . "<br>";
+                            }
+                        @endphp
+                    </td>
                 </tr>
                 <tr>
                     <td width="30%">KEAHLIAN</td>
                     <td width="5px">:</td>
-                    <td>{{ json_decode($lowongan->keahlian) }}</td>
+                    <td>
+                        @php
+                            $arr = json_decode($lowongan->keahlian);
+                            foreach ($arr as $value) {
+                                echo "- " . $value . "<br>";
+                            }
+                        @endphp
+                    </td>
                 </tr>
                 <tr>
                     <td width="30%">GAJI MIN</td>
                     <td width="5px">:</td>
-                    <td>{{ number_format($lowongan->gaji_min) }}</td>
+                    <td>Rp. {{ number_format($lowongan->gaji_min, 0, '.', '.') }}</td>
                 </tr>
                 <tr>
                     <td width="30%">GAJI MAX</td>
                     <td width="5px">:</td>
-                    <td>{{ number_format($lowongan->gaji_min) }}</td>
+                    <td>Rp. {{ number_format($lowongan->gaji_max, 0, '.', '.') }}</td>
                 </tr>
                 <tr>
                     <td width="30%">PROSES LAMARAN</td>
@@ -250,11 +328,6 @@
                     <td width="30%">PERSYARATAN</td>
                     <td width="5px">:</td>
                     <td>{!! $lowongan->persyaratan !!}</td>
-                </tr>
-                <tr>
-                    <td width="30%">GAMBARAN PERUSAHAAN</td>
-                    <td width="5px">:</td>
-                    <td>{!! $lowongan->gambaran_perusahaan !!}</td>
                 </tr>
             </table>
         </div>
@@ -306,14 +379,16 @@
     <link rel="stylesheet" href="{{ asset('/plugins/summernote/summernote-lite.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/app-admin/plugins/jquery-ui/jquery-ui.css') }}">
     <link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('/plugins/tags-autocomplete/bootstrap-tokenfield.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+
 @endsection
 
 @section('script')
     <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('/plugins/summernote/summernote-lite.min.js') }}"></script>
     <script src="{{ asset('/app-admin/plugins/jquery-ui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('/plugins/tags-autocomplete/bootstrap-tokenfield.js') }}"></script>
+    <script src="{{ asset('/app-admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
 
     <script>
@@ -334,6 +409,14 @@
                 })
             });
         })(jQuery);
+    </script>
+
+    <script>
+        $(function () {
+            $('.select2').select2({
+                theme: 'bootstrap4'
+            })
+        });
     </script>
 
     <script type="text/javascript">
@@ -439,46 +522,4 @@ Swal.fire({
 })
 </script>
 @endif
-
-
-    <script type="text/javascript">
-        (function($) {
-            $(document).ready(function(){
-                $('#keahlian').tokenfield({
-                    autocomplete: {
-                        source: [
-                            @foreach ($keterampilan as $nama_keterampilan)
-                                <?= "'". $nama_keterampilan ."'," ?>
-                            @endforeach
-                        ],
-                        delay: 100
-                    },
-                    showAutocompleteOnFocus: true
-                });
-            });
-        })(jQuery);
-    </script>
-    <script type="text/javascript">
-        (function($) {
-            $(document).ready(function(){
-                $('#kompetensi_keahlian').tokenfield({
-                    autocomplete: {
-                        source: [
-                            @foreach ($kompetensi_keahlian as $nama_kompetensi_keahlian)
-                                <?= "'". $nama_kompetensi_keahlian ."'," ?>
-                            @endforeach                         
-                        ],
-                        delay: 100
-                    },
-                    showAutocompleteOnFocus: true
-                });
-            });
-        })(jQuery);
-    </script>
-    <script>
-        document.getElementById('form-update-lowongan').addEventListener('submit', function() {
-            document.getElementById('keahlian-hidden').value = document.getElementById('keahlian').value
-            document.getElementById('kompetensi_keahlian-hidden').value = document.getElementById('kompetensi_keahlian').value
-        });
-    </script>
 @endsection

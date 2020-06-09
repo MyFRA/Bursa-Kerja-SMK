@@ -126,20 +126,20 @@
 					    </div>
 			  		@enderror
 			  	</div>
-				  	<div class="form-group">
-					    <label class="font-weight-bold mt-md-3" for="proses_lamaran">{{__('Proses Lamaran ')}}<span class="text-danger">{{__('*')}}</span></label>
-					    <select class="form-control @error('proses_lamaran') is-invalid @enderror" id="proses_lamaran" name="proses_lamaran" required="">
-					      	<option value="" selected="" disabled="">{{__('-- Pilih Proses Lamaran --')}}</option>
-					      	<option value="Online" {{ (old('proses_lamaran') == 'Online') ? 'selected' : '' }} >{{__('Online')}}</option>
-					      	<option value="Offline" {{ (old('proses_lamaran') == 'Offline') ? 'selected' : '' }} >{{__('Offline')}}</option>
-					    </select>
-					
-						@error('proses_lamaran')
-				  		    <div class="invalid-feedback">
-						        {{ $message }}
-						    </div>
-				  		@enderror
-					</div>
+				<div class="form-group">
+					<label class="font-weight-bold mt-md-3" for="proses_lamaran">{{__('Proses Lamaran ')}}<span class="text-danger">{{__('*')}}</span></label>
+					<select class="form-control @error('proses_lamaran') is-invalid @enderror" id="proses_lamaran" name="proses_lamaran" required="">
+						<option value="" selected="" disabled="">{{__('-- Pilih Proses Lamaran --')}}</option>
+						<option value="Online" {{ (old('proses_lamaran') == 'Online') ? 'selected' : '' }} >{{__('Online')}}</option>
+						<option value="Offline" {{ (old('proses_lamaran') == 'Offline') ? 'selected' : '' }} >{{__('Offline')}}</option>
+					</select>
+				
+					@error('proses_lamaran')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+					@enderror
+				</div>
 				<div class="form-group">
 			    	<label class="font-weight-bold mt-md-3" for="status">{{__('Status')}} <span class="text-danger">{{__('*')}}</span></label>
 				    <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required="">

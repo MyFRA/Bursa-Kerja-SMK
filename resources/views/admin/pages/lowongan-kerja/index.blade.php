@@ -7,15 +7,15 @@
             <div class="col-sm-6">
                 <h1 class="m-0 text-dark">
                     <i class="fas fa-share-alt mr-2"></i>
-                    Lowongan Pekerjaaan
+                    {{__('Lowongan Pekerjaaan')}}
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
-                    <i class="fas fa-trash mr-1"></i> Hapus Masal
+                <a href="" onclick="onHapusMassal('<?= url('/app-admin/lowongan/hapus/semua-lowongan') ?>')" class="btn btn-danger rounded-0">
+                    <i class="fas fa-trash mr-1"></i> {{__('Hapus Masal')}}
                 </a>
                 <a href="{{ url('/app-admin/lowongan-kerja/create') }}" class="btn btn-primary rounded-0">
-                    <i class="fas fa-plus-circle mr-1"></i> Lowongan Baru
+                    <i class="fas fa-plus-circle mr-1"></i> {{__('Lowongan Baru')}}
                 </a>
             </div>
         </div>
@@ -31,10 +31,11 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th>NAMA PERUSAHAAN</th>
-                    <th>JABATAN</th>
-                    <th width="30%">KOMPETENSI KEAHLIAN</th>
-                    <th width="20%">DIPERBARUI PADA</th>
+                    <th>{{__('NAMA PERUSAHAAN')}}</th>
+                    <th>{{__('JABATAN')}}</th>
+                    <th width="30%">{{__('KOMPETENSI KEAHLIAN')}}</th>
+                    <th>{{__('PELAMARAN')}}</th>
+                    <th width="20%">{{__('DIPERBARUI PADA')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,7 +52,18 @@
                         </td>
                         <td>{{ $val->nama_perusahaan }}</td>
                         <td>{{ $val->jabatan }}</td>
-                        <td>{{ $val->kompetensi_keahlian }}</td>
+                        <td>
+                            @php
+                                $arr = json_decode($val->kompetensi_keahlian);
+                                foreach ($arr as $value) {
+                                    echo "- " . $value . "<br>";
+                                }
+                            @endphp
+                        </td>
+                        <td class="d-flex align-items-center">
+                            <i class="fa fa-circle mr-1 {{ ($val->proses_lamaran == 'Online') ? 'text-success' : 'text-danger' }}" style="font-size: 8px"></i>
+                            <span>{{ $val->proses_lamaran }}</span>
+                        </td>
                         <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
                     </tr> 
                 @endforeach
@@ -120,6 +132,28 @@
                     document.getElementById('deleted-form').submit();
                 }
             })
+    }
+
+
+    function onHapusMassal(url) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'KONFIRMASI',
+            text: 'Apakah anda yakin akan menghapus massal ?, semua Lowongan akan terhapus secara permanen !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleted-form").attr('action', url);
+
+                    document.getElementById('deleted-form').submit();
+                }
+            }
+        )
     }
 </script>
 

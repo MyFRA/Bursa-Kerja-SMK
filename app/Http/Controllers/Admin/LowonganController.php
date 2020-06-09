@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 
 use App\Models\KompetensiKeahlian;
+use App\Models\ProgramKeahlian;
 use App\Models\Keterampilan;
 use App\Models\Perusahaan;
 use App\Models\Lowongan;	
@@ -25,7 +26,7 @@ class LowonganController extends Controller
         $data = array(
         	'title' => 'Lowongan kerja',
         	'nav'   => 'lowongan-kerja',
-        	'items' => Lowongan::orderBy('id', 'DESC')->get(),
+        	'items' => Lowongan::orderBy('created_at', 'DESC')->get(),
         );
 
         return view('admin.pages.lowongan-kerja.index', $data);
@@ -39,11 +40,12 @@ class LowonganController extends Controller
     public function create()
     {
         $data = array(
-        	'perusahaan' => Perusahaan::orderBy('nama', 'ASC')->get(),
+        	'list_perusahaan' => Perusahaan::orderBy('nama', 'ASC')->get(),
         	'title' => 'Lowongan kerja',
         	'nav'   => 'lowongan-kerja',
-            'kompetensi_keahlian' => KompetensiKeahlian::pluck('nama'),
-            'keterampilan' => Keterampilan::pluck('nama'),
+            'programKeahlian'       => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'kompetensi_keahlian'   => KompetensiKeahlian::orderBy('nama', 'ASC')->get(),
+            'keterampilan'          => Keterampilan::orderBy('nama', 'ASC')->get(),
         );
 
         return view('admin.pages.lowongan-kerja.create', $data);
@@ -123,11 +125,13 @@ class LowonganController extends Controller
     public function edit($id)
     {
         $data = [
+        	'list_perusahaan' => Perusahaan::orderBy('nama', 'ASC')->get(),
             'lowongan' => Lowongan::find(decrypt($id)),
             'title' => 'Lowongan Kerja',
             'nav' => 'lowongan-kerja',
-            'kompetensi_keahlian' => KompetensiKeahlian::pluck('nama'),
-            'keterampilan' => Keterampilan::pluck('nama'),
+            'programKeahlian'       => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'kompetensi_keahlian'   => KompetensiKeahlian::orderBy('nama', 'ASC')->get(),
+            'keterampilan'          => Keterampilan::orderBy('nama', 'ASC')->get(),
         ];
 
         return view('admin.pages.lowongan-kerja.edit', $data);
@@ -219,9 +223,11 @@ class LowonganController extends Controller
             // Jika image terdapat di dalam storage (True), maka hapus image tsb
             if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $data->image);
 
+            // Insert data Lowongan dan mengembalikan nilai True
+            $perusahaan = Perusahaan::find($request->perusahaan_id);
             // Proses Update Data
             $data->update([
-                'gambaran_perusahaan' => $request->gambaran_perusahaan,
+                'gambaran_perusahaan' => $perusahaan->overview,
                 'jabatan' => $request->jabatan,
                 'kompetensi_keahlian' => json_encode($request->kompetensi_keahlian),
                 'keahlian' => json_encode($request->keahlian),
@@ -280,9 +286,11 @@ class LowonganController extends Controller
         $gaji_max = end($gaji_max);
         $request->gaji_max = $gaji_max;
             // Insert data Lowongan dan mengembalikan nilai True
+            $perusahaan = Perusahaan::find($request->perusahaan_id);
             Lowongan::create([
-                'nama_perusahaan' => $request->nama_perusahaan,
-                'gambaran_perusahaan' => $request->gambaran_perusahaan,
+                'nama_perusahaan' => $perusahaan->nama,
+                'perusahaan_id' => $perusahaan->id,
+                'gambaran_perusahaan' => $perusahaan->overview,
                 'jabatan' => $request->jabatan,
                 'kompetensi_keahlian' => json_encode($request->kompetensi_keahlian),
                 'keahlian' => json_encode($request->keahlian),
@@ -298,4 +306,16 @@ class LowonganController extends Controller
 
             return true;
     }
+
+        // Fungsi Hapus Massal
+        public function hapusMassal()
+        {
+            $data = Lowongan::get();
+    
+            foreach($data as $loker) {
+                Lowongan::destroy($loker->id);
+            }
+    
+            return back()->with('success', 'Semua Lowongan Telah Dihapus');
+        }
 }

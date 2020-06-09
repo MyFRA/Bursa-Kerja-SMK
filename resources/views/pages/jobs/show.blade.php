@@ -97,7 +97,10 @@
                             <div class="row">
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Proses Lamaran')}}</h6>
-                                    <span class="ml-1">{{$lowongan->proses_lamaran != null ? $lowongan->proses_lamaran : '-' }}</span>
+                                    <span class="ml-1 d-flex align-items-center">
+                                        <i class="fa fa-circle mr-1 {{ ($lowongan->proses_lamaran == 'Online') ? 'text-success' : 'text-danger' }}" style="font-size: 8px"></i>
+										<span>{{ $lowongan->proses_lamaran }}</span>
+                                    </span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Kategori')}}</h6>
@@ -202,45 +205,45 @@
         </div>
         <div class="row">
             <div class="col mt-2 px-1">
-                <div class="card p-3 row-lamar-sekarang">
-                    <div>
-                        <a class="h5" href="{{ url('/siswa/lowongan/lihat/pelamar/'. encrypt($lowongan->id)) }}"><span><i class="fa fa-list mr-2"></i> Lihat Siapa Yang Telah Melamar <i class="fa fa-caret-right ml-2"></i></span></a>
-                    </div>
-                    @if (is_null($melamar))
-                        @if (Auth::check())
-                            @if (Auth::user()->hasRole('siswa'))
+                    @if ($lowongan->proses_lamaran != 'Offline')
+                        <div class="card p-3 row-lamar-sekarang">
+                            <div>
+                                <a class="h5" href="{{ url('/siswa/lowongan/lihat/pelamar/'. encrypt($lowongan->id)) }}"><span><i class="fa fa-list mr-2"></i> Lihat Siapa Yang Telah Melamar <i class="fa fa-caret-right ml-2"></i></span></a>
+                            </div>
+                            @if (is_null($melamar))
+                                @if (Auth::check())
+                                    @if (Auth::user()->hasRole('siswa'))
+                                        <div>
+                                        </div>
+                                        <div>
+                                            <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
+                                                <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
+                                            </form>
+                                        </div> 
+                                    @endif
+                                @else
+                                    <div>
+                                    </div>
+                                    <div>
+                                        <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
+                                            <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
+                                        </form>
+                                    </div>
+                                @endif
+                            @else
                                 <div>
+                                    <a href="{{ url('/siswa/lamaran/' . encrypt($melamar->id)) }}" class="h6 mr-4">Lihat Lamaran</a>
                                 </div>
                                 <div>
-                                    <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
-                                        @csrf
-                                        <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
-                                        <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
-                                    </form>
-                                </div> 
+                                    <button class="btn btn-secondary" type="button">Telah Dilamar</button>
+                                </div>
                             @endif
-                        @else
-                            <div>
-                            </div>
-                            <div>
-                                <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
-                                    <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
-                                </form>
-                            </div>
-                        @endif
-                    @else
-                        <div>
-                            <a href="{{ url('/siswa/lamaran/' . encrypt($melamar->id)) }}" class="h6 mr-4">Lihat Lamaran</a>
-                        </div>
-                        <div>
-                            <button class="btn btn-secondary" type="button">Telah Dilamar</button>
                         </div>
                     @endif
-
-
-                </div>
             </div>
         </div>
         <div class="row">

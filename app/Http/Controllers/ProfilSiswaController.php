@@ -70,7 +70,7 @@ class ProfilSiswaController extends Controller
             'nav' => 'lowongan',
             'pelamar' => User::where('id', decrypt($id))->first(),
             'sidebar' => 'pendidikan',
-            'pendidikan' => SiswaPendidikan::where('siswa_id', User::find(decrypt($id))->siswa->id)->get()
+            'pendidikan' => SiswaPendidikan::where('siswa_id', User::find(decrypt($id))->siswa->id)->get(),
         ];
 
         return view('pages.profil-siswa.pendidikan', $data);
