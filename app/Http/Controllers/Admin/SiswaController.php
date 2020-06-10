@@ -56,7 +56,7 @@ class SiswaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
             'nama_pertama'          => 'required|max:64',
@@ -91,11 +91,11 @@ class SiswaController extends Controller
             'instagram.max'             => 'instagram maksimal 64 karakter',
             'linkedin.max'              => 'linkedin maksimal 64 karakter',
             'tanggal_lahir.date'        => 'tanggal lahir harus valid',
-            'alamat.max'                => 'alamat maksimal 255 karakter', 
-            'kodepos.max'               =>  'kodepos maksimal 8 karakter', 
-            'kabupaten.max'             =>  'kabupaten maksimal 32 karakter', 
-            'provinsi.max'              =>  'provinsi maksimal 32 karakter', 
-            'negara.max'                =>  'negara maksimal 32 karakter', 
+            'alamat.max'                => 'alamat maksimal 255 karakter',
+            'kodepos.max'               =>  'kodepos maksimal 8 karakter',
+            'kabupaten.max'             =>  'kabupaten maksimal 32 karakter',
+            'provinsi.max'              =>  'provinsi maksimal 32 karakter',
+            'negara.max'                =>  'negara maksimal 32 karakter',
             'jenis_kelamin.in'          =>  'jenis kelamin harus diantara Laki-laki dan Perempuan',
             'kartu_identitas.in'        =>  'kartu_identitas harus diantara KTP, SIM, NPWP, dan KARTU PELAJAR',
             'kartu_identitas_nomor.max' => 'kartu_identitas_nomor maksimal 16 karakter',
@@ -110,10 +110,10 @@ class SiswaController extends Controller
                              ->withInput();
         // Lolos Validasi
         }else {
-            
+
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Siswa Gagal )
             if( $this->storeSiswa($request) != true ) return redirect()->back()->with('gagal', 'File yang kamu upload bukan gambar')->withInput();
-            
+
             // Lolos Pengecekan, Insert Data Siswa Berhasil
             return redirect('/app-admin/daftar-siswa/' . encrypt($this->id) . '/edit')->with('success', "Siswa $request->nama_pertama telah ditambahkan");
         }
@@ -180,11 +180,11 @@ class SiswaController extends Controller
             'twitter.max'               => 'twitter maksimal 64 karakter',
             'instagram.max'             => 'instagram maksimal 64 karakter',
             'linkedin.max'              => 'linkedin maksimal 64 karakter',
-            'alamat.max'                => 'alamat maksimal 255 karakter', 
-            'kodepos.max'               => 'kodepos maksimal 8 karakter', 
-            'kabupaten.max'             => 'kabupaten maksimal 32 karakter', 
-            'provinsi.max'              => 'provinsi maksimal 32 karakter', 
-            'negara.max'                => 'negara maksimal 32 karakter', 
+            'alamat.max'                => 'alamat maksimal 255 karakter',
+            'kodepos.max'               => 'kodepos maksimal 8 karakter',
+            'kabupaten.max'             => 'kabupaten maksimal 32 karakter',
+            'provinsi.max'              => 'provinsi maksimal 32 karakter',
+            'negara.max'                => 'negara maksimal 32 karakter',
             'jenis_kelamin.in'          => 'jenis kelamin harus diantara Laki-laki dan Perempuan',
             'kartu_identitas.in'        => 'kartu identitas harus diantara KTP, SIM, NPWP, dan KARTU PELAJAR',
             'kartu_identitas_nomor.max' => 'kartu_identitas_nomor maksimal 16 karakter',
@@ -202,7 +202,7 @@ class SiswaController extends Controller
 
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Update data Siswa Gagal )
             if( $this->updateSiswa($request, $id) != true ) return redirect()->back()->with('gagal', 'File yang kamu upload bukan gambar')->withInput();
-            
+
             // Lolos Pengecekan, Update Data Siswa Berhasil
             return redirect()->back()->with('success', "Data siswa $request->nama_pertama telah diubah");
         }
@@ -221,17 +221,17 @@ class SiswaController extends Controller
 
         // Mengecek apakah photo terdapat di dalam storage
         $exists = Storage::disk('local')->exists('/public/assets/daftar-siswa/' . $data->photo);
-        
+
         // Jika photo terdapat di dalam storage (True), maka hapus photo tsb
         if($exists) Storage::disk('local')->delete('/public/assets/daftar-siswa/' . $data->photo);
-        
+
         // Menghapus row siswa dimana id = $id
         Siswa::destroy(decrypt($id));
         return back()->with('success', "Data Siswa $data->nama_pertama telah dihapus");
     }
 
     public function storeSiswa($request)
-    {   
+    {
         // Pengecekan jika tidak ada file yang diupload
         if (is_null($request->file('photo'))) {
 
@@ -281,7 +281,7 @@ class SiswaController extends Controller
     }
 
     public function updateSiswa($request, $id)
-    {   
+    {
         // Mengambil Data
         $data = Siswa::find(decrypt($id));
 
@@ -321,7 +321,7 @@ class SiswaController extends Controller
 
             // Lolos Pengecekan lalu Mengecek apakah photo lama terdapat di dalam storage
             $exists = Storage::disk('local')->exists('/public/assets/daftar-siswa/' . $data->photo);
-        
+
             // Jika photo lama terdapat di dalam storage (True), maka hapus photo tsb
             if($exists) Storage::disk('local')->delete('/public/assets/daftar-siswa/' . $data->photo);
 
@@ -356,5 +356,22 @@ class SiswaController extends Controller
             ]);
             return true;
         }
+    }
+
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Siswa::get();
+
+        foreach($data as $siswa) {
+            $exists = Storage::disk('local')->exists('/public/assets/daftar-siswa/' . $siswa->photo);
+            if ( $exists === true ) {
+                Storage::disk('local')->delete('/public/assets/daftar-siswa/' . $siswa->photo);
+            }
+            Siswa::destroy($siswa->id);
+        }
+
+        return back()->with('success', 'Semua Siswa Telah Dihapus');
     }
 }

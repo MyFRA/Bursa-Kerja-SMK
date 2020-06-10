@@ -83,14 +83,14 @@
                     <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select name="jenis_kelamin" id="" class="form-control">
                         <option value="" selected disabled>-- Pilih Jenis Kelamin --</option>
-                        <option value="Laki-laki" 
+                        <option value="Laki-laki"
                         @if (old('jenis_kelamin'))
                             {{ @old('jenis_kelamin') == "Laki-laki" ? 'selected' : '' }}
                         @else
                             {{ ($item->jenis_kelamin == 'Laki-laki') ? 'selected' : '' }}
                         @endif
                         >Laki-laki</option>
-                        <option value="Perempuan" 
+                        <option value="Perempuan"
                         @if (old('jenis_kelamin'))
                             {{ @old('jenis_kelamin') == "Perempuan" ? 'selected' : '' }}>Perempuan</option>
                         @else
@@ -168,7 +168,7 @@
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
                     <textarea id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat') ? old('alamat') : $item->alamat }}</textarea>
-                
+
                     @error('alamat')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -187,15 +187,15 @@
                 </div>
                 <div class="form-group">
                     <label class="text-muted" for="negara">Negara </label>
-                    
+
                     <select class="form-control" name="negara" id="negara" @error('negara') style="border: 1px solid red" @enderror>
                         <option value="" selected >Pilih Negara</option>
                         @foreach ($negara as $country)
-                            <option value="{{ $country }}" 
+                            <option value="{{ $country }}"
                             @if (old('negara'))
                                 {{ old('negara') == $country ? 'selected' : '' }}
                             @else
-                                {{ $item->negara == $country ? 'selected' : '' }}  
+                                {{ $item->negara == $country ? 'selected' : '' }}
                             @endif
                             >{{ $country }}</option>
                         @endforeach
@@ -217,7 +217,7 @@
                             <option value="" selected="" disabled="">{{__('Pilih Provinsi')}}</option>
                         @endif
                     </select>
-                    
+
                     @error('provinsi')
                         <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                     @enderror
@@ -231,7 +231,7 @@
                             <option value="" selected disabled>{{__('Pilih Kabupaten')}}</option>
                         @endif
                     </select>
-                  
+
                       @error('kabupaten')
                         <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                       @enderror
@@ -239,39 +239,39 @@
                 <div class="form-group">
                     <label for="kartu_identitas">Kartu Identitas</label>
                     <select name="kartu_identitas" id="kartu_identitas" class="form-control">
-                        <option value="" 
+                        <option value=""
                         @if (old('kartu_idenstitas'))
                             {{ (old('kartu_identitas') == "") ? 'selected' : '' }}
                         @else
                             {{ ($item->kartu_identitas == "") ? 'selected' : '' }}
                         @endif
                         >Belum Memiliki Satupun</option>
-                        <option value="KTP" 
+                        <option value="KTP"
                         @if (old('kartu_identitas'))
                             {{ @old('kartu_identitas') == "KTP" ? 'selected' : '' }}
                         @else
                             {{ ($item->kartu_identitas == "KTP") ? 'selected' : '' }}
                         @endif
                         >KTP</option>
-                        <option value="SIM" 
+                        <option value="SIM"
                         @if (old('kartu_identitas'))
                             {{ @old('kartu_identitas') == "SIM" ? 'selected' : '' }}
                         @else
                             {{ ($item->kartu_identitas == "SIM") ? 'selected' : '' }}
                         @endif
                         >SIM</option>
-                        <option value="NPWP" 
+                        <option value="NPWP"
                         @if (old('kartu_idenstitas'))
                             {{ @old('kartu_identitas') == "NPWP" ? 'selected' : '' }}
                         @else
                             {{ ($item->kartu_identitas == "NPWP") ? 'selected' : '' }}
                         @endif
                         >NPWP</option>
-                        <option value="KARTU PELAJAR" 
+                        <option value="KARTU PELAJAR"
                         @if (old('kartu_idenstitas'))
                             {{ @old('kartu_identitas') == "KARTU PELAJAR" ? 'selected' : '' }}
                         @else
-                            {{ ($item->kartu_identitas == "KARTU PELAJAR") ? 'selected' : '' }} 
+                            {{ ($item->kartu_identitas == "KARTU PELAJAR") ? 'selected' : '' }}
                         @endif
                         >KARTU PELAJAR</option>
                     </select>
@@ -397,9 +397,9 @@
                     <td>{{ $item->kodepos }}</td>
                 </tr>
                 <tr>
-                    <td width="30%">KABUPATEN</td>
+                    <td width="30%">NEGARA</td>
                     <td width="5px">:</td>
-                    <td>{{ $item->kabupaten }}</td>
+                    <td>{{ $item->negara }}</td>
                 </tr>
                 <tr>
                     <td width="30%">PROVINSI</td>
@@ -407,9 +407,9 @@
                     <td>{{ $item->provinsi }}</td>
                 </tr>
                 <tr>
-                    <td width="30%">NEGARA</td>
+                    <td width="30%">KABUPATEN</td>
                     <td width="5px">:</td>
-                    <td>{{ $item->negara }}</td>
+                    <td>{{ $item->kabupaten }}</td>
                 </tr>
                 <tr>
                     <td width="30%">KARTU IDENTITAS</td>
@@ -487,11 +487,14 @@
 
 @section('stylesheet')
 <link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('/plugins/datePicker/css/DatePickerX.min.css') }}">
 @endsection
 
 @section('script')
 <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('/app-admin/plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('/plugins/datePicker/js/DatePickerX.min.js') }}"></script>
 
 <script>
@@ -513,7 +516,7 @@
           previewImage.setAttribute('src', this.result);
         });
 
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
       } else {
         previewDefaultText.style.display = null;
         previewImage.style.display = null;

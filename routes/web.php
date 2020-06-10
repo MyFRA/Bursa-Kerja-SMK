@@ -57,7 +57,7 @@ Route::prefix('/app-admin')->group(function() {
     Route::middleware(['auth'])->group(function() {
         Route::get('/dashboard', 'Admin\AdminController@index')->name('admin');
 
-        /** Artikel Router */ 
+        /** Artikel Router */
         Route::resource('/artikel', 'Admin\ArtikelController')->except(['show']);
         Route::delete('/artikel/hapus/semua-artikel', 'Admin\ArtikelController@hapusMassal');
 
@@ -147,6 +147,7 @@ Route::prefix('/app-admin')->group(function() {
 
         /** Daftar Siswa Router */
         Route::resource('/daftar-siswa', 'Admin\SiswaController')->except(['show']);
+        Route::delete('/siswa/hapus/semua-siswa', 'Admin\SiswaController@hapusMassal');
 
         // Daftar Perusahaan Router
         Route::resource('/daftar-perusahaan', 'Admin\PerusahaanController');
