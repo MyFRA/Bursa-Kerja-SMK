@@ -25,14 +25,14 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-5">
         <form action="{{ route('daftar-pengguna.store') }}" method="post" class="card">
             @csrf
 
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">NAMA<span class="text-danger">*</span></label>
-                    <input type="text" required="" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" / required="">
+                    <input type="text" required="" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror" required=""/>
 
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label for="email">EMAIL<span class="text-danger">*</span></label>
-                    <input required="" type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" / required="">
+                    <input required="" type="email" name="email" value="{{ old('email') }}" class="form-control @error('email') is-invalid @enderror" required=""/>
 
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group">
                     <label for="username">USERNAME<span class="text-danger">*</span></label>
-                    <input required="" type="text" name="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" / required="">
+                    <input required="" type="text" name="username" value="{{ old('username') }}" class="form-control @error('username') is-invalid @enderror" required=""/>
 
                     @error('username')
                         <span class="invalid-feedback" role="alert">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">PASSWORD<span class="text-danger">*</span></label>
-                    <input required="" type="password" name="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror @if(Session::get('gagal')) is-invalid @endif" / required="">
+                    <input required="" type="password" name="password" value="{{ old('password') }}" class="form-control @error('password') is-invalid @enderror @if(Session::get('gagal')) is-invalid @endif" required=""/>
 
                     @if(Session::get('gagal'))
                         <span class="invalid-feedback" role="alert">
@@ -77,7 +77,7 @@
                 </div>
                 <div class="form-group">
                     <label for="confPassword">KONFIRMASI PASSWORD<span class="text-danger">*</span></label>
-                    <input required="" type="password" name="confPassword" value="{{ old('confPassword') }}" class="form-control @if(Session::get('gagal')) is-invalid @endif" / required="">
+                    <input required="" type="password" name="confPassword" value="{{ old('confPassword') }}" class="form-control @if(Session::get('gagal')) is-invalid @endif" required=""/>
 
                     @if(Session::get('gagal'))
                         <span class="invalid-feedback" role="alert">
@@ -93,6 +93,7 @@
                         <option value="admin" {{ old('level') == "admin" ? 'selected' : '' }}>Admin</option>
                         <option value="guru" {{ old('level') == "guru" ? 'selected' : '' }}>Guru</option>
                         <option value="perusahaan" {{ old('level') == "perusahaan" ? 'selected' : '' }}>Perusahaan</option>
+                        <option value="siswa" {{ old('level') == "siswa" ? 'selected' : '' }}>Siswa</option>
                     </select>
                     @error('level')
                         <span class="invalid-feedback" role="alert">

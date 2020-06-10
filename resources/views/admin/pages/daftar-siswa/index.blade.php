@@ -32,6 +32,7 @@
                     <th width="8px"></th>
                     <th width="8%"></th>
                     <th>NAMA</th>
+                    <th>EMAIL</th>
                     <th width="30%">JENIS KELAMIN</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
@@ -50,6 +51,7 @@
                             </a>
                         </td>
                         <td>{{ $val->nama_pertama }} {{ $val->nama_belakang }}</td>
+                        <td>{{ $val->email }}</td>
                         <td>{{ $val->jenis_kelamin }}</td>
                         <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
                     </tr> 

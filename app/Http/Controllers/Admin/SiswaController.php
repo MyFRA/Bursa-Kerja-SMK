@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 
 use App\Models\Siswa;
+use App\Models\Negara;
 use App\User;
 
 class SiswaController extends Controller
@@ -40,9 +41,9 @@ class SiswaController extends Controller
     public function create()
     {
         $data = array(
-            'user_id' => Auth::user()->id,
             'title' => 'Siswa',
             'nav'   => 'daftar-siswa',
+            'negara' => Negara::orderBy('nama_negara', 'ASC')->pluck('nama_negara'),
         );
 
         return view('admin.pages.daftar-siswa.create', $data);
@@ -56,11 +57,6 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {   
-        // Pengecekan apakah input user_id = Auth::user()->id
-        if( $request->user_id != Auth::user()->id ) return redirect()->back()
-                                                                    ->withInput()
-                                                                    ->with('gagal', 'User ID tidak sama');
-
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
             'nama_pertama'          => 'required|max:64',
@@ -75,7 +71,7 @@ class SiswaController extends Controller
             'linkedin'              => 'max:64',
             'alamat'                => 'max:255',
             'kodepos'               => 'max:8',
-            'kabupaten'             => 'max:32',
+            'kabupaten'             => 'max:64',
             'provinsi'              => 'max:32',
             'negara'                => 'max:32',
             'jenis_kelamin'         => "in:Laki-laki,Perempuan",
@@ -135,6 +131,7 @@ class SiswaController extends Controller
             'title' => 'Siswa',
             'nav'   => 'daftar-siswa',
             'item'  => Siswa::find(decrypt($id)),
+            'negara' => Negara::orderBy('nama_negara', 'ASC')->pluck('nama_negara'),
         );
 
         return view('admin.pages.daftar-siswa.edit', $data);
@@ -256,7 +253,6 @@ class SiswaController extends Controller
 
             // Insert data siswa dan mengembalikan nilai True
             $data = Siswa::create([
-                'user_id'               => $request->user_id,
                 'nama_pertama'          => $request->nama_pertama,
                 'nama_belakang'         => $request->nama_belakang,
                 'photo'                 => $namaGambar,

@@ -29,7 +29,6 @@
     <div class="col-md-5">
         <form action="{{ route('daftar-siswa.store') }}" method="post" class="card" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="user_id" value="{{ $user_id }}">
             <div class="card-body">
                 <div class="form-group">
                     <label for="nama_pertama">Nama Pertama<span class="text-danger">*</span></label>
@@ -73,7 +72,7 @@
                 </div>
                 <div class="form-group">
                     <label for="tanggal_lahir">Tanggal Lahir</label>
-                    <input type="date" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" class="form-control @error('tanggal_lahir') is-invalid @enderror" / >
+                    <input type="text" name="tanggal_lahir" value="{{ old('tanggal_lahir') }}" class="form-control @error('tanggal_lahir') is-invalid @enderror" autocomplete="off"/>
 
                     @error('tanggal_lahir')
                         <span class="invalid-feedback" role="alert">
@@ -84,6 +83,7 @@
                 <div class="form-group">
                     <label for="jenis_kelamin">Jenis Kelamin</label>
                     <select name="jenis_kelamin" id="" class="form-control">
+                        <option value="" selected disabled>-- Pilih Jenis Kelamin --</option>
                         <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
                         <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                     </select>
@@ -165,7 +165,7 @@
                 </div>
                 <div class="form-group">
                     <label for="kodepos">Kode Pos</label>
-                    <input type="text" name="kodepos" value="{{ old('kodepos') }}" class="form-control @error('kodepos') is-invalid @enderror" / >
+                    <input type="number" name="kodepos" value="{{ old('kodepos') }}" class="form-control @error('kodepos') is-invalid @enderror" / >
 
                     @error('kodepos')
                         <span class="invalid-feedback" role="alert">
@@ -174,34 +174,41 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="kabupaten">Kabupaten</label>
-                    <input type="text" name="kabupaten" value="{{ old('kabupaten') }}" class="form-control @error('kabupaten') is-invalid @enderror" / >
-
-                    @error('kabupaten')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="provinsi">Provinsi</label>
-                    <input type="text" name="provinsi" value="{{ old('provinsi') }}" class="form-control @error('provinsi') is-invalid @enderror" / >
-
-                    @error('provinsi')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="negara">Negara</label>
-                    <input type="text" name="negara" value="{{ old('negara') }}" class="form-control @error('negara') is-invalid @enderror" / >
+                    <label class="text-muted" for="negara">Negara </label>
+                    
+                    <select class="form-control" name="negara" id="negara" @error('negara') style="border: 1px solid red" @enderror>
+                        <option value="" selected >Pilih Negara</option>
+                        @foreach ($negara as $item)
+                            <option value="{{ $item }}" {{ old('negara') == $item ? 'selected' : '' }}>{{ $item }}</option>
+                        @endforeach
+                    </select>
 
                     @error('negara')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <div class="ml-2 mt-2 text-danger">
+                           {{ $message }}
+                        </div>
                     @enderror
+                </div>
+                <div class="form-group">
+                    <label class="text-muted" for="provinsi">Provinsi</label>
+
+                    <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                        <option value="" selected="" disabled="">{{__('Pilih Provinsi')}}</option>
+                    </select>
+                    
+                    @error('provinsi')
+                        <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="kabupaten">{{__('Kabupaten')}}</label>
+                    <select class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten">
+                        <option value="" selected disabled>{{__('Pilih Kabupaten')}}</option>
+                    </select>
+                  
+                      @error('kabupaten')
+                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+                      @enderror
                 </div>
                 <div class="form-group">
                     <label for="kartu_identitas">KARTU IDENTITAS</label>
@@ -296,10 +303,16 @@
 
 @section('stylesheet')
 <link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/app-admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('/plugins/datePicker/css/DatePickerX.min.css') }}">
 @endsection
 
 @section('script')
 <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('/app-admin/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{ asset('/plugins/datePicker/js/DatePickerX.min.js') }}"></script>
+
 <script>
     const inpFile = document.getElementById('image');
     const previewContainer = document.getElementById('imagePreview');
@@ -328,6 +341,63 @@
       }
     });
 </script>
+
+<script>
+    const pilihProv = document.getElementById('provinsi');
+    const pilihKab = document.getElementById('kabupaten');
+
+    document.getElementById('negara').addEventListener('change', function(e) {
+        let nama_negara = e.target.value;
+        fetch('/getProvinsi/' + nama_negara)
+        .then(response => response.json())
+        .then(response => {
+            let opsiProv;
+
+            response.forEach(function(m) {
+                opsiProv += "<option value='"+ m.nama_provinsi +"'>"+ m.nama_provinsi +"</option>";
+                pilihProv.innerHTML = opsiProv;
+                pilihKab.innerHTML = '<option value="" selected disabled>Pilih Kabupaten</option>';
+            })
+        });
+    });
+
+    document.getElementById('provinsi').addEventListener('change', function(e) {
+        let nama_provinsi = e.target.value;
+        fetch('/getKabupaten/' + nama_provinsi)
+        .then(response => response.json())
+        .then(response => {
+            let opsiKab;
+
+            response.forEach(function(m) {
+                opsiKab += "<option value='"+ m.nama_kabupaten +"'>"+ m.nama_kabupaten +"</option>";
+                pilihKab.innerHTML = opsiKab
+            })
+        });
+    });
+</script>
+
+<script>
+    // Fungsi DatePicker
+    window.addEventListener('DOMContentLoaded', function(){
+        var myDatepicker = document.querySelector('input[name="tanggal_lahir"]')
+
+        myDatepicker.style.backgroundColor = 'white'
+        myDatepicker.DatePickerX.init({
+            // options here
+        });
+    });
+
+</script>
+
+<script>
+    $(function () {
+        $('.select2').select2({
+            theme: 'bootstrap4'
+        })
+    });
+</script>
+
+
 @if(Session::get('success'))
 <script>
 Swal.fire(

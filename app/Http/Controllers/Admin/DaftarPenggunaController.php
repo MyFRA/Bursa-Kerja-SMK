@@ -59,7 +59,7 @@ class DaftarPenggunaController extends Controller
             'username'  => "required|string|max:255|unique:users",
             'email'     => "required|string|email|max:255|unique:users",
             'password'  => "required|string|min:8",
-            'level'     => "required|in:superadmin,admin,guru,perusahaan"
+            'level'     => "required|in:superadmin,admin,guru,perusahaan,siswa"
         ], [
             "name.required"      => "nama tidak boleh kosong",
             "name.max"           => "nama max: 255 karakter",
@@ -71,7 +71,7 @@ class DaftarPenggunaController extends Controller
             "email.max"          => "email max: 255 karakter",
             "email.unique"       => "email sudah digunakan",
             "level.required"     => "level tidak boleh kosong",
-            "level.in"           => "level harus diantara superadmin, admin, guru, dan perusahaan",
+            "level.in"           => "level harus diantara superadmin, admin, guru, perusahaan dan siswa",
             "password.required"  => "password tidak boleh kosong",
             "password.min"       => 'password minimal 8 karakter',
         ]);

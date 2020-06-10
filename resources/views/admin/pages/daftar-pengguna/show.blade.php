@@ -20,70 +20,70 @@
 
 @section('content')
 <div class="row">
-          <div class="col-md-3">
+  <div class="col-md-3">
 
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center mb-4 mt-3">
-                    <i class="fas fa-user fa-10x"></i>
-                </div>
-                <h3 class="profile-username text-center">{{ $item->name }}</h3>
-                <p class="text-muted text-center">{{ $item->level }}</p>
-                <br>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-9">
-            <div class="card">
-              <div class="card-body">
-                <div class="tab-content">
-                  <div class="tab-pane active" id="settings">
-                    <form class="form-horizontal">
-                      <div class="form-group row">
-                        <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName" value="{{ $item->name }}" readonly="">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" value="{{ $item->email }}" readonly="">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputName2" class="col-sm-2 col-form-label">Username</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" value="{{ $item->username }}" readonly="">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="inputExperience" class="col-sm-2 col-form-label">Level</label>
-                        <div class="col-sm-10">
-                          <input type="text" class="form-control" id="inputName2" value="{{ $item->level }}" readonly="">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <div class="offset-sm-2 col-sm-10">
-                          <a href="{{ url('/app-admin/daftar-pengguna') }}" class="btn btn-secondary float-right">Kembali</a>
-                        </div>
-                      </div>
-                    </form>
-                  </div>
-                  <!-- /.tab-pane -->
-                </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
-            </div>
-            <!-- /.nav-tabs-custom -->
-          </div>
-          <!-- /.col -->
+    <!-- Profile Image -->
+    <div class="card card-primary card-outline">
+      <div class="card-body box-profile">
+        <div class="text-center mb-4 mt-3">
+            <i class="fas fa-user fa-10x"></i>
         </div>
+        <h3 class="profile-username text-center">{{ $item->name }}</h3>
+        <p class="text-muted text-center">{{ $item->level }}</p>
+        <br>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-body">
+        <div class="tab-content">
+          <div class="tab-pane active" id="settings">
+            <form class="form-horizontal">
+              <div class="form-group row">
+                <label for="inputName" class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputName" value="{{ $item->name }}" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="inputEmail" value="{{ $item->email }}" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputName2" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputName2" value="{{ $item->username }}" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputExperience" class="col-sm-2 col-form-label">Level</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="inputName2" value="{{ $item->level }}" readonly="">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                  <a href="{{ url('/app-admin/daftar-pengguna') }}" class="btn btn-secondary float-right">Kembali</a>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+      </div><!-- /.card-body -->
+    </div>
+    <!-- /.nav-tabs-custom -->
+  </div>
+  <!-- /.col -->
+</div>
 @endsection
 
 @section('stylesheet')

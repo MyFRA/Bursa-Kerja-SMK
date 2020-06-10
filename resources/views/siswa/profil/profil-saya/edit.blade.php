@@ -171,9 +171,15 @@
                                             <label class="text-muted" for="negara">Negara </label>
                                             
                                             <select class="form-control" name="negara" id="negara" @error('negara') style="border: 1px solid red" @enderror>
-                                                <option value="" selected disabled>Negara</option>
+                                                <option value="" selected >Negara</option>
                                                 @foreach ($negara as $item)
-                                                    <option value="{{ $item }}" {{ $siswa->negara == $item ? 'selected' : '' }} {{ old('negara') == $item ? 'selected' : '' }}>{{ $item }}</option>
+                                                    <option value="{{ $item }}" 
+                                                    @if (old('negara'))
+                                                        {{ old('negara') == $item ? 'selected' : '' }}
+                                                    @else
+                                                        {{ $siswa->negara == $item ? 'selected' : '' }}  
+                                                    @endif
+                                                    >{{ $item }}</option>
                                                 @endforeach
                                             </select>
     
@@ -373,7 +379,6 @@
 
 
     <script>
-
         const pilihProv = document.getElementById('provinsi');
         const pilihKab = document.getElementById('kabupaten');
 
