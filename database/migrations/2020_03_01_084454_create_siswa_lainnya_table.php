@@ -20,7 +20,7 @@ class CreateSiswaLainnyaTable extends Migration
             $table->double('gaji_diharapkan', 16, 0)->nullable();
             $table->json('lokasi_diharap')->nullable();
             $table->text('keterangan')->nullable();
-            $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
             $table->foreign('keterampilan_id')->references('id')->on('m_keterampilan');
             $table->timestamps();
         });

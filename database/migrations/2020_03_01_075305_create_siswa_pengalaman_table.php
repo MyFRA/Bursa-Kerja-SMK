@@ -31,7 +31,7 @@ class CreateSiswaPengalamanTable extends Migration
             $table->string('mata_uang', 4)->nullable();
             $table->double('gaji_bulanan', 16, 0)->unsigned()->nullable();
             $table->text('keterangan')->nullable();
-            $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
             $table->foreign('bidang_keahlian_id')->references('id')->on('m_bidang_keahlian');
             $table->foreign('program_keahlian_id')->references('id')->on('m_program_keahlian');
             $table->foreign('kompetensi_keahlian_id')->references('id')->on('m_kompetensi_keahlian');

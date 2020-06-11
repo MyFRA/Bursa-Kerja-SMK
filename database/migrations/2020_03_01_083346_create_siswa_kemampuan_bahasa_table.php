@@ -22,7 +22,7 @@ class CreateSiswaKemampuanBahasaTable extends Migration
             $table->boolean('utama')->default(false);
             $table->enum('sertifikat', ['TOEFL', 'IELTS', 'TOEIC'])->nullable();
             $table->tinyInteger('skor')->unsigned()->nullable();
-            $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
             $table->foreign('bahasa_id')->references('id')->on('m_bahasa');
             $table->timestamps();
         });

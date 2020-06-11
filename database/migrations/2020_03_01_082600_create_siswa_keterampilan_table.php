@@ -18,7 +18,7 @@ class CreateSiswaKeterampilanTable extends Migration
             $table->bigInteger('siswa_id')->unsigned();
             $table->string('keterangan', 32);
             $table->enum('tingkat', ['Pemula', 'Menengah', 'Tingkat Lanjut']);
-            $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
             $table->timestamps();
         });
     }

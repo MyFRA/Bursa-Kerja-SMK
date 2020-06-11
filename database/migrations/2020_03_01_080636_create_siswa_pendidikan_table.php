@@ -26,7 +26,7 @@ class CreateSiswaPendidikanTable extends Migration
             $table->enum('nilai_akhir', ['IPK', 'NEM', 'Tidak Tamat', 'Masih Belajar']);
             $table->tinyInteger('nilai_skor')->unsigned();
             $table->text('keterangan')->nullable();
-            $table->foreign('siswa_id')->references('id')->on('siswa');
+            $table->foreign('siswa_id')->references('id')->on('siswa')->onDelete('cascade');
             $table->foreign('bidang_keahlian_id')->references('id')->on('m_bidang_keahlian');
             $table->foreign('program_keahlian_id')->references('id')->on('m_program_keahlian');
             $table->foreign('kompetensi_keahlian_id')->references('id')->on('m_kompetensi_keahlian');
