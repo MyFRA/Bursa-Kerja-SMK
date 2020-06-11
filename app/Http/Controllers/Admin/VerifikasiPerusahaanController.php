@@ -72,11 +72,35 @@ class VerifikasiPerusahaanController extends Controller
             $user->removeRole($role->role_id);
         }
 
-        $perusahaan = Perusahaan::where('user_id', decrypt($id))->get();
+        $perusahaan = Perusahaan::where('user_id', decrypt($id))->first();
+        $lowongan = Lowongan::where('perusahaan_id', $perusahaan->id)->get();
 
-        foreach ($perusahaan as $prhs) {
-            Perusahaan::destroy($prhs->id);
+        foreach ($lowongan as $loker ) {
+            // Mengecek apakah image terdapat di dalam storage
+            $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $loker->image);
+
+            // Jika image terdapat di dalam storage (True), maka hapus image tsb
+            if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $loker->image);
+
+            Lowongan::destroy($loker->id);
         }
+
+
+        // Cek Logo
+            // Mengecek apakah logo terdapat di dalam storage
+            $existsLogo = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/logo/' . $perusahaan->logo);
+
+            // Jika logo terdapat di dalam storage (True), maka hapus logo tsb
+            if($existsLogo) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/logo/' . $perusahaan->logo);
+
+        // Cek Image
+            // Mengecek apakah image terdapat di dalam storage
+            $existsImage = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/image/' . $perusahaan->image);
+
+            // Jika image terdapat di dalam storage (True), maka hapus image tsb
+            if($existsImage) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/image/' . $perusahaan->image);
+
+        Perusahaan::destroy($perusahaan->id);
 
         User::destroy(decrypt($id));
 
@@ -91,7 +115,7 @@ class VerifikasiPerusahaanController extends Controller
     public function terverifikasi()
     {
         $data = array(
-            'items' => Perusahaan::orderBy('created_at', 'DESC')->get(),
+            'items' => User::orderBy('created_at', 'DESC')->get(),
             'title' => 'Perusahaan Terverifikasi',
             'nav'   => 'terverifikasi',
         );
@@ -118,7 +142,7 @@ class VerifikasiPerusahaanController extends Controller
             'jmlLowongan' => Lowongan::where('perusahaan_id', decrypt($id))
                                     ->count(),
             'navLink' => ''
-        ];  
+        ];
 
         return view('pages.portal-perusahaan.show', $data);
     }

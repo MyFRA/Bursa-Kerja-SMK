@@ -11,7 +11,7 @@
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href=""  onclick="onHapusMassal('<?= url('/app-admin/pengumuman/hapus/semua-pengumuman') ?>')" class="btn btn-danger rounded-0">
+                <a href="" onclick="onHapusMassal('<?= url('/app-admin/pengumuman/hapus/semua-pengumuman') ?>')" class="btn btn-danger rounded-0">
                     <i class="fas fa-trash mr-1"></i> {{__('Hapus Masal')}}
                 </a>
                 <a href="{{ url('/app-admin/pengumuman/create') }}" class="btn btn-primary rounded-0">
@@ -51,7 +51,7 @@
                         <td>{{ $val->judul }}</td>
                         <td>{{ $val->status }}</td>
                         <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
-                    </tr> 
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -93,7 +93,7 @@
             }
         })
         .on('select', function(e, dt, type, indexes) {
-            
+
         })
         .on('deselect', function(e, dt, type, indexes) {
             console.log(indexes);

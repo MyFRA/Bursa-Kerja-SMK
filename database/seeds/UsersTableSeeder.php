@@ -12,12 +12,14 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $administrator = User::create([
             'name' => 'Administrator',
             'email' => 'administrator@admin.com',
             'username' => 'administrator',
             'password' => Hash::make('administrator'),
             'level' => 'superadmin'
         ]);
+
+        $administrator->assignRole('superadmin');
     }
 }

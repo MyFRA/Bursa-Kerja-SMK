@@ -16,6 +16,8 @@ use App\Models\Negara;
 use App\Models\Provinsi;
 use App\Models\Kabupaten;
 use App\Models\Bahasa;
+use App\Models\Lowongan;
+use App\User;
 
 class PerusahaanController extends Controller
 {
@@ -30,9 +32,7 @@ class PerusahaanController extends Controller
     public function index()
     {
         $data = array(
-            'items' => Perusahaan::select('perusahaan.*', 'm_program_keahlian.nama as nama_program_keahlian')
-                                   ->join('m_program_keahlian', 'perusahaan.program_keahlian_id', '=', 'm_program_keahlian.id')
-                                   ->get(),
+            'items' => Perusahaan::orderBy('created_at', 'DESC')->get(),
             'title' => 'Daftar Perusahaan',
             'nav'   => 'daftar-perusahaan',
         );
@@ -163,15 +163,19 @@ class PerusahaanController extends Controller
         $negara = Negara::where('nama_negara', $perusahaan->negara)->first();
         $provinsi = Provinsi::where('nama_provinsi', $perusahaan->provinsi)->first();
 
+
+        $provinsiCollection = (empty($negara)) ? [] : Provinsi::where('negara_id', $negara->id)->orderBy('nama_provinsi', 'ASC')->get();
+        $kabupatenCollection = (empty($provinsi)) ? [] : Kabupaten::where('provinsi_id', $provinsi->id)->orderBy('nama_kabupaten', 'ASC')->get();
+
         $data = array(
             'title' => 'Perusahaan',
             'nav'   => 'perusahaan',
             'item'  => Perusahaan::find(decrypt($id)),
             'bidangKeahlian'    => BidangKeahlian::get(),
             'programKeahlian'   => ProgramKeahlian::where('bidang_keahlian_id', $perusahaan->bidang_keahlian_id)->get(),
-            'negara'            => Negara::get(),
-            'provinsi'          => Provinsi::where('negara_id', $negara->id)->get(),
-            'kabupaten'         => Kabupaten::where('provinsi_id', $provinsi->id)->get(),
+            'negara'            => Negara::orderBy('nama_negara', 'ASC')->get(),
+            'provinsi'          => $provinsiCollection,
+            'kabupaten'         => $kabupatenCollection,
             'bahasa'            => Bahasa::get(),
             'perusahaan'        => $perusahaan,
         );
@@ -263,6 +267,17 @@ class PerusahaanController extends Controller
     {
         // Mengambil data perusahaan dimana id = $id
         $data = Perusahaan::find(decrypt($id));
+        $lowongan = Lowongan::where('perusahaan_id', $data->id)->get();
+
+        foreach ($lowongan as $loker ) {
+            // Mengecek apakah image terdapat di dalam storage
+            $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $loker->image);
+
+            // Jika image terdapat di dalam storage (True), maka hapus image tsb
+            if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $loker->image);
+
+            Lowongan::destroy($loker->id);
+        }
 
         // Cek Logo
             // Mengecek apakah logo terdapat di dalam storage
@@ -279,7 +294,9 @@ class PerusahaanController extends Controller
             if($existsImage) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/image/' . $data->image);
 
         // Menghapus row Perusahaan dimana id = $id
+        User::destroy($data->user_id);
         Perusahaan::destroy(decrypt($id));
+
         return back()->with('success', "Data Perusahaan $data->nama telah dihapus");
     }
 
@@ -476,5 +493,42 @@ class PerusahaanController extends Controller
                 $this->id = $data->id;
                 return true;
         }
+    }
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Perusahaan::get();
+        $lowongan = Lowongan::where('perusahaan_id', $data->id)->get();
+
+        foreach ($lowongan as $loker ) {
+            // Mengecek apakah image terdapat di dalam storage
+            $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $loker->image);
+
+            // Jika image terdapat di dalam storage (True), maka hapus image tsb
+            if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $loker->image);
+
+            Lowongan::destroy($loker->id);
+        }
+
+        foreach($data as $perusahaan) {
+            // Cek Logo
+            // Mengecek apakah logo terdapat di dalam storage
+            $existsLogo = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/logo/' . $perusahaan->logo);
+
+            // Jika logo terdapat di dalam storage (True), maka hapus logo tsb
+            if($existsLogo) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/logo/' . $perusahaan->logo);
+
+            // Cek Image
+            // Mengecek apakah image terdapat di dalam storage
+            $existsImage = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/image/' . $perusahaan->image);
+
+            // Jika image terdapat di dalam storage (True), maka hapus image tsb
+            if($existsImage) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/image/' . $perusahaan->image);
+            User::destroy($perusahaan->user_id);
+            Perusahaan::destroy($perusahaan->id);
+        }
+
+        return back()->with('success', 'Semua Perusahaan Telah Dihapus');
     }
 }

@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\MataUang;
 use Illuminate\Support\Facades\Validator;
+
+use App\Models\MataUang;
 
 class MataUangController extends Controller
 {
@@ -171,4 +172,15 @@ class MataUangController extends Controller
         return response()->download(public_path('/assets/excel/file-format-import-mata-uang.xlsx'));
     }
 
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = MataUang::get();
+
+        foreach($data as $mataUang) {
+            MataUang::destroy($mataUang->id);
+        }
+
+        return back()->with('success', 'Semua Mata Uang Telah Dihapus');
+    }
 }

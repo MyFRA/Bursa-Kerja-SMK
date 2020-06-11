@@ -49,7 +49,7 @@ class BidangKeahlianController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi Form Input 
+        // Validasi Form Input
         $validation = Validator::make($request->all(), [
             "kode" => 'required|max:8|unique:m_bidang_keahlian',
             "nama" => "required|min:2|max:128",
@@ -119,6 +119,14 @@ class BidangKeahlianController extends Controller
                 ->withErrors($validation)
                 ->withInput();
         } else {
+            $bidangKeahlian = BidangKeahlian::get();
+            $data = BidangKeahlian::find(decrypt($id));
+
+            foreach($bidangKeahlian as $bidKeahlian) {
+                if($bidKeahlian->kode == $request->kode && $request->kode != $data->kode ) {
+                    return back()->with('gagal', "Kode Bidang Keahlian sudah digunakan");
+                }
+            }
 
             // Lolos Validasi Update Data Berhasil
             $update = BidangKeahlian::find(decrypt($id));
@@ -143,7 +151,7 @@ class BidangKeahlianController extends Controller
         $programKeahlian = ProgramKeahlian::get();
         $data = BidangKeahlian::find(decrypt($id));
 
-        // Pengecekan Apakah Data Bidang Keahlian masih memiliki relasi dengan program_keahlian 
+        // Pengecekan Apakah Data Bidang Keahlian masih memiliki relasi dengan program_keahlian
         foreach ($programKeahlian as $var) {
             if ( $data->id == $var->bidang_keahlian_id ) {
                 return back()->with('gagal', ' Bidang Keahlian Gagal Dihapus, Karena masih terikat dengan program keahlian');
@@ -152,7 +160,7 @@ class BidangKeahlianController extends Controller
         $nama = $data->nama;
         $data->delete();
         return back()->with('success', "Bidang Keahlian $nama Telah Dihapus");
-        
+
     }
 
     /**

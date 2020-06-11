@@ -11,7 +11,7 @@
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href=""  onclick="onHapusMassal('<?= url('/app-admin/siswa/hapus/semua-siswa') ?>')"  class="btn btn-danger rounded-0">
+                <a href="" onclick="onHapusMassal('<?= url('/app-admin/siswa/hapus/semua-siswa') ?>')" class="btn btn-danger rounded-0">
                     <i class="fas fa-trash mr-1"></i> Hapus Masal
                 </a>
                 <a href="{{ url('/app-admin/daftar-siswa/create') }}" class="btn btn-primary rounded-0">

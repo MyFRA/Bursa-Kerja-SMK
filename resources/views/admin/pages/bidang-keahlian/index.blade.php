@@ -54,7 +54,7 @@
                         <td>{{ $val->kode }}</td>
                         <td>{{ $val->nama }}</td>
                         <td>{{ Carbon\Carbon::parse($val->updated_at)->format('d M Y H:i:s') }}</td>
-                    </tr> 
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -96,7 +96,7 @@
             }
         })
         .on('select', function(e, dt, type, indexes) {
-            
+
         })
         .on('deselect', function(e, dt, type, indexes) {
             console.log(indexes);
@@ -120,7 +120,8 @@
                     event.preventDefault();
                     document.getElementById('deleted-form').submit();
                 }
-            })
+            }
+        )
     }
 
 

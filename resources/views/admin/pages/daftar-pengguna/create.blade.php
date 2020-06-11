@@ -89,7 +89,9 @@
                     <label for="level">LEVEL<span class="text-danger">*</span></label>
                     <select name="level" id="" required="" class="form-control select2">
                         <option value="" disabled="">-- Pilih Level Pengguna --</option>
-                        <option value="superadmin" {{ old('level') == "superadmin" ? 'selected' : '' }}>Superadmin</option>
+                        @if (Auth::user()->hasRole('superadmin'))
+                            <option value="superadmin" {{ old('level') == "superadmin" ? 'selected' : '' }}>Superadmin</option>
+                        @endif
                         <option value="admin" {{ old('level') == "admin" ? 'selected' : '' }}>Admin</option>
                         <option value="guru" {{ old('level') == "guru" ? 'selected' : '' }}>Guru</option>
                         <option value="perusahaan" {{ old('level') == "perusahaan" ? 'selected' : '' }}>Perusahaan</option>

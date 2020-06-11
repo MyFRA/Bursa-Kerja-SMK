@@ -88,12 +88,14 @@ Route::prefix('/app-admin')->group(function() {
             Route::post('/bahasa/imported', 'Admin\BahasaController@imported')->name('bahasa.imported');
             Route::get('/bahasa/format-excel-import', 'Admin\BahasaController@download')->name('bahasa.download');
             Route::resource('/bahasa', 'Admin\BahasaController')->except(['show']);
+            Route::delete('/bahasa/hapus/semua-bahasa', 'Admin\BahasaController@hapusMassal');
 
             /** Keterampilan Router */
             Route::get('/keterampilan/import', 'Admin\KeterampilanController@import')->name('keterampilan.import');
             Route::post('/keterampilan/imported', 'Admin\KeterampilanController@imported')->name('keterampilan.imported');
             Route::get('/keterampilan/format-excel-import', 'Admin\KeterampilanController@download')->name('keterampilan.download');
             Route::resource('/keterampilan', 'Admin\KeterampilanController')->except(['show']);
+            Route::delete('/keterampilan/hapus/semua-keterampilan', 'Admin\KeterampilanController@hapusMassal');
 
             /** Negara Router */
             Route::get('/negara/import', 'Admin\NegaraController@import')->name('negara.import');
@@ -106,6 +108,7 @@ Route::prefix('/app-admin')->group(function() {
             Route::post('/mata-uang/imported', 'Admin\MataUangController@imported')->name('mata-uang.imported');
             Route::get('/mata-uang/format-excel-import', 'Admin\MataUangController@download')->name('mata-uang.download');
             Route::resource('/mata-uang', 'Admin\MataUangController')->except(['show']);
+            Route::delete('/mata-uang/hapus/semua-mata-uang', 'Admin\MataUangController@hapusMassal');
 
             /** Provinsi Router */
             Route::get('/provinsi/import', 'Admin\ProvinsiController@import')->name('provinsi.import');
@@ -136,6 +139,7 @@ Route::prefix('/app-admin')->group(function() {
         Route::post('/faq/imported', 'Admin\FaqController@imported')->name('faq.imported');
         Route::get('/faq/format-excel-import', 'Admin\FaqController@download')->name('faq.download');
         Route::resource('/faq', 'Admin\FaqController');
+        Route::delete('/faq/hapus/semua-faq', 'Admin\FaqController@hapusMassal');
 
         /** Halaman Router */
         Route::resource('/halaman', 'Admin\HalamanController')->except(['show']);
@@ -152,6 +156,7 @@ Route::prefix('/app-admin')->group(function() {
         // Daftar Perusahaan Router
         Route::resource('/daftar-perusahaan', 'Admin\PerusahaanController');
         Route::get('/daftar-perusahaan/ajax/{id}', 'Admin\PerusahaanController@ajax');
+        Route::delete('/perusahaan/hapus/semua-perusahaan', 'Admin\PerusahaanController@hapusMassal');
 
         // Lowongan Kerja Router
         Route::resource('/lowongan-kerja', 'Admin\LowonganController')->except(['show']);

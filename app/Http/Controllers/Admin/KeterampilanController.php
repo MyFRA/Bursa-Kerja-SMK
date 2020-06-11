@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Keterampilan; 
+use App\Models\Keterampilan;
 
 class KeterampilanController extends Controller
 {
@@ -164,5 +164,17 @@ class KeterampilanController extends Controller
     public function download()
     {
         return response()->download(public_path('/assets/excel/file-format-import-keterampilan.xlsx'));
+    }
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Keterampilan::get();
+
+        foreach($data as $keterampilan) {
+            Keterampilan::destroy($keterampilan->id);
+        }
+
+        return back()->with('success', 'Semua Keterampilan Telah Dihapus');
     }
 }

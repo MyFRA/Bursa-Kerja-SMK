@@ -227,6 +227,7 @@ class SiswaController extends Controller
 
         // Menghapus row siswa dimana id = $id
         Siswa::destroy(decrypt($id));
+        User::destroy($data->user_id);
         return back()->with('success', "Data Siswa $data->nama_pertama telah dihapus");
     }
 
@@ -369,6 +370,7 @@ class SiswaController extends Controller
             if ( $exists === true ) {
                 Storage::disk('local')->delete('/public/assets/daftar-siswa/' . $siswa->photo);
             }
+            User::destroy($siswa->user_id);
             Siswa::destroy($siswa->id);
         }
 

@@ -55,9 +55,13 @@
                     <label>{{__('BIDANG KEAHLIAN')}}</label>
                     <select name="bidang_keahlian_id" class="form-control select2 @error('bidang_keahlian_id') is-invalid @enderror" style="width: 100%;">
                         @foreach($listBidangKeahlian as $bidangKeahlian)
-                            <option value="{{ $bidangKeahlian->id }}" {{ ( $bidangKeahlian->id == $item->bidang_keahlian_id ) ? 'selected' : '' }}> 
-                                {{ $bidangKeahlian->nama }}
-                            </option>
+                            <option value="{{ $bidangKeahlian->id }}"
+                            @if (old('bidang_keahlian_id'))
+                                {{ old('bidang_keahlian_id') == $item->bidang_keahlian_id ? 'selected' : '' }}
+                            @else
+                                {{ ( $bidangKeahlian->id == $item->bidang_keahlian_id ) ? 'selected' : '' }}
+                            @endif
+                            > {{ $bidangKeahlian->nama }} </option>
                         @endforeach
                     </select>
 
@@ -129,7 +133,15 @@
 
 @section('script')
 <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('/app-admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
+<script>
+    $(function () {
+        $('.select2').select2({
+            theme: 'bootstrap4'
+        })
+    });
+</script>
 
 
 @if(Session::get('success'))
@@ -142,16 +154,7 @@ Swal.fire(
 </script>
 @endif
 
-
-@if(Session::get('success'))
-<script>
-Swal.fire(
-  'Berhasil',
-  '{{ Session::get('success') }}',
-  'success'
-)
-</script>
-@elseif(Session::get('gagal'))
+@if(Session::get('gagal'))
 <script>
 Swal.fire({
     icon: 'error',

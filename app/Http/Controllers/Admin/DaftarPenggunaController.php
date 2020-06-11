@@ -53,7 +53,7 @@ class DaftarPenggunaController extends Controller
         // Cek Apakah Password dan Konfirmasi Password Sama
         if( $request->password != $request->confPassword ) return back()
                                                                   ->with('gagal', 'Konfirmasi Password Tidak Sama')
-                                                                  ->withInput();  
+                                                                  ->withInput();
         $validation = Validator::make($request->all(), [
             'name'      => "required|string|max:255",
             'username'  => "required|string|max:255|unique:users",
@@ -88,6 +88,8 @@ class DaftarPenggunaController extends Controller
                 'password'  => Hash::make($request['password']),
                 'level'     => $request['level'],
             ]);
+
+            $data->assignRole($request['level']);
 
             return redirect('/app-admin/daftar-pengguna/' . encrypt($data->id))->with('success', "Pengguna $request->name telah ditambahkan");
         }
@@ -143,6 +145,11 @@ class DaftarPenggunaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Mengambil Data
+        $data = User::find(decrypt($id));
+
+        $nama = $data->name;
+        $data->delete();
+        return back()->with('success', "Pengguna $nama Telah Dihapus");
     }
 }

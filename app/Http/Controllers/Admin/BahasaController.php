@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Bahasa; 
+use App\Models\Bahasa;
 
 class BahasaController extends Controller
 {
@@ -110,7 +110,8 @@ class BahasaController extends Controller
             $update->nama      = $request['nama'];
             $update->save();
 
-            return redirect('/app-admin/bahasa')->with('success', "Bahasa $request->nama Telah Diubah");
+            return redirect('/app-admin/bahasa/' . encrypt($update->id) . "/edit")
+            ->with('success', "Bahasa $request->nama Telah Diupdate");
         }
     }
 
@@ -163,5 +164,17 @@ class BahasaController extends Controller
     public function download()
     {
         return response()->download(public_path('/assets/excel/file-format-import-bahasa.xlsx'));
+    }
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Bahasa::get();
+
+        foreach($data as $bahasa) {
+            Bahasa::destroy($bahasa->id);
+        }
+
+        return back()->with('success', 'Semua Bahasa Telah Dihapus');
     }
 }

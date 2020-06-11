@@ -37,7 +37,7 @@ class CreateSiswaTable extends Migration
             $table->string('kartu_identitas_nomor', 16)->nullable();
             $table->string('pengalaman_level', 128)->nullable();
             $table->string('pengalaman_level_teks', 128)->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

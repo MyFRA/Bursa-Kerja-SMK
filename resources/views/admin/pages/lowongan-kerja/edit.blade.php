@@ -35,12 +35,12 @@
                     <select name="perusahaan_id" class="form-control select2 @error('perusahaan_id') is-invalid @enderror" style="width: 100%;" required>
                         <option></option>
                         @foreach($list_perusahaan as $perusahaan)
-                        <option value="{{ $perusahaan->id }}" 
+                        <option value="{{ $perusahaan->id }}"
                             @if (old('perusahaan_id'))
                                 {{ old('perusahaan_id') == $perusahaan->id ? 'selected' : '' }}
                             @else
                                 {{ $lowongan->perusahaan_id == $perusahaan->id ? 'selected' : '' }}
-                            @endif   
+                            @endif
                                 >{{ $perusahaan->nama }}</option>
                         @endforeach
                     </select>
@@ -54,7 +54,7 @@
                 <div class="form-group">
                     <label class="font-weight-bold" for="jabatan">{{__('Posisi Pekerjaan ')}}<span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" id="jabatan" value="{{ old('jabatan') ? old('jabatan') : $lowongan->jabatan }}" required="">
-                    
+
                     @error('jabatan')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -65,7 +65,7 @@
                     <label class="font-weight-bold" for="deskripsi">{{__('Deskripsi Pekerjaan ')}}<span class="text-danger font-italic">{{__('* Wajib Diisi')}}</span></label>
                     <textarea name="deskripsi" class="summernote" style="display: none;" required="">{!! old('deskripsi') ? old('deskripsi') : $lowongan->deskripsi !!}</textarea>
                     <small style="font-size: 13px" class="form-text font-italic mt-3">{{__('Contoh : PT. Loker Indonesia Bergerak dibidang teknologi informasi saat ini membutuhkan kandidat untuk mengisi posisi sebagai : IT Programmer')}}</small>
-                
+
                     @error('deskripsi')
                         <div>
                             <p class="font-italic text-danger ml-2">{{ $message }}</p>
@@ -76,7 +76,7 @@
                     <label class="font-weight-bold" for="persyaratan">{{__('Persyaratan')}} <span class="text-danger font-italic">{{__('* Wajib Diisi')}}</span></label>
                     <textarea name="persyaratan" class="summernote" style="display: none;" required="">{{ old('persyaratan') ? old('persyaratan') : $lowongan->persyaratan }}</textarea>
                     <small style="font-size: 13px" class="form-text font-italic mt-3">{{__('Contoh : Maksimal Berusia 25 Tahun, dan tidak terikat dengan perusahaan manapun')}}</small>
-                
+
                     @error('persyaratan')
                         <div>
                             <p class="font-italic text-danger ml-2">{{ $message }}</p>
@@ -90,20 +90,20 @@
                             <optgroup label="{{ $progKeahlian->nama }}">
                                 @foreach ($kompetensi_keahlian as $kompKeahlian)
                                     @if ($kompKeahlian->program_keahlian_id == $progKeahlian->id)
-                                        <option value="{{ $kompKeahlian->nama }}" 
+                                        <option value="{{ $kompKeahlian->nama }}"
                                             @if (old('kompetensi_keahlian'))
                                                 @foreach (old('kompetensi_keahlian') as $oldKompetensiKeahlian)
                                                     @if ($oldKompetensiKeahlian == $kompKeahlian->nama)
                                                         {{ 'selected' }}
                                                     @endif
-                                                @endforeach 
+                                                @endforeach
                                             @else
                                                 <?php $lowonganKompetensiKeahlian = json_decode($lowongan->kompetensi_keahlian) ?>
                                                 @foreach ($lowonganKompetensiKeahlian as $lokerKompetensiKeahlian)
                                                     @if ($lokerKompetensiKeahlian == $kompKeahlian->nama)
                                                         {{ 'selected' }}
                                                     @endif
-                                                @endforeach 
+                                                @endforeach
                                             @endif
                                         >{{$kompKeahlian->nama}}
                                         </option>
@@ -117,13 +117,13 @@
                     <label class="font-weight-bold" for="keahlian">Keahlian <span class="text-danger">*</span></label>
                     <select class="select2" multiple="multiple" style="width: 100%;" id="keahlian" name="keahlian[]" required>
                         @foreach ($keterampilan as $item)
-                            <option value="{{ $item->nama }}" 
+                            <option value="{{ $item->nama }}"
                                 @if (old('keahlian'))
                                     @foreach (old('keahlian') as $oldKeahlian)
                                         @if ($oldKeahlian == $item->nama)
                                             {{ 'selected' }}
                                         @endif
-                                    @endforeach 
+                                    @endforeach
                                 @else
                                     <?php $keahlian = json_decode($lowongan->keahlian) ?>
                                     @foreach ($keahlian as $keahlianBy1)
@@ -133,13 +133,13 @@
                                     @endforeach
                                 @endif
                             >{{$item->nama}}</option>
-                        @endforeach   
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="font-weight-bold mt-md-3" for="gaji_min">Gaji Min <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('gaji_min') is-invalid @enderror" name="gaji_min" id="gaji_min" value="{{ old('gaji_min') ? old('gaji_min') : $lowongan->gaji_min }}" required autocomplete="off">
-                
+
                     @error('gaji_min')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -149,7 +149,7 @@
                 <div class="form-group">
                     <label class="font-weight-bold mt-md-3" for="gaji_max">Gaji Max <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('gaji_max') is-invalid @enderror" name="gaji_max" id="gaji_max" value="{{ old('gaji_max') ? old('gaji_max') : $lowongan->gaji_max }}" required autocomplete="off">
-                
+
                     @error('gaji_max')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -159,7 +159,7 @@
                 <div class="form-group">
                     <label class="font-weight-bold mt-md-3" for="batas_akhir_lamaran">Batas Akhir Lamaran <span class="text-danger">*</span></label>
                     <input type="text" class="form-control @error('batas_akhir_lamaran') is-invalid @enderror" name="batas_akhir_lamaran" id="batas_akhir_lamaran" value="{{ old('batas_akhir_lamaran') ? old('batas_akhir_lamaran') : $lowongan->batas_akhir_lamaran }}" autocomplete="off" required="">
-                
+
                     @error('batas_akhir_lamaran')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -169,7 +169,7 @@
                 <div class="form-group">
                     <label class="font-weight-bold mt-md-3" for="proses_lamaran">Proses Lamaran <span class="text-danger">*</span></label>
                     <select class="form-control @error('proses_lamaran') is-invalid @enderror" id="proses_lamaran" name="proses_lamaran" required="">
-                        <option value="Online" 
+                        <option value="Online"
                         @if (old('proses_lamaran'))
                             {{ (old('proses_lamaran') == 'Online') ? 'selected' : '' }}
                         @else
@@ -177,7 +177,7 @@
                         @endif
                     >{{__('Online')}}</option>
 
-                    <option value="Offline" 
+                    <option value="Offline"
                         @if (old('proses_lamaran'))
                             {{ (old('proses_lamaran') == 'Offline') ? 'selected' : '' }}
                         @else
@@ -185,7 +185,7 @@
                         @endif
                     >{{__('Offline')}}</option>
                     </select>
-                
+
                     @error('proses_lamaran')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -195,7 +195,7 @@
                 <div class="form-group">
                     <label class="font-weight-bold mt-md-3" for="status">Status <span class="text-danger">*</span></label>
                     <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required="">
-                        <option value="Aktif" 
+                        <option value="Aktif"
                         @if (old('status'))
                             {{ (old('status') == 'Aktif') ? 'selected' : '' }}
                         @else
@@ -203,7 +203,7 @@
                         @endif
                     >{{__('Aktif')}}</option>
 
-                    <option value="Nonaktif" 
+                    <option value="Nonaktif"
                         @if (old('status'))
                             {{ (old('status') == 'Nonaktif') ? 'selected' : '' }}
                         @else
@@ -211,25 +211,25 @@
                         @endif
                     >{{__('Nonaktif')}}</option>
 
-                    <option value="Draf" 
+                    <option value="Draf"
                         @if (old('status'))
                             {{ (old('status') == 'Draf') ? 'selected' : '' }}
                         @else
                             {{ ($lowongan->status == 'Draf') ? 'selected' : '' }}
                         @endif
-                    >{{__('Draf')}}</option>	
+                    >{{__('Draf')}}</option>
                     </select>
 
                     @error('status')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
-                    @enderror   
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label class="font-weight-bold mt-md-3" for="image">Image <span class="text-danger">*</span></label>
+                    <label class="font-weight-bold mt-md-3" for="image">Image </label>
                     <input type="file" onChange='return validasiFile()' class="form-control-file @error('image') is-invalid @enderror" id="image" name="image" >
-                
+
                     @error('image')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -308,11 +308,6 @@
                     <td width="30%">BATAS AKHIR LAMARAN</td>
                     <td width="5px">:</td>
                     <td>{{ $lowongan->batas_akhir_lamaran }}</td>
-                </tr>
-                <tr>
-                    <td width="30%">PROSES LAMARAN</td>
-                    <td width="5px">:</td>
-                    <td>{{ $lowongan->proses_lamaran }}</td>
                 </tr>
                 <tr>
                     <td width="30%">STATUS</td>
@@ -399,12 +394,12 @@
                     toolbar: [
                         ['style', ['style']],
                         ['font', ['bold', 'underline', 'clear']],
-                        ['fontname', ['fontname']],         
-                        ['color', ['color']], 
+                        ['fontname', ['fontname']],
+                        ['color', ['color']],
                         ['para', ['ul', 'ol', 'paragraph']],
                         ['table', ['table']],
                         ['insert', ['link']],
-                        ['view', ['fullscreen', 'codeview', 'help']]                 
+                        ['view', ['fullscreen', 'codeview', 'help']]
                     ]
                 })
             });
@@ -420,7 +415,7 @@
     </script>
 
     <script type="text/javascript">
-        
+
         var gaji_min = document.getElementById('gaji_min');
         gaji_min.addEventListener('keyup', function(e){
             // tambahkan 'Rp.' pada saat form di ketik
@@ -434,7 +429,7 @@
             // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
             gaji_max.value = formatRupiah(this.value, 'Rp. ');
         });
- 
+
         /* Fungsi formatRupiah */
         function formatRupiah(angka, prefix){
             var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -442,13 +437,13 @@
             sisa            = split[0].length % 3,
             rupiah          = split[0].substr(0, sisa),
             ribuan          = split[0].substr(sisa).match(/\d{3}/gi);
- 
+
             // tambahkan titik jika yang di input sudah menjadi angka ribuan
             if(ribuan){
                 separator = sisa ? '.' : '';
                 rupiah += separator + ribuan.join('.');
             }
- 
+
             rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
             return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
         }
@@ -467,7 +462,7 @@
 
             if( !ekstensiOk.exec(pathFile) ) {
                 alert('Silakan Upload File Yang Memiliki Ekstensi .jpeg, .jpg, .png, .gif, .bmp, atau .webp')
-            
+
                 inputFile.value = '';
                 return false;
             };
@@ -496,7 +491,7 @@
           previewImage.setAttribute('src', this.result);
         });
 
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
       } else {
         previewDefaultText.style.display = null;
         previewImage.style.display = null;

@@ -146,15 +146,15 @@ class PengumumanController extends Controller
         return back()->with('success', "Pengumuman $data->judul Telah Dihapus");
     }
 
-        // Fungsi Hapus Massal
-        public function hapusMassal()
-        {
-            $data = Pengumuman::get();
-    
-            foreach($data as $pengumuman) {
-                Pengumuman::destroy($pengumuman->id);
-            }
-    
-            return back()->with('success', 'Semua Pengumuman Telah Dihapus');
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Pengumuman::get();
+
+        foreach($data as $pengumuman) {
+            Pengumuman::destroy($pengumuman->id);
         }
+
+        return back()->with('success', 'Semua Pengumuman Telah Dihapus');
+    }
 }

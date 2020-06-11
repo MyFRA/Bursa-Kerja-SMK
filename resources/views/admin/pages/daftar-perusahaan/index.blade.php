@@ -9,9 +9,10 @@
                     <i class="fas fa-share-alt mr-2"></i>
                     Daftar Perusahaan
                 </h1>
+                <p class="mt-4">Dibawah adalah daftar perusahaan yang telah dibuat administrator / guru.</p>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
+                <a href="" onclick="onHapusMassal('<?= url('/app-admin/perusahaan/hapus/semua-perusahaan') ?>')" class="btn btn-danger rounded-0">
                     <i class="fas fa-trash mr-1"></i> Hapus Masal
                 </a>
                 <a href="{{ url('/app-admin/daftar-perusahaan/create') }}" class="btn btn-primary rounded-0">
@@ -31,27 +32,31 @@
                 <tr>
                     <th width="8px"></th>
                     <th width="8%"></th>
-                    <th>NAMA</th>
+                    <th>NAMA PERUSAHAAN</th>
                     <th width="30%">PROGRAM KEAHLIAN</th>
                     <th width="20%">DIPERBARUI PADA</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($items as $val)
-                    <tr>
-                        <td class="text-center"></td>
-                        <td class="text-center">
-                            <a href="{{ url('/app-admin/daftar-perusahaan/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
-                                <i class="fas fa-edit"></i>
-                            </a>
-                            <a href="#" onclick="onDestroy('<?= url('/app-admin/daftar-perusahaan/' . encrypt($val->id)) ?>', '{{ $val->nama }}')" class="mx-1 text-danger">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </td>
-                        <td>{{ $val->nama }}</td>
-                        <td>{{ $val->nama_program_keahlian }}</td>
-                        <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
-                    </tr> 
+                    @if (is_null($val->user))
+                        <tr>
+                            <td class="text-center"></td>
+                            <td class="text-center">
+                                <a href="{{ url('/app-admin/daftar-perusahaan/'.encrypt($val->id).'/edit') }}" class="mx-1 text-dark">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" onclick="onDestroy('<?= url('/app-admin/daftar-perusahaan/' . encrypt($val->id)) ?>', '{{ $val->nama }}')" class="mx-1 text-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                            <td>{{ $val->nama }}</td>
+                            <td>
+                                {{ $val->programKeahlian->nama }}
+                            </td>
+                            <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
@@ -93,7 +98,7 @@
             }
         })
         .on('select', function(e, dt, type, indexes) {
-            
+
         })
         .on('deselect', function(e, dt, type, indexes) {
             console.log(indexes);
@@ -118,6 +123,27 @@
                     document.getElementById('deleted-form').submit();
                 }
             })
+    }
+
+    function onHapusMassal(url) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'KONFIRMASI',
+            text: 'Apakah anda yakin akan menghapus massal ?, semua Perusahaan akan terhapus secara permanen !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleted-form").attr('action', url);
+
+                    document.getElementById('deleted-form').submit();
+                }
+            }
+        )
     }
 </script>
 

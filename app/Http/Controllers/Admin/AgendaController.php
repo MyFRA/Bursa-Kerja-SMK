@@ -73,25 +73,23 @@ class AgendaController extends Controller
                              ->withInput();
         }else {
 
-
-
             if ( $request->file('image') == null ) {
                 return redirect()->back()
-                             ->withErrors($validator)
-                             ->withInput()
-                             ->with('gagal', 'Gambar tidak boleh kosong');
+                                ->withErrors($validator)
+                                ->withInput()
+                                ->with('gagal', 'Gambar tidak boleh kosong');
             } else {
                 $jawaban = $this->uploadAgenda($request, $request->file('image'));
             }
 
             if ($jawaban) {
                 return redirect('/app-admin/agenda')
-                       ->with('success', "Agenda $request->judul Telah Ditambahkan");
+                        ->with('success', "Agenda $request->judul Telah Ditambahkan");
             } else {
                 return redirect()->back()
-                             ->withErrors($validator)
-                             ->withInput()
-                             ->with('gagal', 'File Yang Kamu Upload Bukan Gambar');
+                                ->withErrors($validator)
+                                ->withInput()
+                                ->with('gagal', 'File Yang Kamu Upload Bukan Gambar');
             }
         }
     }

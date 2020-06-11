@@ -12,7 +12,7 @@ use App\Models\KompetensiKeahlian;
 use App\Models\ProgramKeahlian;
 use App\Models\Keterampilan;
 use App\Models\Perusahaan;
-use App\Models\Lowongan;	
+use App\Models\Lowongan;
 
 class LowonganController extends Controller
 {
@@ -61,7 +61,7 @@ class LowonganController extends Controller
     {
         // Pengecekan apakah gambar tidak diupload
         if(is_null($request->file('image'))) return redirect()->back()->with('gagal', 'Gambar tidak boleh kosong')->withInput();
-        
+
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
             'jabatan'              => 'max:128|required',
@@ -215,7 +215,7 @@ class LowonganController extends Controller
             $namaGambar = explode('.', $request->file('image')->getClientOriginalName());
             $namaGambar = $namaGambar[0] . '-' . time() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->storeAs('public/assets/lowongan-kerja', $namaGambar);
-        
+
 
             // Mengecek apakah image terdapat di dalam storage
             $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $data->image);
@@ -255,19 +255,19 @@ class LowonganController extends Controller
     {
         $data = Lowongan::find(decrypt($id));
 
-            // Mengecek apakah image terdapat di dalam storage
-            $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $data->image);
+        // Mengecek apakah image terdapat di dalam storage
+        $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $data->image);
 
-            // Jika image terdapat di dalam storage (True), maka hapus image tsb
-            if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $data->image);
-        
+        // Jika image terdapat di dalam storage (True), maka hapus image tsb
+        if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $data->image);
+
 
         $ok = Lowongan::destroy(decrypt($id));
         if ($ok) return back()->with('success', 'Lowongan telah dihapus');
     }
 
     public function storeLowongan($request)
-    {  
+    {
         // Pengecekan file yang diupload apakah gambar / bukan
         $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
         if (!in_array($request->file('image')->getClientOriginalExtension(), $ekstensiValid)) return false;
@@ -311,11 +311,17 @@ class LowonganController extends Controller
         public function hapusMassal()
         {
             $data = Lowongan::get();
-    
+
             foreach($data as $loker) {
+                // Mengecek apakah image terdapat di dalam storage
+                $existsImage = Storage::disk('local')->exists('/public/assets/lowongan-kerja' . $loker->image);
+
+                // Jika image terdapat di dalam storage (True), maka hapus image tsb
+                if($existsImage) Storage::disk('local')->delete('/public/assets/lowongan-kerja' . $loker->image);
+
                 Lowongan::destroy($loker->id);
             }
-    
+
             return back()->with('success', 'Semua Lowongan Telah Dihapus');
         }
 }

@@ -133,6 +133,7 @@ class KompetensiKeahlianController extends Controller
 
             $data->kode = $request->kode;
             $data->nama = $request->nama;
+            $data->program_keahlian_id = $request->program_keahlian_id;
             $data->deskripsi = $request->deskripsi;
             $data->save();
 
@@ -195,11 +196,11 @@ class KompetensiKeahlianController extends Controller
         public function hapusMassal()
         {
             $data = KompetensiKeahlian::get();
-    
+
             foreach($data as $kompetensiKeahlian) {
                 KompetensiKeahlian::destroy($kompetensiKeahlian->id);
             }
-    
+
             return back()->with('success', 'Semua Kompetensi Keahlian Telah Dihapus');
         }
 }

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
-use App\Models\Faq; 
+use App\Models\Faq;
 
 class FaqController extends Controller
 {
@@ -167,5 +167,18 @@ class FaqController extends Controller
     public function download()
     {
         return response()->download(public_path('/assets/excel/file-format-import-faq.xlsx'));
+    }
+
+
+    // Fungsi Hapus Massal
+    public function hapusMassal()
+    {
+        $data = Faq::get();
+
+        foreach($data as $faq) {
+            Faq::destroy($faq->id);
+        }
+
+        return back()->with('success', 'Semua Faq Telah Dihapus');
     }
 }

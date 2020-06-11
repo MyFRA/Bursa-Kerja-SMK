@@ -36,11 +36,24 @@
                             <a href="{{ url('/app-admin/daftar-pengguna/'.encrypt($val->id)) }}" class="mx-1 text-dark">
                                 <i class="fas fa-info-circle"></i>
                             </a>
+                            {{-- Untuk Administrator --}}
+                            @if (Auth::user()->hasRole('superadmin') && !$val->hasRole('superadmin'))
+                                <a href="#" onclick="onDestroy('<?= url('/app-admin/daftar-pengguna/' . encrypt($val->id)) ?>', '{{ $val->name }}')" class="mx-1 text-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endif
+
+                            {{-- Untuk Guru --}}
+                            @if (Auth::user()->hasRole('guru') && !$val->hasRole('guru') && !$val->hasRole('superadmin'))
+                                <a href="#" onclick="onDestroy('<?= url('/app-admin/daftar-pengguna/' . encrypt($val->id)) ?>', '{{ $val->name }}')" class="mx-1 text-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            @endif
                         </td>
                         <td>{{ $val->name }}</td>
                         <td>{{ $val->level }}</td>
                         <td>{{ Carbon\Carbon::parse($val->updated_at)->format('d M Y H:i:s') }}</td>
-                    </tr> 
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -82,12 +95,33 @@
             }
         })
         .on('select', function(e, dt, type, indexes) {
-            
+
         })
         .on('deselect', function(e, dt, type, indexes) {
             console.log(indexes);
         });
     });
+
+    function onDestroy(url, nama) {
+        Swal.fire({
+            title: 'KONFIRMASI',
+            text: 'Apakah anda yakin akan menghapus Pengguna ' + nama + '?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleted-form").attr('action', url);
+
+                    event.preventDefault();
+                    document.getElementById('deleted-form').submit();
+                }
+            }
+        )
+    }
 
 </script>
 

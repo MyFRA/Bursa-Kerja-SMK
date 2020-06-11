@@ -30,17 +30,18 @@
             </thead>
             <tbody>
                 @foreach($items as $val)
-                    @if ($val->user->hasRole('perusahaan') && $val->user->hasPermissionTo('terverifikasi'))
+                    @if ($val->hasRole('perusahaan') && $val->hasPermissionTo('terverifikasi'))
                         <tr>
                             <td class="text-center"></td>
                             <td class="text-center">
                             </td>
-                            <td>{{ $val->nama }}</td>
+                            <td>{{ $val->perusahaan->nama }}</td>
                             <td class="text-center">
-                                <a href="{{ url('/app-admin/perusahaan/lihat/' . encrypt($val->id)) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Lihat</a>
+                                <a href="{{ url('/app-admin/perusahaan/lihat/' . encrypt($val->perusahaan->id)) }}" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Lihat</a>
+                                <button class="btn btn-danger btn-sm" onclick="onHapus('{{ url('/app-admin/perusahaan/tolak-verifikasi/' . encrypt($val->id)) }}', '{{ $val->name }}')"><i class="fa fa-exclamation-circle"></i> Hapus</button>
                             </td>
                             <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
-                        </tr> 
+                        </tr>
                     @endif
                 @endforeach
             </tbody>
@@ -59,6 +60,10 @@
 <form id="deleted-form" action="" method="POST" style="display: none;">
     @csrf
     @method('DELETE')
+</form>
+
+<form id="tolak-verifikasi" action="" method="POST" style="display: none;">
+    @csrf
 </form>
 
 <script src="{{ asset('/app-admin/plugins/datatables/jquery.dataTables.js') }}"></script>
@@ -83,18 +88,19 @@
             }
         })
         .on('select', function(e, dt, type, indexes) {
-            
+
         })
         .on('deselect', function(e, dt, type, indexes) {
             console.log(indexes);
         });
     });
 
-    function onDestroy(url, nama) {
+
+    function onHapus(url, nama) {
         Swal.fire({
             title: 'KONFIRMASI',
-            text: 'Apakah anda yakin akan menghapus data siswa ' + nama + '?',
-            icon: 'warning',
+            text: 'Apakah anda yakin akan menghapus perusahaan \n' + nama + '?',
+            icon: 'info',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -102,10 +108,10 @@
             cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.value) {
-                    $("#deleted-form").attr('action', url);
+                    $("#tolak-verifikasi").attr('action', url);
 
                     event.preventDefault();
-                    document.getElementById('deleted-form').submit();
+                    document.getElementById('tolak-verifikasi').submit();
                 }
             })
     }

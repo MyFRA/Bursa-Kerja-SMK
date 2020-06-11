@@ -43,7 +43,7 @@ class CreatePerusahaanTable extends Migration
             $table->text('tunjangan')->nullable();
             $table->text('overview')->nullable();
             $table->text('alasan_harus_melamar')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->foreign('bidang_keahlian_id')->references('id')->on('m_bidang_keahlian');
             $table->foreign('program_keahlian_id')->references('id')->on('m_program_keahlian');
             $table->timestamps();

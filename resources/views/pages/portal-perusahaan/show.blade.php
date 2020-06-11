@@ -28,7 +28,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col mt-4">
                 <div class="card p-4">
                     <h6 class="font-weight-bold">{{__('INFO KONTAK DAN PERUSAAAN')}}</h6>
@@ -138,26 +138,33 @@
                 <div class="own-card p-4">
                     <h5 class="font-weight-bold pb-2">{{__('Status')}}</h5>
                     <div class="d-flex align">
-                        @if ($perusahaan->user->can('melakukan verifikasi'))
-                            <i class="fa fa-exclamation-circle fa-5x mr-4 w-25 h-100  my-auto mx-auto text-danger"></i>
-                        @endif
-                        @if ($perusahaan->user->can('menunggu verifikasi diterima'))
-                            <i class="fa fa-refresh fa-5x mr-4 w-25 h-100  my-auto mx-auto text-muted"></i>
-                        @endif
-                        @if ($perusahaan->user->can('terverifikasi'))
-                            <i class="fa fa-check fa-5x mr-4 w-25 h-100  my-auto mx-auto text-success"></i>
-                        @endif
-                        <h5 class="font-weight-bold w-75 h-100 my-auto ml-3">
+                        @if (!is_null($perusahaan->user))
                             @if ($perusahaan->user->can('melakukan verifikasi'))
-                                {{__('Belum Verifikasi')}}
+                                <i class="fa fa-exclamation-circle fa-5x mr-4 w-25 h-100  my-auto mx-auto text-danger"></i>
                             @endif
                             @if ($perusahaan->user->can('menunggu verifikasi diterima'))
-                                {{__('Menunggu Verifikasi')}}
+                                <i class="fa fa-refresh fa-5x mr-4 w-25 h-100  my-auto mx-auto text-muted"></i>
                             @endif
                             @if ($perusahaan->user->can('terverifikasi'))
-                                {{__('Terverifikasi')}}
+                                <i class="fa fa-check fa-5x mr-4 w-25 h-100  my-auto mx-auto text-success"></i>
                             @endif
+                            <h5 class="font-weight-bold w-75 h-100 my-auto ml-3">
+                                @if ($perusahaan->user->can('melakukan verifikasi'))
+                                    {{__('Belum Verifikasi')}}
+                                @endif
+                                @if ($perusahaan->user->can('menunggu verifikasi diterima'))
+                                    {{__('Menunggu Verifikasi')}}
+                                @endif
+                                @if ($perusahaan->user->can('terverifikasi'))
+                                    {{__('Terverifikasi')}}
+                                @endif
+                            </h5>
+                        @else
+                        <i class="fa fa-check fa-5x mr-4 w-25 h-100  my-auto mx-auto text-success"></i>
+                        <h5 class="font-weight-bold w-75 h-100 my-auto ml-3">
+                            {{__('Perusahaan Rekomendasi Sekolah')}}
                         </h5>
+                        @endif
                     </div>
                 </div>
                 <div class="own-card p-4 mt-4">

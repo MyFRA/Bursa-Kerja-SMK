@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label for="judul">{{__('Judul Artikel')}} <span class="text-danger">*</span> </label>
                     <input type="text" value="{{ old('judul') ? old('judul') : $item->judul }}" name="judul" class="form-control form-control-lg @error('judul') is-invalid @enderror" placeholder="Masukan judul artikel disini" required/>
-                
+
                     @error('judul')
                         <span class="error invalid-feedback">{{ __($message) }}</span>
                     @enderror
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     <label for="konten">{{__('Konten')}} <span class="text-danger ">*</span> </label>
                     <textarea name="konten" rows="15" class="form-control summernote">{!! old('konten') ? old('konten') : $item->konten !!}</textarea>
-                
+
                     @error('konten')
                         <span class="text-danger">{{ __($message) }}</span>
                     @enderror
@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label for="deskripsi">{{__('Deskripsi')}} <span class="text-danger">*</span> </label>
                     <textarea id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3" name="deskripsi" placeholder="Tulis Deskripsi ..." required>{{ old('deskripsi') ? old('deskripsi') : $item->deskripsi }}</textarea>
-                    
+
                     @error('deskripsi')
                         <span class="error invalid-feedback">{{ __($message) }}</span>
                     @enderror
@@ -73,7 +73,7 @@
                     <div class="card-body p-2">
                         <small class="p-0 m-0 d-block">
                             {{__('STATUS: ')}}
-                            <span class="font-weight-bold mr-1">{{ $item->status }}</span> 
+                            <span class="font-weight-bold mr-1">{{ $item->status }}</span>
                             <a href="" onclick="tampilkanStatus()"><i class="fas fa-edit"></i></a>
                         </small>
                         <small class="p-0 m-0 d-block">
@@ -84,13 +84,13 @@
                             {{__('PUBLISH PADA:')}} <br />
                             <span class="font-weight-bold mr-1">
                                 {{ $item->created_at->format('d M Y H:i:s') }}
-                            </span> 
+                            </span>
                         </small>
                         <small class="p-0 m-0 d-block">
                             {{__('DIPERBARUI PADA: ')}}<br />
                             <span class="font-weight-bold mr-1">
                                 {{ $item->updated_at->format('d M Y H:i:s') }}
-                            </span> 
+                            </span>
                         </small>
                     </div>
                     <div class="card-footer text-right p-2">
@@ -131,6 +131,8 @@
                     <div class="card-body p-2">
                         <div class="form-group">
                             <img class="img-fluid img-thumbnail image-preview__image" src="{{ asset('/storage/assets/artikel') }}/{{ $item->image }}" alt="">
+                            <br><br>
+                            <label for="image">Pilih Gambar</label>
                             <div class="custom-file">
                               <input id="inpFile" onChange='return validasiFile()' type="file" class="custom-file-input" name="image">
                               <label class="custom-file-label" for="customFile">{{__('Choose file')}}</label>
@@ -150,21 +152,21 @@
                     <div class="card-body p-2">
                         <div class="form-group">
                             <select name="status" class="form-control" required>
-                                <option value="Aktif" 
+                                <option value="Aktif"
                                 @if (old('status'))
                                     {{ old('status') == 'Aktif' ? 'selected' : '' }}
                                 @else
                                     {{ $item->status == 'Aktif' ? 'selected' : '' }}
                                 @endif
                                 >{{__('Aktif')}}</option>
-                                <option value="Nonaktif" 
+                                <option value="Nonaktif"
                                 @if (old('status'))
                                     {{ old('status') == 'Nonaktif' ? 'selected' : '' }}
                                 @else
                                     {{ $item->status == 'Nonaktif' ? 'selected' : '' }}
                                 @endif
                                 >{{__('Nonaktif')}}</option>
-                                <option value="Draf" 
+                                <option value="Draf"
                                 @if (old('status'))
                                     {{ old('status') == 'Draf' ? 'selected' : '' }}
                                 @else
@@ -214,12 +216,12 @@
         toolbar: [
             ['style', ['style']],
             ['font', ['bold', 'underline', 'clear']],
-            ['fontname', ['fontname']],         
-            ['color', ['color']], 
+            ['fontname', ['fontname']],
+            ['color', ['color']],
             ['para', ['ul', 'ol', 'paragraph']],
             ['table', ['table']],
             ['insert', ['link']],
-            ['view', ['fullscreen', 'codeview', 'help']]                 
+            ['view', ['fullscreen', 'codeview', 'help']]
         ]
     })
   })
@@ -237,8 +239,8 @@
           previewImage.setAttribute('src', this.result);
         });
 
-        reader.readAsDataURL(file); 
-      } 
+        reader.readAsDataURL(file);
+      }
     });
 </script>
 
@@ -259,7 +261,7 @@
 
         if( !ekstensiOk.exec(pathFile) ) {
             alert('Silakan Upload File Yang Memiliki Ekstensi .jpeg, .jpg, .png, .bmp, . webp atau .gif');
-        
+
             inputFile.value = '';
             return false;
         };

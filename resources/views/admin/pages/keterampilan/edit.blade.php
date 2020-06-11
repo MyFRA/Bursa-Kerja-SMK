@@ -61,11 +61,11 @@
     <div class="col-md-8">
         <div class="border p-3">
             <h6 class="text-uppercase border-bottom font-weight-bold font-size-sm pb-2">
-                <i class="fas fa-info-circle mr-2"></i>DETAIL BIDANG PEKERJAAN
+                <i class="fas fa-info-circle mr-2"></i>DETAIL KETERAMPILAN
             </h6>
             <table class="table table-striped table-sm">
                 <tr>
-                    <td width="30%">NAMA KETERAPILAN</td>
+                    <td width="30%">NAMA KETERAMPILAN</td>
                     <td width="5px">:</td>
                     <td>{{ $item->nama }}</td>
                 </tr>

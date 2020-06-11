@@ -11,7 +11,7 @@
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
+                <a href="" onclick="onHapusMassal('<?= url('/app-admin/faq/hapus/semua-faq') ?>')" class="btn btn-danger rounded-0">
                     <i class="fas fa-trash mr-1"></i> Hapus Masal
                 </a>
                 <a href="{{ url('/app-admin/faq/import') }}" class="btn btn-default rounded-0">
@@ -52,7 +52,7 @@
                         </td>
                         <td>{{ $val->pertanyaan }}</td>
                         <td>{{ Carbon\Carbon::parse($val->updated_at)->format('d M Y H:i:s') }}</td>
-                    </tr> 
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -94,7 +94,7 @@
             }
         })
         .on('select', function(e, dt, type, indexes) {
-            
+
         })
         .on('deselect', function(e, dt, type, indexes) {
             console.log(indexes);
@@ -118,7 +118,29 @@
                     event.preventDefault();
                     document.getElementById('deleted-form').submit();
                 }
-            })
+            }
+        )
+    }
+
+    function onHapusMassal(url) {
+        event.preventDefault();
+        Swal.fire({
+            title: 'KONFIRMASI',
+            text: 'Apakah anda yakin akan menghapus massal ?, semua FAQ akan terhapus secara permanen !',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.value) {
+                    $("#deleted-form").attr('action', url);
+
+                    document.getElementById('deleted-form').submit();
+                }
+            }
+        )
     }
 </script>
 
