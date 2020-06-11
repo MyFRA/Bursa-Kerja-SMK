@@ -18,7 +18,7 @@ class GuestSiswa
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/');
+            return redirect('/siswa/beranda');
         }
 
         return $next($request);

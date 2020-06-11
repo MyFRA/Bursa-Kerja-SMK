@@ -12,9 +12,16 @@ use Illuminate\Support\Facades\Response;
 use App\Models\BidangKeahlian;
 use App\Models\ProgramKeahlian;
 use App\Models\Perusahaan;
+use App\Models\Negara;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
+use App\Models\Bahasa;
 
 class PerusahaanController extends Controller
 {
+
+    private $id;
+
     /**
      * Display a listing of the resource.
      *
@@ -41,11 +48,12 @@ class PerusahaanController extends Controller
     public function create()
     {
         $data = array(
-            'user_id' => Auth::user()->id,
             'title' => 'Perusahaan',
             'nav'   => 'daftar-perusahaan',
             'bidangKeahlian' => BidangKeahlian::orderBy('nama', 'ASC')->get(),
             'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'negara' => Negara::orderBy('nama_negara', 'ASC')->pluck('nama_negara'),
+            'bahasa'            => Bahasa::orderBy('nama', 'ASC')->get(['nama']),
         );
 
         return view('admin.pages.daftar-perusahaan.create', $data);
@@ -59,9 +67,6 @@ class PerusahaanController extends Controller
      */
     public function store(Request $request)
     {
-        // Pengecekan apakah input user_id = Auth::user()->id
-        if( $request->user_id != Auth::user()->id ) return redirect()->back()->with('gagal', 'User ID tidak sama');
-
         // Pengecekan apakah bidang keahlian || program keahlian tidak terdapat di database
         if( BidangKeahlian::find($request->bidang_keahlian_id)->count() < 0 || ProgramKeahlian::find($request->program_keahlian_id < 0 ) ) {
             return redirect()->back()
@@ -70,7 +75,6 @@ class PerusahaanController extends Controller
 
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
-            'user_id'               => 'required',
             'bidang_keahlian_id'    => 'required',
             'program_keahlian_id'   => 'required',
             'nama'                  => 'required|max:128',
@@ -83,7 +87,7 @@ class PerusahaanController extends Controller
             'linkedin'              => 'max:64',
             'alamat'                => 'max:128',
             'kodepos'               => 'max:8',
-            'kabupaten'             => 'max:32',
+            'kabupaten'             => 'max:64',
             'provinsi'              => 'max:32',
             'negara'                => 'max:32',
             'jumlah_karyawan'       => 'max:16',
@@ -92,7 +96,6 @@ class PerusahaanController extends Controller
             'bahasa'                => 'max:128',
             'waktu_bekerja'         => 'max:64',
         ], [
-            'user_id.required'            => 'id tidak boleh kosong',
             'bidang_keahlian_id.required' => 'bidang keahlian harus diisi',
             'program_keahlian_id.required'=> 'program keahlian harus diisi',
             'nama.required'               => 'nama harus diisi',
@@ -105,13 +108,13 @@ class PerusahaanController extends Controller
             'instagram.max'               => 'instagram maksimal 64 karakter',
             'linkedin.max'                => 'linkedin maksimal 64 karakter',
             'jumlah_karyawan.max'         => 'jumlah karyawan maksimal 16 karakter',
-            'alamat.max'                  => 'alamat maksimal 128 karakter', 
-            'kodepos.max'                 =>  'kodepos maksimal 8 karakter', 
-            'kabupaten.max'               =>  'kabupaten maksimal 32 karakter', 
-            'provinsi.max'                =>  'provinsi maksimal 32 karakter', 
-            'negara.max'                  =>  'negara maksimal 32 karakter', 
+            'alamat.max'                  => 'alamat maksimal 128 karakter',
+            'kodepos.max'                 =>  'kodepos maksimal 8 karakter',
+            'kabupaten.max'               =>  'kabupaten maksimal 32 karakter',
+            'provinsi.max'                =>  'provinsi maksimal 32 karakter',
+            'negara.max'                  =>  'negara maksimal 32 karakter',
             'waktu_proses_perekrutan.max' => 'waktu proses perekrutan maksimal 32 karakter',
-            'gaya_berpakaian.max'         => 'gaya berpakaian maksimal 128 karakter', 
+            'gaya_berpakaian.max'         => 'gaya berpakaian maksimal 128 karakter',
             'bahasa.max'                  => 'bahasa maksimal 128 karakter',
             'waktu_bekerja.max'           => 'waktu bekerja maksimal 64 karakter',
         ]);
@@ -126,7 +129,7 @@ class PerusahaanController extends Controller
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Perusahaan Gagal )
             if( $this->storePerusahaan($request) != true ) return redirect()->back()->with('gagal', 'Logo atau Image yang kamu upload bukan gambar')->withInput();
             // Lolos Pengecekan, Insert Data Perusahaan Berhasil
-            return redirect('/app-admin/daftar-perusahaan')->with('success', "Perusahaan $request->nama_pertama telah ditambahkan");
+            return redirect('/app-admin/daftar-perusahaan/'. encrypt($this->id) . '/edit')->with('success', "Perusahaan $request->nama_pertama telah ditambahkan");
         }
     }
 
@@ -144,7 +147,7 @@ class PerusahaanController extends Controller
     public function ajax($bkID)
     {
         $program_keahlian = ProgramKeahlian::where('bidang_keahlian_id', $bkID)->get();
-        
+
         return Response::json($program_keahlian);
     }
 
@@ -156,14 +159,21 @@ class PerusahaanController extends Controller
      */
     public function edit($id)
     {
+        $perusahaan = Perusahaan::find(decrypt($id));
+        $negara = Negara::where('nama_negara', $perusahaan->negara)->first();
+        $provinsi = Provinsi::where('nama_provinsi', $perusahaan->provinsi)->first();
+
         $data = array(
             'title' => 'Perusahaan',
             'nav'   => 'perusahaan',
             'item'  => Perusahaan::find(decrypt($id)),
-            'namaBidangKeahlian' => BidangKeahlian::find(Perusahaan::find(decrypt($id))->bidang_keahlian_id)->nama,
-            'namaProgramKeahlian' => ProgramKeahlian::find(Perusahaan::find(decrypt($id))->bidang_keahlian_id)->nama,
-            'bidangKeahlian' => BidangKeahlian::orderBy('nama', 'ASC')->get(),
-            'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'bidangKeahlian'    => BidangKeahlian::get(),
+            'programKeahlian'   => ProgramKeahlian::where('bidang_keahlian_id', $perusahaan->bidang_keahlian_id)->get(),
+            'negara'            => Negara::get(),
+            'provinsi'          => Provinsi::where('negara_id', $negara->id)->get(),
+            'kabupaten'         => Kabupaten::where('provinsi_id', $provinsi->id)->get(),
+            'bahasa'            => Bahasa::get(),
+            'perusahaan'        => $perusahaan,
         );
 
         return view('admin.pages.daftar-perusahaan.edit', $data);
@@ -198,7 +208,7 @@ class PerusahaanController extends Controller
             'linkedin'              => 'max:64',
             'alamat'                => 'max:128',
             'kodepos'               => 'max:8',
-            'kabupaten'             => 'max:32',
+            'kabupaten'             => 'max:64',
             'provinsi'              => 'max:32',
             'negara'                => 'max:32',
             'jumlah_karyawan'       => 'max:16',
@@ -207,7 +217,6 @@ class PerusahaanController extends Controller
             'bahasa'                => 'max:128',
             'waktu_bekerja'         => 'max:64',
         ], [
-            'user_id.required'            => 'id tidak boleh kosong',
             'bidang_keahlian_id.required' => 'bidang keahlian harus diisi',
             'program_keahlian_id.required'=> 'program keahlian harus diisi',
             'nama.required'               => 'nama harus diisi',
@@ -220,13 +229,13 @@ class PerusahaanController extends Controller
             'instagram.max'               => 'instagram maksimal 64 karakter',
             'linkedin.max'                => 'linkedin maksimal 64 karakter',
             'jumlah_karyawan.max'         => 'jumlah karyawan maksimal 16 karakter',
-            'alamat.max'                  => 'alamat maksimal 128 karakter', 
-            'kodepos.max'                 =>  'kodepos maksimal 8 karakter', 
-            'kabupaten.max'               =>  'kabupaten maksimal 32 karakter', 
-            'provinsi.max'                =>  'provinsi maksimal 32 karakter', 
-            'negara.max'                  =>  'negara maksimal 32 karakter', 
+            'alamat.max'                  => 'alamat maksimal 128 karakter',
+            'kodepos.max'                 =>  'kodepos maksimal 8 karakter',
+            'kabupaten.max'               =>  'kabupaten maksimal 32 karakter',
+            'provinsi.max'                =>  'provinsi maksimal 32 karakter',
+            'negara.max'                  =>  'negara maksimal 32 karakter',
             'waktu_proses_perekrutan.max' => 'waktu proses perekrutan maksimal 32 karakter',
-            'gaya_berpakaian.max'         => 'gaya berpakaian maksimal 128 karakter', 
+            'gaya_berpakaian.max'         => 'gaya berpakaian maksimal 128 karakter',
             'bahasa.max'                  => 'bahasa maksimal 128 karakter',
             'waktu_bekerja.max'           => 'waktu bekerja maksimal 64 karakter',
         ]);
@@ -240,7 +249,7 @@ class PerusahaanController extends Controller
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Siswa Gagal )
             if( $this->updatePerusahaan($request, $id) != true ) return redirect()->back()->with('gagal', 'File yang kamu upload bukan gambar')->withInput();
             // Lolos Pengecekan, Insert Data Siswa Berhasil
-            return redirect('/app-admin/daftar-perusahaan')->with('success', "Data perusahaan $request->nama telah diubah");
+            return redirect('/app-admin/daftar-perusahaan/'. encrypt($this->id) . '/edit')->with('success', "Data perusahaan $request->nama telah diubah");
         }
     }
 
@@ -258,17 +267,17 @@ class PerusahaanController extends Controller
         // Cek Logo
             // Mengecek apakah logo terdapat di dalam storage
             $existsLogo = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/logo/' . $data->logo);
-        
+
             // Jika logo terdapat di dalam storage (True), maka hapus logo tsb
             if($existsLogo) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/logo/' . $data->logo);
-        
+
         // Cek Image
             // Mengecek apakah image terdapat di dalam storage
             $existsImage = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/image/' . $data->image);
-        
+
             // Jika image terdapat di dalam storage (True), maka hapus image tsb
             if($existsImage) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/image/' . $data->image);
-        
+
         // Menghapus row Perusahaan dimana id = $id
         Perusahaan::destroy(decrypt($id));
         return back()->with('success', "Data Perusahaan $data->nama telah dihapus");
@@ -278,11 +287,12 @@ class PerusahaanController extends Controller
 
 
     public function storePerusahaan($request)
-    {   
+    {
         // Pengecekan jika tidak ada gambar yang diupload, baik logo ataupun image
         if (is_null($request->file('image')) && is_null($request->file('logo'))) {
             // Insert data Perusahaan dan mengembalikan nilai True
-            Perusahaan::create($request->all());
+            $dataPerusahaan = Perusahaan::create($request->all());
+            $this->id = $dataPerusahaan->id;
             return true;
         } else {
             // Pengecekan Logo
@@ -293,7 +303,7 @@ class PerusahaanController extends Controller
                     // Jika ternyata, ada file yang diupload di logo, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
                     if (!in_array($request->file('logo')->getClientOriginalExtension(), $ekstensiValid)) return false;
-                    
+
                     // Lolos Pengecekan ( File (logo) = Gambar ) & File Siap Diupload
                     $namaLogo = explode('.', $request->file('logo')->getClientOriginalName());
                     $namaLogo = $namaLogo[0] . '_' . time() . '.' . $request->file('logo')->getClientOriginalExtension();
@@ -308,7 +318,7 @@ class PerusahaanController extends Controller
                     // Jika ternyata, ada file yang diupload di image, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
                     if (!in_array($request->file('image')->getClientOriginalExtension(), $ekstensiValid)) return false;
-                    
+
                     // Lolos Pengecekan ( File (image) = Gambar ) & File Siap Diupload
                     $namaImage = explode('.', $request->file('image')->getClientOriginalName());
                     $namaImage = $namaImage[0] . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
@@ -316,8 +326,7 @@ class PerusahaanController extends Controller
                 }
 
             // Insert data perusahaaan dan mengembalikan nilai True
-            Perusahaan::create([
-                'user_id'               => $request->user_id,
+            $dataPerusahaan = Perusahaan::create([
                 'bidang_keahlian_id'    => $request->bidang_keahlian_id,
                 'program_keahlian_id'   => $request->program_keahlian_id,
                 'nama'                  => $request->nama,
@@ -346,6 +355,8 @@ class PerusahaanController extends Controller
                 'overview'              => $request->overview,
                 'alasan_harus_melamar'  => $request->alasan_harus_melamar,
             ]);
+
+            $this->id = $dataPerusahaan->id;
             return true;
         }
     }
@@ -385,6 +396,8 @@ class PerusahaanController extends Controller
                 'overview'              => $request->overview,
                 'alasan_harus_melamar'  => $request->alasan_harus_melamar,
             ]);
+
+            $this->id = $data->id;
             return true;
         } else {
             // Pengecekan Logo
@@ -395,7 +408,7 @@ class PerusahaanController extends Controller
                     // Jika ternyata, ada file yang diupload di logo, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
                     if (!in_array($request->file('logo')->getClientOriginalExtension(), $ekstensiValid)) return false;
-                    
+
                     // Lolos Pengecekan ( File (logo) = Gambar ) & File Siap Diupload
                     $namaLogo = explode('.', $request->file('logo')->getClientOriginalName());
                     $namaLogo = $namaLogo[0] . '_' . time() . '.' . $request->file('logo')->getClientOriginalExtension();
@@ -403,10 +416,10 @@ class PerusahaanController extends Controller
 
                     // Mengecek apakah logo lama terdapat di dalam storage
                     $existsLogo = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/logo/' . $data->logo);
-        
+
                     // Jika logo lama terdapat di dalam storage (True), maka hapus logo tsb
                     if($existsLogo) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/logo/' . $data->logo);
-                }  
+                }
 
             // Pengecekan image
                 // Pengecekan apakah image tidak diupload, jika iya, maka $image = NULL
@@ -416,15 +429,15 @@ class PerusahaanController extends Controller
                     // Jika ternyata, ada file yang diupload di image, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
                     if (!in_array($request->file('image')->getClientOriginalExtension(), $ekstensiValid)) return false;
-                    
+
                     // Lolos Pengecekan ( File (image) = Gambar ) & File Siap Diupload
                     $namaImage = explode('.', $request->file('image')->getClientOriginalName());
                     $namaImage = $namaImage[0] . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
                     $request->file('image')->storeAs('public/assets/daftar-perusahaan/image', $namaImage);
-                
+
                     // Mengecek apakah image terdapat di dalam storage
                     $existsImage = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/image/' . $data->image);
-        
+
                     // Jika image terdapat di dalam storage (True), maka hapus image tsb
                     if($existsImage) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/image/' . $data->image);
                 }
@@ -459,6 +472,8 @@ class PerusahaanController extends Controller
                     'overview'              => $request->overview,
                     'alasan_harus_melamar'  => $request->alasan_harus_melamar,
                 ]);
+
+                $this->id = $data->id;
                 return true;
         }
     }

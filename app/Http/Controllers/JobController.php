@@ -58,7 +58,7 @@ class JobController extends Controller
 
         return view('pages.jobs.index', $data);
     }
-    
+
     /**
      * Show the application job list with condidition from input.
      *

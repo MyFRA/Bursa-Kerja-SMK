@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-12 mt-n3 d-flex justify-content-between align-items-center">
                 <h3 class="page-title"><i class="fa fa-bullhorn mr-3"></i>{{__('Pengumuman')}}</h3>
-    
+
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/pengumuman') }}">{{__('pengumuman')}}</a></li>
@@ -27,19 +27,19 @@
                         </div>
                         <div class="px-4 row mt-1 mb-4">
                             <div class="col-12">
-                                <h5 class="font-weight-bold d-inline mr-2">{{__('Bagikan ke: ')}}</h5>
-                                <button class="btn btn-primary btn-sm rounded-0">
+                                <h5 class="font-weight-bold d-md-inline mr-2">{{__('Bagikan ke: ')}}</h5>
+                                <a href="http://www.facebook.com/sharer.php?u={{ url('/artikel/' . $pengumuman->link) }}" class="btn btn-primary btn-sm rounded-0" target="_blank">
                                     <i class="fa fa-facebook-square mr-1"></i>
                                     {{__('Facebook')}}
-                                </button>
-                                <button class="btn btn-info btn-sm text-white rounded-0">
+                                </a>
+                                <a href="https://twitter.com/share?url={{ url('/artikel/' . $pengumuman->link) }}" class="btn btn-info btn-sm text-white rounded-0" target="_blank">
                                     <i class="fa fa-twitter-square mr-1"></i>
                                    {{__(' Twitter')}}
-                                </button>
-                                <button class="btn btn-success btn-sm rounded-0">
+                                </a>
+                                <a href="whatsapp://send?text={{ url('/artikel/' . $pengumuman->link) }}" class="btn btn-success btn-sm rounded-0" target="_blank">
                                     <i class="fa fa-whatsapp mr-1"></i>
                                     {{__('Whatsapp')}}
-                                </button>
+                                </a>
                             </div>
                         </div>
 

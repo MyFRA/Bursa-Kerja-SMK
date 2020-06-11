@@ -28,14 +28,13 @@
     <div class="col-md-5">
         <form action="{{ route('daftar-perusahaan.store') }}" method="post" class="card" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="user_id" value="{{ $user_id }}">
             <div class="card-body">
                 <div class="form-group">
                     <label for="bidang_keahlian_id">Bidang Keahlian<span class="text-danger">*</span></label>
                     <select name="bidang_keahlian_id" id="bidang_keahlian_id" class="form-control custom-select" required="">
                         <option value="" disabled="" selected="">-- Pilih Bidang Keahlian --</option>
                         @foreach ($bidangKeahlian as $bidangKeahlianPerOne)
-                            <option value="{{ $bidangKeahlianPerOne->id }}">{{ $bidangKeahlianPerOne->nama }}</option>
+                            <option value="{{ $bidangKeahlianPerOne->id }}" {{ old('bidang_keahlian_id') == $bidangKeahlianPerOne->id ? 'selected' : '' }}>{{ $bidangKeahlianPerOne->nama }}</option>
                         @endforeach
                     </select>
                     @error('bidang_keahlian_id')
@@ -47,10 +46,11 @@
                 <div class="form-group">
                     <label for="program_keahlian_id">Program Keahlian<span class="text-danger">*</span></label>
                     <select name="program_keahlian_id" id="program_keahlian_id" class="form-control custom-select" required="">
-                        <option value="" disabled="" selected="">-- Pilih Program Keahlian --</option>
-                        {{-- @foreach ($programKeahlian as $programKeahlianPerOne)
-                            <option value="{{ $programKeahlianPerOne->id }}">{{ $programKeahlianPerOne->nama }}</option>
-                        @endforeach --}}
+                        @if (old('program_keahlian_id'))
+                            <option value="{{ old('program_keahlian_id') }}">{{ $bidangKeahlianPerOne->nama }}</option>
+                        @else
+                            <option value="" disabled="" selected="">-- Pilih Program Keahlian --</option>
+                        @endif
                     </select>
                     @error('program_keahlian_id')
                         <span class="invalid-feedback" role="alert">
@@ -59,7 +59,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="nama">nama<span class="text-danger">*</span></label>
+                    <label for="nama">Nama Perusahaan<span class="text-danger">*</span></label>
                     <input required="" type="text" name="nama" value="{{ old('nama') }}" class="form-control @error('nama') is-invalid @enderror" / >
 
                     @error('nama')
@@ -72,9 +72,9 @@
                     <label for="kategori">Kategori<span class="text-danger">*</span></label>
                     <select name="kategori" id="" class="form-control custom-select" required="">
                         <option value="" disabled="" selected>-- Pilih Kategori --</option>
-                        <option value="Negeri">Negeri</option>
-                        <option value="Swasta">Swasta</option>
-                        <option value="BUMN">BUMN</option>
+                        <option value="Negeri {{ old('kategori') == 'Negeri' ? 'selected' : '' }}">Negeri</option>
+                        <option value="Swasta" {{ old('kategori') == 'Swasta' ? 'selected' : '' }}>Swasta</option>
+                        <option value="BUMN" {{ old('kategori') == 'BUMN' ? 'selected' : '' }}>BUMN</option>
                     </select>
                     @error('kategori')
                         <span class="invalid-feedback" role="alert">
@@ -185,7 +185,7 @@
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
                     <textarea id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat') }}</textarea>
-                
+
                     @error('alamat')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -193,34 +193,41 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="kabupaten">Kabupaten</label>
-                    <input type="text" name="kabupaten" value="{{ old('kabupaten') }}" class="form-control @error('kabupaten') is-invalid @enderror" / >
+                    <label class="text-muted" for="negara">Negara </label>
 
-                    @error('kabupaten')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="provinsi">Provinsi</label>
-                    <input type="text" name="provinsi" value="{{ old('provinsi') }}" class="form-control @error('provinsi') is-invalid @enderror" / >
-
-                    @error('provinsi')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="negara">Negara</label>
-                    <input type="text" name="negara" value="{{ old('negara') }}" class="form-control @error('negara') is-invalid @enderror" / >
+                    <select class="form-control" name="negara" id="negara" @error('negara') style="border: 1px solid red" @enderror>
+                        <option value="" selected >Pilih Negara</option>
+                        @foreach ($negara as $item)
+                            <option value="{{ $item }}" {{ old('negara') == $item ? 'selected' : '' }}>{{ $item }}</option>
+                        @endforeach
+                    </select>
 
                     @error('negara')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <div class="ml-2 mt-2 text-danger">
+                           {{ $message }}
+                        </div>
                     @enderror
+                </div>
+                <div class="form-group">
+                    <label class="text-muted" for="provinsi">Provinsi</label>
+
+                    <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                        <option value="" selected="" disabled="">{{__('Pilih Provinsi')}}</option>
+                    </select>
+
+                    @error('provinsi')
+                        <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="kabupaten">{{__('Kabupaten')}}</label>
+                    <select class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten">
+                        <option value="" selected disabled>{{__('Pilih Kabupaten')}}</option>
+                    </select>
+
+                      @error('kabupaten')
+                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+                      @enderror
                 </div>
                 <div class="form-group">
                     <label for="kodepos">Kode Pos</label>
@@ -263,15 +270,18 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="bahasa">Bahasa</label>
-                    <input type="text" name="bahasa" value="{{ old('bahasa') }}" class="form-control @error('bahasa') is-invalid @enderror" / >
+                    <label for="bahasa">{{__('Bahasa')}}</label>
+                    <select class="form-control @error('bahasa') is-invalid @enderror" id="bahasa" name="bahasa">
+                          <option value="" selected="" disabled="">{{__('Pilih Bahasa')}}</option>
+                      @foreach ($bahasa as $bhs)
+                          <option value="{{ $bhs->nama }}" {{ old('bahasa') == $bhs->nama ? 'selected' : '' }}>{{$bhs->nama}}</option>
+                      @endforeach
+                    </select>
 
-                    @error('bahasa')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
+                      @error('bahasa')
+                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+                      @enderror
+                  </div>
                 <div class="form-group">
                     <label for="waktu_bekerja">Waktu Bekerja</label>
                     <input type="text" name="waktu_bekerja" value="{{ old('waktu_bekerja') }}" class="form-control @error('waktu_bekerja') is-invalid @enderror" / >
@@ -285,7 +295,7 @@
                 <div class="form-group">
                     <label for="tunjangan">Tunjangan</label>
                     <textarea id="tunjangan" name="tunjangan" class="form-control @error('tunjangan') is-invalid @enderror" rows="4">{{ old('tunjangan') }}</textarea>
-                
+
                     @error('tunjangan')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -293,24 +303,20 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="overview">Overiew</label>
-                    <textarea id="overview" name="overview" class="form-control @error('overview') is-invalid @enderror" rows="4">{{ old('overview') }}</textarea>
-                
+                    <label for="overview">{{__('Gambaran Perusahaan')}}</label>
+                    <textarea name="overview" class="summernote" style="display: none;" >{{ old('overview') }}</textarea>
+
                     @error('overview')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                        <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="alasan_harus_melamar">Alasan Harus Melamar</label>
-                    <textarea id="alasan_harus_melamar" name="alasan_harus_melamar" class="form-control @error('alasan_harus_melamar') is-invalid @enderror" rows="4">{{ old('alasan_harus_melamar') }}</textarea>
-                
-                    @error('alasan_harus_melamar')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                    <label for="alasan_harus_melamar">{{__('Alasan Harus Melamar')}}</label>
+                    <textarea name="alasan_harus_melamar" class="summernote" style="display: none;" >{{ old('alasan_harus_melamar') }}</textarea>
+
+                      @error('alasan_harus_melamar')
+                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+                      @enderror
                 </div>
             </div>
             <div class="card-footer text-right">
@@ -378,10 +384,34 @@
 
 @section('stylesheet')
 <link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('/plugins/summernote/summernote-lite.min.css') }}">
 @endsection
 
 @section('script')
+<script src="{{ asset('/plugins/tags-autocomplete/jquery.min.js') }}"></script>
 <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('/plugins/summernote/summernote-lite.min.js') }}"></script>
+
+<script>
+    // Fungsi Pembuatan Summernote ( WYSIYG )
+    (function($) {
+        $(document).ready(function(){
+            $('.summernote').summernote({
+                height: 175,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            })
+        });
+    })(jQuery);
+</script>
 <script>
     const inpFile = document.getElementById('image');
     const previewContainer = document.getElementById('imagePreview');
@@ -401,7 +431,7 @@
           previewImage.setAttribute('src', this.result);
         });
 
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
       } else {
         previewDefaultText.style.display = null;
         previewImage.style.display = null;
@@ -429,7 +459,7 @@
           previewImage2.setAttribute('src', this.result);
         });
 
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
       } else {
         previewDefaultText2.style.display = null;
         previewImage2.style.display = null;
@@ -452,6 +482,41 @@
         })
     });
 </script>
+
+<script>
+    const pilihProv = document.getElementById('provinsi');
+    const pilihKab = document.getElementById('kabupaten');
+
+    document.getElementById('negara').addEventListener('change', function(e) {
+        let nama_negara = e.target.value;
+        fetch('/getProvinsi/' + nama_negara)
+        .then(response => response.json())
+        .then(response => {
+            let opsiProv;
+
+            response.forEach(function(m) {
+                opsiProv += "<option value='"+ m.nama_provinsi +"'>"+ m.nama_provinsi +"</option>";
+                pilihProv.innerHTML = opsiProv;
+                pilihKab.innerHTML = '<option value="" selected disabled>Pilih Kabupaten</option>';
+            })
+        });
+    });
+
+    document.getElementById('provinsi').addEventListener('change', function(e) {
+        let nama_provinsi = e.target.value;
+        fetch('/getKabupaten/' + nama_provinsi)
+        .then(response => response.json())
+        .then(response => {
+            let opsiKab;
+
+            response.forEach(function(m) {
+                opsiKab += "<option value='"+ m.nama_kabupaten +"'>"+ m.nama_kabupaten +"</option>";
+                pilihKab.innerHTML = opsiKab
+            })
+        });
+    });
+</script>
+
 @if(Session::get('success'))
 <script>
 Swal.fire(

@@ -31,33 +31,45 @@
             @method('PUT')
             <div class="card-body">
                 <div class="form-group">
-                    <label for="bidang_keahlian_id">Bidang Keahlian<span class="text-danger">*</span></label>
-                    <select name="bidang_keahlian_id" id="" class="form-control custom-select" required="">
-                        @foreach ($bidangKeahlian as $bidangKeahlianPerOne)
-                            <option value="{{ $bidangKeahlianPerOne->id }}" {{ ($bidangKeahlianPerOne->id == $item->bidang_keahlian_id ? "selected" : '') }}>{{ $bidangKeahlianPerOne->nama }}</option>
+                    <label for="pilih_bidang_keahlian">{{__('Bidang Keahlian')}} <span class="text-danger">{{__('*')}}</span></label>
+                    <select class="form-control @error('bidang_keahlian_id') is-invalid @enderror" id="pilih_bidang_keahlian" name="bidang_keahlian_id" required>
+                        <option value="" selected="" disabled="">{{__('-- Pilih Bidang Keahlian --')}}</option>
+                        @foreach ($bidangKeahlian as $bk)
+                            <option value="{{ $bk->id }}"
+                                @if (old('bidang_keahlian_id'))
+                                    {{ (old('bidang_keahlian_id') == $bk->id) ? 'selected' : '' }}
+                                @else
+                                    {{ ($perusahaan->bidang_keahlian_id == $bk->id) ? 'selected' : '' }}
+                                @endif
+                            >{{$bk->nama}}</option>
                         @endforeach
                     </select>
+
                     @error('bidang_keahlian_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="program_keahlian_id">Program Keahlian<span class="text-danger">*</span></label>
-                    <select name="program_keahlian_id" id="" class="form-control custom-select" required="">
-                        @foreach ($programKeahlian as $programKeahlianPerOne)
-                            <option value="{{ $programKeahlianPerOne->id }}" {{ ($programKeahlianPerOne->id == $item->program_keahlian_id ? "selected" : '') }}>{{ $programKeahlianPerOne->nama }}</option>
+                    <label for="pilih_program_keahlian">{{__('Program Keahlian')}} <span class="text-danger">*</span></label>
+                    <select class="form-control @error('program_keahlian_id') is-invalid @enderror" id="pilih_program_keahlian" name="program_keahlian_id" required>
+                    <option value="" selected="" disabled="">{{__('-- Pilih Program Keahlian --')}}</option>
+                        @foreach ($programKeahlian as $pK)
+                            <option value="{{ $pK->id }}"
+                                @if (old('program_keahlian_id'))
+                                    {{ old('program_keahlian_id') == $pK->id ? 'selected' : '' }}
+                                @else
+                                    {{ $perusahaan->program_keahlian_id == $pK->id ? 'selected' : '' }}
+                                @endif
+                            >{{$pK->nama}}</option>
                         @endforeach
                     </select>
+
                     @error('program_keahlian_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="nama">nama<span class="text-danger">*</span></label>
+                    <label for="nama">Nama Perusahaan<span class="text-danger">*</span></label>
                     <input required="" type="text" name="nama" value="{{ old('nama') ? old('nama') : $item->nama }}" class="form-control @error('nama') is-invalid @enderror" / >
 
                     @error('nama')
@@ -69,9 +81,30 @@
                 <div class="form-group">
                     <label for="kategori">Kategori<span class="text-danger">*</span></label>
                     <select name="kategori" id="" class="form-control custom-select" required="">
-                        <option value="Negeri" {{ ($item->kategori == "Negeri") ? 'selected' : '' }}>Negeri</option>
-                        <option value="Swasta" {{ ($item->kategori == "Swasta") ? 'selected' : '' }}>Swasta</option>
-                        <option value="BUMN" {{ ($item->kategori == "BUMN") ? 'selected' : '' }}>BUMN</option>
+                        <option value="" disabled="" selected>{{__('-- Pilih Kategori --')}}</option>
+                        <option value="Negeri"
+                            @if (old('kategori'))
+                                {{ (old('kategori') == 'Negeri') ? 'selected' : '' }}
+                            @else
+                                {{ ($perusahaan->kategori == 'Negeri') ? 'selected' : '' }}
+                            @endif
+                        >{{__('Negeri')}}</option>
+
+                        <option value="Swasta"
+                            @if (old('kategori'))
+                                {{ (old('kategori') == 'Swasta') ? 'selected' : '' }}
+                            @else
+                                {{ ($perusahaan->kategori == 'Swasta') ? 'selected' : '' }}
+                            @endif
+                        >{{__('Swasta')}}</option>
+
+                        <option value="BUMN"
+                            @if (old('kategori'))
+                                {{ (old('kategori') == 'BUMN') ? 'selected' : '' }}
+                            @else
+                                {{ ($perusahaan->kategori == 'BUMN') ? 'selected' : '' }}
+                            @endif
+                        >{{__('BUMN')}}</option>
                     </select>
                     @error('kategori')
                         <span class="invalid-feedback" role="alert">
@@ -182,7 +215,7 @@
                 <div class="form-group">
                     <label for="alamat">Alamat</label>
                     <textarea id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror" rows="4">{{ old('alamat') ? old('alamat') : $item->alamat }}</textarea>
-                
+
                     @error('alamat')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -190,33 +223,60 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="kabupaten">Kabupaten</label>
-                    <input type="text" name="kabupaten" value="{{ old('kabupaten') ? old('kabupaten') : $item->kabupaten }}" class="form-control @error('kabupaten') is-invalid @enderror" / >
-
-                    @error('kabupaten')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="provinsi">Provinsi</label>
-                    <input type="text" name="provinsi" value="{{ old('provinsi') ? old('provinsi') : $item->provinsi }}" class="form-control @error('provinsi') is-invalid @enderror" / >
-
-                    @error('provinsi')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="negara">Negara</label>
-                    <input type="text" name="negara" value="{{ old('negara') ? old('negara') : $item->negara }}" class="form-control @error('negara') is-invalid @enderror" / >
+                    <label for="negara">{{__('Negara')}}</label>
+                    <select class="form-control @error('negara') is-invalid @enderror" id="negara" name="negara">
+                    <option value="" selected="" disabled="">{{__('Pilih Negara')}}</option>
+                    @foreach ($negara as $n)
+                        <option value="{{ $n->nama_negara }}"
+                            @if (old('negara'))
+                                {{ (old('negara') == $n->nama_negara) ? 'selected' : '' }}
+                            @else
+                                {{ $perusahaan->negara == $n->nama_negara ? 'selected' : '' }}
+                            @endif
+                        >{{ $n->nama_negara }}</option>
+                    @endforeach
+                    </select>
 
                     @error('negara')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="provinsi">{{__('Provinsi')}}</label>
+                    <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                    <option value="" selected="" disabled="">{{__('Pilih Provinsi')}}</option>
+                        @foreach ($provinsi as $prov)
+                            <option value="{{$prov->nama_provinsi}}"
+                                @if (old('provinsi'))
+                                    {{ old('provinsi') == $prov->nama_provinsi ? 'selected' : '' }}
+                                @else
+                                    {{ ($perusahaan->provinsi == $prov->nama_provinsi) ? 'selected' : '' }}
+                                @endif
+                            >{{__($prov->nama_provinsi)}}</option>
+                        @endforeach
+                    </select>
+
+                    @error('provinsi')
+                        <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="kabupaten">{{__('Kabupaten')}}</label>
+                    <select class="form-control @error('kabupaten') is-invalid @enderror" id="kabupaten" name="kabupaten">
+                    <option value="" selected="" disabled="">{{__('Pilih Kabupaten')}}</option>
+                        @foreach ($kabupaten as $kab)
+                            <option value="{{$kab->nama_kabupaten}}"
+                                @if (old('kabupaten'))
+                                    {{ old('kabupaten') == $kab->nama_kabupaten ? 'selected' : '' }}
+                                @else
+                                    {{ ($perusahaan->kabupaten == $kab->nama_kabupaten) ? 'selected' : '' }}
+                                @endif
+                            >{{__($kab->nama_kabupaten)}}</option>
+                        @endforeach
+                    </select>
+
+                    @error('kabupaten')
+                    <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                     @enderror
                 </div>
                 <div class="form-group">
@@ -282,7 +342,7 @@
                 <div class="form-group">
                     <label for="tunjangan">Tunjangan</label>
                     <textarea id="tunjangan" name="tunjangan" class="form-control @error('tunjangan') is-invalid @enderror" rows="4">{{ old('tunjangan') ? old('tunjangan') : $item->tunjangan }}</textarea>
-                
+
                     @error('tunjangan')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -290,23 +350,19 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="overview">Overiew</label>
-                    <textarea id="overview" name="overview" class="form-control @error('overview') is-invalid @enderror" rows="4">{{ old('overview') ? old('overview') : $item->overview }}</textarea>
-                
+                    <label class="my-2" for="overview">{{__('Gambaran Perusahaan')}}</label>
+                    <textarea name="overview" class="form-control summernote" style="display: none;">{{ old('overview') ? old('overview') : $perusahaan->overview }}</textarea>
+
                     @error('overview')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="alasan_harus_melamar">Alasan Harus Melamar</label>
-                    <textarea id="alasan_harus_melamar" name="alasan_harus_melamar" class="form-control @error('alasan_harus_melamar') is-invalid @enderror" rows="4">{{ old('alasan_harus_melamar') ? old('alasan_harus_melamar') : $item->alasan_harus_melamar }}</textarea>
-                
+                    <label class="my-2" for="alasan_harus_melamar">{{__('Alasan Harus Melamar')}}</label>
+                    <textarea name="alasan_harus_melamar" class="form-control summernote" style="display: none;">{{ old('alasan_harus_melamar') ? old('alasan_harus_melamar') : $perusahaan->alasan_harus_melamar }}</textarea>
+
                     @error('alasan_harus_melamar')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                     @enderror
                 </div>
             </div>
@@ -331,12 +387,12 @@
                 <tr>
                     <td width="30%">BIDANG KEAHLIAN</td>
                     <td width="5px">:</td>
-                    <td>{{ $namaBidangKeahlian }}</td>
+                    <td>{{ $item->bidangKeahlian->nama }}</td>
                 </tr>
                 <tr>
                     <td width="30%">PROGRAM KEAHLIAN</td>
                     <td width="5px">:</td>
-                    <td>{{ $namaProgramKeahlian }}</td>
+                    <td>{{ $item->programKeahlian->nama }}</td>
                 </tr>
                 <tr>
                     <td width="30%">NAMA</td>
@@ -444,14 +500,14 @@
                     <td>{{ $item->tunjangan }}</td>
                 </tr>
                 <tr>
-                    <td width="30%">OVERVIEW</td>
+                    <td width="30%">Gambaran Perusahaan</td>
                     <td width="5px">:</td>
-                    <td>{{ $item->overview }}</td>
+                    <td>{!! $item->overview !!}</td>
                 </tr>
                 <tr>
                     <td width="30%">ALASAN HARUS MELAMAR</td>
                     <td width="5px">:</td>
-                    <td>{{ $item->alasan_harus_melamar }}</td>
+                    <td>{!! $item->alasan_harus_melamar !!}</td>
                 </tr>
             </table>
         </div>
@@ -538,11 +594,39 @@
 @endsection
 
 @section('stylesheet')
-<link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
+	<link rel="stylesheet" href="{{ asset('/plugins/summernote/summernote-lite.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/plugins/select2/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.css') }}" />
 @endsection
 
 @section('script')
-<script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+	<script src="{{ asset('/plugins/tags-autocomplete/jquery.min.js') }}"></script>
+	<script src="{{ asset('/plugins/summernote/summernote-lite.min.js') }}"></script>
+    <script src="{{ asset('/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('/app-admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
+	<script>
+		// Fungsi Pembuatan Summernote ( WYSIYG )
+		(function($) {
+			$(document).ready(function(){
+		    	$('.summernote').summernote({
+		    		height: 175,
+		    		toolbar: [
+						['style', ['style']],
+						['font', ['bold', 'underline', 'clear']],
+						['fontname', ['fontname']],
+						['color', ['color']],
+						['para', ['ul', 'ol', 'paragraph']],
+						['table', ['table']],
+						['insert', ['link']],
+						['view', ['fullscreen', 'codeview', 'help']]
+		    		]
+		    	})
+			});
+	    })(jQuery);
+	</script>
+
+
 <script>
     const inpFile = document.getElementById('image');
     const previewContainer = document.getElementById('imagePreview');
@@ -562,7 +646,7 @@
           previewImage.setAttribute('src', this.result);
         });
 
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
       } else {
         previewDefaultText.style.display = null;
         previewImage.style.display = null;
@@ -590,7 +674,7 @@
           previewImage2.setAttribute('src', this.result);
         });
 
-        reader.readAsDataURL(file); 
+        reader.readAsDataURL(file);
       } else {
         previewDefaultText2.style.display = null;
         previewImage2.style.display = null;
@@ -599,21 +683,77 @@
       }
     });
 </script>
-@if(Session::get('success'))
+
+
 <script>
-Swal.fire(
-  'Sukses',
-  '{{ Session::get('success') }}',
-  'success'
-)
+    // Ajax Form
+    const pilihBk = document.getElementById('pilih_bidang_keahlian');
+    const pilihPk = document.getElementById('pilih_program_keahlian');
+    const pilihProv = document.getElementById('provinsi');
+    const pilihKab = document.getElementById('kabupaten');
+
+    pilihBk.addEventListener('change', function(e) {
+        bkId = e.target.value;
+        fetch('/getProgramKeahlian/' + bkId)
+        .then(response => response.json())
+        .then(response => {
+            let optionPk;
+
+            response.forEach(function(m) {
+                optionPk += "<option value='"+ m.id +"'>"+ m.nama +"</option>";
+                pilihPk.innerHTML = optionPk
+            })
+        });
+    });
+
+    document.getElementById('negara').addEventListener('change', function(e) {
+        let nama_negara = e.target.value;
+        fetch('/getProvinsi/' + nama_negara)
+        .then(response => response.json())
+        .then(response => {
+            let opsiProv;
+
+            response.forEach(function(m) {
+                opsiProv += "<option value='"+ m.nama_provinsi +"'>"+ m.nama_provinsi +"</option>";
+                pilihProv.innerHTML = opsiProv;
+                pilihKab.innerHTML = '<option value="" selected disabled>Pilih Kabupaten</option>';
+            })
+        });
+    });
+
+    document.getElementById('provinsi').addEventListener('change', function(e) {
+        let nama_provinsi = e.target.value;
+        fetch('/getKabupaten/' + nama_provinsi)
+        .then(response => response.json())
+        .then(response => {
+            let opsiKab;
+
+            response.forEach(function(m) {
+                opsiKab += "<option value='"+ m.nama_kabupaten +"'>"+ m.nama_kabupaten +"</option>";
+                pilihKab.innerHTML = opsiKab
+            })
+        });
+    });
 </script>
-@elseif(Session::get('gagal'))
+
+
+@if(Session::get('gagal'))
 <script>
 Swal.fire({
     icon: 'error',
     title: 'Oops...',
     text: '{{ Session::get('gagal') }}',
 })
+</script>
+@endif
+
+@if(Session::get('success'))
+<script>
+Swal.fire(
+  'Berhasil',
+  '{{ Session::get('success') }}',
+  'success'
+)
 </script>
 @endif
 @endsection

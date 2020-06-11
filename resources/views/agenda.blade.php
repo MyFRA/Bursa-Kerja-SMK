@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-12 mt-n3 d-flex justify-content-between align-items-center">
                 <h3 class="page-title"><i class="fa fa-list mr-3"></i>{{__('Agenda')}}</h3>
-    
+
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/artikel') }}">{{__('Artikel')}}</a></li>
@@ -27,13 +27,13 @@
             <div class="col-md-8">
                 <div class="row">
                     @if ($agenda->isEmpty())
-                        <h1 class="p-4 text-muted">{{__('Agenda Belum ada')}}</h1>
+                        <h2 class="p-4 text-muted">{{__('Agenda Belum ada')}}</h2>
                     @else
                         @foreach ($agenda as $item)
                         <div class="col-12 mt-3">
                             <div class="card">
                                 <small class="text-gainsboro text-right pr-4 pt-4">{{__('Diposting Pada:')}} {{ $item->created_at->format('d F Y') }}</small>
-                                <a href="{{ url('/agenda/' . $item->link) }}"><h3 class="font-weight-bold pt-3 text-center px-2">{{__($item->judul)}}</h3></a> 
+                                <a href="{{ url('/agenda/' . $item->link) }}"><h3 class="font-weight-bold pt-3 text-center px-2">{{__($item->judul)}}</h3></a>
                                 <img class="w-100 px-3 px-md-5 rounded my-b mt-3" style="height: 250px; object-fit: cover; object-position: center" src="{{ asset('/storage/assets/agenda/' . $item->image) }}" alt="">
                                 <div class="px-4">
                                     <table class="table table-responsive">

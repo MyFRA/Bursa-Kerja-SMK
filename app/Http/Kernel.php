@@ -67,6 +67,7 @@ class Kernel extends HttpKernel
         'guest_perusahaan' => \App\Http\Middleware\GuestPerusahaan::class,
         'guest_siswa' => \App\Http\Middleware\GuestSiswa::class,
         'auth_perusahaan' => \App\Http\Middleware\AuthPerusahaan::class,
+        'auth_siswa' => \App\Http\Middleware\AuthSiswa::class,
     ];
 
     /**

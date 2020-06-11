@@ -80,7 +80,7 @@ class ProfilController extends Controller
         };
 
         $data = [
-            'nav'   => 'profil',
+            'nav'               => 'profil',
             'user'              => Auth::user(),
             'perusahaan'        => User::find(Auth::user()->id)->perusahaan,
             'bidangKeahlian'    => BidangKeahlian::get(),
@@ -142,13 +142,13 @@ class ProfilController extends Controller
             'instagram.max'               => 'instagram maksimal 64 karakter',
             'linkedin.max'                => 'linkedin maksimal 64 karakter',
             'jumlah_karyawan.max'         => 'jumlah karyawan maksimal 16 karakter',
-            'alamat.max'                  => 'alamat maksimal 128 karakter', 
-            'kodepos.max'                 =>  'kodepos maksimal 8 karakter', 
-            'kabupaten.max'               =>  'kabupaten maksimal 64 karakter', 
-            'provinsi.max'                =>  'provinsi maksimal 32 karakter', 
-            'negara.max'                  =>  'negara maksimal 32 karakter', 
+            'alamat.max'                  => 'alamat maksimal 128 karakter',
+            'kodepos.max'                 =>  'kodepos maksimal 8 karakter',
+            'kabupaten.max'               =>  'kabupaten maksimal 64 karakter',
+            'provinsi.max'                =>  'provinsi maksimal 32 karakter',
+            'negara.max'                  =>  'negara maksimal 32 karakter',
             'waktu_proses_perekrutan.max' => 'waktu proses perekrutan maksimal 32 karakter',
-            'gaya_berpakaian.max'         => 'gaya berpakaian maksimal 128 karakter', 
+            'gaya_berpakaian.max'         => 'gaya berpakaian maksimal 128 karakter',
             'bahasa.max'                  => 'bahasa maksimal 128 karakter',
             'waktu_bekerja.max'           => 'waktu bekerja maksimal 64 karakter',
         ]);
@@ -166,7 +166,7 @@ class ProfilController extends Controller
 
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Siswa Gagal )
             if( $this->updatePerusahaan($request) != true ) return redirect()->back()->with('gagal', 'Logo atau Image yang kamu upload bukan gambar')->withInput();
-            
+
             // Lolos Pengecekan, update Data Perusahaan Berhasil
             return redirect('/perusahaan/profil')->with('success', 'Profil Perusahaan telah diupdate ');
         }
@@ -224,7 +224,7 @@ class ProfilController extends Controller
                     // Jika ternyata, ada file yang diupload di logo, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
                     if (!in_array($request->file('logo')->getClientOriginalExtension(), $ekstensiValid)) return false;
-                    
+
                     // Lolos Pengecekan ( File (logo) = Gambar ) & File Siap Diupload
                     $namaLogo = explode('.', $request->file('logo')->getClientOriginalName());
                     $namaLogo = $namaLogo[0] . '_' . time() . '.' . $request->file('logo')->getClientOriginalExtension();
@@ -232,10 +232,10 @@ class ProfilController extends Controller
 
                     // Mengecek apakah logo lama terdapat di dalam storage
                     $existsLogo = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/logo/' . $data->logo);
-        
+
                     // Jika logo lama terdapat di dalam storage (True), maka hapus logo tsb
                     if($existsLogo) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/logo/' . $data->logo);
-                }  
+                }
 
             // Pengecekan image
                 // Pengecekan apakah image tidak diupload, jika iya, maka $image = imageLama
@@ -245,15 +245,15 @@ class ProfilController extends Controller
                     // Jika ternyata, ada file yang diupload di image, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
                     if (!in_array($request->file('image')->getClientOriginalExtension(), $ekstensiValid)) return false;
-                    
+
                     // Lolos Pengecekan ( File (image) = Gambar ) & File Siap Diupload
                     $namaImage = explode('.', $request->file('image')->getClientOriginalName());
                     $namaImage = $namaImage[0] . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
                     $request->file('image')->storeAs('public/assets/daftar-perusahaan/image', $namaImage);
-                
+
                     // Mengecek apakah image terdapat di dalam storage
                     $existsImage = Storage::disk('local')->exists('/public/assets/daftar-perusahaan/image/' . $data->image);
-        
+
                     // Jika image terdapat di dalam storage (True), maka hapus image tsb
                     if($existsImage) Storage::disk('local')->delete('/public/assets/daftar-perusahaan/image/' . $data->image);
                 }
