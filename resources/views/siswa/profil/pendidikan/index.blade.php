@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    
+
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -20,7 +20,17 @@
                     <div class="px-2 mt-4 pb-5">
                         <span class=" h5 "><i class="fa fa-mortar-board"></i> {{('Pendidikan')}}</span>
                         <a id="trigger-tambah-pendidikan" class="float-right" href=""><i class="fa fa-plus-circle"></i> Tambah</a>
-                        
+
+                        @if (session('gagal'))
+                        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                            <strong>Gagal</strong> {{ session('gagal') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        @endif
+
+
                         <div id="container-form-pendidikan" class="d-none mt-4">
                             <form action="{{ url('/siswa/profil/pendidikan') }}" method="post">
                                 @csrf
@@ -51,7 +61,7 @@
                                                     <option value="{{ $item->id }}" {{ old('bidang_keahlian_id') == $item->id ? 'selected' : '' }}>{{$item->nama}}</option>
                                                     @endforeach
                                                 </select>
-                                            
+
                                                 @error('bidang_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -64,10 +74,10 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('program_keahlian_id') is-invalid @enderror" id="pilih_program_keahlian" name="program_keahlian_id" required> 
+                                                <select class="form-control @error('program_keahlian_id') is-invalid @enderror" id="pilih_program_keahlian" name="program_keahlian_id" required>
                                                 <option value="" selected="" disabled="">{{__(' Pilih Program Keahlian ')}}</option>
                                                 </select>
-                                            
+
                                                 @error('program_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -80,14 +90,14 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('kompetensi_keahlian_id') is-invalid @enderror" id="pilih_kompetensi_keahlian" name="kompetensi_keahlian_id" required> 
+                                                <select class="form-control @error('kompetensi_keahlian_id') is-invalid @enderror" id="pilih_kompetensi_keahlian" name="kompetensi_keahlian_id" required>
                                                 <option value="" selected="" disabled="">{{__(' Pilih Kompetensi Keahlian ')}}</option>
                                                 </select>
-                                            
+
                                                 @error('kompetensi_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
-                                            </div>      
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -102,7 +112,7 @@
                                                     <option value="{{ $item }}" {{ old('tahun_lulus') == $item ? 'selected' : '' }}>{{$item}}</option>
                                                     @endforeach
                                                 </select>
-                                            
+
                                                 @error('tahun_lulus')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -115,7 +125,7 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('bulan_lulus') is-invalid @enderror" id="bulan_lulus" name="bulan_lulus" required> 
+                                                <select class="form-control @error('bulan_lulus') is-invalid @enderror" id="bulan_lulus" name="bulan_lulus" required>
                                                     <option value="" selected="" disabled="">{{__('Bulan')}}</option>
                                                     <option value="Januari" {{ old('bulan_lulus') == 'Januari' ? 'selected' : '' }}>{{__('Januari')}}</option>
                                                     <option value="Februari" {{ old('bulan_lulus') == 'Februari' ? 'selected' : '' }}>{{__('Februari')}}</option>
@@ -130,7 +140,7 @@
                                                     <option value="November" {{ old('bulan_lulus') == 'November' ? 'selected' : '' }}>{{__('November')}}</option>
                                                     <option value="Desember" {{ old('bulan_lulus') == 'Desember' ? 'selected' : '' }}>{{__('Desember')}}</option>
                                                 </select>
-                                                
+
                                                 @error('bulan_lulus')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -143,7 +153,7 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('tingkat_sekolah') is-invalid @enderror" id="tingkat_sekolah" name="tingkat_sekolah" required> 
+                                                <select class="form-control @error('tingkat_sekolah') is-invalid @enderror" id="tingkat_sekolah" name="tingkat_sekolah" required>
                                                     <option value="" selected="" disabled="">{{__('Tingkat Sekolah')}}</option>
                                                     <option value="SD" {{ old('tingkat_sekolah') == 'SD' ? 'selected' : '' }}>{{__('SD')}}</option>
                                                     <option value="SMP/MTS" {{ old('tingkat_sekolah') == 'SMP/MTS' ? 'selected' : '' }}>{{__('SMP/MTS')}}</option>
@@ -152,7 +162,7 @@
                                                     <option value="S2" {{ old('tingkat_sekolah') == 'S2' ? 'selected' : '' }}>{{__('S2')}}</option>
                                                     <option value="S3" {{ old('tingkat_sekolah') == 'S3' ? 'selected' : '' }}>{{__('S3')}}</option>
                                                 </select>
-                                                
+
                                                 @error('tingkat_sekolah')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -165,14 +175,14 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('nilai_akhir') is-invalid @enderror" id="nilai_akhir" name="nilai_akhir" required> 
+                                                <select class="form-control @error('nilai_akhir') is-invalid @enderror" id="nilai_akhir" name="nilai_akhir" required>
                                                     <option value="" selected="" disabled="">{{__('Nilai Akhir')}}</option>
                                                     <option value="IPK" {{ old('nilai_akhir') == 'IPK' ? 'selected' : '' }}>{{__('IPK')}}</option>
                                                     <option value="NEM" {{ old('nilai_akhir') == 'NEM' ? 'selected' : '' }}>{{__('NEM')}}</option>
                                                     <option value="Tidak Tamat" {{ old('nilai_akhir') == 'Tidak Tamat' ? 'selected' : '' }}>{{__('Tidak Tamat')}}</option>
                                                     <option value="Masih Belajar" {{ old('nilai_akhir') == 'Masih Belajar' ? 'selected' : '' }}>{{__('Masih Belajar')}}</option>
                                                 </select>
-                                                
+
                                                 @error('nilai_akhir')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -230,8 +240,8 @@
                                             <a class="h5 ml-2" href="" onclick="onHapus('{{ $item->nama_sekolah }}', '{{ url('/siswa/profil/pendidikan/' . encrypt($item->id)) }}')"><i class="fa fa-trash-o"></i></a>
                                         </div>
                                     </div>
-                                </div>  
-                            </div>     
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -303,7 +313,7 @@
         const formHapus = document.getElementById('form-hapus')
         formHapus.setAttribute('action', url)
         return confirm('apakah anda yakin, \nmenghapus ' + jabatan) ? formHapus.submit() : false
-        
+
     }
 </script>
 

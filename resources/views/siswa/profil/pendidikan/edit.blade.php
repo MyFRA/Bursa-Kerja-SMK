@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    
+
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -52,7 +52,7 @@
                                                     <option value="{{ $item->id }}" {{ $pendidikan->bidang_keahlian_id == $item->id ? 'selected' : '' }} {{ old('bidang_keahlian_id') == $item->id ? 'selected' : '' }}>{{$item->nama}}</option>
                                                     @endforeach
                                                 </select>
-                                            
+
                                                 @error('bidang_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -65,10 +65,19 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('program_keahlian_id') is-invalid @enderror" id="pilih_program_keahlian" name="program_keahlian_id" required> 
-                                                    <option value="{{ $pendidikan->program_keahlian_id }}">{{$pendidikan->programKeahlian->nama}}</option>
+                                                <select class="form-control @error('program_keahlian_id') is-invalid @enderror" id="pilih_program_keahlian" name="program_keahlian_id" required>
+                                                    <option value="" selected="" disabled="">{{__('Pilih Program Keahlian')}}</option>
+                                                    @foreach ($programKeahlian as $pk)
+                                                        <option value="{{$pk->id}}"
+                                                            @if (old('program_keahlian_id'))
+                                                                {{ old('program_keahlian_id') == $pk->id ? 'selected' : '' }}
+                                                            @else
+                                                                {{ ($pendidikan->program_keahlian_id == $pk->id) ? 'selected' : '' }}
+                                                            @endif
+                                                        >{{__($pk->nama)}}</option>
+                                                    @endforeach
                                                 </select>
-                                            
+
                                                 @error('program_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -81,15 +90,23 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('kompetensi_keahlian_id') is-invalid @enderror" id="pilih_kompetensi_keahlian" name="kompetensi_keahlian_id" required> 
-                                                    <option value="{{ $pendidikan->kompetensi_keahlian_id }}">{{$pendidikan->kompetensiKeahlian->nama}}</option>
-
+                                                <select class="form-control @error('kompetensi_keahlian_id') is-invalid @enderror" id="pilih_kompetensi_keahlian" name="kompetensi_keahlian_id" required>
+                                                    <option value="" selected="" disabled="">{{__('Pilih Kompetensi Keahlian')}}</option>
+                                                    @foreach ($kompetensiKeahlian as $kK)
+                                                        <option value="{{$kK->id}}"
+                                                            @if (old('kompetensi_keahlian_id'))
+                                                                {{ old('kompetensi_keahlian_id') == $kK->id ? 'selected' : '' }}
+                                                            @else
+                                                                {{ ($pendidikan->kompetensi_keahlian_id == $kK->id) ? 'selected' : '' }}
+                                                            @endif
+                                                        >{{__($kK->nama)}}</option>
+                                                    @endforeach
                                                 </select>
-                                            
+
                                                 @error('kompetensi_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
-                                            </div>      
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -103,7 +120,7 @@
                                                     <option value="{{ $item }}" {{ $pendidikan->tahun_lulus == $item ? 'selected' : '' }} {{ old('tahun_lulus') == $item ? 'selected' : '' }}>{{$item}}</option>
                                                     @endforeach
                                                 </select>
-                                            
+
                                                 @error('tahun_lulus')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -116,7 +133,7 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('bulan_lulus') is-invalid @enderror" id="bulan_lulus" name="bulan_lulus" required> 
+                                                <select class="form-control @error('bulan_lulus') is-invalid @enderror" id="bulan_lulus" name="bulan_lulus" required>
                                                     <option value="Januari" {{ $pendidikan->bulan_lulus == 'Januari' ? 'selected' : '' }} {{ old('bulan_lulus') == 'Januari' ? 'selected' : '' }}>{{__('Januari')}}</option>
                                                     <option value="Februari" {{ $pendidikan->bulan_lulus == 'Februari' ? 'selected' : '' }} {{ old('bulan_lulus') == 'Februari' ? 'selected' : '' }}>{{__('Februari')}}</option>
                                                     <option value="Maret" {{ $pendidikan->bulan_lulus == 'Maret' ? 'selected' : '' }} {{ old('bulan_lulus') == 'Maret' ? 'selected' : '' }}>{{__('Maret')}}</option>
@@ -130,7 +147,7 @@
                                                     <option value="November" {{ $pendidikan->bulan_lulus == 'November' ? 'selected' : '' }} {{ old('bulan_lulus') == 'November' ? 'selected' : '' }}>{{__('November')}}</option>
                                                     <option value="Desember" {{ $pendidikan->bulan_lulus == 'Desember' ? 'selected' : '' }} {{ old('bulan_lulus') == 'Desember' ? 'selected' : '' }}>{{__('Desember')}}</option>
                                                 </select>
-                                                
+
                                                 @error('bulan_lulus')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -143,7 +160,7 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('tingkat_sekolah') is-invalid @enderror" id="tingkat_sekolah" name="tingkat_sekolah" required> 
+                                                <select class="form-control @error('tingkat_sekolah') is-invalid @enderror" id="tingkat_sekolah" name="tingkat_sekolah" required>
                                                     <option value="" selected="" disabled="">{{__('Tingkat Sekolah')}}</option>
                                                     <option value="SD" {{ $pendidikan->tingkat_sekolah == 'SD' ? 'selected' : '' }} {{ old('tingkat_sekolah') == 'SD' ? 'selected' : '' }}>{{__('SD')}}</option>
                                                     <option value="SMP/MTS" {{ $pendidikan->tingkat_sekolah == 'SMP/MTS' ? 'selected' : '' }} {{ old('tingkat_sekolah') == 'SMP/MTS' ? 'selected' : '' }}>{{__('SMP/MTS')}}</option>
@@ -152,7 +169,7 @@
                                                     <option value="S2" {{ $pendidikan->tingkat_sekolah == 'S2' ? 'selected' : '' }} {{ old('tingkat_sekolah') == 'S2' ? 'selected' : '' }}>{{__('S2')}}</option>
                                                     <option value="S3" {{ $pendidikan->tingkat_sekolah == 'S3' ? 'selected' : '' }} {{ old('tingkat_sekolah') == 'S3' ? 'selected' : '' }}>{{__('S3')}}</option>
                                                 </select>
-                                                
+
                                                 @error('tingkat_sekolah')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -165,14 +182,14 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('nilai_akhir') is-invalid @enderror" id="nilai_akhir" name="nilai_akhir" required> 
+                                                <select class="form-control @error('nilai_akhir') is-invalid @enderror" id="nilai_akhir" name="nilai_akhir" required>
                                                     <option value="" selected="" disabled="">{{__('Nilai Akhir')}}</option>
                                                     <option value="IPK" {{ $pendidikan->nilai_akhir == 'IPK' ? 'selected' : '' }} {{ old('nilai_akhir') == 'IPK' ? 'selected' : '' }}>{{__('IPK')}}</option>
                                                     <option value="NEM" {{ $pendidikan->nilai_akhir == 'NEM' ? 'selected' : '' }} {{ old('nilai_akhir') == 'NEM' ? 'selected' : '' }}>{{__('NEM')}}</option>
                                                     <option value="Tidak Tamat" {{ $pendidikan->nilai_akhir == 'Tidak Tamat' ? 'selected' : '' }} {{ old('nilai_akhir') == 'Tidak Tamat' ? 'selected' : '' }}>{{__('Tidak Tamat')}}</option>
                                                     <option value="Masih Belajar" {{ $pendidikan->nilai_akhir == 'Masih Belajar' ? 'selected' : '' }} {{ old('nilai_akhir') == 'Masih Belajar' ? 'selected' : '' }}>{{__('Masih Belajar')}}</option>
                                                 </select>
-                                                
+
                                                 @error('nilai_akhir')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -279,7 +296,7 @@
         const formHapus = document.getElementById('form-hapus')
         formHapus.setAttribute('action', url)
         return confirm('apakah anda yakin, \nmenghapus ' + jabatan) ? formHapus.submit() : false
-        
+
     }
 </script>
 

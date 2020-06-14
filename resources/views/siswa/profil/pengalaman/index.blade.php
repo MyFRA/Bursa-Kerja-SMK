@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -18,6 +18,17 @@
                     <div class="px-2 pb-5">
                         <span class=" h5"><i class="fa fa-briefcase"></i> {{('Pengalaman')}}</span>
                         <a id="trigger-tambah-pengalaman" class="float-right" href=""><i class="fa fa-plus-circle"></i> Tambah</a>
+
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                                <strong>Berhasil</strong> {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
+
+
                         <div id="container-form-pengalaman" class="d-none mt-4">
                             <form action="{{ url('/siswa/profil/pengalaman') }}" method="post">
                                 @csrf
@@ -63,7 +74,7 @@
                                                     <option value="{{ $item->id }}" {{ old('bidang_keahlian_id') == $item->id ? 'selected' : '' }}>{{$item->nama}}</option>
                                                     @endforeach
                                                 </select>
-                                            
+
                                                 @error('bidang_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -76,10 +87,10 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('program_keahlian_id') is-invalid @enderror" id="pilih_program_keahlian" name="program_keahlian_id" required> 
+                                                <select class="form-control @error('program_keahlian_id') is-invalid @enderror" id="pilih_program_keahlian" name="program_keahlian_id" required>
                                                 <option value="" selected="" disabled="">{{__(' Pilih Program Keahlian ')}}</option>
                                                 </select>
-                                            
+
                                                 @error('program_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -92,14 +103,14 @@
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-group">
-                                                <select class="form-control @error('kompetensi_keahlian_id') is-invalid @enderror" id="pilih_kompetensi_keahlian" name="kompetensi_keahlian_id" required> 
+                                                <select class="form-control @error('kompetensi_keahlian_id') is-invalid @enderror" id="pilih_kompetensi_keahlian" name="kompetensi_keahlian_id" required>
                                                 <option value="" selected="" disabled="">{{__(' Pilih Kompetensi Keahlian ')}}</option>
                                                 </select>
-                                            
+
                                                 @error('kompetensi_keahlian_id')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
-                                            </div>      
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -116,7 +127,7 @@
                                                             <option value="{{ $item }}" {{ old('mulai_kerja_tahun') == $item ? 'selected' : '' }}>{{$item}}</option>
                                                             @endforeach
                                                         </select>
-                                                    
+
                                                         @error('mulai_kerja_tahun')
                                                         <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                         @enderror
@@ -124,7 +135,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <select class="form-control @error('mulai_kerja_bulan') is-invalid @enderror" id="mulai_kerja_bulan" name="mulai_kerja_bulan" required> 
+                                                        <select class="form-control @error('mulai_kerja_bulan') is-invalid @enderror" id="mulai_kerja_bulan" name="mulai_kerja_bulan" required>
                                                             <option value="" selected="" disabled="">{{__('Bulan')}}</option>
                                                             <option value="Januari" {{ old('mulai_kerja_bulan') == 'Januari' ? 'selected' : '' }}>{{__('Januari')}}</option>
                                                             <option value="Februari" {{ old('mulai_kerja_bulan') == 'Februari' ? 'selected' : '' }}>{{__('Februari')}}</option>
@@ -139,7 +150,7 @@
                                                             <option value="November" {{ old('mulai_kerja_bulan') == 'November' ? 'selected' : '' }}>{{__('November')}}</option>
                                                             <option value="Desember" {{ old('mulai_kerja_bulan') == 'Desember' ? 'selected' : '' }}>{{__('Desember')}}</option>
                                                         </select>
-                                                        
+
                                                         @error('mulai_kerja_bulan')
                                                             <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                         @enderror
@@ -155,7 +166,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-lg-3">
-    
+
                                         </div>
                                         <div class="col-lg-9">
                                             <div class="form-check">
@@ -179,7 +190,7 @@
                                                             <option value="{{ $item }}" {{ old('akhir_kerja_tahun') == $item ? 'selected' : '' }}>{{$item}}</option>
                                                             @endforeach
                                                         </select>
-                                                    
+
                                                         @error('akhir_kerja_tahun')
                                                         <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                         @enderror
@@ -187,7 +198,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <select class="form-control @error('akhir_kerja_bulan') is-invalid @enderror" id="akhir_kerja_bulan" name="akhir_kerja_bulan" required> 
+                                                        <select class="form-control @error('akhir_kerja_bulan') is-invalid @enderror" id="akhir_kerja_bulan" name="akhir_kerja_bulan" required>
                                                             <option value="" selected="" readonly="">{{__('Bulan')}}</option>
                                                             <option value="Januari" {{ old('akhir_kerja_bulan') == 'Januari' ? 'selected' : '' }}>{{__('Januari')}}</option>
                                                             <option value="Februari" {{ old('akhir_kerja_bulan') == 'Februari' ? 'selected' : '' }}>{{__('Februari')}}</option>
@@ -202,7 +213,7 @@
                                                             <option value="November" {{ old('akhir_kerja_bulan') == 'November' ? 'selected' : '' }}>{{__('November')}}</option>
                                                             <option value="Desember" {{ old('akhir_kerja_bulan') == 'Desember' ? 'selected' : '' }}>{{__('Desember')}}</option>
                                                         </select>
-                                                        
+
                                                         @error('akhir_kerja_bulan')
                                                             <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                         @enderror
@@ -223,7 +234,7 @@
                                                     <option value="{{ $item->nama_negara }}" {{ old('negara') == $item->nama_negara ? 'selected' : '' }}>{{$item->nama_negara}}</option>
                                                     @endforeach
                                                 </select>
-                                            
+
                                                 @error('negara')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -239,7 +250,7 @@
                                                 <select id="provinsi" class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
                                                 <option value="" selected="" disabled="">{{__('Pilih Provinsi')}}</option>
                                                 </select>
-                                            
+
                                                 @error('provinsi')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -258,7 +269,7 @@
                                                     <option value="{{ $item->kode }}" {{ old('mata_uang') == $item->kode ? 'selected' : '' }}>{{$item->kode}}</option>
                                                     @endforeach
                                                 </select>
-    
+
                                                 @error('mata_uang')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -272,7 +283,7 @@
                                         <div class="col-lg-9">
                                             <div class="form-group">
                                                 <input type="text" class="form-control @error('gaji_bulanan') is-invalid @enderror" name="gaji_bulanan" id="gaji_bulanan" value="{{ old('gaji_bulanan') }}" autocomplete="off">
-                                            
+
                                                 @error('gaji_bulanan')
                                                     <div class="invalid-feedback">
                                                         {{ $message }}
@@ -356,7 +367,7 @@
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-md-3">
-                                            
+
                                             </div>
                                             <div class="col-md-9">
                                                 <p>{{__( $item->keterangan )}}</p>
@@ -364,7 +375,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>     
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -392,7 +403,7 @@
             navigasi.classList.toggle('d-none-sm')
         });
     </script>
-    
+
 
     <script>
     	const pilihProv = document.getElementById('provinsi');
@@ -428,13 +439,13 @@
 			sisa     		= split[0].length % 3,
 			rupiah     		= split[0].substr(0, sisa),
 			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
- 
+
 			// tambahkan titik jika yang di input sudah menjadi angka ribuan
 			if(ribuan){
 				separator = sisa ? '.' : '';
 				rupiah += separator + ribuan.join('.');
 			}
- 
+
 			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 		}
@@ -497,8 +508,8 @@
 
                 let bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
 
-                opsi1.value = bulan[waktu.getMonth()] 
-                opsi1.innerHTML = bulan[waktu.getMonth()] 
+                opsi1.value = bulan[waktu.getMonth()]
+                opsi1.innerHTML = bulan[waktu.getMonth()]
 
             } else {
                 akhirKerjaTahun.removeAttribute('readonly')
@@ -530,7 +541,7 @@
             const formHapus = document.getElementById('form-hapus')
             formHapus.setAttribute('action', url)
             return confirm('apakah anda yakin, \nmenghapus ' + jabatan) ? formHapus.submit() : false
-            
+
         }
     </script>
 

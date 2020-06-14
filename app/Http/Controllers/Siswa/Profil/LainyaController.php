@@ -124,6 +124,8 @@ class LainyaController extends Controller
         $gaji_diharapkan = explode('.', $gaji_diharapkan);
         $gaji_diharapkan = join('', $gaji_diharapkan);
 
+        $gaji_diharapkan = ($gaji_diharapkan == '') ? 0 : $gaji_diharapkan;
+
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
             'keterampilan_id'        => 'required',

@@ -25,7 +25,13 @@ Route::middleware(['auth_siswa', 'role:siswa'])->group(function() {
     Route::resource('/profil/bahasa', 'Siswa\Profil\BahasaController');
     Route::resource('/profil/lainya', 'Siswa\Profil\LainyaController');
     Route::resource('/profil/profil-saya', 'Siswa\Profil\ProfilSayaController');
-    Route::resource('/profil/akun', 'Siswa\Profil\AkunController');
+    Route::resource('/profil/akun', 'Siswa\Profil\AkunController')->only(['index']);
+
+    // Edit Username
+    Route::get('/profil/akun/username/{id}/edit', 'Siswa\Profil\AkunController@usernameEdit');
+    Route::put('/profil/akun/username/{id}', 'Siswa\Profil\AkunController@usernameUpdate');
+    Route::get('/profil/akun/password/{id}/edit', 'Siswa\Profil\AkunController@passwordEdit');
+    Route::put('/profil/akun/password/{id}', 'Siswa\Profil\AkunController@passwordUpdate');
 
     // Buat Resume Sisiwa
     Route::get('/create-resume/siswa-pendidikan', 'Siswa\Resume\SiswaPendidikanController@create');

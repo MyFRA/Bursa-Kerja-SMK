@@ -16,6 +16,8 @@ use App\Models\KompetensiKeahlian;
 use App\Models\SiswaPengalaman;
 use App\Models\Negara;
 use App\Models\MataUang;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
 
 
 class PengalamanController extends Controller
@@ -47,7 +49,7 @@ class PengalamanController extends Controller
     public function index()
     {
         $this->getSeo();
-        
+
         $tahunSekarang = getdate();
         for( $i = $tahunSekarang['year']; $i >= 1945; $i-- ) {
             $tahun[] = $i;
@@ -69,20 +71,29 @@ class PengalamanController extends Controller
     public function edit($id)
     {
         $this->getSeo();
-        
+
         $tahunSekarang = getdate();
         for( $i = $tahunSekarang['year']; $i >= 1945; $i-- ) {
             $tahun[] = $i;
         }
 
+        $siswaPengalaman = SiswaPengalaman::find(decrypt($id));
+
+        $negara = Negara::where('nama_negara', $siswaPengalaman->negara)->first();
+
+        $provinsiCollection = (empty($negara)) ? [] : Provinsi::where('negara_id', $negara->id)->orderBy('nama_provinsi', 'ASC')->get();
+
         $data = [
-            'negara' => Negara::orderBy('nama_negara', 'ASC')->get(),
-            'mata_uang' => MataUang::orderBy('kode', 'ASC')->get(),
-            'bidangKeahlian' => BidangKeahlian::orderBy('nama', 'ASC')->get(),
-            'pengalaman' => SiswaPengalaman::find(decrypt($id)),
-            'tahun' => $tahun,
-            'nav' => 'pengalaman',
-            'navLink' => ''
+            'negara'                => Negara::orderBy('nama_negara', 'ASC')->get(),
+            'mata_uang'             => MataUang::orderBy('kode', 'ASC')->get(),
+            'bidangKeahlian'        => BidangKeahlian::orderBy('nama', 'ASC')->get(),
+            'programKeahlian'       => ProgramKeahlian::where('bidang_keahlian_id', $siswaPengalaman->bidang_keahlian_id)->orderBy('nama', 'ASC')->get(),
+            'kompetensiKeahlian'    => KompetensiKeahlian::where('program_keahlian_id', $siswaPengalaman->program_keahlian_id)->orderBy('nama', 'ASC')->get(),
+            'pengalaman'            => $siswaPengalaman,
+            'provinsi'              => $provinsiCollection,
+            'tahun'                 => $tahun,
+            'nav'                   => 'pengalaman',
+            'navLink'               => ''
         ];
 
         return view('siswa.profil.pengalaman.edit', $data);
@@ -176,7 +187,7 @@ class PengalamanController extends Controller
                 'keterangan' => $request->keterangan
             ]);
 
-            if( $sql ) return back();
+            if( $sql ) return back()->with('success', 'Pengalaman ' . $request->jabatan . ' telah ditambahkan');;
         }
     }
 
@@ -262,13 +273,14 @@ class PengalamanController extends Controller
                 'keterangan' => $request->keterangan
             ]);
 
-            if( $sql ) return redirect('/siswa/profil/pengalaman');
+            if( $sql ) return redirect('/siswa/profil/pengalaman')->with('success', 'Pengalaman ' . $request->jabatan . ' telah diupdate');
         }
     }
 
     public function destroy($id)
     {
+        $pengalaman = SiswaPengalaman::find(decrypt($id));
         SiswaPengalaman::destroy(decrypt($id));
-        return back();
+        return back()->with('success', 'Pengalaman ' . $pengalaman->jabatan . ' telah dihapus');
     }
 }

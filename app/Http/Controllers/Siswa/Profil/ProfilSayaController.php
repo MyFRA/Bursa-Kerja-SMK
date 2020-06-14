@@ -13,6 +13,8 @@ use Artesaos\SEOTools\Facades\SEOTools;
 
 use App\Models\Siswa;
 use App\Models\Negara;
+use App\Models\Provinsi;
+use App\Models\Kabupaten;
 use App\User;
 
 class ProfilSayaController extends Controller
@@ -96,10 +98,20 @@ class ProfilSayaController extends Controller
     {
         $this->getSeo();
 
+        $siswa = Siswa::find(decrypt($id));
+        $negara = Negara::where('nama_negara', $siswa->negara)->first();
+        $provinsi = Provinsi::where('nama_provinsi', $siswa->provinsi)->first();
+
+        $provinsiCollection = (empty($negara)) ? [] : Provinsi::where('negara_id', $negara->id)->orderBy('nama_provinsi', 'ASC')->get();
+        $kabupatenCollection = (empty($provinsi)) ? [] : Kabupaten::where('provinsi_id', $provinsi->id)->orderBy('nama_kabupaten', 'ASC')->get();
+
+
         $data = [
             'nav' => 'profil-saya',
-            'siswa' => Siswa::find(Auth::user()->siswa->id),
+            'siswa' => $siswa,
             'negara' => Negara::orderBy('nama_negara', 'ASC')->pluck('nama_negara'),
+            'provinsi'          => $provinsiCollection,
+            'kabupaten'         => $kabupatenCollection,
             'navLink' => ''
         ];
 
@@ -129,7 +141,7 @@ class ProfilSayaController extends Controller
             'linkedin'              => 'max:64',
             'alamat'                => 'max:255',
             'kodepos'               => 'max:8',
-            'kabupaten'             => 'max:32',
+            'kabupaten'             => 'max:64',
             'provinsi'              => 'max:32',
             'negara'                => 'max:32',
             'jenis_kelamin'         => "in:Laki-laki,Perempuan",
@@ -149,11 +161,11 @@ class ProfilSayaController extends Controller
             'twitter.max'               => 'twitter maksimal 64 karakter',
             'instagram.max'             => 'instagram maksimal 64 karakter',
             'linkedin.max'              => 'linkedin maksimal 64 karakter',
-            'alamat.max'                => 'alamat maksimal 255 karakter', 
-            'kodepos.max'               => 'kodepos maksimal 8 karakter', 
-            'kabupaten.max'             => 'kabupaten maksimal 32 karakter', 
-            'provinsi.max'              => 'provinsi maksimal 32 karakter', 
-            'negara.max'                => 'negara maksimal 32 karakter', 
+            'alamat.max'                => 'alamat maksimal 255 karakter',
+            'kodepos.max'               => 'kodepos maksimal 8 karakter',
+            'kabupaten.max'             => 'kabupaten maksimal 32 karakter',
+            'provinsi.max'              => 'provinsi maksimal 32 karakter',
+            'negara.max'                => 'negara maksimal 32 karakter',
             'jenis_kelamin.in'          => 'jenis kelamin harus diantara Laki-laki dan Perempuan',
             'kartu_identitas.in'        => 'kartu identitas harus diantara KTP, SIM, NPWP, dan KARTU PELAJAR',
             'kartu_identitas_nomor.max' => 'kartu_identitas_nomor maksimal 16 karakter',
@@ -169,9 +181,20 @@ class ProfilSayaController extends Controller
         // Lolos Validasi
         }else {
 
+            if( !is_null(User::where('email', $request->email)->first()) &&  $request->email != Auth::user()->email ) {
+                return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput()
+                                ->with('gagal', 'Email telah digunakan')->withInput();
+            }
+
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Update data Siswa Gagal )
-            if( $this->updateSiswa($request, $id) != true ) return redirect()->back()->with('gagal', 'File yang kamu upload bukan gambar')->withInput();
-            
+            if( $this->updateSiswa($request, $id) != true ) {
+                return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput()
+                                ->with('gagal', 'File yang kamu upload bukan gambar')->withInput();
+            }
             // Lolos Pengecekan, Update Data Siswa Berhasil
             return redirect('/siswa/profil/profil-saya')->with('success', "Data siswa $request->nama_pertama telah diubah");
         }
@@ -190,7 +213,7 @@ class ProfilSayaController extends Controller
 
 
     public function updateSiswa($request, $id)
-    {   
+    {
         // Mengambil Data
         $data = Siswa::find(decrypt($id));
 
@@ -225,6 +248,7 @@ class ProfilSayaController extends Controller
 
             $user->update([
                 'name' => $request['nama_pertama'] . ' ' . $request['nama_belakang'],
+                'email' => $request->email
             ]);
 
             return true;
@@ -236,7 +260,7 @@ class ProfilSayaController extends Controller
 
             // Lolos Pengecekan lalu Mengecek apakah photo lama terdapat di dalam storage
             $exists = Storage::disk('local')->exists('/public/assets/daftar-siswa/' . $data->photo);
-        
+
             // Jika photo lama terdapat di dalam storage (True), maka hapus photo tsb
             if($exists) Storage::disk('local')->delete('/public/assets/daftar-siswa/' . $data->photo);
 
@@ -274,6 +298,7 @@ class ProfilSayaController extends Controller
 
             $user->update([
                 'name' => $request['nama_pertama'] . ' ' . $request['nama_belakang'],
+                'email' => $request->email
             ]);
 
             return true;

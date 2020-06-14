@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    
+
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -20,6 +20,25 @@
                     <div class="px-2 mt-4 pb-5">
                         <span class="h5 "><i class="fa fa-user"></i> {{('Profil Saya')}}</span>
                         <a id="trigger-tambah-keterampilan" class="ml-3" href="{{ url('/siswa/profil/profil-saya/' . encrypt($siswa->id) . '/edit') }}"><i class="fa fa-edit"></i> Edit</a>
+
+                        @if (session('gagal'))
+                        <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+                            <strong>Gagal</strong> {{ session('gagal') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                       </div>
+                        @endif
+
+                        @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                            <strong>Berhasil</strong> {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                       </div>
+                        @endif
+
                         <div class="row mt-lg-4 mt-2">
                            <div class="col">
                                 <div class="row title-pengalaman keterampilan-list mt-lg-2 mt-5">
@@ -190,8 +209,8 @@
                                     <p class="mt-n3 mt-lg-0">{{ $siswa->pengalaman_level_teks ? __($siswa->pengalaman_level_teks) : __('-') }}</p>
                                 </div>
                             </div>
-                           </div>  
-                       </div>     
+                           </div>
+                       </div>
                     </div>
                 </div>
             </div>

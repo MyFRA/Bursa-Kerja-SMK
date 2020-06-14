@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    
+
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -54,16 +54,22 @@
                                      </div>
                                      <div class="col-md-5 col-sm-6">
                                          <div class="form-group mt-n2 mt-lg-0">
-                                             <select class="js-example-basic-multiple form-control @error('lokasi_diharap') is-invalid @enderror" id="lokasi_diharap" name="lokasi_diharap[]" multiple="multiple" value="{{ old('lokasi_diharap[]') ? old('lokasi_diharap[]') : join(',', json_decode($siswaLainya->lokasi_diharap)) }}">
-                                                 @foreach ($lokasiDiharap as $lokasi)
-                                                     @foreach ($provinsi as $item)
-                                                         <option value="{{ $item->nama_provinsi }}" {{ $item->nama_provinsi == $lokasi ? 'selected' : '' }}>{{$item->nama_provinsi}}</option>
-                                                     @endforeach   
-                                                 @endforeach
+                                             <select class="js-example-basic-multiple form-control @error('lokasi_diharap') is-invalid @enderror" id="lokasi_diharap" name="lokasi_diharap[]" multiple="multiple" value="@if($siswaLainya->lokasi_diharap != 'null') {{ old('lokasi_diharap[]') ? old('lokasi_diharap[]') : join(',', json_decode($siswaLainya->lokasi_diharap)) }} @endif">
+                                                @if ($siswaLainya->lokasi_diharap == 'null')
+                                                    @foreach ($provinsi as $item)
+                                                        <option value="{{ $item->nama_provinsi }}" {{ old('nama_provinsi') == $item->nama_provinsi ? 'selected' : '' }}>{{$item->nama_provinsi}}</option>
+                                                    @endforeach
+                                                @else
+                                                    @foreach ($lokasiDiharap as $lokasi)
+                                                        @foreach ($provinsi as $item)
+                                                            <option value="{{ $item->nama_provinsi }}" {{ $item->nama_provinsi == $lokasi ? 'selected' : '' }}>{{$item->nama_provinsi}}</option>
+                                                        @endforeach
+                                                    @endforeach
+                                                @endif
                                              </select>
                                          </div>
-     
-                                       
+
+
                                          @error('lokasi_diharap')
                                            <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                          @enderror
@@ -81,16 +87,16 @@
                                  </div>
                                  <div class="row title-pengalaman keterampilan-list mt-lg-4 mt-3">
                                      <div class="col-md-3">
-                                         
+
                                      </div>
                                      <div class="col-md-5 tombol-update-lainya">
                                          <button type="submit" class="btn btn-primary ">Update</button>
                                          <a href="{{ url('/siswa/profil/lainya') }}" type="submit" class="btn btn-secondary">Batalkan</a>
                                      </div>
                                  </div>
-                                </div>  
+                                </div>
 
-                       </div>     
+                       </div>
                     </form>
 
                     </div>
@@ -127,7 +133,7 @@
 </script>
 
 <script>
-    
+
 </script>
 
 <script>
@@ -141,7 +147,7 @@
 </script>
 
 <script type="text/javascript">
-		
+
     var gaji_diharapkan = document.getElementById('gaji_diharapkan');
     gaji_diharapkan.addEventListener('keyup', function(e){
         // tambahkan 'Rp.' pada saat form di ketik

@@ -160,16 +160,23 @@ class PendidikanController extends Controller
     {
         $this->getSeo();
 
+        $siswaPendidikan = SiswaPendidikan::find(decrypt($id));
+
         $tahunSekarang = getdate();
         for( $i = $tahunSekarang['year']; $i >= 1945; $i-- ) {
             $tahun[] = $i;
         }
 
+        $programKeahlian = ProgramKeahlian::where('bidang_keahlian_id', $siswaPendidikan->bidang_keahlian_id)->get();
+        $kompetensiKeahlian = KompetensiKeahlian::where('program_keahlian_id', $siswaPendidikan->program_keahlian_id)->get();
+
         $data = [
             'nav' => 'pendidikan',
             'bidangKeahlian' => BidangKeahlian::orderBy('nama', 'ASC')->get(),
+            'programKeahlian' => $programKeahlian,
+            'kompetensiKeahlian' => $kompetensiKeahlian,
             'tahun' => $tahun,
-            'pendidikan' => SiswaPendidikan::find(decrypt($id)),
+            'pendidikan' => $siswaPendidikan,
             'navLink' => ''
         ];
 
@@ -254,7 +261,13 @@ class PendidikanController extends Controller
      */
     public function destroy($id)
     {
-        SiswaPendidikan::destroy(decrypt($id));
-        return back();
+        $jml = SiswaPendidikan::where('siswa_id', Auth::user()->siswa->id)->count();
+
+        if( $jml == 1 ) {
+            return redirect()->back()->with('gagal', 'Pendidikan harus ada, minimal 1');
+        } else {
+            SiswaPendidikan::destroy(decrypt($id));
+            return back();
+        }
     }
 }

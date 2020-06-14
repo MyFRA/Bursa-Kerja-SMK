@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    
+
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -35,7 +35,7 @@
                                        <p class=" text-muted">Gaji yang diharapkan</p>
                                    </div>
                                    <div class="col-md-7">
-                                       <p class="mt-n3 mt-lg-0">{{__(number_format($siswaLainya->gaji_diharapkan, 0, '.', '.'))}}</p>
+                                       <p class="mt-n3 mt-lg-0">Rp. {{__(number_format($siswaLainya->gaji_diharapkan, 0, '.', '.'))}}</p>
                                    </div>
                                </div>
                                <div class="row title-pengalaman keterampilan-list mt-lg-2 mt-5">
@@ -43,7 +43,11 @@
                                     <p class=" text-muted">Lokasi diharap</p>
                                 </div>
                                 <div class="col-md-7">
-                                    <p class="mt-n3 mt-lg-0">{{ join(', ', json_decode($siswaLainya->lokasi_diharap)) }}</p>
+                                    @if ($siswaLainya->lokasi_diharap == 'null')
+                                        <p class="mt-n3 mt-lg-0">Tidak ada lokasi diharapkan</p>
+                                    @else
+                                        <p class="mt-n3 mt-lg-0">{{ join(', ', json_decode($siswaLainya->lokasi_diharap)) }}</p>
+                                    @endif
                                 </div>
                             </div>
                             <div class="row title-pengalaman keterampilan-list mt-lg-2 mt-5">
@@ -54,8 +58,8 @@
                                     <p class="mt-n3 mt-lg-0">{{__($siswaLainya->keterangan)}}</p>
                                 </div>
                             </div>
-                           </div>  
-                       </div>     
+                           </div>
+                       </div>
                     </div>
                 </div>
             </div>
