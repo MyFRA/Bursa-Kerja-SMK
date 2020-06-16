@@ -54,7 +54,7 @@ class BerandaController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */  
+     */
     public function index()
     {
         // Mengambil SEO
@@ -68,7 +68,7 @@ class BerandaController extends Controller
         $jmlLamaran = 0;
         $jmlLowongan = 0;
         $idPerusahaan = ($this->getPerusahaan()) ? $this->getPerusahaan()->id : false;
-        $lowongan = Lowongan::where('perusahaan_id', $idPerusahaan)->get(['id', 'jumlah_pelamar', 'jabatan', 'gaji_min', 'gaji_max', 'batas_akhir_lamaran', 'status', 'perusahaan_id', 'created_at']);
+        $lowongan = Lowongan::where('perusahaan_id', $idPerusahaan)->get(['id', 'jumlah_pelamar', 'jabatan', 'gaji_min', 'gaji_max', 'batas_akhir_lamaran', 'status', 'perusahaan_id', 'proses_lamaran', 'created_at']);
         $pelamaran = Pelamaran::orderBy('created_at', 'DESC')->get(['id', 'lowongan_id', 'siswa_id']);
 
         // Pengambilan data, untuk menghitung jml panggilan tes, pada lowongan
@@ -89,11 +89,11 @@ class BerandaController extends Controller
             }
         }
 
-        // Membatasi data Last Pelamar hanya 5 
+        // Membatasi data Last Pelamar hanya 5
         $lastPelamar = array_slice($lastPelamar, 0, 5);
 
-        // Mengambil data Jml Lamaran & Lowongan terakhir dibuat 
-        if($idPerusahaan) {
+        // Mengambil data Jml Lamaran & Lowongan terakhir dibuat
+        if( $idPerusahaan) {
             $jmlLamaran = $lowongan->sum('jumlah_pelamar');
             $lastLowongan = $lowongan->last();
         }
@@ -112,7 +112,7 @@ class BerandaController extends Controller
     		'user'          => Auth::user(),
             'perusahaan'    => $this->getPerusahaan()
     	];
-        
+
     	return view('perusahaan.beranda.index', $data);
     }
 
@@ -188,13 +188,13 @@ class BerandaController extends Controller
             'instagram.max'               => 'instagram maksimal 64 karakter',
             'linkedin.max'                => 'linkedin maksimal 64 karakter',
             'jumlah_karyawan.max'         => 'jumlah karyawan maksimal 16 karakter',
-            'alamat.max'                  => 'alamat maksimal 128 karakter', 
-            'kodepos.max'                 =>  'kodepos maksimal 8 karakter', 
-            'kabupaten.max'               =>  'kabupaten maksimal 64 karakter', 
-            'provinsi.max'                =>  'provinsi maksimal 32 karakter', 
-            'negara.max'                  =>  'negara maksimal 32 karakter', 
+            'alamat.max'                  => 'alamat maksimal 128 karakter',
+            'kodepos.max'                 =>  'kodepos maksimal 8 karakter',
+            'kabupaten.max'               =>  'kabupaten maksimal 64 karakter',
+            'provinsi.max'                =>  'provinsi maksimal 32 karakter',
+            'negara.max'                  =>  'negara maksimal 32 karakter',
             'waktu_proses_perekrutan.max' => 'waktu proses perekrutan maksimal 32 karakter',
-            'gaya_berpakaian.max'         => 'gaya berpakaian maksimal 128 karakter', 
+            'gaya_berpakaian.max'         => 'gaya berpakaian maksimal 128 karakter',
             'bahasa.max'                  => 'bahasa maksimal 128 karakter',
             'waktu_bekerja.max'           => 'waktu bekerja maksimal 64 karakter',
         ]);
@@ -208,7 +208,7 @@ class BerandaController extends Controller
         }else {
             // Pengecekan apakah file yang diupload adl gambar, jika bukan Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Perusahaan Gagal )
             if( $this->verifikasiPerusahaan($request) != true ) return redirect()->back()->with('gagal', 'Logo atau Image yang kamu upload bukan gambar')->withInput();
-            
+
             // Lolos Pengecekan, Insert Data Perusahaan Berhasil
             $user = User::find(Auth::user()->id);
             $user->revokePermissionTo('melakukan verifikasi');
@@ -222,7 +222,7 @@ class BerandaController extends Controller
      *
      */
     public function verifikasiPerusahaan($request)
-    {   
+    {
         // Pengecekan jika tidak ada gambar yang diupload, baik logo ataupun image
         if (is_null($request->file('image')) && is_null($request->file('logo'))) {
             // Insert data Perusahaan dan mengembalikan nilai True
@@ -270,7 +270,7 @@ class BerandaController extends Controller
                     // Jika ternyata, ada file yang diupload di logo, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
                     if (!in_array($request->file('logo')->getClientOriginalExtension(), $ekstensiValid)) return false;
-                    
+
                     // Lolos Pengecekan ( File (logo) = Gambar ) & File Siap Diupload
                     $namaLogo = explode('.', $request->file('logo')->getClientOriginalName());
                     $namaLogo = $namaLogo[0] . '_' . time() . '.' . $request->file('logo')->getClientOriginalExtension();
@@ -285,7 +285,7 @@ class BerandaController extends Controller
                     // Jika ternyata, ada file yang diupload di image, maka lanjut pengecekan, apakah file yang diupload berupa gambar
                     $ekstensiValid = ['jpeg', 'png', 'bmp', 'gif', 'svg','webp', 'jpg'];
                     if (!in_array($request->file('image')->getClientOriginalExtension(), $ekstensiValid)) return false;
-                    
+
                     // Lolos Pengecekan ( File (image) = Gambar ) & File Siap Diupload
                     $namaImage = explode('.', $request->file('image')->getClientOriginalName());
                     $namaImage = $namaImage[0] . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension();
@@ -331,7 +331,7 @@ class BerandaController extends Controller
             return true;
         }
     }
- 
+
     /**
      * Method for logout perusahaan.
      *

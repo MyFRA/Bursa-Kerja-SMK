@@ -138,21 +138,26 @@
 											<th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($lastLowongan->id)) }}">{{__( $lastLowongan->jabatan )}}</a></th>
 										</tr>
 										<tr>
-											<th class="border-0 pb-0" scope="col">Jumlah Pelamar</th>
-											<th class="border-0 pb-0" scope="col">:</th>
-											<th class="border-0 pb-0" scope="col"> {{ $lastLowongan->jumlah_pelamar }} </th>
+                                            <tr>
+												<th class="border-0 pb-0" scope="col">{{__('Jumlah Pelamar')}}</th>
+												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
+												<th class="border-0 pb-0" scope="col"> {!! ($lastLowongan->proses_lamaran == 'Offline') ? '<i class="fa fa-circle text-danger mr-1" style="font-size: 8px"></i> <span>Offline</span>' : $lastLowongan->jumlah_pelamar !!} </th>
 										</tr>
 										<tr>
 											<th class="border-0 pb-0" scope="col">Pelamar</th>
-											<th class="border-0 pb-0" scope="col">:</th>
-											<th class="border-0 pb-0" scope="col"> 
-												<a href="{{ url('/perusahaan/lowongan/' . encrypt($lastLowongan->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>	
-											</th>
+                                            <th class="border-0 pb-0" scope="col">:</th>
+                                            <th class="border-0 pb-0" scope="col">
+                                                @if ($lastLowongan->proses_lamaran == 'Offline')
+                                                    <i class="fa fa-circle text-danger mr-1" style="font-size: 8px"></i> <span>Offline</span>
+                                                @else
+                                                    <a href="{{ url('/perusahaan/lowongan/' . encrypt($lastLowongan->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>
+                                                @endif
+                                            </th>
 										</tr>
 										<tr>
 											<th class="border-0 pb-0" scope="col">Status</th>
 											<th class="border-0 pb-0" scope="col">:</th>
-											<th class="border-0 pb-0" scope="col"> 
+											<th class="border-0 pb-0" scope="col">
 												@if ($lastLowongan->status == 'Aktif')
 													<span class="btn btn-sm btn-success"><i class="fa fa-check mr-2"></i> {{$lastLowongan->status}} </span>
 												@elseif($lastLowongan->status == 'Nonaktif')
@@ -165,12 +170,12 @@
 										<tr>
 											<th class="border-0 pb-0" scope="col">Berakhir</th>
 											<th class="border-0 pb-0" scope="col">:</th>
-											<th class="border-0 pb-0" scope="col"> 
+											<th class="border-0 pb-0" scope="col">
 												{{ date('d M Y', strtotime($lastLowongan->batas_akhir_lamaran)) }}
 											</th>
 										</tr>
 									</table>
-								</div> 
+								</div>
 							</div>
 						</div>
 					@endif

@@ -14,6 +14,7 @@
                     @cannot('melakukan verifikasi')
                         <a class="dropdown-item" href="{{ url('/perusahaan/profil') }}"><i class="fa fa-user"></i>{{__(' Profil Perusahaan')}}</a>
                         <a class="dropdown-item" href="{{ url('/perusahaan/profil/ubah') }}"><i class="fa fa-edit"></i>{{__(' Perbarui Informasi')}}</a>
+                        <a class="dropdown-item" href="{{ url('/perusahaan/profil/setelan-akun') }}"><i class="fa fa-cogs">{{__(' Setelan Akun')}}</i></a>
                     @endcan
                     <a class="dropdown-item" href="#" onclick="event.preventDefault();document.getElementById('logout').submit();"><i class="fa fa-sign-out"></i>{{__(' Keluar')}}</a>
                 </div>

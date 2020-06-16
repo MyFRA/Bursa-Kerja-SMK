@@ -20,7 +20,7 @@
             <div class="widgets select-job-criteria card rounded-0 mb-3">
                 <div class="card-body p-3">
                     <h4 class="widget-title">{{__('Pilih Kriteria')}}</h4>
-                    
+
                     <form id="form-search" action="{{ url('/lowongan/cari/pekerjaan') }}" method="get">
                         <input type="hidden" name="urutBerdasarkan" value="terbaru">
                         <div class="form-group">
@@ -38,10 +38,10 @@
                             <select name="provinsi" id="" class="form-control form-control-sm">
                                 <option value="">{{__('Semua Lokasi')}}</option>
                                 @foreach ($provinsi as $prov)
-                                    <option value="{{ $prov->nama_provinsi }}" 
+                                    <option value="{{ $prov->nama_provinsi }}"
                                     @if (isset($oldInput['provinsi']))
                                         {{ ($oldInput['provinsi'] == $prov->nama_provinsi) ? 'selected' : '' }}
-                                    @endif    
+                                    @endif
                                     >{{ $prov->nama_provinsi }}</option>
                                 @endforeach
                             </select>
@@ -51,17 +51,25 @@
                             <select name="program_keahlian_id" id="" class="form-control form-control-sm">
                                 <option value="">{{__('Semua Program Keahlian')}}</option>
                                 @foreach ($programKeahlian as $progKeahlian)
-                                    <option value="{{ $progKeahlian->id }}" 
+                                    <option value="{{ $progKeahlian->id }}"
                                     @if (isset($oldInput['program_keahlian_id']))
                                         {{ ($oldInput['program_keahlian_id'] == $progKeahlian->id) ? 'selected' : '' }}
-                                    @endif    
+                                    @endif
                                     >{{ $progKeahlian->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
-
                         <div class="form-group">
-                            <input type="text" name="gaji_min" id="gaji_min" placeholder="Gaji Minimum (IDR)" class="form-control form-control-sm" value="{{ (isset($oldInput['gaji_min'])) ? $oldInput['gaji_min'] : '' }}">
+                            <select name="gaji_min" id="" class="form-control form-control-sm">
+                                <option value="">{{__('Gaji Minimal IDR')}}</option>
+                                @foreach ($gaji_minimal as $gaji_min)
+                                    <option value="{{ $gaji_min }}"
+                                    @if (isset($oldInput['gaji_min']))
+                                        {{ ($oldInput['gaji_min'] == $gaji_min) ? 'selected' : '' }}
+                                    @endif
+                                    >IDR {{ number_format($gaji_min, 0, '.', '.') }}</option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -96,20 +104,20 @@
                         </ul>
                         <div class="col-md-3 text-right py-2">
                             <select id="urutkan-berdasarkan" class="form-control form-control-sm">
-                                <option value="terbaru" 
+                                <option value="terbaru"
                                     @if (isset($oldInput['urutBerdasarkan']))
                                         {{ ($oldInput['urutBerdasarkan'] == 'terbaru') ? 'selected' : '' }}
-                                    @endif 
+                                    @endif
                                 >{{__('Terbaru')}}</option>
-                                <option value="gaji_terendah" 
+                                <option value="gaji_terendah"
                                     @if (isset($oldInput['urutBerdasarkan']))
                                         {{ ($oldInput['urutBerdasarkan'] == 'gaji_terendah') ? 'selected' : '' }}
-                                    @endif 
+                                    @endif
                                 >{{__('Gaji Terendah')}}</option>
-                                <option value="gaji_tertinggi" 
+                                <option value="gaji_tertinggi"
                                     @if (isset($oldInput['urutBerdasarkan']))
                                         {{ ($oldInput['urutBerdasarkan'] == 'gaji_tertinggi') ? 'selected' : '' }}
-                                    @endif 
+                                    @endif
                                 >{{__('Gaji Tertinggi')}}</option>
                             </select>
                         </div>
@@ -181,13 +189,13 @@
 			sisa     		= split[0].length % 3,
 			rupiah     		= split[0].substr(0, sisa),
 			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
- 
+
 			// tambahkan titik jika yang di input sudah menjadi angka ribuan
 			if(ribuan){
 				separator = sisa ? '.' : '';
 				rupiah += separator + ribuan.join('.');
 			}
- 
+
 			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 		}
@@ -201,6 +209,6 @@
 
         formSearch.submit()
     })
-</script>	
+</script>
 
 @endsection

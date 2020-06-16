@@ -20,6 +20,7 @@ use App\Models\Bahasa;
 use App\Models\SiswaBahasa;
 use App\Models\Siswa;
 use App\Models\SiswaLainya;
+use App\Models\Lowongan;
 
 
 
@@ -43,8 +44,8 @@ class ProfilSiswaController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
     }
-    
-    public function index($id) 
+
+    public function index($id, $idLowongan)
     {
         // Mengambil SEO
         $this->getSeo();
@@ -54,13 +55,15 @@ class ProfilSiswaController extends Controller
             'nav' => 'lowongan',
             'pelamar' => User::find(decrypt($id)),
             'siswaPendidikan' => SiswaPendidikan::where('siswa_id', User::find(decrypt($id))->siswa->id)->get(),
-            'sidebar' => 'lihat-profil'
+            'sidebar' => 'lihat-profil',
+            'navTitle' => 'Profil',
+            'idLowongan' => Lowongan::find(decrypt($idLowongan))->id,
         ];
 
         return view('pages.profil-siswa.index', $data);
     }
 
-    public function pendidikan($id)
+    public function pendidikan($id, $idLowongan)
     {
         // Mengambil SEO
         $this->getSeo();
@@ -71,12 +74,14 @@ class ProfilSiswaController extends Controller
             'pelamar' => User::where('id', decrypt($id))->first(),
             'sidebar' => 'pendidikan',
             'pendidikan' => SiswaPendidikan::where('siswa_id', User::find(decrypt($id))->siswa->id)->get(),
+            'navTitle' => 'Pendidikan',
+            'idLowongan' => Lowongan::find(decrypt($idLowongan))->id,
         ];
 
         return view('pages.profil-siswa.pendidikan', $data);
     }
 
-    public function pengalaman($id)
+    public function pengalaman($id, $idLowongan)
     {
         // Mengambil SEO
         $this->getSeo();
@@ -86,13 +91,15 @@ class ProfilSiswaController extends Controller
             'nav' => 'lowongan',
             'pelamar' => User::where('id', decrypt($id))->first(),
             'pengalaman' => SiswaPengalaman::where('siswa_id', User::find(decrypt($id))->siswa->id)->orderBy('created_at', 'DESC')->get(),
-            'sidebar' => 'pengalaman'
+            'sidebar' => 'pengalaman',
+            'navTitle' => 'Pengalaman',
+            'idLowongan' => Lowongan::find(decrypt($idLowongan))->id,
         ];
 
         return view('pages.profil-siswa.pengalaman', $data);
     }
 
-    public function keterampilan($id)
+    public function keterampilan($id, $idLowongan)
     {
         // Mengambil SEO
         $this->getSeo();
@@ -102,13 +109,15 @@ class ProfilSiswaController extends Controller
             'nav' => 'lowongan',
             'pelamar' => User::where('id', decrypt($id))->first(),
             'sidebar' => 'keterampilan',
-            'keterampilan' => SiswaKeterampilan::where('siswa_id', User::find(decrypt($id))->siswa->id)->get()
+            'keterampilan' => SiswaKeterampilan::where('siswa_id', User::find(decrypt($id))->siswa->id)->get(),
+            'navTitle' => 'Keterampilan',
+            'idLowongan' => Lowongan::find(decrypt($idLowongan))->id,
         ];
 
         return view('pages.profil-siswa.keterampilan', $data);
     }
 
-    public function bahasa($id)
+    public function bahasa($id, $idLowongan)
     {
         // Mengambil SEO
         $this->getSeo();
@@ -119,12 +128,14 @@ class ProfilSiswaController extends Controller
             'pelamar' => User::where('id', decrypt($id))->first(),
             'sidebar' => 'bahasa',
             'siswaBahasa' => SiswaBahasa::where('siswa_id', User::find(decrypt($id))->siswa->id)->get(),
+            'navTitle' => 'Bahasa',
+            'idLowongan' => Lowongan::find(decrypt($idLowongan))->id,
         ];
 
         return view('pages.profil-siswa.bahasa', $data);
     }
 
-    public function lainya($id)
+    public function lainya($id, $idLowongan)
     {
         // Mengambil SEO
         $this->getSeo();
@@ -134,13 +145,15 @@ class ProfilSiswaController extends Controller
             'nav' => 'lowongan',
             'pelamar' => User::where('id', decrypt($id))->first(),
             'sidebar' => 'lainya',
-            'siswaLainya' => SiswaLainya::where('siswa_id', User::find(decrypt($id))->siswa->id)->first()
+            'siswaLainya' => SiswaLainya::where('siswa_id', User::find(decrypt($id))->siswa->id)->first(),
+            'navTitle' => 'Lainya',
+            'idLowongan' => Lowongan::find(decrypt($idLowongan))->id,
         ];
 
         return view('pages.profil-siswa.lainya', $data);
     }
 
-    public function profilLengkap($id)
+    public function profilLengkap($id, $idLowongan)
     {
         // Mengambil SEO
         $this->getSeo();
@@ -150,7 +163,9 @@ class ProfilSiswaController extends Controller
             'nav' => 'lowongan',
             'pelamar' => User::where('id', decrypt($id))->first(),
             'sidebar' => 'profil-saya',
-            'siswa' => Siswa::find(User::find(decrypt($id))->siswa->id)
+            'siswa' => Siswa::find(User::find(decrypt($id))->siswa->id),
+            'navTitle' => 'Profil Lengkap',
+            'idLowongan' => Lowongan::find(decrypt($idLowongan))->id,
         ];
 
         return view('pages.profil-siswa.profil-lengkap', $data);

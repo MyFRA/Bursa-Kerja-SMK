@@ -32,13 +32,13 @@ Route::get('/apiProvinsi', 'AjaxController@apiProvinsi');
 
 Route::middleware(['auth_perusahaan', 'role:perusahaan'])->group(function() {
     // Profil Siswa
-    Route::get('/profil-siswa/{id}', 'ProfilSiswaController@index');
-    Route::get('/profil-siswa/{id}/pendidikan', 'ProfilSiswaController@pendidikan');
-    Route::get('/profil-siswa/{id}/pengalaman', 'ProfilSiswaController@pengalaman');
-    Route::get('/profil-siswa/{id}/keterampilan', 'ProfilSiswaController@keterampilan');
-    Route::get('/profil-siswa/{id}/bahasa', 'ProfilSiswaController@bahasa');
-    Route::get('/profil-siswa/{id}/lainya', 'ProfilSiswaController@lainya');
-    Route::get('/profil-siswa/{id}/profil-lengkap', 'ProfilSiswaController@profilLengkap');
+    Route::get('/profil-siswa/{id}/{idLowongan}', 'ProfilSiswaController@index');
+    Route::get('/profil-siswa/{id}/{idLowongan}/pendidikan', 'ProfilSiswaController@pendidikan');
+    Route::get('/profil-siswa/{id}/{idLowongan}/pengalaman', 'ProfilSiswaController@pengalaman');
+    Route::get('/profil-siswa/{id}/{idLowongan}/keterampilan', 'ProfilSiswaController@keterampilan');
+    Route::get('/profil-siswa/{id}/{idLowongan}/bahasa', 'ProfilSiswaController@bahasa');
+    Route::get('/profil-siswa/{id}/{idLowongan}/lainya', 'ProfilSiswaController@lainya');
+    Route::get('/profil-siswa/{id}/{idLowongan}/profil-lengkap', 'ProfilSiswaController@profilLengkap');
 });
 
 
@@ -54,7 +54,7 @@ Route::prefix('/app-admin')->group(function() {
     Route::get('/login', 'Admin\LoginController@index')->name('admin-login');
     Route::post('/login', 'Admin\LoginController@login')->name('admin-login.post');
 
-    Route::middleware(['auth'])->group(function() {
+    Route::middleware(['auth', 'role:superadmin|guru'])->group(function() {
         Route::get('/dashboard', 'Admin\AdminController@index')->name('admin');
 
         /** Artikel Router */

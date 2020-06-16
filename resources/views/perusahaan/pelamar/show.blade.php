@@ -43,7 +43,7 @@
                                 <tr class="border-0">
                                     <th class="border-0 pb-0" scope="col">{{__('Nama')}}</th>
                                     <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
-                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
+                                    <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id) . '/' . encrypt($pelamar->lowongan->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
                                 </tr>
                             </tbody>
                         </table>
@@ -52,7 +52,7 @@
                         {!! $pelamar->proposal_pelamaran !!}
                     </div>
                     <div class="mt-2">
-                        <a class="float-right mr-3" href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></a>
+                        <a class="float-right mr-3" href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id) . '/' . encrypt($pelamar->lowongan->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></a>
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                             <tr class="border-0">
                                 <th class="border-0 pb-0" scope="col">Nama</th>
                                 <th class="border-0 pb-0" scope="col">:</th>
-                                <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
+                                <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id) . '/' . encrypt($pelamar->lowongan->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></th>
                             </tr>
                             <tr>
                                 <th class="border-0 pb-0" scope="col">{{__('Gaji Diharapkan')}}</th>
@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    
+
     <form id="status-pelamaran" action="{{ url('/perusahaan/lowongan/status-pelamaran') }}" method="post">
         @csrf
         <input type="hidden" name="status" value="">

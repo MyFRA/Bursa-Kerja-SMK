@@ -35,6 +35,7 @@
                     <th>{{__('JABATAN')}}</th>
                     <th width="30%">{{__('KOMPETENSI KEAHLIAN')}}</th>
                     <th>{{__('PELAMARAN')}}</th>
+                    <th>{{__('STATUS')}}</th>
                     <th width="20%">{{__('DIPERBARUI PADA')}}</th>
                 </tr>
             </thead>
@@ -64,8 +65,9 @@
                             <i class="fa fa-circle mr-1 {{ ($val->proses_lamaran == 'Online') ? 'text-success' : 'text-danger' }}" style="font-size: 8px"></i>
                             <span>{{ $val->proses_lamaran }}</span>
                         </td>
+                        <td>{{ $val->status }}</td>
                         <td>{{ $val->updated_at->format('d M Y H:i:s') }}</td>
-                    </tr> 
+                    </tr>
                 @endforeach
             </tbody>
         </table>
@@ -107,7 +109,7 @@
             }
         })
         .on('select', function(e, dt, type, indexes) {
-            
+
         })
         .on('deselect', function(e, dt, type, indexes) {
             console.log(indexes);

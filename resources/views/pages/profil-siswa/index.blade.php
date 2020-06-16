@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa-for-pages')
 
         <div class="col-lg-3 px-2">
@@ -28,15 +28,15 @@
                         <span class="text-muted mt-n1">{{($pelamar->siswa->siswaPendidikan->tingkat_sekolah)}}</span>
                         <span class="text-muted mt-n1">{{( $pelamar->siswa->siswaPendidikan->kompetensiKeahlian->nama )}}</span>
                         <span class="text-muted ">{{( $pelamar->siswa->siswaPendidikan->nama_sekolah )}}</span>
-                        <div class="mt-2"> 
+                        <div class="mt-2">
                             <span>
-                                <i class="fa fa-phone mx-2"></i> {{( $pelamar->siswa->hp )}} |   
+                                <i class="fa fa-phone mx-2"></i> {{( $pelamar->siswa->hp )}} |
                             </span>
                             <span>
-                                <i class="fa fa-envelope mx-2"></i> {{( $pelamar->siswa->email )}} | 
+                                <i class="fa fa-envelope mx-2"></i> {{( $pelamar->siswa->email )}} |
                             </span>
                             <span>
-                                <i class="fa fa-dollar mx-2"></i> {{( number_format( $pelamar->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.' ) )}} | 
+                                <i class="fa fa-dollar mx-2"></i> {{( number_format( $pelamar->siswa->siswaLainya->gaji_diharapkan, 0, '.', '.' ) )}} |
                             </span>
                             <span>
                                 <i class="fa fa-map-marker mx-2"></i> {{( $pelamar->siswa->provinsi )}} |
@@ -78,7 +78,9 @@
                                 <span class="text-muted">{{('Lokasi Diharapkan')}}</span>
                             </div>
                             <div style="flex: 3">
-                                <span>{{ implode(', ', json_decode($pelamar->siswa->siswaLainya->lokasi_diharap)) }} </span>
+                                @if ($pelamar->siswa->siswaLainya->lokasi_diharap != 'null')
+                                    <span>{{ implode(', ', json_decode($pelamar->siswa->siswaLainya->lokasi_diharap)) }} </span>
+                                @endif
                             </div>
                         </div>
                     </div>

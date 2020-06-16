@@ -53,6 +53,7 @@ class JobController extends Controller
                                     ->paginate(6),
             'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
             'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
+            'gaji_minimal' => [1000000, 2000000, 3000000, 4000000, 5000000],
             'navLink' => 'lowongan'
         ];
 
@@ -118,6 +119,7 @@ class JobController extends Controller
             'lowongan' => $lowongan->paginate(6),
             'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
             'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
+            'gaji_minimal' => [1000000, 2000000, 3000000, 4000000, 5000000],
             'oldInput' => $request->all(),
             'navLink' => 'lowongan'
         ];
@@ -149,6 +151,6 @@ class JobController extends Controller
             'navLink' => 'lowongan'
         ];
 
-        return view('pages.jobs.show', $data);
+        return view('pages.jobs.shows', $data);
     }
 }

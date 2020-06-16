@@ -37,7 +37,7 @@
                                         <p class="mt-n3 mt-lg-0">{{ $siswa->name }}</p>
                                     </div>
                                     <div class="col-md-2">
-                                        <a class="float-right mr-5" href="{{ url('/siswa/profil/profil-saya/' . encrypt($siswa->id) . '/edit', []) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="float-right mr-5" href="{{ url('/siswa/profil/profil-saya/' . encrypt($siswa->siswa->id) . '/edit', []) }}"><i class="fa fa-edit"></i> Edit</a>
                                     </div>
                                 </div>
                                 <div class="row title-pengalaman keterampilan-list mt-lg-2 mt-5">
@@ -48,7 +48,7 @@
                                         <p class="mt-n3 mt-lg-0">{{ $siswa->email }}</p>
                                     </div>
                                     <div class="col-md-2">
-                                        <a class="float-right mr-5" href="{{ url('/siswa/profil/profil-saya/' . encrypt($siswa->id) . '/edit', []) }}"><i class="fa fa-edit"></i> Edit</a>
+                                        <a class="float-right mr-5" href="{{ url('/siswa/profil/profil-saya/' . encrypt($siswa->siswa->id) . '/edit', []) }}"><i class="fa fa-edit"></i> Edit</a>
                                     </div>
                                 </div>
                                 <div class="row title-pengalaman keterampilan-list mt-lg-2 mt-5">

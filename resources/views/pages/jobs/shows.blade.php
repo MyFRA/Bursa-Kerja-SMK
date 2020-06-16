@@ -1,17 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+@php
+    $today = new DateTime();
+    $exp = new DateTime($lowongan->batas_akhir_lamaran);
+@endphp
 <div class="pages-beranda-lowongan">
     <div class="pages-beranda-cari-lowongan">
 
         {{-- For Dekstop --}}
 			<input id="for-dekstop" type="text" placeholder="Mencari berdasarkan posisi, keahlian dan kata kunci">
 			<button id="for-dekstop" onclick="cariLoker(this)"><i class="fa fa-search"></i></button>
-			
+
         {{-- For Mobile --}}
         <input id="for-mobile" class="d-none w-100" type="text" placeholder="Mencari berdasarkan posisi, keahlian dan kata kunci">
         <button id="for-mobile"><i class="fa fa-search"></i></button>
-        
+
     </div>
 </div>
 
@@ -31,7 +35,7 @@
                         <div class="text-center m-auto w-100">
                             @if (is_null($lowongan->perusahaan->logo))
                                 <img class="logo-perusahaan-show-lowongan text-center" src="{{ asset('/images/company.png') }}" alt="">
-                            @else 
+                            @else
                                 <img class="logo-perusahaan-show-lowongan text-center" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
                             @endif
                         </div>
@@ -43,7 +47,7 @@
                     <div>
                         <div class="">
                             <span class="d-inline-block">
-                                <i class="fa fa-dollar mr-2 text-success font-weight-bold"></i> 
+                                <i class="fa fa-dollar mr-2 text-success font-weight-bold"></i>
                             </span>
                             <span class="text-muted">
                                 {{__('IDR')}} {{ __(number_format($lowongan->gaji_min, 0, '.', '.')) }} {{__('-')}}  {{__( number_format($lowongan->gaji_max, 0, '.', '.') )}}
@@ -154,7 +158,11 @@
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Batas AKhir Lamaran')}}</h6>
-                                    <span> {{ __( date('d M Y', strtotime($lowongan->batas_akhir_lamaran)) ) }} </span>
+                                    @if($today->format("Y-m-d") > $exp->format("Y-m-d"))
+                                        <span class="btn btn-sm mt-2 btn-secondary"><i class="fa fa-clock-o mr-2"></i> Lowongan Telah Berakhir</span>
+                                    @else
+                                        <span> {{ __( date('d M Y', strtotime($lowongan->batas_akhir_lamaran)) ) }} </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -177,7 +185,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 mt-2">
@@ -203,27 +211,25 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col mt-2 px-1">
-                    @if ($lowongan->proses_lamaran != 'Offline')
-                        <div class="card p-3 row-lamar-sekarang">
-                            <div>
+                    <div class="card p-3 row-lamar-sekarang">
+                        <div>
+                            @if ($lowongan->proses_lamaran == 'Offline')
+                                <span class="h5">Proses Lamaran Dilaksanakan Offline</span>
+                            @else
                                 <a class="h5" href="{{ url('/siswa/lowongan/lihat/pelamar/'. encrypt($lowongan->id)) }}"><span><i class="fa fa-list mr-2"></i> Lihat Siapa Yang Telah Melamar <i class="fa fa-caret-right ml-2"></i></span></a>
-                            </div>
-                            @if (is_null($melamar))
-                                @if (Auth::check())
-                                    @if (Auth::user()->hasRole('siswa'))
-                                        <div>
-                                        </div>
-                                        <div>
-                                            <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
-                                                <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
-                                            </form>
-                                        </div> 
-                                    @endif
-                                @else
+                            @endif
+                        </div>
+
+                        @if($today->format("Y-m-d") > $exp->format("Y-m-d"))
+                            <span class="btn btn-secondary mt-3 mt-lg-0"><i class="fa fa-clock-o mr-2"></i> Lowongan Telah Berakhir</span>
+                        @elseif($lowongan->proses_lamaran == 'Offline')
+
+                        @elseif (is_null($melamar))
+                            @if (Auth::check())
+                                @if (Auth::user()->hasRole('siswa'))
                                     <div>
                                     </div>
                                     <div>
@@ -236,14 +242,24 @@
                                 @endif
                             @else
                                 <div>
-                                    <a href="{{ url('/siswa/lamaran/' . encrypt($melamar->id)) }}" class="h6 mr-4">Lihat Lamaran</a>
                                 </div>
                                 <div>
-                                    <button class="btn btn-secondary" type="button">Telah Dilamar</button>
+                                    <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
+                                        @csrf
+                                        <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
+                                        <button class="btn btn-primary" type="submit">Lamar Sekarang</button>
+                                    </form>
                                 </div>
                             @endif
-                        </div>
-                    @endif
+                        @else
+                            <div>
+                                <a href="{{ url('/siswa/lamaran/' . encrypt($melamar->id)) }}" class="h6 mr-4">Lihat Lamaran</a>
+                            </div>
+                            <div>
+                                <button class="btn btn-secondary" type="button">Telah Dilamar</button>
+                            </div>
+                        @endif
+                    </div>
             </div>
         </div>
         <div class="row">

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="route">
             <div class="d-flex align-items-center">
-                <h2 class="m-0 pl-2">{{__('Portal Perusahaan Monokrom')}}</h2>
+                <h2 class="m-0 pl-2">{{__('Portal Perusahaan')}} {{ Auth::user()->perusahaan->nama }}</h2>
             </div>
             <div class="d-flex align-items-center justify-content-end">
                 <a href="{{ url('/perusahaan/lowongan') }}">{{__('Lowongan')}} </a>
@@ -50,7 +50,7 @@
                                                 <th class="border-0 pb-0" scope="col">{{ __( ($perusahaan->alamat == null) ? '-' : $perusahaan->alamat  ) }}</th>
                                             </tr>
                                         </table>
-                                    </div> 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -124,7 +124,7 @@
                                                     <tr class="border-0">
                                                         <th class="border-0 pb-0" scope="col">{{__('Nama')}}</th>
                                                         <th class="border-0 pb-0" scope="col">{{__(':')}}</th>
-                                                        <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($org->siswa->user->id)) }}">{{__( $org->siswa->nama_pertama )}} {{ __( $org->siswa->nama_belakang ) }} </a></th>
+                                                        <th class="border-0 pb-0" scope="col"><a href="{{ url('profil-siswa/' . encrypt($org->siswa->user->id) . '/' . encrypt($lowongan->id)) }}">{{__( $org->siswa->nama_pertama )}} {{ __( $org->siswa->nama_belakang ) }} </a></th>
                                                     </tr>
                                                     <tr>
                                                         <th class="border-0 pb-0" scope="col">{{__('Gaji Diharapkan')}}</th>

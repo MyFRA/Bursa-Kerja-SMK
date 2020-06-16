@@ -159,6 +159,13 @@ class ProfilController extends Controller
                              ->withInput();
         // Lolos Validasi
         }else {
+            if( !is_null(User::where('email', $request->email)->first()) &&  $request->email != Auth::user()->email ) {
+                return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput()
+                                ->with('gagal', 'Email telah digunakan')->withInput();
+            }
+
             // Pengecekan apakah bidang keahlian || program keahlian tidak terdapat di database
             if( BidangKeahlian::find($request->bidang_keahlian_id) == null || ProgramKeahlian::find($request->program_keahlian_id) == null ) {
                 return redirect()->back()->with('gagal', 'bidang keahlian / program keahlian tidak cocok');
