@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg main-navbar navbar-light">
+<nav class="navbar navbar-expand-lg main-navbar navbar-light" style="box-shadow: 0 1px 6px 0 rgba(32,33,36,.28);">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img src="https://pbs.twimg.com/profile_images/848467042474704899/BOkOCZhd_400x400.jpg" width="30" height="30" alt="{{ config('app.name', 'Laravel') }}">

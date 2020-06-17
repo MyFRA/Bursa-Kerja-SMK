@@ -15546,18 +15546,20 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 .info-service {
   padding: 48px 0;
   background: #fff;
+  margin-top: -6rem;
 }
 
 .info-service .service-item {
   padding: 16px 32px;
+  z-index: 99999;
 }
 
-.info-service .service-item a {
+.info-service .service-item div {
   text-decoration: none;
   color: #212529;
 }
 
-.info-service .service-item a .service-icon {
+/* .info-service .service-item a .service-icon {
   margin: 0 auto;
   width: 100px;
   height: 100px;
@@ -15566,9 +15568,9 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   text-align: center;
   border: solid 3px #adb5bd;
   font-size: 52px;
-}
+} */
 
-.info-service .service-item a h3 {
+.info-service .service-item div h3 {
   margin: 8px 0;
   padding: 0;
   color: #0b5188;
@@ -15576,16 +15578,16 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   font-family: "Archivo Black", sans-serif;
 }
 
-.info-service .service-item a p {
+.info-service .service-item div p {
   margin: 0;
   padding: 0;
   font-size: 14px;
   line-height: 16px;
 }
 
-.info-service .service-item:hover {
+/* .info-service .service-item:hover {
   background: #e9ecef;
-}
+} */
 
 .job-categories {
   padding: 50px 0;
@@ -17363,3 +17365,229 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 
+/* Font */
+
+.quicksand {
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+/* Update Home */
+
+.info-service .service-item div {
+    cursor: auto;
+}
+
+@keyframes serviceAnimate {
+    to {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+.info-service .service-item div .service-icon {
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    padding: 10px 0;
+    border-radius: 50%;
+    text-align: center;
+    border: solid 1.5px #4362EB;
+    font-size: 52px;
+    box-shadow: 0px 0px 7px rgba(67, 98, 235, 0.705);
+    cursor: pointer;
+    position: relative;
+}
+
+.info-service .service-item div .service-icon:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 1px solid rgba(67, 98, 235, 0.473);
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    border-radius: 50%;
+}
+
+
+.info-service .service-item div .service-icon:hover:after {
+    animation: serviceAnimate 700ms infinite linear;
+}
+
+.info-service .service-item div span {
+    font-family: 'Quicksand';
+    color: #4362EB;
+    font-weight: bold;
+}
+
+.info-service .service-item div p {
+    line-height: 20px;
+    letter-spacing: 0.4px;
+    color: #4362EB;
+    margin-top: 1rem;
+}
+
+.info-service .service-item div .service-icon i {
+    color: #4362EB;
+}
+
+.home-nama-sekolah {
+    font-weight: bold;
+    font-family: 'Quicksand';
+    color: #4362EB;
+}
+
+.hr-bawah-home-nama-sekolah {
+    width: 50%;
+    border-radius: 20px;
+    border: 2.5px solid #4261EB;
+}
+
+.hr-bawah-steps {
+    width: 50%;
+    border-radius: 20px;
+    border: 2.5px solid #4261EB;
+    position: absolute;
+}
+
+
+/* Color */
+
+.new-ui-color {
+    color: #4362EB;
+}
+
+/* end color */
+
+
+/* How To Get Job */
+
+.how-to-get-job {
+    background-color: white;
+    /* margin-top: ; */
+    /* padding: 0px 10rem; */
+}
+
+.how-to-get-job .steps {
+    display: flex;
+}
+
+.how-to-get-job .steps div {
+    flex: 1;
+    /* border: 1px solid black; */
+}
+
+.how-to-get-job .steps div.desc {
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-end; */
+    justify-content: center;
+    padding: 0px 4rem;
+}
+
+.how-to-get-job .steps div.desc span {
+    border: 3px solid #4362EB;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    box-shadow: 0px 0px 7px rgba(67, 98, 235, 0.705);
+    position: relative;
+}
+
+.how-to-get-job .steps div.desc span:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border: 1px solid #4362EB;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+    border-radius: 50%;
+    animation: serviceAnimate 700ms infinite linear;
+}
+
+.how-to-get-job .steps div.desc h1 {
+    margin-top: 1rem;
+    margin-bottom: 1.4rem;
+    font-size: 2.5rem;
+    /* color: #4362EB; */
+}
+
+.how-to-get-job .steps div.desc p {
+    font-size: 16px;
+    color: #555;
+}
+
+.how-to-get-job .steps div.image-container {
+    display: flex;
+    /* justify-content: start; */
+}
+
+
+
+/* Responsive Home */
+
+@media screen and (max-width: 768px) {
+    .home-nama-sekolah {
+        font-size: 1.3rem;
+    }
+
+    .hr-bawah-home-nama-sekolah {
+        width: 20%;
+    }
+
+    .alur-dapat-kerja h1 {
+        font-size: 20px;
+    }
+
+    .how-to-get-job .steps {
+        flex-direction: column;
+    }
+
+    .how-to-get-job .steps div.desc {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start !important;
+        justify-content: center;
+        padding: 0px 4rem;
+        order: 2;
+    }
+
+    .how-to-get-job .steps div.desc h1 {
+        margin-top: 1rem;
+        margin-bottom: 1.4rem;
+        font-size: 1.7rem;
+    }
+
+    .how-to-get-job .steps div.desc span {
+        margin-top: 1.2rem;
+    }
+
+    .how-to-get-job .steps div.image-container {
+        width: 100%;
+        display: flex;
+        justify-content: center !important;
+        order: 1;
+    }
+
+    .how-to-get-job .steps div.image-container img {
+        width: 80%;
+    }
+
+    .hr-bawah-steps {
+        width: 90%;
+        border-radius: 20px;
+        border: 2.5px solid #4261EB;
+        position: absolute;
+        left: 5% !important;
+        margin-bottom: 3rem !important;
+
+    }
+}

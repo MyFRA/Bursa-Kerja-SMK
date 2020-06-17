@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="role-form text-center">
                                     Dengan mengklik "Daftar", Anda setuju dengan
-                                        <a href="">Ketentuan Layanan</a> dan <a href="">Kebijakan Privasi</a> kami.
+                                        <div>Ketentuan Layanan</a> dan <a href="">Kebijakan Privasi</a> kami.
                                         Kami sesekali akan mengirimi Anda email terkait akun.
                                 </div>
                             </form>
@@ -92,40 +92,146 @@
         </div>
     </div>
 </div>
+</div>
 
+
+<div class="my-5 text-center">
+    <h1 class="home-nama-sekolah">SMK NEGERI 1 BOJONGSARI</h1>
+    <hr class="hr-bawah-home-nama-sekolah">
+</div>
+
+<div class="alur-dapat-kerja text-center" style="background-color: white">
+    <div class="px-4" style="background-color: #4362EB">
+        <br><br>
+        <h1 class="text-white">Berbagai fitur kami kembangkan untuk kemudahan anak bangsa dalam mengembangkan dan menemukan karir mereka.</h1>
+        <br>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#4362EB" fill-opacity="1" d="M0,288L34.3,282.7C68.6,277,137,267,206,240C274.3,213,343,171,411,149.3C480,128,549,128,617,144C685.7,160,754,192,823,186.7C891.4,181,960,139,1029,154.7C1097.1,171,1166,245,1234,272C1302.9,299,1371,277,1406,266.7L1440,256L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path>
+      </svg>
+      <br><br>
+
+</div>
 <div class="info-service">
     <div class="container">
         <div class="row">
             <div class="col-md-4 service-item text-center">
-                <a href="">
+                <div>
                     <div class="service-icon">
                         <i class="fa fa-bullhorn"></i>
                     </div>
-                    <h3>{{ __('Info Lowongan') }}</h3>
+                    <div class="mt-3"></div>
+                    <span class="h3"><b>{{ __('Info Lowongan') }}</b> </span>
                     <p>Dapatkan informasi lowongan kerja sesuai dengan minat dan keahlianmu, dan ajukan lamaran secara online.</p>
-                </a>
+                </div>
             </div>
             <div class="col-md-4 service-item text-center">
-                <a href="">
+                <div>
                     <div class="service-icon">
                         <i class="fa fa-file-text-o"></i>
                     </div>
-                    <h3>Buat Resume</h3>
+                    <div class="mt-3"></div>
+                    <span class="h3"><b>{{ __('Buat Resume') }}</b> </span>
                     <p>Masukan datamu secara lengkap untuk bisa membuat resume secara profesional kepada perusahaan yang meliharnya.</p>
-                </a>
+                </div>
             </div>
             <div class="col-md-4 service-item text-center">
-                <a href="">
+                <div>
                     <div class="service-icon">
                         <i class="fa fa-users"></i>
                     </div>
-                    <h3>Iklan Lowongan</h3>
+                    <div class="mt-3"></div>
+                    <span class="h3"><b>{{ __('Iklan Lowongan') }}</b> </span>
                     <p>Perusahaan bisa mempublikasi lowongan untuk mendapatkan karyawan yang handal dan profesional.</p>
-                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+<div style="background-image: linear-gradient(90deg, #8796F0, #4261EB);">
+    <br>
+</div>
+<div class="bg-white">
+    <br>
+    <div class="how-to-get-job">
+        <div class="steps">
+            <div class="desc align-items-end">
+                <span class="new-ui-color"><i class="fa fa-user-o"></i></span>
+                <h1>Daftar akun gratis</h1>
+                <p>Buka web BKK sekolah yang menjadi member Pijar Career. Kamu dapat mendaftarkan akunmu di sana. Dengan mendaftarkan akun, kamu akan selalu update dengan informasi-informasi lowongan yang diposkan oleh sekolah tersebut.</p>
+            </div>
+            <div class="image-container justify-content-start">
+                <img class="w-lg-75" src="{{ asset('/images/create-account.png') }}" alt="">
+            </div>
+        </div>
+        <hr class="hr-bawah-steps" style="left: 0">
+        <div class="steps">
+            <div class="image-container justify-content-end">
+                <img class="w-lg-75" src="{{ asset('/images/status-update.png') }}" alt="">
+            </div>
+            <div class="desc align-items-start">
+                <span class="new-ui-color"><i class="fa fa-id-card-o"></i></span>
+                <h1>Lengkapi datamu, dapatkan fitur lengkap dari kami</h1>
+                <p class="text-left">Cukup dengan melengkapi datamu, kamu akan mendapatkan fitur lengkap dari Pijar Career. Seperti mengunduh CV kamu secara otomatis, fitur Artifacial Intelligent Jobmatching, dll.
+
+                    Jangan khawatir, data kamu aman dengan sistem keamanan dan komitmen Kebijakan Privasi yang dimiliki pijar career.</p>
+            </div>
+        </div>
+        <hr class="hr-bawah-steps" style="right: 0">
+        <div class="steps">
+            <div class="desc align-items-end">
+                <span class="new-ui-color"><i class="fa fa-search"></i></span>
+                <h1>Cari lowongan sesuai keahlian</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae totam explicabo pariatur eaque consectetur? Voluptatibus ducimus modi mollitia rem, ipsam sunt nulla ullam similique optio officia assumenda eligendi officiis et?</p>
+            </div>
+            <div class="image-container justify-content-start">
+                <img class="w-lg-75" src="{{ asset('/images/job-portal-search.svg') }}" alt="">
+            </div>
+        </div>
+        <hr class="hr-bawah-steps" style="left: 0">
+        <div class="steps">
+            <div class="image-container justify-content-end mt-5">
+                <img class="w-lg-50" src="{{ asset('/images/survey-form.svg') }}" alt="">
+            </div>
+            <div class="desc align-items-start">
+                <span class="new-ui-color"><i class="fa fa-file-text-o"></i></span>
+                <h1>Kirim Proposal Lamaran</h1>
+                <p class="text-left">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem unde aliquid deleniti dolor impedit, quis libero labore enim, atque temporibus dignissimos praesentium porro soluta dolore, animi aspernatur expedita quisquam! Aliquam.</p>
+            </div>
+        </div>
+        <hr class="hr-bawah-steps" style="right: 0">
+        <div class="steps">
+            <div class="desc align-items-end">
+                <span class="new-ui-color"><i class="fa fa-check"></i></span>
+                <h1>Dapatkan Pekerjaan</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae totam explicabo pariatur eaque consectetur? Voluptatibus ducimus modi mollitia rem, ipsam sunt nulla ullam similique optio officia assumenda eligendi officiis et?</p>
+            </div>
+            <div class="image-container justify-content-start">
+                <img class="w-100" src="{{ asset('/images/happy.svg') }}" alt="">
             </div>
         </div>
     </div>
 </div>
+<div style="background-image: linear-gradient(90deg, #8796F0, #4261EB);">
+    <br>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <section class="job-categories">
     <div class="container">
@@ -146,146 +252,147 @@
         </div>
     </div>
 </section>
-
+<div style="background-image: linear-gradient(90deg, #8796F0, #4261EB);">
+    <br>
+</div>
 <section class="testimonial">
     <div class="container">
-        <div class="category-title">
-            <h3>TESTIMONIAL</h3>
-            <span>Kepuasan Siswa yang Menggunakan Aplikasi ini</span>
-        </div>
-
-        <div id="carouselExampleIndicators" class="carousel slide container" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active row">
-                    <div class="row">
-                        <div class="col-6 col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>1 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>1 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-md-block d-none">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>1 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-6 col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>2 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>2 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-md-block d-none">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>2 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-6 col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>3 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>3 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 d-md-block d-none">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h1>3 of 3</h1>
-                                    <div class="card-text">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ornare pharetra elit vitae mollis. Mauris consectetur semper diam ac pretium.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<section class="company">
-    <div class="container">
         <div class="row">
-            <div class="col-md-2">
-                A
-            </div>
-            <div class="col-md-2">
-                B
+            <div class="col-md-8 col-center m-auto">
+                <h2 class="testi">Testimonials</h2>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Wrapper for carousel items -->
+                    <div class="carousel-inner">
+                        <div class="item carousel-item active">
+                            <div class="img-box"><img src="https://img.kpopmap.com/2018/05/hkt48-miyawaki-sakura.jpg" alt=""></div>
+                            <p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
+                            <p class="overview"><b>Paula Wilson</b>, Media Analyst</p>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="img-box"><img src="https://img1.kpopmap.com/2018/05/hkt48-yabuki-nayo.jpg" alt=""></div>
+                            <p class="testimonial">Vestibulum quis quam ut magna consequat faucibus. Pellentesque eget nisi a mi suscipit tincidunt. Utmtc tempus dictum risus. Pellentesque viverra sagittis quam at mattis. Suspendisse potenti. Aliquam sit amet gravida nibh, facilisis gravida odio.</p>
+                            <p class="overview"><b>Antonio Moreno</b>, Web Developer</p>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="img-box"><img src="https://actressfact.com/wp-content/uploads/2020/04/Hashimoto_Kanna.jpg" alt=""></div>
+                            <p class="testimonial">Phasellus vitae suscipit justo. Mauris pharetra feugiat ante id lacinia. Etiam faucibus mauris id tempor egestas. Duis luctus turpis at accumsan tincidunt. Phasellus risus risus, volutpat vel tellus ac, tincidunt fringilla massa. Etiam hendrerit dolor eget rutrum.</p>
+                            <p class="overview"><b>Michael Holz</b>, Seo Analyst</p>
+                        </div>
+                    </div>
+                    <!-- Carousel controls -->
+                    <a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+
+@endsection
+
+
+
+
+@section('stylesheet')
+
+    <style>
+        h2.testi {
+	color: #333;
+	text-align: center;
+	text-transform: uppercase;
+	font-family: "Roboto", sans-serif;
+	font-weight: bold;
+	position: relative;
+	margin: 30px 0 60px;
+}
+h2.testi::after {
+	content: "";
+	width: 100px;
+	position: absolute;
+	margin: 0 auto;
+	height: 3px;
+	background: #4B68EC;
+	left: 0;
+	right: 0;
+	bottom: -10px;
+}
+.col-center {
+	margin: 0 auto;
+	float: none !important;
+}
+.carousel {
+	margin: 50px auto;
+	padding: 0 70px;
+}
+.carousel .item {
+	color: #999;
+	font-size: 14px;
+    text-align: center;
+	overflow: hidden;
+    min-height: 290px;
+}
+.carousel .item .img-box {
+	width: 135px;
+	height: 135px;
+	margin: 0 auto;
+	padding: 5px;
+	border: 1px solid #ddd;
+	border-radius: 50%;
+}
+.carousel .img-box img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	border-radius: 50%;
+}
+.carousel .testimonial {
+	padding: 30px 0 10px;
+}
+.carousel .overview {
+	font-style: italic;
+}
+.carousel .overview b {
+	text-transform: uppercase;
+	color: #4B68EC;
+}
+.carousel .carousel-control {
+	width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    top: 50%;
+	background: none;
+}
+.carousel-control i {
+    font-size: 68px;
+	line-height: 42px;
+    position: absolute;
+    display: inline-block;
+	color: #546FED;
+    text-shadow: 0 3px 3px #e6e6e6, 0 0 0 #000;
+}
+.carousel .carousel-indicators {
+	bottom: -40px;
+}
+.carousel-indicators li, .carousel-indicators li.active {
+	width: 10px;
+	height: 10px;
+	margin: 1px 3px;
+	border-radius: 50%;
+}
+.carousel-indicators li {
+	background: #999;
+	border-color: transparent;
+	box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);
+}
+.carousel-indicators li.active {
+	background: #555;
+	box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);
+}
+</style>
+
 @endsection
