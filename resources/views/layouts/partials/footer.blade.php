@@ -10,7 +10,7 @@
                     <li><a href="{{ url('artikel') }}">Tips/Artikel</a></li>
                     <li><a href="{{ url('hubungi-kami') }}">Hubungi Kami</a></li>
                     <li><a href="{{ url('kebijakan-privasi') }}">Kebijakan Privasi</a></li>
-                    <li><a href="{{ url('syarat-kententuan') }}">Syarat &amp; Ketentuan</a></li>
+                    <li><a href="{{ url('syarat-ketentuan') }}">Syarat &amp; Ketentuan</a></li>
                     <li><a href="{{ url('disklaimer') }}">Disklaimer</a></li>
                     <li><a href="{{ url('faq') }}">FAQ</a></li>
                 </ul>
@@ -25,7 +25,7 @@
                     <li><a href="{{ url('pengumuman') }}">Pengumuman</a></li>
                     <li><a href="{{ url('agenda') }}">Agenda</a></li>
                     <li><a href="{{ url('produk-siswa') }}">Produk Siswa</a></li>
-                    <li><a href="{{ url('testimoni') }}">Testimoni</a></li>
+                    <li><a href="{{ url('testimoni-siswa') }}">Testimoni Siswa</a></li>
                     <li><a href="{{ url('bantuan-siswa') }}">Bantuan untuk Siswa</a></li>
                 </ul>
             </div>
@@ -36,7 +36,7 @@
                 <ul class="footer-text-content">
                     <li><a href="{{ url('pasang-iklan-lowongan') }}">Pasang Iklan Lowongan</a></li>
                     <li><a href="{{ url('daftar-resume') }}">Cari Resume</a></li>
-                    <li><a href="{{ url('testimoni') }}">Testimoni</a></li>
+                    <li><a href="{{ url('testimoni-perusahaan') }}">Testimoni Perusahaan</a></li>
                     <li><a href="{{ url('bantuan-perusahaan') }}">Bantuan untuk Perusahaan</a></li>
                 </ul>
             </div>
@@ -52,7 +52,7 @@
                 </ul>
             </div>
         </div>
-    </div>    
+    </div>
 </div>
 <div class="copyright">
     <div class="container">

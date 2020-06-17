@@ -22,6 +22,27 @@ Route::get('/agenda/{link}', 'AgendaController@show');
 Route::get('/pengumuman', 'PengumumanController@index');
 Route::get('/pengumuman/{link}', 'PengumumanController@show');
 
+// Tentang SMK Bisa Kerja
+Route::get('/tentang', 'AboutSmkController@aboutUs');
+Route::get('/hubungi-kami', 'AboutSmkController@hubungiKami');
+Route::get('/kebijakan-privasi', 'AboutSmkController@kebijakanPrivasi');
+Route::get('/syarat-ketentuan', 'AboutSmkController@syaratKetentuan');
+Route::get('/disklaimer', 'AboutSmkController@disklaimer');
+
+
+// Halaman Siswa
+Route::get('/daftar-perusahaan', 'HalamanSiswaController@daftarPerusahaan');
+Route::get('/testimoni-siswa', 'HalamanSiswaController@testimoniSiswa');
+Route::get('/bantuan-siswa', 'HalamanSiswaController@bantuanSiswa');
+
+
+// Halaman Perusahaan
+Route::get('/pasang-iklan-lowongan', 'HalamanPerusahaanController@pasangIklanLowongan');
+Route::get('/daftar-resume', 'HalamanPerusahaanController@daftarResume');
+Route::get('/testimoni-perusahaan', 'HalamanPerusahaanController@testimoniPerusahaan');
+Route::get('/bantuan-perusahaan', 'HalamanPerusahaanController@bantuanPerusahaan');
+
+
 // Ajax Controller
 Route::get('/getProgramKeahlian/{id}', 'AjaxController@getProgramKeahlian');
 Route::get('/getKompetensiKeahlian/{id}', 'AjaxController@getKompetensiKeahlian');

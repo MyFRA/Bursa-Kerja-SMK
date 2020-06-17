@@ -5734,7 +5734,7 @@ a.badge-dark.focus {
 
 .media a img {
   height: 140px;
-  object-fit: cover; 
+  object-fit: cover;
   object-position: center;
   transition: all 0.5s ease;
 }
@@ -15807,7 +15807,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
   .login-or-register p {
     font-size: 1.1rem;
-    margin-top: 2rem; 
+    margin-top: 2rem;
   }
 }
 
@@ -16207,7 +16207,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 
-.navbar-perusahaan .inner-navbar .dropdown img { 
+.navbar-perusahaan .inner-navbar .dropdown img {
   box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
   width: 2.8rem;
   background-color: white;
@@ -16255,7 +16255,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
     font-size: 1rem;
     font-weight: 600;
   }
-  .navbar-perusahaan .inner-navbar .dropdown img { 
+  .navbar-perusahaan .inner-navbar .dropdown img {
     width: 2rem;
     padding: 2%;
   }
@@ -16699,13 +16699,13 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 .tabel-list-lowongan thead tr:first-child {
-  background-color: #F6F9FC;   
-  border-top: 2.5px solid #ddd;    
-  border-bottom: 3px solid #ddd;             
+  background-color: #F6F9FC;
+  border-top: 2.5px solid #ddd;
+  border-bottom: 3px solid #ddd;
 }
 
 .tabel-list-lowongan tbody tr {
-  border-bottom: 2.5px solid #E9ECEF;             
+  border-bottom: 2.5px solid #E9ECEF;
 }
 
 .tabel-list-lowongan tbody tr:last-child {
@@ -16890,7 +16890,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
     /*  Siswa Pengalaman Kerja  */
 
-    
+
     @media screen and (max-width: 768px) {
       .title-pengalaman div:nth-child(1) {
         order: 2;
@@ -16910,7 +16910,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
     }
 
-    @media screen and (max-width: 768px) { 
+    @media screen and (max-width: 768px) {
       .keterampilan-list div:nth-child(1) {
         order: 1;
         margin-top: -30px;
@@ -16943,7 +16943,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   display: none;
 }
 
-@media screen and (max-width: 768px) { 
+@media screen and (max-width: 768px) {
   #screen-kecil {
     display: inline-block;
   }
@@ -16982,7 +16982,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
 
 
-.tombol-update-lainya a { 
+.tombol-update-lainya a {
   background-color: #ddd;
   color: black;
   border: 1px solid #ddd;
@@ -17038,7 +17038,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 .card-header-lowongan-show div:nth-child(2) {
   display: flex;
   flex-direction: column;
-  justify-content: center;  
+  justify-content: center;
 }
 
 
@@ -17069,11 +17069,11 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   .card-header-lowongan-show div:nth-child(1) {
     flex: 1;
   }
-  
+
   .card-header-lowongan-show div:nth-child(2) {
     flex: 1;
   }
-  
+
   .card-header-lowongan-show div:nth-child(3) {
     flex: 1;
   }
@@ -17108,10 +17108,10 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 .img-thumb-cilik {
-  object-fit: cover; 
-  height: 75px; 
-  width: 100%; 
-  object-position: center; 
+  object-fit: cover;
+  height: 75px;
+  width: 100%;
+  object-position: center;
   cursor: pointer
 }
 
@@ -17165,10 +17165,10 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
 @media screen and (max-width: 768px) {
   .img-thumb-cilik {
-    object-fit: cover; 
-    height: 50px; 
-    width: 100%; 
-    object-position: center; 
+    object-fit: cover;
+    height: 50px;
+    width: 100%;
+    object-position: center;
     cursor: pointer
   }
 
@@ -17259,13 +17259,13 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 .active-sidebar-opsi-status {
-  background-color: #073559; 
+  background-color: #073559;
   color: #eee;
   border-radius: 4px
 }
 
 .active-sidebar-opsi-status:hover {
-  background-color: #073559; 
+  background-color: #073559;
   color: #eee;
   border-radius: 4px
 }
@@ -17321,7 +17321,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   .nav-list-page-for-mobile {
     display: none;
   }
-  
+
   .nav-list-page-for-dekstop {
     display: inline;
   }
@@ -17337,3 +17337,16 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   border-radius: 20px;
   margin: .3rem .2rem;
 }
+
+
+
+
+/* Halaman About Us */
+
+@media screen and (max-width: 768px) {
+    .about-us-socmed a span{
+        display: none;
+    }
+}
+
+
