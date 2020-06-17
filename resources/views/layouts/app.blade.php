@@ -35,8 +35,8 @@
     </div>
     <script src="{{ asset('plugins/aos-master/dist/aos.js') }}"></script>
     @yield('script')
-    <script>   
-       AOS.init(); 
+    <script>
+       AOS.init();
     </script>
 </body>
 </html>

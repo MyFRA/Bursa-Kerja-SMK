@@ -25,7 +25,7 @@
 <body class="body-halaman-login">
 
     <div class="container halaman-login-perusahaan d-flex align-items-center justify-content-center">
-        <div class="card p-5">
+        <div class="card box-login p-5">
             <a href="{{ url('/') }}"  class="mx-auto" >
                 <img src="{{ asset('/images/logo-smk-n-1-bojongsari.jpg') }}" alt="">
             </a>

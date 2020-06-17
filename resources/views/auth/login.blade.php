@@ -4,7 +4,7 @@
 <div class="container">
     <div style="animation: tememplek 500ms" class="row mt-5 mb-5">
         <div class="col-lg-6 offset-lg-3">
-            <div style="border-radius: 20px" class="card pt-4 pb-3 pl-4 pr-4">
+            <div style="border-radius: 20px" class="card box-login pt-4 pb-3 pl-4 pr-4">
                 <form action="{{ url('/siswa/login')}}" method="post">
                     @csrf
                     <div class="d-flex flex-column justify-content-center align-items-center">

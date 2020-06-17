@@ -18,7 +18,7 @@
             </div>
             @guest
                 <div class="col-lg-4">
-                    <div class="card mt-lg-n4 mt-md-4">
+                    <div class="card box-login mt-lg-n4 mt-md-4">
                         <div class="card-body">
 
                             <form action="{{ route('siswa.register') }}" method="post">
@@ -26,7 +26,7 @@
                                 <div class="form-group">
                                     <label for="nama_depan" class="mb-0">{{ __('Nama Depan') }} <span class="text-danger">*</span></label>
                                     <input type="text" name="nama_depan" placeholder="{{ __('Tuliskan nama depan') }}" autocomplete="off" class="form-control form-control-lg" required="" value="{{ old('nama_depan') }}">
-                                
+
                                     @error('nama_depan')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -34,7 +34,7 @@
                                 <div class="form-group">
                                     <label for="nama_belakang" class="mb-0">{{ __('Nama Belakang') }}</label>
                                     <input type="text" name="nama_belakang" placeholder="{{ __('Tuliskan nama belakang') }}" autocomplete="off" class="form-control form-control-lg" value="{{ old('nama_belakang') }}">
-                                
+
                                     @error('nama_belakang')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -42,7 +42,7 @@
                                 <div class="form-group">
                                     <label for="username" class="mb-0">{{ __('Username') }} <span class="text-danger">*</span></label>
                                     <input type="text" name="username" placeholder="{{ __('Tuliskan username') }}" autocomplete="off" class="form-control form-control-lg" required="" value="{{ old('username') }}">
-                                
+
                                     @error('username')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -50,7 +50,7 @@
                                 <div class="form-group">
                                     <label for="email" class="mb-0">{{ __('E-Mail') }} <span class="text-danger">*</span></label>
                                     <input type="email" name="email" placeholder="{{ __('mail@example.com') }}" autocomplete="off" class="form-control form-control-lg" required="" value="{{ old('email') }}">
-                                
+
                                     @error('email')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -59,7 +59,7 @@
                                     <label for="password" class="mb-0">{{ __('Kata Sandi') }} <span class="text-danger">*</span></label>
                                     <input type="password" name="password" placeholder="{{ __('Buat kata sandi') }}"
                                         autocomplete="off" class="form-control form-control-lg" required="">
-                                
+
                                     @error('password')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -86,9 +86,9 @@
                     </div>
                 </div>
             @else
-            
+
             @endguest
-            
+
         </div>
     </div>
 </div>
@@ -131,7 +131,7 @@
     <div class="container">
         <div class="category-title">
             <h3>KATEGORI LOWONGAN</h3>
-            <span>Cari Lowongan Pekerjaan Berdasarkan Kompetensi Keahlian</span>  
+            <span>Cari Lowongan Pekerjaan Berdasarkan Kompetensi Keahlian</span>
         </div>
 
         <div class="row">
@@ -139,7 +139,7 @@
             <div class="col-md-4 justify-content-between">
                 <i class="fa fa-angle-double-right mr-2"></i>
                 Rekayasa Perangkat Lunak
-                
+
                 <label class="badge badge-pill badge-secondary ml-2">123</label>
             </div>
             @endfor
@@ -151,7 +151,7 @@
     <div class="container">
         <div class="category-title">
             <h3>TESTIMONIAL</h3>
-            <span>Kepuasan Siswa yang Menggunakan Aplikasi ini</span>  
+            <span>Kepuasan Siswa yang Menggunakan Aplikasi ini</span>
         </div>
 
         <div id="carouselExampleIndicators" class="carousel slide container" data-ride="carousel">
