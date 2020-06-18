@@ -22,7 +22,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
-<body>
+<body style="background-color: #EDF2F7">
     <div id="app">
         <!-- Navbar Component -->
         @include('layouts.partials.navbar')

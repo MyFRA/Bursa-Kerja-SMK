@@ -13,30 +13,37 @@
                 </ol>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="d-block mt-n3 mb-2">
-                    <a href="{{ url()->previous() }}"><i class="fa fa-arrow-left mr-2"></i>{{__('Kembali')}}</a>
+        <div class="row mt-n3">
+            <div class="col-lg-8 mt-3">
+                <div style="animation: tememplek 0.5s;" class="card shadow-md">
+                    <div class="card-body body-artikel-order-by">
+                        <h5 class="quicksand font-weight-bold" style="letter-spacing: 0.5px">Urut Berdasarkan</h5>
+                        <select class="artikel-order rounded" name="" id="">
+                            <option value="">Terbaru</option>
+                            <option value="">Terpopuler</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 mt-3">
-                <div class="card">
+                <div style="animation: tememplek 0.5s;" class="card shadow-2xl">
                     <div class="card-body">
-                        <h4>{{__('Artikel Terbaru')}}</h4>
+                        <h4 class="font-weight-bold quicksand" style="letter-spacing: 0.6px">{{__('Artikel Terbaru')}}</h4>
                         <hr>
                         @if ($items->isEmpty())
-                            <h2 class="p-4 text-muted">{{__('Artikel Belum ada')}}</h2>
+                            <div class="d-flex flex-column align-items-center py-3">
+                                <span class="display-1 text-muted"><i class="fa fa-newspaper-o"></i></span>
+                                <h2 class="quicksand font-weight-bold">{{__('Belum ada artikel')}}</h2>
+                            </div>
+
                         @else
                             @foreach ($items as $artikel)
+                            <div style="margin-top: 2rem">
                                 <div class="media my-4">
                                     <a class="w-100" href="{{ url('artikel/' . $artikel->link) }}">
-                                        <img src="{{ asset('/storage/assets/artikel/' . $artikel->image) }}" width="100%" class="align-self-end mr-3 rounded" alt="...">
+                                        <img src="{{ asset('/storage/assets/artikel/' . $artikel->image) }}" width="100%" class="align-self-end mr-3 rounded-lg" alt="...">
                                     </a>
                                     <div class="media-body px-3 mt-4 ml-md-2 mt-md-0">
-                                        <a href="{{ url('artikel/' . $artikel->link) }}">
-                                            <h5 class="font-weight-bold m-0">{{ $artikel->judul }}</h5>
+                                        <a class="text-decoration-none" href="{{ url('artikel/' . $artikel->link) }}">
+                                            <h5 class="m-0 tailwind-font">{{ $artikel->judul }}</h5>
                                         </a>
                                         <div class="my-2 mt-lg-1">
                                             <small class="text-gainsboro my-3">
@@ -44,12 +51,12 @@
                                             </small>
                                         </div>
 
-                                        <p class=" text-justify" style="text-indent: 20px">{{ __(substr($artikel->deskripsi, 0, 225) . '...') }}</p>
+                                        <p class="text-justify" style="text-indent: 20px">{{ __(substr($artikel->deskripsi, 0, 225) . '...') }}</p>
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="row px-4 mt-n3 d-flex flex-row">
-                                        <h5 class="font-weight-bold d-inline-block mr-2" style="margin-top: 7.5px">{{__('Tags: ')}}</h5>
+                                    <div class="row px-4 mt-n3 mt-lg-n2 d-flex flex-row mb-4">
+                                        <h5 class="h5-tag-artikel font-weight-bold d-inline-block mr-2" style="margin-top: 7.5px">{{__('Tags: ')}}</h5>
                                         @php
                                             // Pengubahan tags menjadi arrray
                                             $tags = explode(';', $artikel->tags);
@@ -63,27 +70,36 @@
                                         @endforeach
                                     </div>
                                 </div>
+                                <div class="list-artikel-bawah-bag-read-more">
+                                    <div class="icon">
+                                        <span>
+                                            <i class="fa fa-clock-o mr-1"></i>
+                                            <span>{{ $artikel->created_at->diffForHumans() }}</span>
+                                        </span>
+                                        <span>
+                                            <i class="fa fa-eye mr-1"></i>
+                                            <span>Dilihat {{ $artikel->counter }} kali</span>
+                                        </span>
+                                    </div>
+                                    <div class="link">
+                                        <a class="mr-lg-3" href="{{ url('artikel/' . $artikel->link) }}">Baca Selengkapnya</a>
+                                    </div>
+                                </div>
                                 <hr>
+                            </div>
                             @endforeach
                         @endif
 
 
                         <div class="mt-4"></div>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-start">
                             {{ $items->onEachSide(5)->links() }}
                         </div>
-                        {{-- <div class="d-flex justify-content-between">
-                            <button class="btn btn-outline-secondary">
-                                <i class="fa fa-angle-double-left mr-2"></i>Sebelumnya
-                            </button>
-                            <button class="btn btn-outline-secondary">
-                                Berikutnya <i class="fa fa-angle-double-right ml-2"></i>
-                            </button>
-                        </div> --}}
+
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mt-3">
+            <div style="animation: tememplek 0.5s;" class="col-lg-4 mt-3">
                 @include('widget.popular-post-article')
             </div>
         </div>

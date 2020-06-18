@@ -5220,8 +5220,12 @@ input[type=button].btn-block {
   padding: 0.75rem 1rem;
   margin-bottom: 1rem;
   list-style: none;
-  background-color: #e9ecef;
+  /* background-color: #e9ecef; */
   border-radius: 0.25rem;
+}
+
+.breadcrumb {
+    background-color: rgb(237,242,247);
 }
 
 .breadcrumb-item + .breadcrumb-item {
@@ -15445,7 +15449,7 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 }
 
 .pages .breadcrumb {
-  background: #f8fafc;
+  /* background: #f8fafc; */
   padding-left: 0;
   padding-right: 0;
   color: #D3D3D3;
@@ -17351,6 +17355,26 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
   font-size: 12px;
   border-radius: 20px;
   margin: .3rem .2rem;
+  transition: all 150ms ease;
+}
+
+.tag-for-artikel:hover {
+  background-color: rgb(45, 130, 199);
+  color: #eee;
+}
+
+@media screen and (max-width: 768px) {
+    .h5-tag-artikel {
+        font-size: 15px;
+    }
+
+    .tag-for-artikel {
+        padding: .3rem .8rem;
+        font-size: 10px;
+        border-radius: 20px;
+        margin: .3rem .2rem;
+        transition: all 150ms ease;
+      }
 }
 
 
@@ -17591,3 +17615,176 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
 
     }
 }
+
+
+
+/* New Utility Box Shadow  */
+
+.shadow-xs {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+.shadow-sm	{
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.shadow	{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+.shadow-md	{
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+.shadow-lg	{
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.shadow-2xl	{
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+.shadow-inner	{
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+.shadow-outline	{
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+.shadow-none	{
+    box-shadow: none;
+}
+
+/* end new utility */
+
+
+/* new utility border */
+
+.rounded-none	{
+    border-radius: 0;
+}
+.rounded-sm {
+    border-radius: 0.125rem;
+}
+.rounded {
+    border-radius: 0.25rem;
+}
+.rounded-md	{
+    border-radius: 0.375rem;
+}
+.rounded-lg	{
+    border-radius: 0.5rem;
+}
+.rounded-full {
+    border-radius: 9999px;
+}
+
+/* end of new utility border */
+
+
+/* font tailwind */
+
+.tailwind-font {
+    font-family: system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+
+}
+
+
+/* eEnd font tailwind */
+
+
+
+/* Bagian Read More */
+.list-artikel-bawah-bag-read-more {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem ;
+}
+
+.list-artikel-bawah-bag-read-more .icon {
+    display: flex;
+}
+
+.list-artikel-bawah-bag-read-more .icon span{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    color: #4A5568;
+    margin-top: 4px;
+}
+
+.list-artikel-bawah-bag-read-more .icon span i {
+    font-size: 15px;
+}
+
+.list-artikel-bawah-bag-read-more .icon span span {
+    font-size: 12px;
+}
+
+.body-artikel-order-by {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.body-artikel-order-by select.artikel-order {
+    border: none;
+    padding: 8px 50px 8px 10px;
+    font-size: 13.5px;
+    background-color: #eee;
+    color: #333;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .body-artikel-order-by {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .body-artikel-order-by h5 {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
+    .body-artikel-order-by select.artikel-order {
+        width: 100%;
+    }
+
+    .list-artikel-bawah-bag-read-more {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 0 1rem ;
+        margin-top: -10px;
+    }
+
+    .list-artikel-bawah-bag-read-more .icon {
+        display: flex;
+        flex-direction: column;
+        margin-top: 4px;
+    }
+
+    .list-artikel-bawah-bag-read-more .icon span{
+        display: flex;
+        align-items: center;
+        margin-right: 10px;
+        color: #4A5568;
+        margin-top: 2px;
+    }
+
+    .list-artikel-bawah-bag-read-more .icon span i {
+        font-size: 15px;
+    }
+
+    .list-artikel-bawah-bag-read-more .icon span span {
+        font-size: 12px;
+    }
+
+    .list-artikel-bawah-bag-read-more .link{
+        align-self: flex-end;
+    }
+}
+

@@ -9,21 +9,33 @@
 
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fa fa-home"></i></a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/artikel') }}">{{__('Artikel')}}</a></li>
+                    <li class="breadcrumb-item active " aria-current="page"><a href="{{ url('/artikel') }}">{{__('Artikel')}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{__('Detail')}}</li>
                 </ol>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card rounded-0">
+        <div class="row mt-3">
+            <div  style="animation: tememplek 0.5s;" class="col-md-8">
+                <div class="card shadow-2xl">
                     <div class="card-body">
                         <div class="title d-flex flex-column">
                             <small class="mt-n1 d-block text-right">{{__('Diposting Pada: ')}}{{__($artikel->created_at->format('d F Y'))}}</small>
-                            <h2 class="pb-0 pt-3 text-center">{{__($artikel->judul)}}</h2>
+                            <h2 class="pb-0 px-lg-5 pt-4 text-center">{{__($artikel->judul)}}</h2>
                         </div>
                         <hr class="mt-3">
-                        <small class="float-right">{{__('Dilihat')}} <i class="fa fa-eye ml-1"></i> {{__($artikel->counter)}} {{__('kali')}}</small>
                         <img src="{{ url('/storage/assets/artikel/' . $artikel->image) }}" width="100%" class="align-self-end my-3 rounded" alt="...">
+                        <div class="list-artikel-bawah-bag-read-more p-0">
+                            <div class="icon">
+                                <span>
+                                    <i class="fa fa-clock-o mr-1"></i>
+                                    <span>{{ $artikel->created_at->diffForHumans() }}</span>
+                                </span>
+                                <span>
+                                    <i class="fa fa-eye mr-1"></i>
+                                    <span>Dilihat {{ $artikel->counter }} kali</span>
+                                </span>
+                            </div>
+                        </div>
                         <hr>
                         <div class="mt-4">
                             {!! $artikel->konten !!}
@@ -87,7 +99,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mt-3 mt-lg-0">
+            <div  style="animation: tememplek 0.5s;" class="col-md-4 mt-3 mt-lg-0">
                 @include('widget.popular-post-article')
             </div>
         </div>
