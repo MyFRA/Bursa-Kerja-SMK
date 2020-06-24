@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    
+
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -15,11 +15,11 @@
         </div>
 
         <div class="col-lg-9 px-2">
-            <div class="card p-3">
+            <div class="card shadow p-3">
                 <div>
                     <div class="px-2 mt-4 pb-5">
                         <span class="mt- h5 "><i class="fa fa-mortar-board"></i> {{('Keterampilan')}}</span>
-                    
+
                         <div id="container-form-keterampilan" class=" mt-4">
                             <form action="{{ url('/siswa/profil/keterampilan/' . encrypt($keterampilan->id)) }}" method="post">
                                 @csrf
@@ -39,13 +39,13 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="text-muted" for="tingkat">{{__('Tingkat')}} <span class="text-danger">*</span> </label>
-                                            <select class="form-control @error('tingkat') is-invalid @enderror" id="tingkat" name="tingkat" required> 
+                                            <select class="form-control @error('tingkat') is-invalid @enderror" id="tingkat" name="tingkat" required>
                                                 <option value="" selected="" disabled="">{{__('Tingkat')}}</option>
                                                 <option value="Pemula" {{ $keterampilan->tingkat == 'Pemula' ? 'selected' : '' }} {{ old('tingkat') == 'Pemula' ? 'selected' : '' }}>{{__('Pemula')}}</option>
                                                 <option value="Menengah" {{ $keterampilan->tingkat == 'Meneggah' ? 'selected' : '' }} {{ old('tingkat') == 'Menengah' ? 'selected' : '' }}>{{__('Menengah')}}</option>
                                                 <option value="Tingkat Lanjut" {{ $keterampilan->tingkat == 'Tingkat Lanjut' ? 'selected' : '' }} {{ old('tingkat') == 'Tingkat Lanjut' ? 'selected' : '' }}>{{__('Tingkat Lanjut')}}</option>
                                             </select>
-                                            
+
                                             @error('tingkat')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                             @enderror

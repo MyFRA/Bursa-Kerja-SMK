@@ -13,7 +13,7 @@
 
         </div>
         <div class="col-lg-9 px-2">
-            <div class="card p-3">
+            <div class="card shadow p-3">
                 <div class="mt-4">
                     <div class="px-2 pb-5">
                         <span class=" h5"><i class="fa fa-briefcase"></i> {{('Pengalaman')}}</span>

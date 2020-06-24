@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    
+
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-lg-9 px-2">
-            <div class="card p-3">
+            <div class="card shadow p-3">
                 <div>
                     <div class="px-2 mt-4 pb-5">
                         <span class="mt- h5 "><i class="fa fa-mortar-board"></i> {{('Bahasa')}}</span>
@@ -30,12 +30,12 @@
                                         <div class="col-lg-2">
                                             <label class="text-muted" for="bahasa_id">{{__('Bahasa')}} <span class="text-danger">*</span> </label>
                                             <div class="form-group">
-                                                <select class="form-control @error('bahasa_id') is-invalid @enderror" id="bahasa_id" name="bahasa_id[]" required> 
+                                                <select class="form-control @error('bahasa_id') is-invalid @enderror" id="bahasa_id" name="bahasa_id[]" required>
                                                     @foreach ($bahasa as $item)
                                                         <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                                     @endforeach
                                                 </select>
-                                                
+
                                                 @error('bahasa_id')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -44,12 +44,12 @@
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label class="text-muted" for="lisan">{{__('Lisan')}} <span class="text-danger">*</span> </label>
-                                                <select class="form-control @error('lisan') is-invalid @enderror" id="lisan" name="lisan[]" required> 
+                                                <select class="form-control @error('lisan') is-invalid @enderror" id="lisan" name="lisan[]" required>
                                                     @foreach ($lisan as $item)
                                                         <option value="{{ $item }}">{{ $item }}</option>
                                                     @endforeach
                                                 </select>
-                                                
+
                                                 @error('lisan')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -58,12 +58,12 @@
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label class="text-muted" for="tulisan">{{__('tulisan')}} <span class="text-danger">*</span> </label>
-                                                <select class="form-control @error('tulisan') is-invalid @enderror" id="tulisan" name="tulisan[]" required> 
+                                                <select class="form-control @error('tulisan') is-invalid @enderror" id="tulisan" name="tulisan[]" required>
                                                     @foreach ($lisan as $item)
                                                         <option value="{{ $item }}">{{ $item }}</option>
                                                     @endforeach
                                                 </select>
-                                                
+
                                                 @error('tulisan')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -72,13 +72,13 @@
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label class="text-muted" for="sertifikat">{{__('sertifikat')}} </label>
-                                                <select class="form-control @error('sertifikat') is-invalid @enderror" id="sertifikat" name="sertifikat[]"> 
+                                                <select class="form-control @error('sertifikat') is-invalid @enderror" id="sertifikat" name="sertifikat[]">
                                                     <option value="">Pilih Sertifikat</option>
                                                     @foreach ($sertifikat as $item)
                                                         <option value="{{ $item }}">{{ $item }}</option>
                                                     @endforeach
                                                 </select>
-                                                
+
                                                 @error('sertifikat')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -87,13 +87,13 @@
                                         <div class="col-lg-2">
                                             <div class="form-group">
                                                 <label class="text-muted" for="skor">{{__('skor')}} </label>
-                                                <select class="form-control @error('skor') is-invalid @enderror" id="skor" name="skor[]" required> 
+                                                <select class="form-control @error('skor') is-invalid @enderror" id="skor" name="skor[]">
                                                     <option value="">Pilih Skor</option>
                                                     @foreach ($lisan as $item)
                                                         <option value="{{ $item }}">{{ $item }}</option>
                                                     @endforeach
                                                 </select>
-                                                
+
                                                 @error('skor')
                                                     <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                                 @enderror
@@ -107,7 +107,7 @@
                                                   Utama
                                                 </label>
                                               </div>
-              
+
                                         </div>
                                         <div class="col">
                                             <hr>
@@ -156,7 +156,7 @@
                                 @endforeach
 								<div class="col-xs-12"><br></div>
                             </div>
-                            
+
 
 
 
@@ -260,8 +260,8 @@
                                        <a class="h5 ml-2" href="" onclick="onHapus('{{ $item->keterangan }}', '{{ url('/siswa/profil/keterampilan/' . encrypt($item->id)) }}')"><i class="fa fa-trash-o"></i></a>
                                    </div>
                                </div>
-                           </div>  
-                       </div>     
+                           </div>
+                       </div>
                         @endforeach --}}
                     </div>
                 </div>
@@ -290,7 +290,7 @@
         const formHapus = document.getElementById('form-hapus')
         formHapus.setAttribute('action', url)
         return confirm('apakah anda yakin, \nmenghapus ' + jabatan) ? formHapus.submit() : false
-        
+
     }
 </script>
 
@@ -308,13 +308,13 @@
 
     tombolTriggerTambahkan.addEventListener('click', function(e) {
         e.preventDefault()
-        
+
         rowFormContainer.appendChild(clone())
     })
 </script>
 
 <script>
-    
+
     let utamasari = document.getElementById('utamaSari');
     let tombolInputForm = document.getElementById('tombol-input-form')
     let formInput = document.getElementById('form-nggo-input')
@@ -324,7 +324,7 @@
         let utama = document.querySelectorAll('#utama');
         let nilai;
         let jmlCheck = []
-        
+
         utama.forEach(function(e) {
 
             if(e.nextElementSibling.checked) {

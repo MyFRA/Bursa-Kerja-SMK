@@ -14,19 +14,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
-                <div class="d-block mt-n3 mb-2">
-                    <a href="{{ url()->previous() }}"><i class="fa fa-arrow-left mr-2"></i>{{__('Kembali')}}</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
+            <div class="col-12" style="cursor: pointer">
+                <div class="card shadow">
             @if ($faqs->isEmpty())
-                <h2 class="p-4 text-muted">{{__('FAQ Belum ada')}}</h2>
+            <div class="d-flex flex-column align-items-center py-5">
+                <span class="display-1 text-muted"><i class="fa fa-question-circle-o"></i></span>
+                <h2 class="quicksand font-weight-bold">{{__('Belum ada FAQ')}}</h2>
+            </div>
             @else
                 @foreach ($faqs as $faq)
-                <div class="col-12 mt-2" style="cursor: pointer">
-                    <div class="card">
+
                         <div data-target="#faq-{{ $faq->id }}"
                             aria-controls="faq-{{ $faq->id }}"
                             data-toggle="collapse"
@@ -39,8 +36,7 @@
                         <div id="faq-{{ $faq->id }}" class="card-body bg-snow collapse">
                             {{ __($faq->jawaban) }}
                         </div>
-                    </div>
-                </div>
+
                 @endforeach
             @endif
         </div>

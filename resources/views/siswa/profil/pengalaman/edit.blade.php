@@ -14,12 +14,11 @@
 
         </div>
         <div class="col-lg-9 px-2">
-            <div class="card p-3">
-                <div class="mt-4">
-                    <hr class="py-1">
+            <div class="card shadow p-3">
+                <div class="mt-n4">
                     <div class="px-2 pb-5">
                         <span class="mt-5 h5 d-block"><i class="fa fa-briefcase"></i> {{('Pengalaman')}}</span>
-                        <p class="mt-3 mb-5">
+                        <p class=" mb-5">
                             {{__('Halaman Edit Pengalaman')}}
                         </p>
                         <hr>

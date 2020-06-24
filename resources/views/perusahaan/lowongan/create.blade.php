@@ -5,7 +5,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-7 mt-3">
-			<div class="card p-4">
+			<div class="card shadow p-4">
 				<p class="text-primary judul-iklan" style="font-size: 1.25rem">{{__('Pasang Iklan Lowongan Pekerjaan ')}}<span class="float-right font-weight-bold">{{__('1')}}</span></p>
 				<hr class="mt-0" style="border: 1px solid #094370">
 
@@ -16,7 +16,7 @@
 					<div class="form-group">
 						<label class="font-weight-bold" for="jabatan">{{__('Posisi Pekerjaan ')}}<span class="text-danger">{{__('*')}}</span></label>
 						<input type="text" class="form-control @error('jabatan') is-invalid @enderror" name="jabatan" id="jabatan" value="{{ old('jabatan') }}" required="">
-						
+
 						@error('jabatan')
 							<div class="invalid-feedback">
 								{{ $message }}
@@ -27,7 +27,7 @@
 					    <label class="font-weight-bold" for="deskripsi">{{__('Deskripsi Pekerjaan ')}}<span class="text-danger font-italic">{{__('*')}}</span></label>
 					    <textarea name="deskripsi" class="summernote" style="display: none;" required="">{{ old('deskripsi') }}</textarea>
 						<small style="font-size: 13px" class="form-text font-italic mt-3">{{__('Contoh : PT. Loker Indonesia, yang bergerak dibidang teknologi informasi saat ini sedang membutuhkan kandidat untuk mengisi posisi sebagai : IT Programmer')}}</small>
-				  	
+
 				  		@error('deskripsi')
 				  		    <div>
 						        <p class="font-italic text-danger ml-2">{{ $message }}</p>
@@ -38,7 +38,7 @@
 					    <label class="font-weight-bold" for="persyaratan">{{__('Persyaratan')}} <span class="text-danger font-italic">{{__('*')}}</span></label>
 					    <textarea name="persyaratan" class="summernote" style="display: none;" required="">{{ old('persyaratan') }}</textarea>
 						<small style="font-size: 13px" class="form-text font-italic mt-3">{{__('Contoh : Maksimal berusia 25 tahun, memiliki semangat kerja yang tinggi, memiliki ketertarikan yang tinggi terhadap teknologi, mampu bekerja secara tim, dll')}}</small>
-				  	
+
 				  		@error('persyaratan')
 				  		    <div>
 						        <p class="font-italic text-danger ml-2">{{ $message }}</p>
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 		<div class="col-md-5 mt-3">
-			<div class="card p-4">
+			<div class="card shadow p-4">
 				<p class="text-primary judul-iklan"><span class="float-right font-weight-bold">{{__('2')}}</span></p>
 				<hr class="mt-0" style="border: 1px solid #094370">
 				<div class="form-group">
@@ -58,7 +58,7 @@
 							<optgroup label="{{ $progKeahlian->nama }}">
 								@foreach ($kompetensi_keahlian as $kompKeahlian)
 									@if ($kompKeahlian->program_keahlian_id == $progKeahlian->id)
-										<option value="{{ $kompKeahlian->nama }}" 
+										<option value="{{ $kompKeahlian->nama }}"
 											@if (old('kompetensi_keahlian'))
 												@foreach (old('kompetensi_keahlian') as $oldKompetensiKeahlian)
 													{{ ($oldKompetensiKeahlian == $kompKeahlian->nama ) ? 'selected' : '' }}
@@ -71,17 +71,17 @@
 						  	</optgroup>
 					  	@endforeach
 					</select>
-				  
+
 					@error('kompetensi_keahlian')
 					  <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
-					@enderror					
+					@enderror
 			  	</div>
 				<div class="form-group">
 				    <label class="font-weight-bold mt-md-3" for="keahlian">{{__('Keahlian')}} <span class="text-danger">*</span></label>
 					<select class="js-example-basic-multiple form-control @error('keahlian') is-invalid @enderror" id="keahlian" name="keahlian[]" multiple="multiple" required>
 						@foreach ($keterampilan as $item)
 						  	<option value="{{ $item->nama }}"
-						  
+
 							  	@if (old('keahlian'))
 									@foreach (old('keahlian') as $oldKeahlian)
 										{{ ($oldKeahlian == $item->nama ) ? 'selected' : '' }}
@@ -91,15 +91,15 @@
 						  	>{{$item->nama}}</option>
 						@endforeach
 					</select>
-				  
+
 					@error('keahlian')
 					  	<h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
-					@enderror					
+					@enderror
 			  	</div>
 			  	<div class="form-group">
 				    <label class="font-weight-bold mt-md-3" for="gaji_min">{{__('Gaji Min ')}}<span class="text-danger">{{__('*')}}</span></label>
 				    <input type="text" class="form-control @error('gaji_min') is-invalid @enderror" name="gaji_min" id="gaji_min" value="{{ old('gaji_min') }}" required autocomplete="off">
-			  	
+
 			  		@error('gaji_min')
 			  		    <div class="invalid-feedback">
 					        {{ $message }}
@@ -109,7 +109,7 @@
 			  	<div class="form-group">
 				    <label class="font-weight-bold mt-md-3" for="gaji_max">{{__('Gaji Max ')}}<span class="text-danger">{{__('*')}}</span></label>
 				    <input type="text" class="form-control @error('gaji_max') is-invalid @enderror" name="gaji_max" id="gaji_max" value="{{ old('gaji_max') }}" required autocomplete="off">
-			  	
+
 			  		@error('gaji_max')
 			  		    <div class="invalid-feedback">
 					        {{ $message }}
@@ -119,7 +119,7 @@
 			  	<div class="form-group">
 				    <label class="font-weight-bold mt-md-3" for="batas_akhir_lamaran">{{__('Batas Akhir Lamaran ')}}<span class="text-danger">{{__('*')}}</span></label>
 				    <input type="text" class="form-control @error('batas_akhir_lamaran') is-invalid @enderror" name="batas_akhir_lamaran" id="batas_akhir_lamaran" value="{{ old('batas_akhir_lamaran') }}" autocomplete="off" required="">
-			  	
+
 			  		@error('batas_akhir_lamaran')
 			  		    <div class="invalid-feedback">
 					        {{ $message }}
@@ -133,7 +133,7 @@
 						<option value="Online" {{ (old('proses_lamaran') == 'Online') ? 'selected' : '' }} >{{__('Online')}}</option>
 						<option value="Offline" {{ (old('proses_lamaran') == 'Offline') ? 'selected' : '' }} >{{__('Offline')}}</option>
 					</select>
-				
+
 					@error('proses_lamaran')
 						<div class="invalid-feedback">
 							{{ $message }}
@@ -146,19 +146,19 @@
 				      	<option value="" selected="" disabled="">{{__('-- Pilih Status --')}}</option>
 				      	<option value="Aktif"    {{ old('status') == 'Aktif' ? 'selected' : '' }} >{{__('Aktif')}}</option>
 				      	<option value="Nonaktif" {{ old('status') == 'Nonaktif' ? 'selected' : '' }} >{{__('Nonaktif')}}</option>
-				      	<option value="Draf"     {{ old('status') == 'Draf' ? 'selected' : '' }} >{{__('Draf')}}</option>		  		
+				      	<option value="Draf"     {{ old('status') == 'Draf' ? 'selected' : '' }} >{{__('Draf')}}</option>
 				    </select>
 
 				    @error('status')
 			  		    <div class="invalid-feedback">
 					        {{ $message }}
 					    </div>
-			  		@enderror	
+			  		@enderror
 				</div>
 				<div class="form-group">
 				    <label class="font-weight-bold mt-md-3" for="image">{{__('Image')}} <span class="text-danger">{{__('*')}}</span></label>
 				    <input type="file" onChange='return validasiFile()' class="form-control-file @error('image') is-invalid @enderror" id="image" name="image" required="">
-				
+
 					@error('image')
 			  		    <div class="invalid-feedback">
 					        {{ $message }}
@@ -189,7 +189,7 @@
     <script src="{{ asset('/plugins/datePicker/js/DatePickerX.min.js') }}"></script>
 
 	<script>
-		// Fungsi Pembuatan Summernote ( WYSIYG ) 
+		// Fungsi Pembuatan Summernote ( WYSIYG )
 		(function($) {
 			$(document).ready(function(){
 		    	$('.summernote').summernote({
@@ -197,12 +197,12 @@
 		    		toolbar: [
 						['style', ['style']],
 						['font', ['bold', 'underline', 'clear']],
-						['fontname', ['fontname']],         
-						['color', ['color']], 
+						['fontname', ['fontname']],
+						['color', ['color']],
 						['para', ['ul', 'ol', 'paragraph']],
 						['table', ['table']],
 						['insert', ['link']],
-						['view', ['fullscreen', 'codeview', 'help']]                 
+						['view', ['fullscreen', 'codeview', 'help']]
 		    		]
 		    	})
 			});
@@ -245,7 +245,7 @@
 
 			gaji_max.value = formatRupiah(this.value, 'Rp. ');
 		});
- 
+
 		/* Fungsi formatRupiah */
 		function formatRupiah(angka, prefix){
 			var number_string = angka.replace(/[^,\d]/g, '').toString(),
@@ -253,13 +253,13 @@
 			sisa     		= split[0].length % 3,
 			rupiah     		= split[0].substr(0, sisa),
 			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
- 
+
 			// tambahkan titik jika yang di input sudah menjadi angka ribuan
 			if(ribuan){
 				separator = sisa ? '.' : '';
 				rupiah += separator + ribuan.join('.');
 			}
- 
+
 			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 		}
@@ -275,7 +275,7 @@
 
 			if( !ekstensiOk.exec(pathFile) ) {
 				alert('Silakan Upload File Yang Memiliki Ekstensi .jpeg, .jpg, .png, .bmp, . webp atau .gif');
-			
+
 				inputFile.value = '';
 				return false;
 			};

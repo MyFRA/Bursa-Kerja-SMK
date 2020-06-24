@@ -27,7 +27,7 @@
 	@can('melakukan verifikasi')
 	  	<div class="row minta-verivikasi">
 			<div class="col">
-				<div class="card d-flex flex-column justify-content-center text-center">
+				<div class="card shadow d-flex flex-column justify-content-center text-center">
 					<h2>{{__('Untuk proses verifikasi kemitraan, mohon lengkapi data perusahaan anda')}}</h2>
 					<p class="mt-2 text-muted">{{__('Mohon maaf, anda belum dapat melakukan posting lowongan dan menggunakan fitur perusahaan ini sebelum status kemitraan perusahaan anda terverifikasi oleh BKK. Jika dalam waktu 1 minggu belum ada proses verifikasi dari BKK, anda dapat mengirim email ke BKK di bkk@smkn3jogja.sch.id')}}</p>
 					<a href="{{ url('/perusahaan/verifikasi') }}">{{__('Lengkapi Data Perusahaan Sekarang')}}</a>
@@ -39,7 +39,7 @@
 	@can('menunggu verifikasi diterima')
 		<div class="row minta-verivikasi">
 			<div class="col">
-				<div class="card d-flex flex-column justify-content-center text-center">
+				<div class="card shadow d-flex flex-column justify-content-center text-center">
 					<h2>{{__('Menunggu Verifikasi Diterima')}}</h2>
 					<p class="mt-2 text-muted">{{__('Terimakasih, karena telah melakukan verifikasi perusahaan. Jika dalam waktu 1 minggu belum ada konfirmasi dari BKK, anda dapat mengirim email ke BKK di bkk@smkn3jogja.sch.id.')}} </p>
 					<a href="{{ url('/perusahaan/profil/ubah') }}">{{__('Ubah Data Perusahaan')}}</a>
@@ -50,7 +50,7 @@
 
 	<div class="row kumpulan-card-beranda mt-4">
 		<div class="col-lg-3 col-sm-6">
-			<div class="card p-3 d-flex flex-row justify-content-center align-items-center">
+			<div class="card shadow p-3 d-flex flex-row justify-content-center align-items-center">
 				<i class="fa fa-suitcase fa-3x text-danger"></i>
 				<div class="d-flex justify-content-center align-items-start flex-column ml-1">
 					<h2>{{__($jmlLowongan)}}</h2>
@@ -59,7 +59,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3 col-sm-6">
-			<div class="card p-3 d-flex flex-row justify-content-center align-items-center">
+			<div class="card shadow p-3 d-flex flex-row justify-content-center align-items-center">
 				<i class="fa fa-users fa-3x text-primary"></i>
 				<div class="d-flex justify-content-center align-items-start flex-column ml-1">
 					<h2>{{__( $jmlLamaran )}}</h2>
@@ -68,7 +68,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3 col-sm-6">
-			<div class="card p-3 d-flex flex-row justify-content-center align-items-center">
+			<div class="card shadow p-3 d-flex flex-row justify-content-center align-items-center">
 				<i class="fa fa-bullhorn fa-3x text-success"></i>
 				<div class="d-flex justify-content-center align-items-start flex-column ml-1">
 					<h2>{{__( $panggilanTes )}}</h2>
@@ -77,7 +77,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3 col-sm-6">
-			<div class="card p-3 d-flex flex-row justify-content-center align-items-center">
+			<div class="card shadow p-3 d-flex flex-row justify-content-center align-items-center">
 				@if ($user->can('melakukan verifikasi'))
 					<i class="fa fa-warning fa-3x text-danger"></i>
 				@endif
@@ -105,7 +105,7 @@
 
 	<div class="row kumpulan-card-beranda-bawah ">
 		<div class="col-lg-3 mt-4 order-3 order-lg-1">
-			<div class="card p-0">
+			<div class="card shadow p-0">
 				<div class="header pt-3 pb-2">
 					<h6 class="font-weight-bold">{{__('LOG AKTIVITAS')}}</h6>
 				</div>
@@ -115,7 +115,7 @@
 			</div>
 		</div>
 		<div class="col-lg-6 mt-4 order-1 order-lg-2">
-			<div class="card p-0">
+			<div class="card shadow p-0">
 				<div class="header pt-3 pb-2">
 					<h6 class="font-weight-bold">{{__('LOWONGAN BARU DIPOSKAN')}}</h6>
 				</div>
@@ -183,7 +183,7 @@
 			</div>
 		</div>
 		<div class="col-lg-3 mt-4 order-2 order-lg-3">
-			<div class="card p-0">
+			<div class="card shadow p-0">
 				<div class="header pt-3 pb-2">
 					<h6 class="font-weight-bold">{{__('PENDAFTAR LOKER TERBARU')}}</h6>
 				</div>

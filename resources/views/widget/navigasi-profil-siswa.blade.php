@@ -1,5 +1,5 @@
 <div id="navigasi-profil-siswa" class="d-none-sm mb-2">
-    <div id="profil" class="card rounded-0">
+    <div id="profil" class="card rounded-lg shadow">
     <a href="{{ url('/siswa/profil') }}" class="d-flex p-3 align-items-center text-decoration-none {{ $nav == 'lihat-profil' ? 'siswa-profil-active' : '' }}">
             <div style="flex: 1" class="px-2">
 				<img class="w-100 rounded" src="{{ (Auth::user()->siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . Auth::user()->siswa->photo) }}" alt="" >
@@ -10,7 +10,7 @@
             </div>
         </a>
     </div>
-    <div class="d-flex flex-column card border-top-0">
+    <div class="d-flex flex-column card shadow border-top-0">
         <a href="{{ url('/siswa/profil/pengalaman') }}" class="{{ $nav == 'pengalaman' ? 'siswa-profil-active' : '' }} text-dark navigasi-siswa-profil text-decoration-none p-3">
             <i class="fa fa-briefcase mr-3"></i> {{__("Pengalaman")}}
         </a>

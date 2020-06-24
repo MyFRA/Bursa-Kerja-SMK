@@ -19,6 +19,7 @@ use App\User;
 
 class PelamaranController extends Controller
 {
+
      /**
      * Return a SEO Script.
      *
@@ -39,7 +40,15 @@ class PelamaranController extends Controller
     }
 
     public function showProposal(Request $request) {
-       
+
+        if( is_null(Auth::user()->siswa->siswaPendidikan) ) {
+            return redirect('/siswa/create-resume/siswa-pendidikan');
+        }
+
+        if( is_null(Auth::user()->siswa->siswaLainya) ) {
+            return redirect('/siswa/create-resume/siswa-lainya');
+        }
+
         // Mengambil SEO
         $this->getSeo();
 
@@ -72,10 +81,10 @@ class PelamaranController extends Controller
         }
     }
 
-    public function lamarLowongan(Request $request) 
+    public function lamarLowongan(Request $request)
     {
         if( is_null($request->proposal) ) {
-            return redirect('/lowongan');
+            return redirect()->back();
         };
 
         $lowonganId = decrypt($request->lowonganId);
@@ -102,10 +111,10 @@ class PelamaranController extends Controller
     }
 
     public function lihatPelamar($id)
-    {       
+    {
         // Mengambil SEO
         $this->getSeo();
-        
+
         $data = [
             'lowongan' => Lowongan::find(decrypt($id)),
             'pelamar' => Pelamaran::where('lowongan_id', decrypt($id))->orderBy('created_at', 'DESC')->paginate(10),

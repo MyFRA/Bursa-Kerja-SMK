@@ -5,7 +5,7 @@
     <div class="row profil-akun">
         <div class="col-md-7 px-0">
             <div class="col mt-4">
-                <div class="own-card d-flex flex-column">
+                <div class="card shadow d-flex flex-column">
                     <div class="image">
                         <div class="judul">
                             <h1>{{__('Informasi Perusahaan')}}</h1>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="col mt-4">
-                <div class="card p-4">
+                <div class="card shadow p-4">
                     <h6 class="font-weight-bold">{{__('INFO KONTAK DAN PERUSAAAN')}}</h6>
                     <table class="table tabel-informasi mt-3">
                         <tr>
@@ -51,7 +51,7 @@
                         </tr>
                     </table>
                     <hr class="mt-n1">
-                    <h6 class="mt-4 text-muted font-weight-bold">{{__('INFORMASI ALAMAT')}}</h6>
+                    <h6 class="mt-4 font-weight-bold">{{__('INFORMASI ALAMAT')}}</h6>
                     <table class="table tabel-informasi mt-3">
                         <tr>
                             <td>{{__('Negara')}}</td>
@@ -71,7 +71,7 @@
                         </tr>
                     </table>
                     <hr class="mt-n1">
-                    <h6 class="mt-4 text-muted font-weight-bold">{{__('INFORMASI PERUSAHAAN')}}</h6>
+                    <h6 class="mt-4 font-weight-bold">{{__('INFORMASI PERUSAHAAN')}}</h6>
                     <table class="table tabel-informasi mt-3">
                         <tr>
                             <td>{{__('Bidang Keahlian')}}</td>
@@ -107,7 +107,7 @@
                         </tr>
                     </table>
                     <hr class="mt-n1">
-                    <h6 class="mt-4 text-muted font-weight-bold">{{__('INFORMASI LAINYA')}}</h6>
+                    <h6 class="mt-4 font-weight-bold">{{__('INFORMASI LAINYA')}}</h6>
                     <table class="table tabel-informasi mt-3">
                         <tr>
                             <td>{{__('Fax')}}</td>
@@ -135,7 +135,7 @@
         </div>
         <div class="col-md-5 px-0">
             <div class="col mt-4">
-                <div class="own-card p-4">
+                <div class="card shadow p-4">
                     <h5 class="font-weight-bold pb-2">{{__('Status')}}</h5>
                     <div class="d-flex align">
                         @if (!is_null($perusahaan->user))
@@ -167,26 +167,26 @@
                         @endif
                     </div>
                 </div>
-                <div class="own-card p-4 mt-4">
+                <div class="card shadow p-4 mt-4">
                     <h5 class="font-weight-bold pb-3">Lowongan</h5>
                     <div class="d-flex align-items-center justify-content-around">
-                        <h1 class="mt-n1">{{ $jmlLowongan }}</h1>
-                        <h5 class="font-weight-bold w-75 h-100 my-auto ml-3">{{__('Lowongan Pekerjaan Diposkan')}}</h5>
+                        <h1>{{ $jmlLowongan }}</h1>
+                        <h5 class="font-weight-bold">{{__('Lowongan Pekerjaan Diposkan')}}</h5>
                     </div>
                 </div>
             </div>
             <div class="col mt-4">
-                <div class="own-card p-4">
+                <div class="card shadow p-4">
                     <h5 class="font-weight-bold pb-2">{{__('Image Perusahaan')}}</h5>
                     @if ($perusahaan->image == null)
-                        <img class="cover w-100" src="{{ asset('/images/jakarta-office-building-vector-illustration_47305-12.jpg') }}" alt="">
+                        <img class="cover w-100 rounded-lg" src="{{ asset('/images/jakarta-office-building-vector-illustration_47305-12.jpg') }}" alt="">
                     @else
                         <img class="cover w-100" src="/storage/assets/daftar-perusahaan/image/{{ $perusahaan->image }}" alt="">
                     @endif
                 </div>
             </div>
             <div class="col mt-4">
-                <div class="own-card p-4">
+                <div class="card shadow p-4">
                     <h5 class="font-weight-bold pb-2">{{__('Gambaran Perusahaan')}}</h5>
                     <div class="px-3">
                         {!! $perusahaan->overview !!}
@@ -194,7 +194,7 @@
                 </div>
             </div>
             <div class="col mt-4">
-                <div class="own-card p-4">
+                <div class="card shadow p-4">
                     <h5 class="font-weight-bold pb-2">{{__('Alasan Harus Melamar')}}</h5>
                     <div class="px-3">
                         {!! $perusahaan->alasan_harus_melamar !!}

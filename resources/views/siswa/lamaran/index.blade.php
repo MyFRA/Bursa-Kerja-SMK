@@ -17,10 +17,13 @@
 
     <div class="row">
         <div class="col-lg-8 px-2 mt-2 order-2 order-lg-1">
-            <div class="card p-3 pb-4">
-                <h5 class="text-muted"><i class="fa fa-list-alt mr-2"></i>{{__(' Lamaran')}}</h5>
+            <div class="card shadow p-3 pb-4">
+                <h4 class="font-weight-bold quicksand" style="letter-spacing: 0.6px"><i class="fa fa-list-alt mr-2"></i>{{__('Lamaran')}}</h4>
                 @if (count($lamaran) == 0)
-					<h4 class="ml-3 mt-3 text-muted">{{ ($status == 'Semua Lamaran') ? 'Lamaran belum ada' : 'Lamaran ' . $status . ' belum ada' }}</h4>
+                <div class="d-flex flex-column align-items-center py-3">
+                    <span class="display-1 text-muted"><i class="fa fa-list-alt"></i></span>
+                    <h2 class="quicksand font-weight-bold">{{ ($status == 'Semua Lamaran') ? 'Belum ada lamaran' : 'Belum ada lamaran ' . $status }}</h2>
+                </div>
                 @else
                     @foreach ($lamaran as $pelamaran)
                         <div>
@@ -28,7 +31,7 @@
                                 <div class="col-lg-4 d-flex justify-content-center align-items-center my-4">
                                     @if (is_null($pelamaran->lowongan->perusahaan->logo))
                                         <img class="text-center w-50 w-lg-75" src="{{ asset('/images/company.png') }}" alt="">
-                                    @else 
+                                    @else
                                         <img class="text-center w-50 w-lg-75" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $pelamaran->lowongan->perusahaan->logo) }}" alt="">
                                     @endif
                                 </div>
@@ -42,7 +45,7 @@
                                                     <th class="border-0 pb-0" scope="col"><a href="{{ url('/perusahaan/show/' . encrypt($pelamaran->lowongan->perusahaan_id)) }}">{{__( $pelamaran->lowongan->perusahaan->nama )}} </a></th>
                                                 </tr>
                                                 <tr class="border-0">
-                                                    <th class="border-0 pb-0" scope="col">Jabatan</th>
+                                                    <th class="border-0 pb-0" scope="col">Lowongan</th>
                                                     <th class="border-0 pb-0" scope="col">:</th>
                                                     <th class="border-0 pb-0" scope="col"><a href="{{ url('lowongan/' . encrypt($pelamaran->lowongan->id)) }}">{{__( $pelamaran->lowongan->jabatan )}} </a></th>
                                                 </tr>
@@ -97,7 +100,7 @@
                                 </div>
                             </div>
                             <hr>
-                        </div>   
+                        </div>
                     @endforeach
                 @endif
             </div>
@@ -105,8 +108,8 @@
         <div class="col-lg-4 px-2 order-1 order-lg-2">
             <div class="row mt-lg-2">
                 <div class="col">
-                    <div class="card p-4 pb-4">
-                        <h5 class="text-muted "><i class="fa fa-paperclip mr-2"></i>{{__(' OPSI')}}</h5>
+                    <div class="card shadow p-4 pb-4">
+                        <h5 class="font-weight-bold quicksand" style="letter-spacing: 0.6px"><i class="fa fa-paperclip mr-2"></i>{{__('Opsi')}}</h5>
                         <hr class="mt-2">
                         <div class="w-100">
                             <a class="text-decoration-none" href="{{ url('/siswa/lamaran') }}">

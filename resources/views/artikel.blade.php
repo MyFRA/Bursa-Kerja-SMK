@@ -18,9 +18,17 @@
                 <div style="animation: tememplek 0.5s;" class="card shadow-md">
                     <div class="card-body body-artikel-order-by">
                         <h5 class="quicksand font-weight-bold" style="letter-spacing: 0.5px">Urut Berdasarkan</h5>
-                        <select class="artikel-order rounded" name="" id="">
-                            <option value="">Terbaru</option>
-                            <option value="">Terpopuler</option>
+                        <select id="urutkan-berdasarkan" class="artikel-order rounded">
+                            <option value="terbaru"
+                                @if (isset($urutBerdasarkan))
+                                    {{ ($urutBerdasarkan == 'terbaru') ? 'selected' : '' }}
+                                @endif
+                            >{{__('Terbaru')}}</option>
+                            <option value="terpopuler"
+                                @if (isset($urutBerdasarkan))
+                                    {{ ($urutBerdasarkan == 'terpopuler') ? 'selected' : '' }}
+                                @endif
+                            >{{__('Terpopuler')}}</option>
                         </select>
                     </div>
                 </div>
@@ -33,7 +41,6 @@
                                 <span class="display-1 text-muted"><i class="fa fa-newspaper-o"></i></span>
                                 <h2 class="quicksand font-weight-bold">{{__('Belum ada artikel')}}</h2>
                             </div>
-
                         @else
                             @foreach ($items as $artikel)
                             <div style="margin-top: 2rem">
@@ -105,4 +112,26 @@
         </div>
     </div>
 </section>
+
+
+
+<form id="form-search" action="{{ url('/artikel/') }}" method="get">
+    <input type="hidden" name="urutBerdasarkan" value="terbaru">
+
+</form>
+@endsection
+
+
+@section('script')
+
+<script>
+    document.getElementById('urutkan-berdasarkan').addEventListener('change', function(element) {
+        const formSearch = document.getElementById('form-search');
+        let inputOrderBy = formSearch.querySelector('input[name="urutBerdasarkan"]');
+        inputOrderBy.value = this.value;
+
+        formSearch.submit()
+    })
+</script>
+
 @endsection

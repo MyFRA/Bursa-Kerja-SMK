@@ -95,19 +95,19 @@
 </div>
 
 
-<div class="my-5 text-center">
+<div class="py-5 text-center" style="background-color: #fff">
     <h1 class="home-nama-sekolah">SMK NEGERI 1 BOJONGSARI</h1>
     <hr class="hr-bawah-home-nama-sekolah">
 </div>
 
 <div class="alur-dapat-kerja text-center" style="background-color: white">
-    <div class="px-4" style="background-color: #4362EB">
+    <div class="px-4" style="background-color: #094370">
         <br><br>
         <h1 class="text-white">Berbagai fitur kami kembangkan untuk kemudahan anak bangsa dalam mengembangkan dan menemukan karir mereka.</h1>
         <br>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path fill="#4362EB" fill-opacity="1" d="M0,288L34.3,282.7C68.6,277,137,267,206,240C274.3,213,343,171,411,149.3C480,128,549,128,617,144C685.7,160,754,192,823,186.7C891.4,181,960,139,1029,154.7C1097.1,171,1166,245,1234,272C1302.9,299,1371,277,1406,266.7L1440,256L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path>
+        <path fill="#094370" fill-opacity="1" d="M0,288L34.3,282.7C68.6,277,137,267,206,240C274.3,213,343,171,411,149.3C480,128,549,128,617,144C685.7,160,754,192,823,186.7C891.4,181,960,139,1029,154.7C1097.1,171,1166,245,1234,272C1302.9,299,1371,277,1406,266.7L1440,256L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path>
       </svg>
       <br><br>
 
@@ -149,7 +149,7 @@
     </div>
     <br>
 </div>
-<div style="background-image: linear-gradient(90deg, #8796F0, #4261EB);">
+<div style="background-image: linear-gradient(90deg, #8796F0, #094370);">
     <br>
 </div>
 <div class="bg-white">
@@ -213,13 +213,47 @@
         </div>
     </div>
 </div>
-<div style="background-image: linear-gradient(90deg, #8796F0, #4261EB);">
+<div style="background-image: linear-gradient(90deg, #8796F0, #094370);">
     <br>
 </div>
 
 
 
 
+<section id="clients" class="section-bg">
+    <div class="container">
+        <div class="section-header">
+            <h3>Our CLients</h3>
+            <p>Meet our happy clients</p>
+        </div>
+        <div class="row no-gutters clients-wrap clearfix wow fadeInUp mt-n5" style="visibility: visible; animation-name: fadeInUp;">
+            <div class="px-5 px-lg-0 px-md-0 px-xs-0 col-lg-3 col-md-4 col-xs-6">
+                <div class="client-logo"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1559460149/abof.png" class="img-fluid" alt=""> </div>
+            </div>
+            <div class="px-5 px-lg-0 px-md-0 px-xs-0 col-lg-3 col-md-4 col-xs-6">
+                <div class="client-logo"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1559460224/cropped-cropped-20170720-lucuLogo-squ2-e1500543540803.png" class="img-fluid" alt=""> </div>
+            </div>
+            <div class="px-5 px-lg-0 px-md-0 px-xs-0 col-lg-3 col-md-4 col-xs-6">
+                <div class="client-logo"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1559460269/104840a62d46c05d285762857fecb61a.png" class="img-fluid" alt=""> </div>
+            </div>
+            <div class="px-5 px-lg-0 px-md-0 px-xs-0 col-lg-3 col-md-4 col-xs-6">
+                <div class="client-logo"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1559460358/client-4.png" class="img-fluid" alt=""> </div>
+            </div>
+            <div class="px-5 px-lg-0 px-md-0 px-xs-0 col-lg-3 col-md-4 col-xs-6">
+                <div class="client-logo"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1559460379/client-5.png" class="img-fluid" alt=""> </div>
+            </div>
+            <div class="px-5 px-lg-0 px-md-0 px-xs-0 col-lg-3 col-md-4 col-xs-6">
+                <div class="client-logo"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1559460398/client-6.png" class="img-fluid" alt=""> </div>
+            </div>
+            <div class="px-5 px-lg-0 px-md-0 px-xs-0 col-lg-3 col-md-4 col-xs-6">
+                <div class="client-logo"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1559460418/client-7.png" class="img-fluid" alt=""> </div>
+            </div>
+            <div class="px-5 px-lg-0 px-md-0 px-xs-0 col-lg-3 col-md-4 col-xs-6">
+                <div class="client-logo"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1559460418/client-7.png" class="img-fluid" alt=""> </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 
@@ -231,9 +265,7 @@
 
 
 
-
-
-<section class="job-categories">
+{{-- <section class="job-categories">
     <div class="container">
         <div class="category-title">
             <h3>KATEGORI LOWONGAN</h3>
@@ -251,11 +283,11 @@
             @endfor
         </div>
     </div>
-</section>
-<div style="background-image: linear-gradient(90deg, #8796F0, #4261EB);">
+</section> --}}
+<div style="background-image: linear-gradient(90deg, #8796F0, #094370);">
     <br>
 </div>
-<section class="testimonial">
+<section class="testimonial pt-5 mb-n3 bg-white">
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-center m-auto">
@@ -291,8 +323,6 @@
         </div>
     </div>
 </section>
-
-
 @endsection
 
 
@@ -300,7 +330,7 @@
 
 @section('stylesheet')
 
-    <style>
+<style>
         h2.testi {
 	color: #333;
 	text-align: center;
@@ -393,6 +423,62 @@ h2.testi::after {
 	background: #555;
 	box-shadow: inset 0 2px 1px rgba(0,0,0,0.2);
 }
+
+
+
+
+
+.section-header h3 {
+     font-size: 36px;
+     color: #283d50;
+     text-align: center;
+     font-weight: 500;
+     position: relative
+ }
+
+ .section-header p {
+     text-align: center;
+     margin: auto;
+     font-size: 15px;
+     padding-bottom: 60px;
+     color: #556877;
+     width: 50%
+ }
+
+ #clients {
+     padding: 60px 0
+ }
+
+ #clients .clients-wrap {
+     /* border-top: 1px solid #d6eaff;
+     border-left: 1px solid #d6eaff; */
+     margin-bottom: 30px
+ }
+
+ #clients .client-logo {
+     padding: 64px;
+     display: -webkit-box;
+     display: -webkit-flex;
+     display: -ms-flexbox;
+     display: flex;
+     -webkit-box-pack: center;
+     -webkit-justify-content: center;
+     -ms-flex-pack: center;
+     justify-content: center;
+     -webkit-box-align: center;
+     -webkit-align-items: center;
+     -ms-flex-align: center;
+     align-items: center;
+     /* border-right: 1px solid #d6eaff;
+     border-bottom: 1px solid #d6eaff; */
+     overflow: hidden;
+     /* background: #fff; */
+     height: 160px
+ }
+
+ #clients img {
+     transition: all 0.4s ease-in-out
+ }
 </style>
 
 @endsection

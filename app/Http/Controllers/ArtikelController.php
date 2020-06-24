@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Validator;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
@@ -16,26 +17,60 @@ class ArtikelController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
-        SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
-        SEOTools::setCanonical(URL::current());
-        SEOTools::metatags()
-            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
-        SEOTools::opengraph()
-            ->setUrl(URL::current())
-            ->addProperty('type', 'homepage');
-        SEOTools::twitter()->setSite('@smkbisakerja');
-        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+        $validator = Validator::make($request->all(), [
+            'urutBerdasarkan'           => 'in:terbaru,terpopuler',
+        ]);
 
-        $data = [
-            'navLink' => 'artikel',
-            'items' => Artikel::where('status', 'Aktif')->orderBy('created_at', 'DESC')->paginate(6),
-            'artikelPopuler' => Artikel::where('status', 'Aktif')->orderBy('counter', 'DESC')->limit(4)->get()
-        ];
+        // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya
+        if ( $validator->fails() ) {
+            return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput();
+        } else {
+            SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+            SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
+            SEOTools::setCanonical(URL::current());
+            SEOTools::metatags()
+                ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+            SEOTools::opengraph()
+                ->setUrl(URL::current())
+                ->addProperty('type', 'homepage');
+            SEOTools::twitter()->setSite('@smkbisakerja');
+            SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        return view('artikel', $data);
+            $urutBerdasarkan = 'terbaru';
+
+            if(!is_null($request->urutBerdasarkan)) {
+                if($request->urutBerdasarkan == 'terbaru') {
+                    $artikel = Artikel::where('status', 'Aktif')
+                            ->orderBy('created_at', 'DESC')
+                            ->paginate(6);
+                            $urutBerdasarkan = 'terbaru';
+                } elseif($request->urutBerdasarkan == 'terpopuler') {
+                    $artikel = Artikel::where('status', 'Aktif')
+                                ->orderBy('counter', 'DESC')
+                                ->paginate(6);
+                    $urutBerdasarkan = 'terpopuler';
+                }
+            } else {
+                $artikel = Artikel::where('status', 'Aktif')
+                                    ->orderBy('created_at', 'DESC')
+                                    ->paginate(6);
+                $urutBerdasarkan = 'terbaru';
+            }
+
+
+            $data = [
+                'navLink' => 'artikel',
+                'items' => $artikel,
+                'artikelPopuler' => Artikel::where('status', 'Aktif')->orderBy('counter', 'DESC')->limit(4)->get(),
+                'urutBerdasarkan' => $urutBerdasarkan
+            ];
+
+            return view('artikel', $data);
+        }
     }
 
     /**

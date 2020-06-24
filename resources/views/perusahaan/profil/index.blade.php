@@ -27,7 +27,7 @@
 			<div class="col-md-7">
 				<div class="row">
 					<div class="col {{ session('success') ? 'mt-2' : 'mt-4' }} urutan-1">
-						<div class="own-card d-flex flex-column">
+						<div class="card shadow d-flex flex-column">
 							<div class="image">
 								<div class="judul">
 									<h1>{{__('Informasi Perusahaan')}}</h1>
@@ -165,7 +165,7 @@
 			<div class="col-md-5">
 				<div class="row">
 					<div class="col mt-4">
-						<div class="own-card p-4">
+						<div class="card shadow p-4">
 							<h5 class="font-weight-bold pb-2">{{__('Status')}}</h5>
 							<div class="d-flex align">
 								@if ($user->can('melakukan verifikasi'))
@@ -190,7 +190,7 @@
 								</h5>
 							</div>
 						</div>
-						<div class="own-card p-4 mt-4">
+						<div class="card shadow p-4 mt-4">
 							<h5 class="font-weight-bold pb-3">{{__('Lowongan')}}</h5>
 							<div class="d-flex align-items-center justify-content-around">
 								<h1>{{ __($jmlLowongan) }}</h1>
@@ -201,7 +201,7 @@
 				</div>
 				<div class="row">
 					<div class="col mt-4">
-						<div class="own-card p-4">
+						<div class="card shadow p-4">
 							<h5 class="font-weight-bold pb-2">{{__('Image Perusahaan')}}</h5>
 							@if ($user->perusahaan->image == null)
 								<img class="cover w-100" src="{{ asset('/images/jakarta-office-building-vector-illustration_47305-12.jpg') }}" alt="">
@@ -213,7 +213,7 @@
 				</div>
 				<div class="row">
 					<div class="col mt-4">
-						<div class="own-card p-4">
+						<div class="card shadow p-4">
 							<h5 class="font-weight-bold pb-2">{{__('Gambaran Perusahaan')}}</h5>
 							<div class="px-3">
 								{!! $user->perusahaan->overview !!}
@@ -223,7 +223,7 @@
 				</div>
 				<div class="row">
 					<div class="col mt-4">
-						<div class="own-card p-4">
+						<div class="card shadow p-4">
 							<h5 class="font-weight-bold pb-2">{{__('Alasan Harus Melamar')}}</h5>
 							<div class="px-3">
 								{!! $user->perusahaan->alasan_harus_melamar !!}

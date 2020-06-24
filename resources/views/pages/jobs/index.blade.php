@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-gray p-3">
+<div class="bg-gray p-3 mt-3">
     <div class="container justify-content-between">
         <div class="row">
             <div class="col-6">
@@ -17,7 +17,7 @@
 <div class="container py-2">
     <div class="row">
         <div class="col-md-3 px-2">
-            <div class="widgets select-job-criteria card rounded-0 mb-3">
+            <div class="widgets select-job-criteria card shadow-xl mb-3">
                 <div class="card-body p-3">
                     <h4 class="widget-title">{{__('Pilih Kriteria')}}</h4>
 
@@ -30,7 +30,7 @@
                                         <i class="fa fa-search"></i>
                                     </span>
                                 </div>
-                                <input type="text" name="judul" class="form-control" placeholder="Judul, Posisi, Kata Kunci atau ..." value="{{ (isset($oldInput['judul'])) ? $oldInput['judul'] : '' }}">
+                                <input type="text" name="judul" class="form-control" placeholder="Judul, Posisi, Kata Kunci atau ..." value="{{ (isset($oldInput['judul'])) ? $oldInput['judul'] : '' }}" autocomplete="off">
                             </div>
                         </div>
 
@@ -72,11 +72,12 @@
                             </select>
                         </div>
 
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-block btn-warning bg-dark-green">
+                        {{-- <div class="form-group">
+                            <button type="submit" class="btn btn-sm btn-block btn-warning bg-dark-green btn-orange text-white">
                                 {{__('Cari Lowongan')}}
                             </button>
-                        </div>
+                        </div> --}}
+                        <div class="button_cont text-center" ><button class="example_a" type="submit">Cari Lowongan</button></div>
                     </form>
                 </div>
             </div>
@@ -88,7 +89,7 @@
 
         </div>
         <div class="col-md-7 px-2">
-            <div class="card mb-3 rounded-0">
+            <div class="card mb-3 shadow-md">
                 <div class="card-body p-0">
                     <div class="row m-0">
                         <ul class="nav col-md-9">
@@ -125,10 +126,13 @@
                 </div>
             </div>
 
-            <div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card p-3 mt-3">
+            <div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card shadow-2xl p-3 mt-3">
                 <span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn mr-2"></i>{{__(' Lowongan')}}</span>
                 @if ($lowongan->isEmpty())
-                    <h3 class="my-3 mx-2 text-muted">{{__('Maaf, Lowongan ')}}{{ (isset($oldInput['judul'])) ? $oldInput['judul'] : '' }}{{__(' tidak ditemukan')}}</h3>
+                <div class="d-flex flex-column align-items-center justify-content-center text-center py-3">
+                    <span class="display-1 text-muted"><i class="fa fa-bullhorn"></i></span>
+                    <h3 class="quicksand font-weight-bold">{{__('Maaf, Lowongan ')}}{{ (isset($oldInput['judul'])) ? $oldInput['judul'] : '' }}{{__(' tidak ditemukan')}}</h3>
+                </div>
                 @else
                     @foreach ($lowongan as $loker)
                         <div id="lowongan" class="my-3">
@@ -158,12 +162,12 @@
         <div class="col-md-2 px-2">
             <img src="https://www.wmtips.com/i/art/547/160x600.gif" alt="">
         </div>
-            <div class="col-12 px-2 mt-2">
-                <div class="nav-list-page-for-mobile">
-                    <!-- navigation-list-page -->
-                    @include('widget.navigation-list-page')
-                </div>
+        <div class="col-12 px-2 mt-2">
+            <div class="nav-list-page-for-mobile">
+                <!-- navigation-list-page -->
+                @include('widget.navigation-list-page')
             </div>
+        </div>
     </div>
 </div>
 @endsection

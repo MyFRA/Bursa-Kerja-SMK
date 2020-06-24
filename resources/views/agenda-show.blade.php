@@ -3,10 +3,9 @@
 @section('content')
 <section class="pages pb-md-3 pt-5">
     <div class="container">
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-12 mt-n3 d-flex justify-content-between align-items-center">
                 <h3 class="page-title"><i class="fa fa-list mr-3"></i>{{__('Agenda')}}</h3>
-
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fa fa-home"></i></a></li>
                     <li class="breadcrumb-item active" aria-current="page"><a href="{{ url('/agenda') }}">{{__('agenda')}}</a></li>
@@ -14,8 +13,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
-                <div class="card rounded-0">
+            <div class="col-md-8 mt-3">
+                <div class="card shadow-2xl">
                     <div class="card-body">
                         <div class="title d-flex flex-column">
                             <small class="mt-n1 d-block text-right">{{__('Diposting Pada: ')}}{{__($agenda->created_at->format('d F Y'))}}</small>
@@ -92,7 +91,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mt-3 mt-lg-0">
+            <div class="col-md-4 mt-3">
                 @include('widget.popular-post-article')
             </div>
         </div>

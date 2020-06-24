@@ -48,7 +48,7 @@
 			Route::get('/lowongan/{lowonganId}/pelamar', 'Perusahaan\PelamarController@index');
 			Route::get('/lowongan/{lowonganId}/pelamar/status', 'Perusahaan\PelamarController@showAllByStatus');
 			Route::get('/lowongan/show/pelamar/{siswaId}', 'Perusahaan\PelamarController@showPelamarById');
-			Route::post('/lowongan/status-pelamaran', 'Perusahaan\PelamarController@showStatusPelamaran');
+			Route::get('/lowongan/status-pelamaran/', 'Perusahaan\PelamarController@showStatusPelamaran');
 			Route::put('/lowongan/status-pelamaran/{idStatusPelamaran}', 'Perusahaan\PelamarController@updateStatusPelamaran');
 			Route::get('/lowongan/status-pelamaran/{idStatusPelamaran}/edit', 'Perusahaan\PelamarController@editStatusPelamaran');
 		});

@@ -27,11 +27,15 @@
             <div class="col-lg-8 order-2 order-lg-1">
                 <div class="row mt-lg-2 mt-3">
                     <div class="col">
-						<div class="card p-4 pb-4">
+						<div class="card shadow p-4 pb-4">
                             <h5 class="text-muted "><i class="fa fa-file-text-o mr-2"></i>{{__(' LOWONGAN')}}</h5>
 							<hr class="mt-2">
 							@if (count($lowongan) == 0 )
-								<h4 class="ml-3 text-muted">{{ ($sidebar == 'Semua Lowongan') ? 'Lowongan belum ada' : 'Lowongan ' . $sidebar . ' tidak tersedia' }}</h4>
+                                <h4 class="ml-3 text-muted"></h4><br>
+                                <div class="d-flex flex-column align-items-center py-3">
+                                    <span class="display-1 text-muted"><i class="fa fa-user"></i></span>
+                                    <h2 class="quicksand font-weight-bold">{{ ($sidebar == 'Semua Lowongan') ? 'Belum ada lowowngan' : 'Belum ada lowongan ' . $sidebar }}</h2>
+                                </div>
 							@else
 							@foreach ($lowongan as $loker => $result)
 							<span class="text-muted font-weight-bold h5 mb-n2 ml-3 mt-4">
@@ -64,18 +68,18 @@
 											<tr>
 												<th class="border-0 pb-0" scope="col">{{__('Pelamar')}}</th>
 												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
-												<th class="border-0 pb-0" scope="col"> 
+												<th class="border-0 pb-0" scope="col">
 													@if ($result->proses_lamaran == 'Offline')
 														<i class="fa fa-circle text-danger mr-1" style="font-size: 8px"></i> <span>Offline</span>
 													@else
-														<a href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>	
+														<a href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/pelamar') }}" class="btn btn-sm btn-success"><i class="fa fa-user mr-2"></i> Lihat Pelamar</a>
 													@endif
 												</th>
 											</tr>
 											<tr>
 												<th class="border-0 pb-0" scope="col">{{__('Status')}}</th>
 												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
-												<th class="border-0 pb-0" scope="col"> 
+												<th class="border-0 pb-0" scope="col">
 													@if ($result->status == 'Aktif')
 														<span class="btn btn-sm btn-success"><i class="fa fa-check mr-2"></i> {{$result->status}} </span>
 													@elseif($result->status == 'Nonaktif')
@@ -97,20 +101,20 @@
 											<tr>
 												<th class="border-0 pb-0" scope="col">{{__('Berakhir')}}</th>
 												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
-												<th class="border-0 pb-0" scope="col"> 
+												<th class="border-0 pb-0" scope="col">
 													{{ date('d M Y', strtotime($result->batas_akhir_lamaran)) }}
 												</th>
 											</tr>
 											<tr>
 												<th class="border-0 pb-0" scope="col">{{__('Aksi')}}</th>
 												<th class="border-0 pb-0" scope="col">{{__(':')}}</th>
-												<th class="border-0 pb-0" scope="col"> 
+												<th class="border-0 pb-0" scope="col">
 													<a href="{{ url('/perusahaan/lowongan/' . encrypt($result->id) . '/edit') }}" class="btn btn-sm btn-primary mt-2 mt-lg-0 "><i class="fa fa-edit mr-2"></i> Edit</a>
 													<a href="#" onclick="onDelete('{{ $result->jabatan }}', '{{ url('/perusahaan/lowongan/' . encrypt($result->id)) }}')" class="btn btn-sm btn-danger mt-2 mt-lg-0"><i class="fa fa-trash mr-2"></i> Hapus</a>
 												</th>
 											</tr>
                                         </table>
-                                    </div> 
+                                    </div>
                                 </div>
 							</div>
 							<hr>
@@ -120,14 +124,14 @@
                         </div>
 						<div class="mt-2 ml-2">
 							{{ $lowongan->onEachSide(4)->links() }}
-						</div>	
+						</div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 order-1 order-lg-2">
                 <div class="row mt-lg-2 mt-3">
                     <div class="col">
-                        <div class="card p-4 pb-4">
+                        <div class="card shadow p-4 pb-4">
                             <h5 class="text-muted "><i class="fa fa-paperclip mr-2"></i>{{__(' OPSI')}}</h5>
                             <hr class="mt-2">
                             <div class="w-100 container-opsi-status">
@@ -159,7 +163,7 @@
             </div>
         </div>
 	</div>
-	
+
 	<form id="deleteLowongan" action="" method="post">
 		@csrf
 		@method('delete')

@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-md-8">
-                <div class="card rounded-0">
+                <div class="card shadow-2xl">
                     <div class="card-body">
                         <div class="title d-flex flex-column">
                             <small class="mt-n1 d-block text-right">{{__('Diposting Pada: ')}}{{__($pengumuman->created_at->format('d F Y'))}}</small>

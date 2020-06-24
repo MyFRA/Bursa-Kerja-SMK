@@ -40,7 +40,7 @@ Route::middleware(['auth_siswa', 'role:siswa'])->group(function() {
     Route::post('/create-resume/siswa-lainya', 'Siswa\Resume\SiswaLainyaController@store');
 
     // Siswa Melamar Pekerjaan
-    Route::post('/lowongan/lamar', 'Siswa\PelamaranController@showProposal');
+    Route::get('/lowongan/lamar', 'Siswa\PelamaranController@showProposal');
     Route::post('/lowongan/lamar-sekarang', 'Siswa\PelamaranController@lamarLowongan');
 
     Route::resource('/lamaran', 'Siswa\LamaranController');

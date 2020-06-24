@@ -233,7 +233,7 @@
                                     <div>
                                     </div>
                                     <div>
-                                        <form action="{{ url('/siswa/lowongan/lamar') }}" method="post">
+                                        <form action="{{ url('/siswa/lowongan/lamar') }}" method="get">
                                             @csrf
                                             <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
                                             <button class="btn btn-primary" type="submit">Lamar Sekarang</button>

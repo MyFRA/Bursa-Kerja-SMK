@@ -46,11 +46,16 @@ class JobController extends Controller
         // Mengambil SEO
         $this->getSeo();
 
+        // Mengambil tanggal
+        $today = new \DateTime();
+
         $data = [
             'lowongan' => Lowongan::select('lowongan.*', 'lowongan.id AS id_from_lowongan')
                                     ->where('status', 'aktif')
+                                    ->where('batas_akhir_lamaran', '>=', $today->format('Y-m-d'))
                                     ->orderBy('created_at', 'DESC')
                                     ->paginate(6),
+
             'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
             'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
             'gaji_minimal' => [1000000, 2000000, 3000000, 4000000, 5000000],
@@ -69,6 +74,9 @@ class JobController extends Controller
     {
         // Mengambil SEO
         $this->getSeo();
+
+        // Mengambil tanggal
+        $today = new \DateTime();
 
         // Pengubahan Gaji Menjadi Full Angka
         $gaji_min = explode('Rp. ', $request->gaji_min);
@@ -112,6 +120,7 @@ class JobController extends Controller
                             ->where('lowongan.gaji_min', '>=', $gaji_min)
                             ->where($perusahaanProvinsi, $provinsi)
                             ->where($perusahaanProgramKeahlianId, $programKeahlianId)
+                            ->where('batas_akhir_lamaran', '>=', $today->format('Y-m-d'))
                             ->join('perusahaan', 'lowongan.perusahaan_id', 'perusahaan.id')
                             ->orderBy($kolom, $nilai);
 
@@ -151,6 +160,6 @@ class JobController extends Controller
             'navLink' => 'lowongan'
         ];
 
-        return view('pages.jobs.shows', $data);
+        return view('pages.jobs.show', $data);
     }
 }

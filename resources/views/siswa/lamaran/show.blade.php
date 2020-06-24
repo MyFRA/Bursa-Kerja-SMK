@@ -4,8 +4,8 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col-lg-7 px-2 mt-2 order-2 order-lg-1">
-                <div class="card p-4 pb-4">
-                    <h5 class="text-muted "><i class="fa fa-file-text-o mr-2"></i>{{__(' LOWONGAN')}}</h5>
+                <div class="card shadow p-4 pb-4">
+                    <h5 class="text-muted "><i class="fa fa-bullhorn mr-2"></i>{{__(' LOWONGAN')}}</h5>
                     <div>
                         <table class="table table-responsive">
                             <tbody>
@@ -28,7 +28,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="card p-4 pb-4 mt-3">
+                <div class="card shadow p-4 pb-4 mt-3">
                     <h5 class="text-muted "><i class="fa fa-file-text-o mr-2"></i>{{__(' PROPOSAL')}}</h5>
                     <div>
                         <table class="table table-responsive">
@@ -45,12 +45,12 @@
                         {!! $pelamar->proposal_pelamaran !!}
                     </div>
                     <div class="mt-2">
-                        <a class="float-right mr-3" href="{{ url('profil-siswa/' . encrypt($pelamar->siswa->user->id)) }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></a>
+                        <a class="float-right mr-3" href="{{ url('/siswa/profil') }}">{{__( $pelamar->siswa->nama_pertama )}} {{ __( $pelamar->siswa->nama_belakang ) }} </a></a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-5 px-2 mt-2 order-1 order-lg-2">
-                <div class="card p-4 ">
+                <div class="card shadow p-4 ">
                     <h5 class="text-muted "><i class="fa fa-user mr-2"></i>{{__(' PELAMAR')}}</h5>
                     <div class="mt-4 d-flex justify-content-center align-items-center">
                         @if(is_null($pelamar->siswa->photo))

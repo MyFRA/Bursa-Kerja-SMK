@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Siswa\Profil;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
@@ -78,21 +79,36 @@ class BahasaController extends Controller
      */
     public function store(Request $request)
     {
-        $jmlArr = count($request->bahasa_id);
+        // Validasi Form Input
+        $validator = Validator::make($request->all(), [
+            'bahasa_id'        => 'required',
+        ], [
+            'keterampilan_id.required'  => "keterampilan id tidak boleh kosong",
+        ]);
 
-        for($i=0; $i < $jmlArr; $i++) {
-            SiswaBahasa::create([
-                'siswa_id' => Auth::user()->siswa->id,
-                'bahasa_id' => $request->bahasa_id[$i],
-                'lisan' => $request->lisan[$i],
-                'tulisan' => $request->tulisan[$i],
-                'utama' => $request->utama[$i],
-                'sertifikat' => $request->sertifikat[$i],
-                'skor' => $request->skor[$i]
-            ]);
+        // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Siswa Pendidikan Gagal )
+        if ( $validator->fails() ) {
+            return redirect()->back()
+                            ->withErrors($validator)
+                            ->withInput();
+        // Lolos Validasi
+        }else {
+            $jmlArr = count($request->bahasa_id);
+
+            for($i=0; $i < $jmlArr; $i++) {
+                SiswaBahasa::create([
+                    'siswa_id' => Auth::user()->siswa->id,
+                    'bahasa_id' => $request->bahasa_id[$i],
+                    'lisan' => $request->lisan[$i],
+                    'tulisan' => $request->tulisan[$i],
+                    'utama' => $request->utama[$i],
+                    'sertifikat' => $request->sertifikat[$i],
+                    'skor' => $request->skor[$i]
+                ]);
+            }
+
+            return back();
         }
-
-        return back();
     }
 
     /**

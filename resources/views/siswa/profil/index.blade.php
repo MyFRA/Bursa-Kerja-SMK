@@ -13,7 +13,7 @@
 
         </div>
         <div class="col-lg-9 px-2">
-            <div class="card p-3">
+            <div class="card shadow p-3">
                 <div>
                     <div class="float-right">
                     <span class="d-block small text-muted">{{__('Bergabung Pada ')}}{{ $user->created_at->format('d M Y') }}</span>

@@ -1,4 +1,4 @@
-<div class="widgets nav-list-page card rounded-0 mb-3">
+<div class="widgets nav-list-page card shadow-xl mb-3">
     <div class="card-body">
         <h4 class="widget-title">Halaman</h4>
         <ul class="nav-item">

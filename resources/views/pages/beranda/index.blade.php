@@ -5,7 +5,7 @@
 			{{-- For Dekstop --}}
 			<input id="for-dekstop" type="text" placeholder="Mencari berdasarkan posisi, keahlian dan kata kunci">
 			<button id="for-dekstop" onclick="cariLoker(this)"><i class="fa fa-search"></i></button>
-			
+
 			{{-- For Mobile --}}
 			<input id="for-mobile" class="d-none w-100" type="text" placeholder="Mencari berdasarkan posisi, keahlian dan kata kunci">
 			<button id="for-mobile"><i class="fa fa-search"></i></button>
@@ -13,7 +13,7 @@
 		<div class="container beranda-lowongan-index">
 			<div class="row">
 				<div class="col-lg-8 px-2 mt-3">
-			        <div style="animation: tememplek 0.5s;"  class="card p-3 ">
+			        <div style="animation: tememplek 0.5s;"  class="card shadow p-3 ">
 			        	<div id="atas-kotakan-profil" class="d-md-flex justify-content-between">
 			        		<div id="kotakan-profil" class="d-md-flex justify-content-start align-items-center" style="flex: 2">
 								<img class="p-1 w-25 rounded" src="{{ ($user->siswa->photo == null) ? asset('/images/profile.svg') : asset('storage/assets/daftar-siswa/' . $user->siswa->photo) }}" alt="" >
@@ -29,9 +29,8 @@
 				        	</div>
 			        	</div>
 	        		</div>
-	        		<div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card p-3 mt-3">
-	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i>{{__(' Rekomendasi Lowongan')}}</span>
-	        			<span class="mt-3">{{__('Rekomendasi lowongan berdasarkan profil dan resume Anda')}}</span>
+	        		<div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card shadow p-3 mt-3">
+	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i>{{__(' Lowongan Terbaru')}}</span>
 	        			@foreach ($lowongan as $loker)
 							<div id="lowongan" class="my-3">
 								<hr>
@@ -55,11 +54,11 @@
 					</div>
 	        	</div>
 		        <div style="animation: tememplek 0.5s;"  class="col-lg-4 px-2 mt-3">
-		        	<div class="card p-3">
+		        	<div class="card shadow p-3">
 	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn"></i> Iklan</span>
 	        			<img class="mt-3 w-100" src="{{ asset('/images/13114884417508000838.gif') }}" alt="">
 		        	</div>
-		        	<div class="card p-3 mt-3">
+		        	<div class="card shadow p-3 mt-3">
 	        			<span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-commenting-o"></i> Sosial Media</span>
 		        		<div class="mt-4">
 		        			<div class="h5 d-flex align-items-center mt-1">

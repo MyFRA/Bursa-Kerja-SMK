@@ -13,7 +13,7 @@
 
 
     <div class="col-lg-9 mt-4 px-2">
-        <div class="card p-3">
+        <div class="card shadow p-3">
             <div>
                 <div class="px-2 mt-4 pb-5">
                     <span class="h5 "><i class="fa fa-cogs"></i> {{(' Pengaturan Akun')}}</span>

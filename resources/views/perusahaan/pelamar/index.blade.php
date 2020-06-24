@@ -18,7 +18,7 @@
             <div class="col-lg-8">
                 <div class="row mt-lg-2 mt-3">
                     <div class="col">
-                        <div class="card p-4 pb-4">
+                        <div class="card shadow p-4 pb-4">
                             <h5 class="text-muted "><i class="fa fa-paperclip mr-2"></i>{{__(' LOWONGAN')}}</h5>
                             <div class="row">
                                 <div class="col-lg-4">
@@ -60,7 +60,7 @@
             <div class="col-lg-4">
                 <div class="row mt-lg-2 mt-3">
                     <div class="col">
-                        <div class="card p-4 pb-4">
+                        <div class="card shadow p-4 pb-4">
                             <h5 class="text-muted "><i class="fa fa-paperclip mr-2"></i>{{__(' OPSI')}}</h5>
                             <hr class="mt-2">
                             <div class="w-100">
@@ -101,10 +101,14 @@
             <div class="col-lg-8">
                 <div class="row mt-3">
                     <div class="col">
-                        <div class="card p-4 pb-4">
+                        <div class="card shadow p-4 pb-4">
                             <h5 class="text-muted mt-2"><i class="fa fa-user mr-2"></i>{{__(' PELAMAR')}}</h5>
                             @if (count($pelamaran) == 0 )
-								<h4 class="ml-3 text-muted">{{ ($sidebar == 'Semua Pelamar') ? 'Pelamar belum ada' : 'Pelamar ' . $sidebar . ' belum ada' }}</h4>
+                                <h4 class="ml-3 text-muted"></h4><br>
+                                <div class="d-flex flex-column align-items-center py-3">
+                                    <span class="display-1 text-muted"><i class="fa fa-user"></i></span>
+                                    <h2 class="quicksand font-weight-bold">{{ ($sidebar == 'Semua Pelamar') ? 'Belum ada pelamar' : 'Belum ada pelamar ' . $sidebar }}</h2>
+                                </div>
 							@else
                                 @foreach ($pelamaran as $org)
                                 <div class="row">
@@ -182,7 +186,7 @@
     </div>
 
 
-    <form id="status-pelamaran" action="{{ url('/perusahaan/lowongan/status-pelamaran') }}" method="post">
+    <form id="status-pelamaran" action="{{ url('/perusahaan/lowongan/status-pelamaran') }}" method="get">
         @csrf
         <input type="hidden" name="status" value="">
         <input type="hidden" name="pelamaran" value="">

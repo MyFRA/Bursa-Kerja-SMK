@@ -3,9 +3,9 @@
 @section('content')
 
 <div class="container">
-    
+
     <div class="row mt-4 mb-5">
-        
+
         @include('widget.trigger-navigasi-profil-siswa')
 
         <div class="col-lg-3 px-2">
@@ -15,12 +15,12 @@
         </div>
 
         <div class="col-lg-9 px-2">
-            <div class="card p-3">
+            <div class="card shadow p-3">
                 <div>
                     <div class="px-2 mt-4 pb-5">
                         <span class="mt- h5 "><i class="fa fa-mortar-board"></i> {{('Keterampilan')}}</span>
                         <a id="trigger-tambah-keterampilan" class="float-right" href=""><i class="fa fa-plus-circle"></i> Tambah</a>
-                    
+
                         <div id="container-form-keterampilan" class="d-none mt-4">
                             <form action="{{ url('/siswa/profil/keterampilan') }}" method="post">
                                 @csrf
@@ -39,13 +39,13 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="text-muted" for="tingkat">{{__('Tingkat')}} <span class="text-danger">*</span> </label>
-                                            <select class="form-control @error('tingkat') is-invalid @enderror" id="tingkat" name="tingkat" required> 
+                                            <select class="form-control @error('tingkat') is-invalid @enderror" id="tingkat" name="tingkat" required>
                                                 <option value="" selected="" disabled="">{{__('Tingkat')}}</option>
                                                 <option value="Pemula" {{ old('tingkat') == 'Pemula' ? 'selected' : '' }}>{{__('Pemula')}}</option>
                                                 <option value="Menengah" {{ old('tingkat') == 'Menengah' ? 'selected' : '' }}>{{__('Menengah')}}</option>
                                                 <option value="Tingkat Lanjut" {{ old('tingkat') == 'Tingkat Lanjut' ? 'selected' : '' }}>{{__('Tingkat Lanjut')}}</option>
                                             </select>
-                                            
+
                                             @error('tingkat')
                                                 <h6 class="mt-1 ml-1 mb-0 text-danger" >{{ $message }}</h6>
                                             @enderror
@@ -76,8 +76,8 @@
                                        <a class="h5 ml-2" href="" onclick="onHapus('{{ $item->keterangan }}', '{{ url('/siswa/profil/keterampilan/' . encrypt($item->id)) }}')"><i class="fa fa-trash-o"></i></a>
                                    </div>
                                </div>
-                           </div>  
-                       </div>     
+                           </div>
+                       </div>
                         @endforeach
                     </div>
                 </div>
@@ -122,7 +122,7 @@
         const formHapus = document.getElementById('form-hapus')
         formHapus.setAttribute('action', url)
         return confirm('apakah anda yakin, \nmenghapus ' + jabatan) ? formHapus.submit() : false
-        
+
     }
 </script>
 
