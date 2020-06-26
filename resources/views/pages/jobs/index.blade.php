@@ -8,7 +8,7 @@
                 lowongan di <b>Indonesia</b>
             </div>
             <div class="col-6 text-right">
-                1 - 20 of 27,783 lowongan
+                {{ $jmlLoker }} lowongan
             </div>
         </div>
     </div>

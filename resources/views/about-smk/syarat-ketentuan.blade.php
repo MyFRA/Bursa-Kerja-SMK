@@ -16,7 +16,7 @@
 
         <div class="row">
             <div class="col">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-body">
                         <a href="{{ url()->previous() }}" class="h5"><i class="fa fa-arrow-left fa-0x mr-2"></i>Kembali</a>
                     </div>

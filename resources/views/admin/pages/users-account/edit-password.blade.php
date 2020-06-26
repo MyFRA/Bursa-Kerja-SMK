@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="card-footer text-right">
-                <a href="{{ url('/app-admin/users/account') }}" class="btn btn-secondary">
+                <a href="{{ url('/app-admin/users/account/' . encrypt($item->id)) }}" class="btn btn-secondary">
                     <i class="fas fa-undo mr-1"></i>
                     KEMBALI
                 </a>
