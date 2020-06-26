@@ -192,5 +192,13 @@ Route::prefix('/app-admin')->group(function() {
         Route::post('/perusahaan/tolak-verifikasi/{id}', 'Admin\VerifikasiPerusahaanController@tolakVerifikasi');
         Route::get('/perusahaan/lihat/{id}', 'Admin\VerifikasiPerusahaanController@lihat');
         Route::get('/perusahaan/terverifikasi', 'Admin\VerifikasiPerusahaanController@terverifikasi');
+
+        // Update Password
+        Route::get('/users/account/change-password', 'Admin\UsersAccountController@passwordEdit');
+        Route::put('/users/account/change-password/{id}', 'Admin\UsersAccountController@passwordUpdate');
+
+        // Users Account
+        Route::resource('/users/account', 'Admin\UsersAccountController')->only(['index', 'edit', 'update']);
+
     });
 });
