@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="form-group">
-                            <select name="provinsi" id="" class="form-control form-control-sm">
+                            <select name="provinsi" id="" class="form-control form-control-sm" style="cursor: pointer">
                                 <option value="">{{__('Semua Lokasi')}}</option>
                                 @foreach ($provinsi as $prov)
                                     <option value="{{ $prov->nama_provinsi }}"
@@ -48,20 +48,20 @@
                         </div>
 
                         <div class="form-group">
-                            <select name="program_keahlian_id" id="" class="form-control form-control-sm">
-                                <option value="">{{__('Semua Program Keahlian')}}</option>
-                                @foreach ($programKeahlian as $progKeahlian)
-                                    <option value="{{ $progKeahlian->id }}"
-                                    @if (isset($oldInput['program_keahlian_id']))
-                                        {{ ($oldInput['program_keahlian_id'] == $progKeahlian->id) ? 'selected' : '' }}
+                            <select name="kompetensi_keahlian" id="" class="form-control form-control-sm" style="cursor: pointer">
+                                <option value="">{{__('Semua Jurusan')}}</option>
+                                @foreach ($kompetensiKeahlian as $kompKeahlian)
+                                    <option value="{{ $kompKeahlian->nama }}"
+                                    @if (isset($oldInput['kompetensi_keahlian']))
+                                        {{ ($oldInput['kompetensi_keahlian'] == $kompKeahlian->nama) ? 'selected' : '' }}
                                     @endif
-                                    >{{ $progKeahlian->nama }}</option>
+                                    >{{ $kompKeahlian->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="form-group">
-                            <select name="gaji_min" id="" class="form-control form-control-sm">
-                                <option value="">{{__('Gaji Minimal IDR')}}</option>
+                            <select name="gaji_min" id="" class="form-control form-control-sm" style="cursor: pointer">
+                                <option value="" style="cursor: pointer">{{__('Gaji Minimal IDR')}}</option>
                                 @foreach ($gaji_minimal as $gaji_min)
                                     <option value="{{ $gaji_min }}"
                                     @if (isset($oldInput['gaji_min']))
@@ -71,12 +71,6 @@
                                 @endforeach
                             </select>
                         </div>
-
-                        {{-- <div class="form-group">
-                            <button type="submit" class="btn btn-sm btn-block btn-warning bg-dark-green btn-orange text-white">
-                                {{__('Cari Lowongan')}}
-                            </button>
-                        </div> --}}
                         <div class="button_cont text-center" ><button class="example_a" type="submit">Cari Lowongan</button></div>
                     </form>
                 </div>
@@ -88,23 +82,20 @@
             </div>
 
         </div>
-        <div class="col-md-9 px-2">
+        <div class="col-md-9 px-3">
             <div class="card mb-3 shadow-md">
-                <div class="card-body p-0">
+                <div class="card-body py-1">
                     <div class="row m-0">
                         <ul class="nav col-md-9">
                             <li class="nav-item">
-                                <a class="nav-link active" href="{{ url('/lowongan') }}">{{__('Semua Lowongan')}}</a>
+                                <a class="nav-link font-weight-bold href-dark-to-blue active-for-nav-link-atas-loker-and-perusahaan" href="{{ url('/lowongan') }}">{{__('Semua Lowongan')}}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">{{__('Prakerin')}}</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">{{__('Perusahaan')}}</a>
+                                <a class="nav-link font-weight-bold href-dark-to-blue " href="{{ url('/daftar-perusahaan') }}">{{__('Perusahaan')}}</a>
                             </li>
                         </ul>
-                        <div class="col-md-3 text-right py-2">
-                            <select id="urutkan-berdasarkan" class="form-control form-control-sm">
+                        <div class="col-md-3 text-right mt-1 mb-3 my-lg-1">
+                            <select id="urutkan-berdasarkan" class="form-control form-control-sm" style="cursor: pointer">
                                 <option value="terbaru"
                                     @if (isset($oldInput['urutBerdasarkan']))
                                         {{ ($oldInput['urutBerdasarkan'] == 'terbaru') ? 'selected' : '' }}
@@ -127,7 +118,7 @@
             </div>
 
             <div style="animation: tememplek 0.5s;"  id="card-lowongan" class="card shadow-2xl p-3 mt-3">
-                <span class="h4 font-weight-bold mb-1 text-primary"><i class="fa fa-bullhorn mr-2"></i>{{__(' Lowongan')}}</span>
+                <span class="h4 font-weight-bold mb-1 text-dark"><i class="fa fa-bullhorn mr-2"></i>{{__(' Lowongan')}}</span>
                 @if ($lowongan->isEmpty())
                 <div class="d-flex flex-column align-items-center justify-content-center text-center py-3">
                     <span class="display-1 text-muted"><i class="fa fa-bullhorn"></i></span>
@@ -135,14 +126,22 @@
                 </div>
                 @else
                     @foreach ($lowongan as $loker)
+                    <hr>
                         <div id="lowongan" class="my-3">
-                            <hr>
                             <div id="njero-lowongan" class="d-flex justify-content-between w-100">
                                 <div style="flex: 3">
                                     <a href="{{ url('lowongan/' . encrypt($loker->id_from_lowongan)) }}" class="h5 font-weight-bold text-primary mb-0">{{__( $loker->jabatan )}}</a>
                                     <a href="{{ url('perusahaan/show/' . encrypt($loker->perusahaan_id)) }}" class="text-primary d-block">{{__( $loker->nama_perusahaan )}}</a>
-                                    <span class="d-block mt-2"><i class="fa fa-map-marker"></i> {{__( $loker->perusahaan->alamat )}}</span>
-                                    <span class="d-block text-muted mb-3"><i class="fa fa-dollar"></i> {{__('IDR')}} {{__( number_format($loker->gaji_min, 0, '.', '.') )}} {{__('-')}} {{__( number_format($loker->gaji_max, 0, '.', '.') )}}</span>
+                                    <span class="d-block mt-2" ><i class="fa fa-cogs mr-2"></i>
+                                        @php
+                                            $arr = json_decode($loker->keahlian);
+                                            foreach ($arr as $key => $value) {
+                                                echo ($key >= 1) ? ' <b>/</b> ' . $value . ' ': $value;
+                                            }
+                                        @endphp
+                                    </span>
+                                    <span class="d-block mt-2"><i class="fa fa-map-marker mr-2"></i> {{__( $loker->perusahaan->provinsi )}}</span>
+                                    <span class="d-block text-muted mb-3"><i class="fa fa-dollar mr-2"></i> {{__('IDR')}} {{__( number_format($loker->gaji_min, 0, '.', '.') )}} {{__('-')}} {{__( number_format($loker->gaji_max, 0, '.', '.') )}}</span>
                                     <span id="waktu" class="text-muted">{{__('Sampai,')}} {{ __( date('d M Y', strtotime($loker->batas_akhir_lamaran)) ) }}</span>
                                 </div>
                                 <div id="contain-img" style="flex: 1">

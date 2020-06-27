@@ -12,6 +12,7 @@ use App\Models\Lowongan;
 use App\Models\Pelamaran;
 use App\Models\Perusahaan;
 use App\Models\ProgramKeahlian;
+use App\Models\KompetensiKeahlian;
 use App\Models\Provinsi;
 
 
@@ -21,10 +22,10 @@ class JobController extends Controller
      * Return a SEO Script.
      *
      */
-    public function getSeo()
+    public function getSeo($title)
     {
         // SEO Script
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle($title . ' | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -44,7 +45,7 @@ class JobController extends Controller
     public function index()
     {
         // Mengambil SEO
-        $this->getSeo();
+        $this->getSeo('Lowongan');
 
         // Mengambil tanggal
         $today = new \DateTime();
@@ -54,9 +55,9 @@ class JobController extends Controller
                                     ->where('status', 'aktif')
                                     ->where('batas_akhir_lamaran', '>=', $today->format('Y-m-d'))
                                     ->orderBy('created_at', 'DESC')
-                                    ->paginate(6),
+                                    ->paginate(10),
 
-            'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
+            'kompetensiKeahlian' => KompetensiKeahlian::orderBy('nama', 'ASC')->get(),
             'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
             'gaji_minimal' => [1000000, 2000000, 3000000, 4000000, 5000000],
             'navLink' => 'lowongan',
@@ -76,7 +77,7 @@ class JobController extends Controller
     public function indexByConditionCari(Request $request)
     {
         // Mengambil SEO
-        $this->getSeo();
+        $this->getSeo('Lowongan');
 
         // Mengambil tanggal
         $today = new \DateTime();
@@ -85,9 +86,6 @@ class JobController extends Controller
         $gaji_min = explode('Rp. ', $request->gaji_min);
         $gaji_min = end($gaji_min);
         $gaji_min = str_replace('.', '', $gaji_min);
-
-        $perusahaanProgramKeahlianId = (!is_null($request->program_keahlian_id)) ? 'perusahaan.program_keahlian_id' : 'lowongan.status';
-        $programKeahlianId = (!is_null($request->program_keahlian_id)) ? $request->program_keahlian_id : 'aktif';
 
         $perusahaanProvinsi = (!is_null($request->provinsi)) ? 'perusahaan.provinsi' : 'lowongan.status';
         $provinsi = (!is_null($request->provinsi)) ? $request->provinsi : 'aktif';
@@ -118,22 +116,23 @@ class JobController extends Controller
 
         // lowongan berdasarkan kondisi
         $lowongan = Lowongan::select('lowongan.*', 'lowongan.id AS id_from_lowongan')
+                            ->where('lowongan.kompetensi_keahlian', 'like', '%' . $request->kompetensi_keahlian . '%')
                             ->where('lowongan.status', 'aktif')
                             ->where('lowongan.jabatan', 'like', '%' . $request->judul . '%')
                             ->where('lowongan.gaji_min', '>=', $gaji_min)
                             ->where($perusahaanProvinsi, $provinsi)
-                            ->where($perusahaanProgramKeahlianId, $programKeahlianId)
                             ->where('batas_akhir_lamaran', '>=', $today->format('Y-m-d'))
                             ->join('perusahaan', 'lowongan.perusahaan_id', 'perusahaan.id')
                             ->orderBy($kolom, $nilai);
 
         $data = [
-            'lowongan' => $lowongan->paginate(6),
+            'lowongan' => $lowongan->paginate(10),
             'programKeahlian' => ProgramKeahlian::orderBy('nama', 'ASC')->get(),
             'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
             'gaji_minimal' => [1000000, 2000000, 3000000, 4000000, 5000000],
             'oldInput' => $request->all(),
             'navLink' => 'lowongan',
+            'kompetensiKeahlian' => KompetensiKeahlian::orderBy('nama', 'ASC')->get(),
             'jmlLoker' => Lowongan::where('status', 'aktif')
                                     ->where('batas_akhir_lamaran', '>=', $today->format('Y-m-d'))
                                     ->count()
@@ -151,7 +150,7 @@ class JobController extends Controller
     public function show($id)
     {
         // Mengambil SEO
-        $this->getSeo();
+        $this->getSeo('Lowongan ' . Lowongan::find(decrypt($id))->jabatan);
 
         if(Auth::check()) {
             (Auth::user()->hasRole('siswa')) ?  $siswaId = Auth::user()->siswa->id : $siswaId = false;

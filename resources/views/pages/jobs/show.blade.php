@@ -112,11 +112,11 @@
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Ukuran Perusahaan')}}</h6>
-                                    <span class="ml-1">{{($lowongan->perusahaan->jumlah_karyawan != null) ? $lowongan->perusahaan->jumlah_karyawan : '-'}}</span>
+                                    <span class="ml-1">{{($lowongan->perusahaan->jumlah_karyawan != null) ? $lowongan->perusahaan->jumlah_karyawan . ' karyawan' : '-'}}</span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Situs')}}</h6>
-                                    <span class="ml-1"><a href="">{{ $lowongan->perusahaan->site != null ? $lowongan->perusahaan->site : '-'}}</a></span>
+                                    <span class="ml-1"><a href="http:\\{{ $lowongan->perusahaan->site }}" target="_blank">{{ $lowongan->perusahaan->site != null ? $lowongan->perusahaan->site : '-'}}</a></span>
                                 </div>
                                 <div class="col-lg-6 mt-3">
                                     <h6 class="font-weight-bold d-block mb-0">{{__('Gaya Berpakaian')}}</h6>
