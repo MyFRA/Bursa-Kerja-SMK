@@ -133,7 +133,10 @@ class JobController extends Controller
             'provinsi' => Provinsi::orderBy('nama_provinsi', 'ASC')->get(),
             'gaji_minimal' => [1000000, 2000000, 3000000, 4000000, 5000000],
             'oldInput' => $request->all(),
-            'navLink' => 'lowongan'
+            'navLink' => 'lowongan',
+            'jmlLoker' => Lowongan::where('status', 'aktif')
+                                    ->where('batas_akhir_lamaran', '>=', $today->format('Y-m-d'))
+                                    ->count()
         ];
 
         return view('pages.jobs.index', $data);

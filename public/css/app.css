@@ -17819,3 +17819,82 @@ form.was-validated select:valid ~ .select2-container--bootstrap4 .select2-select
         box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
         transition: all 0.4s ease 0s;
         }
+
+
+
+
+@media screen and (min-width: 768px) {
+    .flex-lg-column {
+        flex-direction: column;
+    }
+
+    .flex-lg-row {
+        flex-direction: row;
+    }
+
+    .flex-lg-1 {
+        flex: 1;
+    }
+
+    .flex-lg-2 {
+        flex: 2;
+    }
+
+    .flex-lg-3 {
+        flex: 3;
+    }
+
+    .flex-lg-4 {
+        flex: 4;
+    }
+
+}
+
+@media screen and (min-width: 992px) {
+    .max-height-lg-200 {
+        max-height: 200px !important;
+    }
+}
+
+.max-height-135 {
+    max-height: 135px;
+}
+
+.href-dark-to-blue {
+    color: #111;
+}
+
+.href-dark-to-blue:hover {
+    color: #0B5188;
+}
+
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+.flex-3 {
+    flex: 3;
+}
+
+.flex-4 {
+    flex: 4;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+
+
+.active-for-nav-link-atas-loker-and-perusahaan {
+    color: var(--blue) !important;
+}

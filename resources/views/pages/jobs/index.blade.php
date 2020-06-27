@@ -88,7 +88,7 @@
             </div>
 
         </div>
-        <div class="col-md-7 px-2">
+        <div class="col-md-9 px-2">
             <div class="card mb-3 shadow-md">
                 <div class="card-body p-0">
                     <div class="row m-0">
@@ -159,9 +159,9 @@
                 {{ $lowongan->onEachSide(5)->links() }}
             </div>
         </div>
-        <div class="col-md-2 px-2">
+        {{-- <div class="col-md-2 px-2">
             <img src="https://www.wmtips.com/i/art/547/160x600.gif" alt="">
-        </div>
+        </div> --}}
         <div class="col-12 px-2 mt-2">
             <div class="nav-list-page-for-mobile">
                 <!-- navigation-list-page -->

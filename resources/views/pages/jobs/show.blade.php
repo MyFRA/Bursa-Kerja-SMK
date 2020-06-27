@@ -24,13 +24,13 @@
         @if ($lowongan->perusahaan->image != NULL)
             <div class="row">
                 <div class="col image-cover-perusahaan-lowongan px-1">
-                    <img class="w-100" class="" src="{{ asset('/storage/assets/daftar-perusahaan/image/' . $lowongan->perusahaan->image) }}" alt="">
+                    <img class="w-100 rounded-top" class="" src="{{ asset('/storage/assets/daftar-perusahaan/image/' . $lowongan->perusahaan->image) }}" alt="">
                 </div>
             </div>
         @endif
         <div class="row">
             <div class="col px-1">
-                <div class="card card-header-lowongan-show shadow p-3 pt-lg-4 pt-5">
+                <div class="card card-header-lowongan-show shadow p-3 pt-lg-4 pt-5" style="@if ($lowongan->perusahaan->image != NULL) border-top-left-radius: 0px; border-top-right-radius: 0px;@endif" >
                     <div class="m-auto w-100">
                         <div class="text-center m-auto w-100">
                             @if (is_null($lowongan->perusahaan->logo))
@@ -174,7 +174,7 @@
                                 <div class="container-thumb-gede">
                                     <div class="row">
                                         <div class="col px-1">
-                                            <img class="w-100" id="img-thumb-gede" src="{{ asset('/storage/assets/lowongan-kerja/' . $lowongan->image) }}" alt="">
+                                            <img class="w-100 rounded-lg" id="img-thumb-gede" src="{{ asset('/storage/assets/lowongan-kerja/' . $lowongan->image) }}" alt="">
                                         </div>
                                     </div>
                                 </div>

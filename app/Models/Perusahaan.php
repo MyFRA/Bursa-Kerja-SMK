@@ -43,15 +43,24 @@ class Perusahaan extends Model
     {
         return $this->belongsTo('App\User');
 	}
-	
+
 	public function bidangKeahlian()
     {
         return $this->belongsTo('App\Models\BidangKeahlian');
 	}
-	
+
 	public function programKeahlian()
     {
         return $this->belongsTo('App\Models\ProgramKeahlian');
+    }
+
+    public function lowonganAktif()
+    {
+        // Mengambil tanggal
+        $today = new \DateTime();
+
+       return $this->hasMany('App\Models\Lowongan')->where('status', 'aktif')
+                                                ->where('batas_akhir_lamaran', '>=', $today->format('Y-m-d'));
     }
 
 }

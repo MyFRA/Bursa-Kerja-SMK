@@ -18,6 +18,9 @@
                 <li class="nav-item ">
                     <a class="nav-link {{ ($navLink == 'lowongan') ? 'active-for-nav-link' : '' }}" href="{{ url('/lowongan') }}">{{ __('Lowongan') }}</a>
                 </li>
+                <li class="nav-item ">
+                    <a class="nav-link {{ ($navLink == 'perusahaan') ? 'active-for-nav-link' : '' }}" href="{{ url('/daftar-perusahaan') }}">{{ __('Perusahaan') }}</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link {{ ($navLink == 'agenda') ? 'active-for-nav-link' : '' }}" href="{{ url('/agenda') }}">{{ __('Agenda') }}</a>
                 </li>
