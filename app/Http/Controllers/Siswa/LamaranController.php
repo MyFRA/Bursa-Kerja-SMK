@@ -19,10 +19,10 @@ class LamaranController extends Controller
      * Return a SEO Script.
      *
      */
-    public function getSeo()
+    public function getSeo($title)
     {
         // SEO Script
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle($title . ' | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -39,62 +39,34 @@ class LamaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->getSeo();
+        $this->getSeo('Lamaran');
+
+        $status = ($request->status) ? $request->status : 'Semua Lamaran';
+
+        if($request->status) {
+            $pelamaran = Pelamaran::select('pelamaran.*')
+                                    ->where('siswa_id', Auth::user()->siswa->id)
+                                    ->where('status_pelamaran.status', $status)
+                                    ->join('status_pelamaran', 'pelamaran_id', '=', 'pelamaran.id')
+                                    ->orderBy('created_at', 'DESC')
+                                    ->paginate(6);
+        } else {
+            $pelamaran = Pelamaran::select('pelamaran.*')
+                                    ->where('siswa_id', Auth::user()->siswa->id)
+                                    ->join('status_pelamaran', 'pelamaran_id', '=', 'pelamaran.id')
+                                    ->orderBy('created_at', 'DESC')
+                                    ->paginate(6);
+        }
 
         $data = [
-            'lamaran' => Pelamaran::where('siswa_id', Auth::user()->siswa->id)
-                                    ->orderBy('created_at', 'DESC')                        
-                                    ->get(),
-            'status' => 'Semua Lamaran',
+            'status' => $status,
+            'lamaran' => $pelamaran,
             'navLink' => 'lamaran'
         ];
 
         return view('siswa.lamaran.index', $data);
-    }
-
-        /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function indexByStatus(Request $request)
-    {
-        $this->getSeo();
-
-        // Validasi Form Input
-        $validator = Validator::make($request->all(), [
-            'status'               => 'in:menunggu,diterima,ditolak,dipanggil|required',
-        ], [
-            'status.in'           => "status harus diantara menunggu, diterima, ditolak atau dipanggil",
-            'status.required'     => "status tidak boleh kosong",
-        ]);
-
-        // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Lowongan Gagal )
-        if ( $validator->fails() ) {
-            return redirect()->back()
-                                ->withErrors($validator)
-                                ->withInput();
-        // Lolos Validasi
-        } else {
-            $lamaran = [];
-            $pelamaran = Pelamaran::where('siswa_id', Auth::user()->siswa->id)->get();
-            foreach($pelamaran as $pelamar) {
-                if($pelamar->statusPelamaran->status == $request->status) {
-                    $lamaran[] = $pelamar;
-                }
-            }
-
-
-            $data = [
-                'lamaran' => $lamaran,
-                'status' => $request->status,
-                'navLink' => 'lamaran'
-            ];
-    
-            return view('siswa.lamaran.index', $data);
-        }
     }
 
     /**
@@ -104,7 +76,7 @@ class LamaranController extends Controller
      */
     public function show($id)
     {
-        $this->getSeo();
+        $this->getSeo('Lamaran ' . Pelamaran::find(decrypt($id))->lowongan->jabatan );
 
         $data = [
             'pelamar' => Pelamaran::find(decrypt($id)),
@@ -143,7 +115,8 @@ class LamaranController extends Controller
      */
     public function lihatPesan($id)
     {
-        $this->getSeo();
+        $this->getSeo('Pesan lamaran ' . Pelamaran::find(decrypt($id))->lowongan->jabatan );
+
 
         $data = [
             'pelamaran' => Pelamaran::find(decrypt($id)),
@@ -161,7 +134,7 @@ class LamaranController extends Controller
      */
     public function edit($id)
     {
-        $this->getSeo();
+        $this->getSeo('Edit lamaran ' . Pelamaran::find(decrypt($id))->lowongan->jabatan );
 
         $data = [
             'pelamaran' => Pelamaran::find(decrypt($id)),
@@ -181,6 +154,10 @@ class LamaranController extends Controller
     public function update(Request $request, $id)
     {
         $pelamaran = Pelamaran::find(decrypt($id));
+
+        if(is_null($request->proposal_pelamaran))  {
+            return back()->with('gagal', 'proposal tidak boleh kosong');
+        }
 
         $pelamaran->update([
             'proposal_pelamaran' => $request->proposal_pelamaran

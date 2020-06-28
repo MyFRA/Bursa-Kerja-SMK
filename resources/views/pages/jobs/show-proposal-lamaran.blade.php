@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row mt-2 mb-4 container-proposal-lamaran">
             <div class="col-lg-7 px-2 order-lg-1 order-2 mt-3">
-                <div class="card p-4 pb-4">
+                <div class="card shadow p-4 pb-4">
                     <form id="input-form" action="{{ url('/siswa/lowongan/lamar-sekarang') }}" method="post">
                       @csrf
                         <input type="hidden" name="lowonganId" value="{{ encrypt($lowongan->id) }}">
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-lg-5 px-2 order-lg-2 order-1 mt-3">
-                <div class="card p-4 pb-4">
+                <div class="card shadow p-4 pb-4">
                     <h5 class="text-muted mb-4"><i class="fa fa-paperclip mr-2"></i>{{__(' LOWONGAN')}}</h5>
                     <div class="text-center mt-2">
                         <img class="w-50 rounded" src="{{  ($perusahaan->logo == null ) ? asset('/images/company.png') : asset('/storage/assets/daftar-perusahaan/logo/' . $perusahaan->logo) }}" alt="">
@@ -77,9 +77,9 @@
 @section('script')
 	<script src="{{ asset('/plugins/tags-autocomplete/jquery.min.js') }}"></script>
     <script src="{{ asset('/plugins/summernote/summernote-lite.min.js') }}"></script>
-    
+
     <script>
-		// Fungsi Pembuatan Summernote ( WYSIYG ) 
+		// Fungsi Pembuatan Summernote ( WYSIYG )
 		(function($) {
 			$(document).ready(function(){
 		    	$('.summernote').summernote({
@@ -88,18 +88,18 @@
 		    		toolbar: [
 						['style', ['style']],
 						['font', ['bold', 'underline', 'clear']],
-						['fontname', ['fontname']],         
-						['color', ['color']], 
+						['fontname', ['fontname']],
+						['color', ['color']],
 						['para', ['ul', 'ol', 'paragraph']],
 						['table', ['table']],
 						['insert', ['link']],
-						['view', ['fullscreen', 'codeview', 'help']]                 
+						['view', ['fullscreen', 'codeview', 'help']]
 		    		]
 		    	})
 			});
 	    })(jQuery);
   </script>
-  
+
   <script>
     const form = document.getElementById('input-form');
     const proposal = document.getElementById('proposal');

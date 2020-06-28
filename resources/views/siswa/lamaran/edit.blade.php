@@ -4,6 +4,20 @@
     <div class="container">
         <div class="row mt-2 mb-4 container-proposal-lamaran">
             <div class="col-lg-7 px-2 order-lg-1 order-2 mt-3">
+
+                @if (session('gagal'))
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Gagal </strong> {{ session('gagal') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="card shadow p-4 pb-4">
                     <form id="input-form" action="{{ url('/siswa/lamaran/' . encrypt($pelamaran->id)) }}" method="post">
                       @csrf
@@ -21,7 +35,7 @@
                         </div>
                         <div class="mt-4">
                           <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane mr-2"></i>  Update Lamaran</button>
-                          <a href="{{ url('pelamaran/' . encrypt($pelamaran->id)) }}" class="btn btn-secondary border-secondary ml-2"><i class="fa fa-close mr-1"></i>  Batal</a>
+                          <a href="{{ url('/siswa/lamaran/')}}" class="btn btn-secondary border-secondary ml-2"><i class="fa fa-close mr-1"></i>  Batal</a>
                         </div>
                     </form>
                 </div>

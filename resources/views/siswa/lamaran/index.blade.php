@@ -1,9 +1,23 @@
 @extends('layouts.app')
 @section('content')
 
-<div class="container py-3">
+@php
+    $today = new DateTime();
+@endphp
+
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12 mt-n3 mb-3 d-flex justify-content-between align-items-center">
+            <h3 class="page-title font-weight-bold"><i class="fa fa-list-alt mr-3"></i>{{__('Lamaran')}}</h3>
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('/') }}"><i class="fa fa-home"></i></a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{__('Lamaran')}}</li>
+            </ol>
+        </div>
+    </div>
     @if (session('success'))
-        <div class="row mt-4">
+        <div class="row">
             <div class="col">
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <strong>Berhasil </strong> {{ session('success') }}
@@ -16,9 +30,10 @@
     @endif
 
     <div class="row">
-        <div class="col-lg-8 px-2 mt-2 order-2 order-lg-1">
-            <div class="card shadow p-3 pb-4">
-                <h4 class="font-weight-bold quicksand" style="letter-spacing: 0.6px"><i class="fa fa-list-alt mr-2"></i>{{__('Lamaran')}}</h4>
+        <div class="col-lg-8 px-2 order-2 order-lg-1">
+            <div class="card shadow p-3 pb-4" style="animation: tememplek 0.5s;">
+                <h4 class="font-weight-bold quicksand" style="letter-spacing: 0.6px">{{__('Lamaran')}}</h4>
+                <hr>
                 @if (count($lamaran) == 0)
                 <div class="d-flex flex-column align-items-center py-3">
                     <span class="display-1 text-muted"><i class="fa fa-list-alt"></i></span>
@@ -32,7 +47,7 @@
                                     @if (is_null($pelamaran->lowongan->perusahaan->logo))
                                         <img class="text-center w-50 w-lg-75" src="{{ asset('/images/company.png') }}" alt="">
                                     @else
-                                        <img class="text-center w-50 w-lg-75" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $pelamaran->lowongan->perusahaan->logo) }}" alt="">
+                                        <img class="text-center w-50 w-lg-75 rounded-lg" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $pelamaran->lowongan->perusahaan->logo) }}" alt="">
                                     @endif
                                 </div>
                                 <div class="col-lg-8">
@@ -69,7 +84,9 @@
                                                     <th class="border-0 pb-0" scope="col">:</th>
                                                     <th class="border-0 pb-0" scope="col">
                                                         <a href="{{ url('/siswa/lamaran/' . encrypt($pelamaran->id)) }}" class="btn btn-sm mt-1 btn-success"><i class="fa fa-edit mr-1"></i> Lihat</a>
-                                                        <a href="{{ url('/siswa/lamaran/' . encrypt($pelamaran->id) . '/edit') }}" class="btn btn-sm mt-1 btn-primary"><i class="fa fa-edit mr-1"></i> Edit</a>
+                                                        @if ($pelamaran->statusPelamaran->status === 'menunggu')
+                                                            <a href="{{ url('/siswa/lamaran/' . encrypt($pelamaran->id) . '/edit') }}" class="btn btn-sm mt-1 btn-primary"><i class="fa fa-edit mr-1"></i> Edit</a>
+                                                        @endif
                                                         <button onclick="return hapusLamaran('{{ $pelamaran->lowongan->perusahaan->nama }}', '{{ url('/siswa/lamaran/' . encrypt($pelamaran->id)) }}')" type="button" class="btn btn-sm mt-1 btn-danger"><i class="fa fa-trash mr-1"></i> Hapus</button>
                                                     </th>
                                                 </tr>
@@ -81,7 +98,17 @@
                                                 <tr class="border-0">
                                                     <th class="border-0 pb-0" scope="col">Batas Akhir</th>
                                                     <th class="border-0 pb-0" scope="col">:</th>
-                                                    <th class="border-0 pb-0" scope="col">{{ __( date('d M Y', strtotime($pelamaran->lowongan->batas_akhir_lamaran)) ) }}</th>
+                                                    <th class="border-0 pb-0" scope="col">
+                                                        @php
+                                                            $exp = new DateTime($pelamaran->lowongan->batas_akhir_lamaran);
+                                                        @endphp
+
+                                                        @if($today->format("Y-m-d") > $exp->format("Y-m-d"))
+                                                            <span class="btn btn-sm btn-secondary"><i class="fa fa-clock-o mr-1"></i> Expired</span>
+                                                        @else
+                                                            {{ __( date('d M Y', strtotime($pelamaran->lowongan->batas_akhir_lamaran)) ) }}</th>
+                                                        @endif
+
                                                 </tr>
                                                 <tr class="border-0">
                                                     <th class="border-0 pb-0" scope="col">Pesan</th>
@@ -103,12 +130,13 @@
                         </div>
                     @endforeach
                 @endif
+                {{ $lamaran->onEachSide(5)->links() }}
             </div>
         </div>
         <div class="col-lg-4 px-2 order-1 order-lg-2">
             <div class="row mt-lg-2">
                 <div class="col">
-                    <div class="card shadow p-4 pb-4">
+                    <div class="card shadow p-4 pb-4" style="animation: tememplek 0.5s;">
                         <h5 class="font-weight-bold quicksand" style="letter-spacing: 0.6px"><i class="fa fa-paperclip mr-2"></i>{{__('Opsi')}}</h5>
                         <hr class="mt-2">
                         <div class="w-100">
@@ -117,22 +145,22 @@
                                     <span class="ml-2">Semua Lamaran</span>
                                 </div>
                             </a>
-                            <a class="text-decoration-none" onclick="lamaranByStatus('diterima')" href="">
+                            <a class="text-decoration-none" href="{{ url('/siswa/lamaran?status=diterima') }}">
                                 <div class="sidebar-opsi-status {{ ($status == 'diterima') ? 'active-sidebar-opsi-status' : '' }}">
                                     <span class="ml-2">Lamaran Diterima</span>
                                 </div>
                             </a>
-                            <a class="text-decoration-none" onclick="lamaranByStatus('ditolak')" href="">
+                            <a class="text-decoration-none" href="{{ url('/siswa/lamaran?status=ditolak') }}">
                                 <div class="sidebar-opsi-status {{ ($status == 'ditolak') ? 'active-sidebar-opsi-status' : '' }}">
                                     <span class="ml-2">Lamaran Ditolak</span>
                                 </div>
                             </a>
-                            <a class="text-decoration-none" onclick="lamaranByStatus('dipanggil')" href="">
+                            <a class="text-decoration-none" href="{{ url('/siswa/lamaran?status=dipanggil') }}">
                                 <div class="sidebar-opsi-status {{ ($status == 'dipanggil') ? 'active-sidebar-opsi-status' : '' }}">
                                     <span class="ml-2">Lamaran Panggilan Interview</span>
                                 </div>
                             </a>
-                            <a class="text-decoration-none" onclick="lamaranByStatus('menunggu')" href="">
+                            <a class="text-decoration-none" href="{{ url('/siswa/lamaran?status=menunggu') }}">
                                 <div class="sidebar-opsi-status {{ ($status == 'menunggu') ? 'active-sidebar-opsi-status' : '' }}">
                                     <span class="ml-2">Lamaran Menunggu Jawaban</span>
                                 </div>
@@ -170,26 +198,6 @@
             let form = document.getElementById('hapusLamaran');
             form.setAttribute('action', url);
             form.submit();
-        }
-    }
-</script>
-
-
-<script>
-    function lamaranByStatus(status) {
-        event.preventDefault();
-
-        const _url = '<?= url('/siswa/lamaran/status/lamaran') ?>'
-        const formInputByStatus = document.getElementById('inputByStatus');
-        const availableStatus = ['diterima', 'ditolak', 'dipanggil', 'menunggu'];
-
-        if( availableStatus.includes(status) ) {
-            formInputByStatus.setAttribute('action', _url);
-            formInputByStatus.children[0].value = status;
-            console.log(formInputByStatus);
-            formInputByStatus.submit();
-        } else {
-            alert('status tidak tersedia');
         }
     }
 </script>

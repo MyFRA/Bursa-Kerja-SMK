@@ -4,13 +4,13 @@
 <div class="container py-3">
     <div class="row">
         <div class="col-lg-8 px-2 mt-3">
-            <div class="card p-3 pb-4">
+            <div class="card shadow p-3 pb-4">
                 <h5 class="text-muted"><i class="fa fa-list-alt mr-2"></i>{{__(' Lowongan')}}</h5>
                 <div class="row">
                     <div class="col-lg-4 d-flex justify-content-center align-items-center my-4">
                         @if (is_null($lowongan->perusahaan->logo))
                             <img class="w-50 w-lg-75 rounded" src="{{ asset('/images/company.png') }}" alt="">
-                        @else 
+                        @else
                             <img class="w-50 w-lg-75 rounded" src="{{ asset('/storage/assets/daftar-perusahaan/logo/' . $lowongan->perusahaan->logo) }}" alt="">
                         @endif
                     </div>
@@ -56,15 +56,14 @@
             </div>
         </div>
         <div class="col-lg-4 px-2 mt-3">
-            <div class="card p-3 pb-4">
+            <div class="card shadow p-3 pb-4">
                 <h5 class="text-muted mb-4"><i class="fa fa-list-alt mr-2"></i>{{__(' Pelamar')}}</h5>
 
                 @if (count($pelamar) == 0)
-                    <div class="row">
-                        <div class="col text-muted h5">   
-                            {{__('Belum ada pelamar')}}
-                        </div>
-                    </div>
+                <div class="d-flex flex-column align-items-center py-3">
+                    <span class="display-1 text-muted"><i class="fa fa-user"></i></span>
+                    <h5 class="quicksand font-weight-bold">{{__('Belum ada pelamar')}}</h5>
+                </div>
                 @else
                     @foreach ($pelamar as $lamaran)
                         <div class="row">
