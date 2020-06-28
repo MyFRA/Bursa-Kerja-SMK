@@ -22,58 +22,63 @@
                     <div class="col-12 mt-3">
                         <div style="animation: tememplek 0.5s;" class="card shadow-2xl">
                             <div class="card-body">
-                                <h4 class="font-weight-bold quicksand" style="letter-spacing: 0.6px">{{__('Agenda')}}</h4>
+                                <h4 class="font-weight-bold quicksand" style="letter-spacing: 0.6px">{{__('Agenda Terbaru')}}</h4>
                                 <hr>
                                 @if ($agenda->isEmpty())
-                                <div class="d-flex flex-column align-items-center py-3">
-                                    <span class="display-1 text-muted"><i class="fa fa-list"></i></span>
-                                    <h2 class="quicksand font-weight-bold">{{__('Belum ada Agenda')}}</h2>
-                                </div>
+                                    <div class="d-flex flex-column align-items-center py-3">
+                                        <span class="display-1 text-muted"><i class="fa fa-newspaper-o"></i></span>
+                                        <h2 class="quicksand font-weight-bold">{{__('Belum ada agenda')}}</h2>
+                                    </div>
                                 @else
                                     @foreach ($agenda as $item)
+                                    <div style="margin-top: 2rem">
+                                        <div class="media my-4">
+                                            <a class="w-100" href="{{ url('/agenda/' . $item->link) }}">
+                                                <img src="{{ asset('/storage/assets/agenda/' . $item->image) }}" width="100%" class="align-self-end mr-3 rounded-lg" alt="...">
+                                            </a>
+                                            <div class="media-body px-3 mt-4 ml-md-2 mt-md-0">
+                                                <a class="text-decoration-none" href="{{ url('/agenda/' . $item->link) }}">
+                                                    <h5 class="m-0 tailwind-font">{{ $item->judul }}</h5>
+                                                </a>
+                                                <div class="my-2 mt-lg-1">
+                                                    <small class="text-gainsboro my-3">
+                                                    {{__(' Oleh SMK N 1 Bojongsari, Diposting pada: ')}}{{ $item->created_at->format('d F Y') }}
+                                                    </small>
+                                                    <div class="mt-3" style="font-size: 13px">
+                                                        <div><i class="fa fa-calendar mr-2 mb-2"></i> {{ $item->pelaksanaan }}</div>
+                                                        <div><i class="fa fa-map-marker mr-2"></i> {{ $item->lokasi }}</div>
+                                                    </div>
 
-                                            <a href="{{ url('/agenda/' . $item->link) }}"><h3 class="font-weight-bold pt-3 text-center px-2">{{__($item->judul)}}</h3></a>
-                                            <img class="w-100 px-3 px-md-5 my-b mt-3" style="height: 250px; object-fit: cover; object-position: center;" src="{{ asset('/storage/assets/agenda/' . $item->image) }}" alt="">
-                                            <div class="px-4">
-                                                <table class="table table-responsive">
-                                                    <tbody>
-                                                        <tr class="border-0">
-                                                            <td class="border-0 pb-0" scope="col">Pelaksanaan</td>
-                                                            <td class="border-0 pb-0 px-0" scope="col">:</td>
-                                                            <td class="border-0 pb-0" scope="col">{{__($item->pelaksanaan)}}</td>
-                                                        </tr>
-                                                        <tr class="border-0">
-                                                            <td class="border-0 pb-0" scope="col">Lokasi</td>
-                                                            <td class="border-0 pb-0 px-0" scope="col">:</td>
-                                                            <td class="border-0 pb-0" scope="col">{{__($item->lokasi)}}</td>
-                                                        </tr>
-                                                        <tr class="border-0">
-                                                            <td class="border-0 pb-0" scope="col">Diposting Pada</td>
-                                                            <td class="border-0 pb-0 px-0" scope="col">:</td>
-                                                            <td class="border-0 pb-0" scope="col">{{ $item->created_at->format('d F Y') }}</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                                </div>
 
                                             </div>
-                                            <hr>
-                                            <div class="px-4 pb-4 text-justify" style="text-indent: 20px">
-                                                {!! AgendaController::html_cut($item->deskripsi, 250) !!}
+                                        </div>
+                                        <div class="list-artikel-bawah-bag-read-more">
+                                            <div class="icon">
+                                                <span>
+                                                    <i class="fa fa-clock-o mr-1"></i>
+                                                    <span>{{ $item->created_at->diffForHumans() }}</span>
+                                                </span>
+                                                {{-- <span>
+                                                    <i class="fa fa-eye mr-1"></i>
+                                                    <span>Dilihatkali</span>
+                                                </span> --}}
                                             </div>
-                                            <div class="list-artikel-bawah-bag-read-more mt-n4">
-                                                <div class="icon">
-                                                    <span>
-                                                        <i class="fa fa-clock-o mr-1"></i>
-                                                        <span>{{ $item->created_at->diffForHumans() }}</span>
-                                                    </span>
-                                                </div>
-                                                <div class="link">
-                                                    <a class="mr-lg-3" href="{{ url('/agenda/' . $item->link) }}">Lihat Selengkapnya</a>
-                                                </div>
+                                            <div class="link">
+                                                <a class="mr-lg-3" href="{{ url('/agenda/' . $item->link) }}">Lihat Detail </a>
                                             </div>
-                                            <hr>
+                                        </div>
+                                        <hr>
+                                    </div>
                                     @endforeach
                                 @endif
+
+
+                                {{-- <div class="mt-4"></div>
+                                <div class="d-flex justify-content-start">
+                                    {{ $agenda->onEachSide(5)->links() }}
+                                </div> --}}
+
                             </div>
                         </div>
                     </div>

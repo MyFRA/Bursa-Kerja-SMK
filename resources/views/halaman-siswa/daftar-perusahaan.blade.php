@@ -112,25 +112,25 @@
                                 <hr>
                                 <div id="njero-lowongan" class="d-flex w-100 pt-3">
                                     <div class="flex-1 flex-lg-1">
-                                        <img class="w-lg-75 w-100 ml-lg-3 rounded-lg max-height-135 max-height-lg-200" style="object-fit: cover; object-position: center;" src=" {{ is_null($perusahaan->logo) ? asset('/images/company.png') :  asset('/storage/assets/daftar-perusahaan/logo/' . $perusahaan->logo)}}" alt="">
+                                        <img class="w-lg-75 w-100 ml-lg-3 rounded-lg max-height-135 max-height-lg-200" style="object-fit: cover; object-position: center;" src=" {{ is_null($perusahaan->perusahaan->logo) ? asset('/images/company.png') :  asset('/storage/assets/daftar-perusahaan/logo/' . $perusahaan->perusahaan->logo)}}" alt="">
                                     </div>
                                     <div class="flex-3 flex-lg-4">
                                         <div class="d-flex flex-column flex-lg-row justify-content-between ml-lg-0" style="margin-left: -40%">
                                             <div class="order-2 order-lg-1 flex-lg-3 px-4">
                                                 <div class="d-flex flex-column justify-content-center d-lg-inline-block">
-                                                    <div class="mb-3 mt-4 mt-lg-0"><a href="{{ url('/perusahaan/show/' . encrypt($perusahaan->id)) }}" class="font-weight-bold h4 href-dark-to-blue">{{ $perusahaan->nama }}</a></div>
-                                                    <div class="mt-1" style="font-size: 12.75px" class="d-block"><i class="fa fa-cogs mr-2"></i> {{ $perusahaan->bidangKeahlian->nama }}</div>
-                                                    <div class="mt-1" style="font-size: 12.75px" class="d-block"><i class="fa fa-map-marker mr-2"></i> {{ $perusahaan->kabupaten  }}</div>
-                                                    <div class="mt-1" style="font-size: 12.75px" class="d-block"><i class="fa fa-globe mr-2"></i> <a href="http:\\{{ $perusahaan->site  }}">{{ $perusahaan->site  }}</a></div>
+                                                    <div class="mb-3 mt-4 mt-lg-0"><a href="{{ url('/perusahaan/show/' . encrypt($perusahaan->perusahaan->id)) }}" class="font-weight-bold h4 href-dark-to-blue">{{ $perusahaan->perusahaan->nama }}</a></div>
+                                                    <div class="mt-1" style="font-size: 12.75px" class="d-block"><i class="fa fa-cogs mr-2"></i> {{ $perusahaan->perusahaan->bidangKeahlian->nama }}</div>
+                                                    <div class="mt-1" style="font-size: 12.75px" class="d-block"><i class="fa fa-map-marker mr-2"></i> {{ $perusahaan->perusahaan->kabupaten  }}</div>
+                                                    <div class="mt-1" style="font-size: 12.75px" class="d-block"><i class="fa fa-globe mr-2"></i> <a href="http:\\{{ $perusahaan->perusahaan->site  }}">{{ $perusahaan->perusahaan->site  }}</a></div>
                                                 </div>
                                             </div>
                                             <div class="order-1 order-lg-2 flex-lg-1 px-3 ">
-                                                <span style="background-color: #eee" class="px-3 float-right py-1 rounded-full small">{{ $perusahaan->kategori }}</span>
+                                                <span style="background-color: #eee" class="px-3 float-right py-1 rounded-full small">{{ $perusahaan->perusahaan->kategori }}</span>
                                                 <br>
                                                 <br>
                                                 <div class="d-flex mt-2 align-items-center justify-content-end mr-5">
                                                     <span class="h2 text-primary"><i class="fa fa-briefcase mx-3"></i></span>
-                                                    <span class="h4 font-weight-bold">{{ $perusahaan->lowonganAktif->count() }}</span>
+                                                    <span class="h4 font-weight-bold">{{ $perusahaan->perusahaan->lowonganAktif->count() }}</span>
                                                 </div>
                                                 <div class="float-right">
                                                     Lowongan Tersedia
@@ -140,7 +140,7 @@
                                         <div class="pt-4 pl-3 ml-lg-0 d-none d-lg-inline-block" style="margin-left: -33%">
                                             <span class="text-muted font-weight-bold h6">Profil Perusahaan</span>
                                             <p>
-                                                {!! HalamanSiswaController::html_cut($perusahaan->overview, 300) !!}
+                                                {!! HalamanSiswaController::html_cut($perusahaan->perusahaan->overview, 300) !!}
                                             </p>
                                         </div>
                                     </div>

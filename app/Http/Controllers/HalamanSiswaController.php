@@ -11,6 +11,8 @@ use App\Models\Perusahaan;
 use App\Models\ProgramKeahlian;
 use App\Models\Provinsi;
 
+use App\User;
+
 class HalamanSiswaController extends Controller
 {
     /**
@@ -48,7 +50,24 @@ class HalamanSiswaController extends Controller
     {
         $this->getSeo();
 
-        $list_perusahaan = ($request->kategori) ? Perusahaan::where('kategori', $request->kategori)->orderBy('created_at', 'DESC')->paginate(10) : Perusahaan::orderBy('created_at', 'DESC')->paginate(10);
+        $list_perusahaan;
+
+        if ( !is_null($request->kategori) ) {
+            $list_perusahaan = User::select('users.*')
+                                ->where('perusahaan.kategori', $request->kategori)
+                                ->where('permission_id', 3)
+                                ->join('perusahaan', 'users.id', '=', 'perusahaan.user_id')
+                                ->join('model_has_permissions', 'users.id', '=', 'model_has_permissions.model_id')
+                                ->orderBy('perusahaan.created_at', 'DESC')->paginate(10);
+        } else {
+            $list_perusahaan = User::select('users.*')
+                                ->where('permission_id', 3)
+                                ->join('perusahaan', 'users.id', '=', 'perusahaan.user_id')
+                                ->join('model_has_permissions', 'users.id', '=', 'model_has_permissions.model_id')
+                                ->orderBy('perusahaan.created_at', 'DESC')
+                                ->paginate(10);
+        }
+
         $navLinkPerusahaan = ($request->kategori) ? $request->kategori : 'semua';
 
         $data = [
