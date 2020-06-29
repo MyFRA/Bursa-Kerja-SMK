@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Imports\FaqImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\Faq;
 
@@ -156,7 +158,12 @@ class FaqController extends Controller
      */
     public function imported(Request $request)
     {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
 
+        Excel::import(new FaqImport,request()->file('file'));
+        return redirect('/app-admin/faq')->with('success', 'Import file excel faq sukses');;
     }
 
     /**

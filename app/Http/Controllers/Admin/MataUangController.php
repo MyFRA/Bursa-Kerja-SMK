@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Imports\MataUangImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\MataUang;
 
@@ -159,7 +161,12 @@ class MataUangController extends Controller
      */
     public function imported(Request $request)
     {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
 
+        Excel::import(new MataUangImport,request()->file('file'));
+        return redirect('/app-admin/mata-uang')->with('success', 'Import file excel mata uang sukses');;
     }
 
     /**

@@ -14,9 +14,9 @@
                 <a href="" onclick="onHapusMassal('<?= url('/app-admin/bidang-keahlian/hapus/semua-bidang-keahlian') ?>')" class="btn btn-danger rounded-0">
                     <i class="fas fa-trash mr-1"></i> {{__('Hapus Masal')}}
                 </a>
-                <a href="{{ url('/app-admin/bidang-keahlian/import') }}" class="btn btn-default rounded-0">
+                {{-- <a href="{{ url('/app-admin/bidang-keahlian/import') }}" class="btn btn-default rounded-0">
                     <i class="fas fa-download mr-1"></i> {{__('Import')}}
-                </a>
+                </a> --}}
                 <a href="{{ url('/app-admin/bidang-keahlian/create') }}" class="btn btn-primary rounded-0">
                     <i class="fas fa-plus-circle mr-1"></i> {{__('Bidang Keahlian Baru')}}
                 </a>

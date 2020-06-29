@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Imports\KeterampilanImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\Keterampilan;
 
@@ -153,7 +155,12 @@ class KeterampilanController extends Controller
      */
     public function imported(Request $request)
     {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
 
+        Excel::import(new KeterampilanImport,request()->file('file'));
+        return redirect('/app-admin/keterampilan')->with('success', 'Import file excel keterampilan sukses');;
     }
 
     /**

@@ -11,12 +11,12 @@
                 </h1>
             </div>
             <div class="col-sm-6 text-right">
-                <a href="" class="btn btn-danger rounded-0 disabled">
+                {{-- <a href="" class="btn btn-danger rounded-0 disabled">
                     <i class="fas fa-trash mr-1"></i> Hapus Masal
-                </a>
-                <a href="{{ url('/app-admin/kabupaten/import') }}" class="btn btn-default rounded-0">
+                </a> --}}
+                {{-- <a href="{{ url('/app-admin/kabupaten/import') }}" class="btn btn-default rounded-0">
                     <i class="fas fa-download mr-1"></i> Import
-                </a>
+                </a> --}}
                 <a href="{{ url('/app-admin/kabupaten/create') }}" class="btn btn-primary rounded-0">
                     <i class="fas fa-plus-circle mr-1"></i> Kabupaten Baru
                 </a>

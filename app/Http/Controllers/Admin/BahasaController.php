@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Imports\BahasaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\Bahasa;
 
@@ -153,7 +155,12 @@ class BahasaController extends Controller
      */
     public function imported(Request $request)
     {
+        $this->validate($request, [
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]);
 
+        Excel::import(new BahasaImport,request()->file('file'));
+        return redirect('/app-admin/bahasa')->with('success', 'Import file excel bahasa sukses');
     }
 
     /**
