@@ -182,8 +182,10 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
 
         /** Disqus */
-        Yajra\Disqus\DisqusServiceProvider::class
+        Yajra\Disqus\DisqusServiceProvider::class,
 
+        /** Import Export Excel */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -241,6 +243,7 @@ return [
         'Twitter'   => Artesaos\SEOTools\Facades\TwitterCard::class,
         'JsonLd'   => Artesaos\SEOTools\Facades\JsonLd::class,
         'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
         /** Management User Plugins */
 
