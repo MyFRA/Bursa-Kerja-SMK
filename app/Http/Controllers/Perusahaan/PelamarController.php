@@ -53,12 +53,12 @@ class PelamarController extends Controller
                                     ->where('status_pelamaran.status', $status)
                                     ->join('status_pelamaran', 'pelamaran_id', '=', 'pelamaran.id')
                                     ->orderBy('created_at', 'DESC')
-                                    ->paginate(6);
+                                    ->paginate(1);
         } else {
             $pelamaran = Pelamaran::select('pelamaran.*')
                                     ->join('status_pelamaran', 'pelamaran_id', '=', 'pelamaran.id')
                                     ->orderBy('created_at', 'DESC')
-                                    ->paginate(6);
+                                    ->paginate(1);
         }
 
         $data = [

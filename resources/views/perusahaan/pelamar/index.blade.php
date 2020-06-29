@@ -179,6 +179,14 @@
                                 @endforeach
                             @endif
                         </div>
+
+                        @if (count($pelamaran) > 0 )
+                        <div class="card shadow d-flex ">
+                            <div class="mt-3 ml-3">
+                                {{ $pelamaran->onEachSide(5)->links() }}
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
