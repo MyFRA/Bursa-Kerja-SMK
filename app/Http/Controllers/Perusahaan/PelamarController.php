@@ -29,9 +29,11 @@ class PelamarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($lowonganId)
+    public function index(Request $request, $lowonganId)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        $lowongan = Lowongan::find(decrypt($lowonganId));
+
+        SEOTools::setTitle('Pelamar ' . $lowongan->jabatan . '| SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -42,68 +44,33 @@ class PelamarController extends Controller
         SEOTools::twitter()->setSite('@smkbisakerja');
         SEOTools::jsonLd()->addImage(asset('img/logo.png'));
 
-        $lowongan = Lowongan::find(decrypt($lowonganId));
+        $status = ($request->status) ? $request->status : '';
+
+        $status = ($request->status) ? $request->status : 'Semua Pelamar';
+
+        if($request->status) {
+            $pelamaran = Pelamaran::select('pelamaran.*')
+                                    ->where('status_pelamaran.status', $status)
+                                    ->join('status_pelamaran', 'pelamaran_id', '=', 'pelamaran.id')
+                                    ->orderBy('created_at', 'DESC')
+                                    ->paginate(6);
+        } else {
+            $pelamaran = Pelamaran::select('pelamaran.*')
+                                    ->join('status_pelamaran', 'pelamaran_id', '=', 'pelamaran.id')
+                                    ->orderBy('created_at', 'DESC')
+                                    ->paginate(6);
+        }
+
         $data = [
             'nav'   => 'lowongan',
             'user' => Auth::user(),
             'perusahaan' => Perusahaan::find($lowongan->perusahaan_id),
-            'pelamaran' => Pelamaran::where('lowongan_id', $lowongan->id)->get(),
+            'pelamaran' => $pelamaran,
             'lowongan' => $lowongan,
-            'sidebar' => 'Semua Pelamar'
+            'sidebar' => $status
         ];
 
         return view('perusahaan.pelamar.index', $data);
-    }
-
-    public function showAllByStatus(Request $request, $lowonganId)
-    {
-        // Validasi Form Input
-        $validator = Validator::make($request->all(), [
-            'status'               => 'in:menunggu,diterima,ditolak,dipanggil|required',
-        ], [
-            'status.in'                     => "status harus diantara menunggu, diterima, ditolak atau dipanggil",
-            'status.required'               => "status tidak boleh kosong",
-        ]);
-
-        // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Lowongan Gagal )
-        if ( $validator->fails() ) {
-            return redirect()->back()
-                                ->withErrors($validator)
-                                ->withInput();
-        // Lolos Validasi
-        }else {
-            SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
-            SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
-            SEOTools::setCanonical(URL::current());
-            SEOTools::metatags()
-                ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
-            SEOTools::opengraph()
-                ->setUrl(URL::current())
-                ->addProperty('type', 'homepage');
-            SEOTools::twitter()->setSite('@smkbisakerja');
-            SEOTools::jsonLd()->addImage(asset('img/logo.png'));
-
-            $pelamarByStatus = [];
-            $lowongan = Lowongan::find(decrypt($lowonganId));
-            $pelamaran = Pelamaran::where('lowongan_id', $lowongan->id)->get();
-            foreach($pelamaran as $pelamar) {
-                if($pelamar->statusPelamaran->status == $request->status) {
-                    $pelamarByStatus[] = $pelamar;
-                }
-            }
-
-            $data = [
-                'nav'   => 'lowongan',
-                'user' => Auth::user(),
-                'perusahaan' => Perusahaan::find($lowongan->perusahaan_id),
-                'lowongan' => $lowongan,
-                'sidebar' => $request->status,
-                'pelamaran' => $pelamarByStatus
-            ];
-
-            return view('perusahaan.pelamar.index', $data);
-        }
-       
     }
 
     /**
@@ -135,6 +102,17 @@ class PelamarController extends Controller
 
     public function showStatusPelamaran(Request $request)
     {
+        SEOTools::setTitle('Status Pelamaran | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
+        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
+        SEOTools::setCanonical(URL::current());
+        SEOTools::metatags()
+            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+        SEOTools::opengraph()
+            ->setUrl(URL::current())
+            ->addProperty('type', 'homepage');
+        SEOTools::twitter()->setSite('@smkbisakerja');
+        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+
         $data = [
             'nav'   => 'lowongan',
             'user' => Auth::user(),
@@ -174,6 +152,17 @@ class PelamarController extends Controller
 
     public function editStatusPelamaran($idStatusPelamaran)
     {
+        SEOTools::setTitle('Eddi Pelamaran | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
+        SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
+        SEOTools::setCanonical(URL::current());
+        SEOTools::metatags()
+            ->setKeywords('Lowongan Kerja, Lulusan SMA/SMK, SMK Negeri 1 Bojongsari, Purbalingga, Bursa Kerja, Portal Lowongan Kerja');
+        SEOTools::opengraph()
+            ->setUrl(URL::current())
+            ->addProperty('type', 'homepage');
+        SEOTools::twitter()->setSite('@smkbisakerja');
+        SEOTools::jsonLd()->addImage(asset('img/logo.png'));
+
         $data = [
             'nav'   => 'lowongan',
             'user' => Auth::user(),

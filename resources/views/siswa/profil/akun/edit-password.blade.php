@@ -15,7 +15,7 @@
 
 
         <div class="col-lg-9 px-2">
-            <div class="card p-3">
+            <div class="card shadow p-3">
                 <div>
                     <div class="px-2 mt-4 pb-5">
                         <span class="h5 "><i class="fa fa-cogs"></i> {{(' Pengaturan Akun')}}</span>
@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="col-md-5">
                                              <div class="form-group mt-n2 mt-lg-0">
-                                                 <input type="password" class="form-control @error('new_password') is-invalid @enderror {{ (session('wrongNewPasswordConfirmation')) ? 'is-invalid' : '' }}" name="new_password" id="new_password" placeholder="password baru" autocomplete="off" required>
+                                                 <input type="password" class="form-control @error('new_password') is-invalid @enderror {{ (session('wrongNewPasswordConfirmation')) ? 'is-invalid' : '' }}" name="new_password" id="new_password" placeholder="password baru" autocomplete="off" value="{{ old('new_password') }}" required>
 
 
                                                  @error('new_password')
@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="col-md-5">
                                              <div class="form-group mt-n2 mt-lg-0">
-                                                 <input type="password" class="form-control {{ (session('wrongNewPasswordConfirmation')) ? 'is-invalid' : '' }}" name="new_password_confirmation" id="new_password_confirmation" placeholder="ulangi password baru" autocomplete="off" required>
+                                                 <input type="password" class="form-control {{ (session('wrongNewPasswordConfirmation')) ? 'is-invalid' : '' }}" name="new_password_confirmation" id="new_password_confirmation" placeholder="ulangi password baru" autocomplete="off" value="{{ old('new_password_confirmation') }}" required>
 
 
                                                 @if (session('wrongNewPasswordConfirmation'))
@@ -65,7 +65,7 @@
                                         </div>
                                         <div class="col-md-5">
                                              <div class="form-group mt-n2 mt-lg-0">
-                                                 <input type="password" class="form-control {{ (session('wrongOldPasswordConfirmation')) ? 'is-invalid' : '' }}" name="old_password_confirmation" id="old_password_confirmation" placeholder="password saat ini" autocomplete="off" required>
+                                                 <input type="password" class="form-control {{ (session('wrongOldPasswordConfirmation')) ? 'is-invalid' : '' }}" name="old_password_confirmation" id="old_password_confirmation" placeholder="password saat ini" autocomplete="off" value="{{ old('old_password_confirmation') }}" required>
 
                                                 @if (session('wrongOldPasswordConfirmation'))
                                                     <div class="invalid-feedback">{{ session('wrongOldPasswordConfirmation') }}</div>

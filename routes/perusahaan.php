@@ -46,7 +46,7 @@
 			Route::resource('/lowongan', 'Perusahaan\LowonganController')->except(['show']);
 			Route::get('/lowongan/status', 'Perusahaan\LowonganController@status');
 			Route::get('/lowongan/{lowonganId}/pelamar', 'Perusahaan\PelamarController@index');
-			Route::get('/lowongan/{lowonganId}/pelamar/status', 'Perusahaan\PelamarController@showAllByStatus');
+			// Route::get('/lowongan/{lowonganId}/pelamar/status', 'Perusahaan\PelamarController@showAllByStatus');
 			Route::get('/lowongan/show/pelamar/{siswaId}', 'Perusahaan\PelamarController@showPelamarById');
 			Route::get('/lowongan/status-pelamaran/', 'Perusahaan\PelamarController@showStatusPelamaran');
 			Route::put('/lowongan/status-pelamaran/{idStatusPelamaran}', 'Perusahaan\PelamarController@updateStatusPelamaran');

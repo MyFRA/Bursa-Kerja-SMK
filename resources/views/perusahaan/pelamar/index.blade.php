@@ -69,22 +69,22 @@
                                         <span class="ml-2">{{__('Semua Pelamar')}}</span>
                                     </div>
                                 </a>
-                                <a class="text-decoration-none" onclick="pelamarByStatus('diterima')" href="">
+                                <a class="text-decoration-none" href="{{ url('/perusahaan/lowongan/' . encrypt($lowongan->id) . '/pelamar?status=diterima') }}">
                                     <div class="sidebar-opsi-status {{ ($sidebar == 'diterima') ? 'active-sidebar-opsi-status' : '' }}">
 										<span class="ml-2">{{__('Pelamar Diterima')}}</span>
                                     </div>
                                 </a>
-                                <a class="text-decoration-none" onclick="pelamarByStatus('ditolak')" href="">
+                                <a class="text-decoration-none" href="{{ url('/perusahaan/lowongan/' . encrypt($lowongan->id) . '/pelamar?status=ditolak') }}">
                                     <div class="sidebar-opsi-status {{ ($sidebar == 'ditolak') ? 'active-sidebar-opsi-status' : '' }}">
 										<span class="ml-2">{{__('Pelamar Ditolak')}}</span>
                                     </div>
                                 </a>
-                                <a class="text-decoration-none" onclick="pelamarByStatus('dipanggil')" href="">
+                                <a class="text-decoration-none" href="{{ url('/perusahaan/lowongan/' . encrypt($lowongan->id) . '/pelamar?status=dipanggil') }}">
 									<div class="sidebar-opsi-status {{ ($sidebar == 'dipanggil') ? 'active-sidebar-opsi-status' : '' }}">
 										<span class="ml-2">{{__('Pelamar Panggilan Interview')}}</span>
                                     </div>
                                 </a>
-                                <a class="text-decoration-none" onclick="pelamarByStatus('menunggu')" href="">
+                                <a class="text-decoration-none" href="{{ url('/perusahaan/lowongan/' . encrypt($lowongan->id) . '/pelamar?status=menunggu') }}">
 									<div class="sidebar-opsi-status {{ ($sidebar == 'menunggu') ? 'active-sidebar-opsi-status' : '' }}">
 										<span class="ml-2">{{__('Pelamar Menunggu Jawaban')}}</span>
                                     </div>

@@ -15,7 +15,7 @@
 
 
         <div class="col-lg-9 px-2">
-            <div class="card p-3">
+            <div class="card shadow p-3">
                 <div>
                     <div class="px-2 mt-4 pb-5">
                         <span class="h5 "><i class="fa fa-cogs"></i> {{(' Pengaturan Akun')}}</span>
@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="col-md-5">
                                              <div class="form-group mt-n2 mt-lg-0">
-                                                 <input type="password" class="form-control {{ (session('wrongPassword') ? 'is-invalid' : '') }}" name="password" id="password" placeholder="password" autocomplete="off">
+                                                 <input type="password" class="form-control {{ (session('wrongPassword') ? 'is-invalid' : '') }}" name="password" id="password" placeholder="password" value="" autocomplete="off">
 
                                                  @if (session('wrongPassword'))
                                                     <div class="invalid-feedback">{{ session('wrongPassword') }}</div>
