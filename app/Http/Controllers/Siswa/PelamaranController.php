@@ -24,10 +24,10 @@ class PelamaranController extends Controller
      * Return a SEO Script.
      *
      */
-    public function getSeo()
+    public function getSeo($title)
     {
         // SEO Script
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle($title . ' - SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -50,7 +50,7 @@ class PelamaranController extends Controller
         }
 
         // Mengambil SEO
-        $this->getSeo();
+        $this->getSeo('Proposal Pelamaran');
 
         // Validasi Form Input
         $validator = Validator::make($request->all(), [
@@ -112,11 +112,13 @@ class PelamaranController extends Controller
 
     public function lihatPelamar($id)
     {
+        $lowongan = Lowongan::find(decrypt($id));
+
         // Mengambil SEO
-        $this->getSeo();
+        $this->getSeo('Lihat Pelamar ' . $lowongan->jabatan);
 
         $data = [
-            'lowongan' => Lowongan::find(decrypt($id)),
+            'lowongan' => $lowongan,
             'pelamar' => Pelamaran::where('lowongan_id', decrypt($id))->orderBy('created_at', 'DESC')->paginate(10),
             'navLink' => 'lamaran'
         ];
