@@ -15,9 +15,10 @@ use App\User;
 
 class SetelanAkunController extends Controller
 {
-    public function getSeo()
+    public function getSeo($title)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        // SEO Script
+        SEOTools::setTitle($title . ' | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -31,7 +32,7 @@ class SetelanAkunController extends Controller
 
     public function index()
     {
-        $this->getSeo();
+        $this->getSeo('Setelan Akun');
 
         $data = [
             'nav'   => 'profil',
@@ -43,7 +44,7 @@ class SetelanAkunController extends Controller
 
     public function usernameEdit($id)
     {
-        $this->getSeo();
+        $this->getSeo('Edit Username');
 
         $data = [
             'nav' => 'profil',
@@ -96,7 +97,7 @@ class SetelanAkunController extends Controller
 
     public function passwordEdit($id)
     {
-        $this->getSeo();
+        $this->getSeo('Ubah Password');
 
         $data = [
             'nav' => 'profil',

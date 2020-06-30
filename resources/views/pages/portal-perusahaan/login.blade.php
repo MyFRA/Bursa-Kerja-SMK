@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- SEO -->
-    {{-- {!! SEO::generate() !!} --}}
+    {!! SEO::generate() !!}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

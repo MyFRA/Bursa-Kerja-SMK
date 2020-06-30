@@ -80,7 +80,7 @@ class PelamarController extends Controller
      */
     public function showPelamarById($id)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle('Pelamar | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -152,7 +152,7 @@ class PelamarController extends Controller
 
     public function editStatusPelamaran($idStatusPelamaran)
     {
-        SEOTools::setTitle('Eddi Pelamaran | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle('Edit Pelamaran | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
