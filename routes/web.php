@@ -82,11 +82,11 @@ Route::prefix('/app-admin')->group(function() {
     Route::post('/login', 'Admin\LoginController@login')->name('admin-login.post');
 
     Route::middleware(['auth', 'role:superadmin|guru'])->group(function() {
-        Route::get('/dashboard', 'Admin\AdminController@index')->name('admin');
 
-        /** Artikel Router */
-        Route::resource('/artikel', 'Admin\ArtikelController')->except(['show']);
-        Route::delete('/artikel/hapus/semua-artikel', 'Admin\ArtikelController@hapusMassal');
+
+        // ONLY SUPERADMIN CAN ENTER THIS ROUTE
+
+        Route::middleware(['auth', 'role:superadmin'])->group(function() {
 
         /**  Master File */
             /** Kompetensi Keahlian Router */
@@ -149,32 +149,14 @@ Route::prefix('/app-admin')->group(function() {
             Route::get('/kabupaten/format-excel-import', 'Admin\KabupatenController@download')->name('kabupaten.download');
             Route::resource('/kabupaten', 'Admin\KabupatenController')->except(['show']);
 
-            /** Pengumuman Router */
-            Route::get('/pengumuman/import', 'Admin\PengumumanController@import')->name('pengumuman.import');
-            Route::post('/pengumuman/imported', 'Admin\PengumumanController@imported')->name('pengumuman.imported');
-            Route::get('/pengumuman/format-excel-import', 'Admin\PengumumanController@download')->name('pengumuman.download');
-            Route::delete('/pengumuman/hapus/semua-pengumuman', 'Admin\PengumumanController@hapusMassal');
-            Route::resource('/pengumuman', 'Admin\PengumumanController')->except(['show']);
+            /** Faq Router */
+            Route::get('/faq/import', 'Admin\FaqController@import')->name('faq.import');
+            Route::post('/faq/imported', 'Admin\FaqController@imported')->name('faq.imported');
+            Route::get('/faq/format-excel-import', 'Admin\FaqController@download')->name('faq.download');
+            Route::resource('/faq', 'Admin\FaqController');
+            Route::delete('/faq/hapus/semua-faq', 'Admin\FaqController@hapusMassal');
 
         /** Akhir Master File */
-
-        /** Pengaturan Router */
-        Route::resource('/pengaturan', 'Admin\PengaturanController')->except(['create', 'store', 'show', 'destroy']);
-
-        /** Faq Router */
-        Route::get('/faq/import', 'Admin\FaqController@import')->name('faq.import');
-        Route::post('/faq/imported', 'Admin\FaqController@imported')->name('faq.imported');
-        Route::get('/faq/format-excel-import', 'Admin\FaqController@download')->name('faq.download');
-        Route::resource('/faq', 'Admin\FaqController');
-        Route::delete('/faq/hapus/semua-faq', 'Admin\FaqController@hapusMassal');
-
-        /** Halaman Router */
-        Route::resource('/halaman', 'Admin\HalamanController')->except(['show']);
-        Route::delete('/halaman/hapus/semua-halaman', 'Admin\HalamanController@hapusMassal');
-
-        /** Agenda Router */
-        Route::resource('/agenda', 'Admin\AgendaController');
-        Route::delete('/agenda/hapus/semua-agenda', 'Admin\AgendaController@hapusMassal');
 
         /** Daftar Siswa Router */
         Route::resource('/daftar-siswa', 'Admin\SiswaController')->except(['show']);
@@ -184,10 +166,6 @@ Route::prefix('/app-admin')->group(function() {
         Route::resource('/daftar-perusahaan', 'Admin\PerusahaanController');
         Route::get('/daftar-perusahaan/ajax/{id}', 'Admin\PerusahaanController@ajax');
         Route::delete('/perusahaan/hapus/semua-perusahaan', 'Admin\PerusahaanController@hapusMassal');
-
-        // Lowongan Kerja Router
-        Route::resource('/lowongan-kerja', 'Admin\LowonganController')->except(['show']);
-        Route::delete('/lowongan/hapus/semua-lowongan', 'Admin\LowonganController@hapusMassal');
 
         // Dafar Pengguna Router
         Route::resource('/daftar-pengguna', 'Admin\DaftarPenggunaController');
@@ -199,12 +177,52 @@ Route::prefix('/app-admin')->group(function() {
         Route::get('/perusahaan/lihat/{id}', 'Admin\VerifikasiPerusahaanController@lihat');
         Route::get('/perusahaan/terverifikasi', 'Admin\VerifikasiPerusahaanController@terverifikasi');
 
+        /** Pengaturan Router */
+        Route::resource('/pengaturan', 'Admin\PengaturanController')->except(['create', 'store', 'show', 'destroy']);
+
+        });
+        
+        // END OF ONLY SUPERADMIN CAN ENTER THIS ROUTE
+
+
+
+
+        // GURU AND SUPERADMIN
+
+        // Dashboard
+        Route::get('/dashboard', 'Admin\AdminController@index')->name('admin');
+
+        /** Artikel Router */
+        Route::resource('/artikel', 'Admin\ArtikelController')->except(['show']);
+        Route::delete('/artikel/hapus/semua-artikel', 'Admin\ArtikelController@hapusMassal');
+
+        /** Halaman Router */
+        Route::resource('/halaman', 'Admin\HalamanController')->except(['show']);
+        Route::delete('/halaman/hapus/semua-halaman', 'Admin\HalamanController@hapusMassal');
+
+        /** Pengumuman Router */
+        Route::get('/pengumuman/import', 'Admin\PengumumanController@import')->name('pengumuman.import');
+        Route::post('/pengumuman/imported', 'Admin\PengumumanController@imported')->name('pengumuman.imported');
+        Route::get('/pengumuman/format-excel-import', 'Admin\PengumumanController@download')->name('pengumuman.download');
+        Route::delete('/pengumuman/hapus/semua-pengumuman', 'Admin\PengumumanController@hapusMassal');
+        Route::resource('/pengumuman', 'Admin\PengumumanController')->except(['show']);
+
+        // Lowongan Kerja Router
+        Route::resource('/lowongan-kerja', 'Admin\LowonganController')->except(['show']);
+        Route::delete('/lowongan/hapus/semua-lowongan', 'Admin\LowonganController@hapusMassal');
+
+        /** Agenda Router */
+        Route::resource('/agenda', 'Admin\AgendaController');
+        Route::delete('/agenda/hapus/semua-agenda', 'Admin\AgendaController@hapusMassal');
+
         // Update Password
         Route::get('/users/account/change-password', 'Admin\UsersAccountController@passwordEdit');
         Route::put('/users/account/change-password/{id}', 'Admin\UsersAccountController@passwordUpdate');
 
         // Users Account
         Route::resource('/users/account', 'Admin\UsersAccountController')->only(['index', 'edit', 'update']);
+
+
 
     });
 });

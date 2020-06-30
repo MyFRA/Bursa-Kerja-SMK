@@ -34,6 +34,8 @@
                     </a>
                 </li>
 
+                @role('superadmin')
+
                 <li class="nav-header">Aktor</li>
 
                 <li class="nav-item has-treeview">
@@ -127,6 +129,10 @@
                         </li>
                     </ul>
                 </li>
+                    
+                @endrole
+
+
 
                 <li class="nav-header">Publikasi</li>
 
@@ -169,6 +175,8 @@
                         <p>Pengumuman</p>
                     </a>
                 </li>
+
+                @role('superadmin')
 
                 <li class="nav-header">Lainnya</li>
 
@@ -277,6 +285,9 @@
                         <p>Pengaturan</p>
                     </a>
                 </li>
+
+                @endrole
+
             </ul>
         </nav>
     </div>
