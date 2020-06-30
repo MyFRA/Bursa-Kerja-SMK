@@ -1,6 +1,7 @@
 <?php
 
 	Auth::routes();
+	Auth::routes(['verify' => true]);
 
 	// Login System Perusahaan
 	Route::get('/login', 'Perusahaan\Auth\LoginController@showLoginForm')->name('perusahaan.login-form');
@@ -9,7 +10,7 @@
 	Route::post('/register', 'Perusahaan\Auth\RegisterController@register')->name('perusahaan.register');
 
 
-	Route::middleware(['auth_perusahaan', 'role:perusahaan'])->group(function() {
+	Route::middleware(['auth_perusahaan', 'role:perusahaan', 'verified'])->group(function() {
 
 		// Halaman Bebas Akses ( Tanpa Permission )
 		Route::get('/', 'Perusahaan\BerandaController@index');

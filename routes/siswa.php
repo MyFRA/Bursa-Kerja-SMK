@@ -1,18 +1,19 @@
 <?php
 
 Auth::routes();
+Auth::routes(['verify' => true]);
 
 // Login System Siswa
 Route::get('/login', 'Siswa\Auth\LoginController@showLoginForm')->name('siswa.login');
 Route::post('/login', 'Siswa\Auth\LoginController@login');
 Route::post('/register', 'Siswa\Auth\RegisterController@register')->name('siswa.register');
 
-Route::middleware(['auth_siswa'])->group(function() {
+Route::middleware(['auth_siswa', 'verified'])->group(function() {
     // Melihat siapa saja pelamar
     Route::get('/lowongan/lihat/pelamar/{id}', 'Siswa\PelamaranController@lihatPelamar');
 });
 
-Route::middleware(['auth_siswa', 'role:siswa'])->group(function() {
+Route::middleware(['auth_siswa', 'role:siswa', 'verified'])->group(function() {
 
     // Beranda Siswa
     Route::get('/beranda', 'Siswa\BerandaController@index');

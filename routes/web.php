@@ -1,6 +1,12 @@
 <?php
 
 Auth::routes();
+Auth::routes(['verify' => true]);
+
+Route::middleware(['auth_siswa'])->group(function() {
+    Route::get('email/verify', 'VerifyPageController@index');
+});
+
 Route::get('/login', function() {
     return redirect('/siswa/login');
 })->name('login');
@@ -51,7 +57,7 @@ Route::get('/getKabupaten/{nama_provinsi}', 'AjaxController@getKabupaten');
 Route::get('/apiProvinsi', 'AjaxController@apiProvinsi');
 
 
-Route::middleware(['auth_perusahaan', 'role:perusahaan'])->group(function() {
+Route::middleware(['auth_perusahaan', 'role:perusahaan', 'verified'])->group(function() {
     // Profil Siswa
     Route::get('/profil-siswa/{id}/{idLowongan}', 'ProfilSiswaController@index');
     Route::get('/profil-siswa/{id}/{idLowongan}/pendidikan', 'ProfilSiswaController@pendidikan');
