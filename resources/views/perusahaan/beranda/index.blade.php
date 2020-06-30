@@ -107,7 +107,7 @@
 		<div class="col-lg-3 mt-4 order-3 order-lg-1">
 			<div class="card shadow p-0">
 				<div class="header pt-3 pb-2">
-					<h6 class="font-weight-bold">{{__('LOG AKTIVITAS')}}</h6>
+					<h6 class="font-weight-bold">{{__('AGENDA')}}</h6>
 				</div>
 				<div class="body pt-2 pb-1">
 					<img src="{{ asset('/images/untitled-1-_1_.png') }}" alt="">
