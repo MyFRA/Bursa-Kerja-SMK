@@ -90,7 +90,7 @@ class SiswaPendidikanController extends Controller
                 'bulan_lulus'               => 'required|max:255',
                 'tingkat_sekolah'           => 'required|in:SD,SMP/MTS,SMK/SMA/MA,S1,S2,S3',
                 'nilai_akhir'               => 'required|in:IPK,NEM,Tidak Tamat,Masih Belajar',
-                'nilai_skor'                => 'required|numeric|max:255',
+                'nilai_skor'                => 'required|numeric|max:100',
             ], [
                 'bidang_keahlian_id.required'       => "bidang keahlian id tidak boleh kosong",
                 'program_keahlian_id.required'      => "program keahlian id tidak boleh kosong",
@@ -108,7 +108,7 @@ class SiswaPendidikanController extends Controller
                 'nilai_akhir.in'                    => 'nilai akhir tidak cocok',
                 'nilai_skor.required'               => "nilai skor tidak boleh kosong",
                 'nilai_skor.numeric'                => "nilai skor harus angka",
-                'nilai_skor.max'                    => "nilai skor maksimal 255",
+                'nilai_skor.max'                    => "nilai skor tidak valid",
             ]);
 
             // Jika Validasi Gagal Maka akan dikembalikan ke halaman sebelumnya, ( Insert data Siswa Pendidikan Gagal )
