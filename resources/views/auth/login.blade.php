@@ -39,12 +39,17 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="w-75">
+                            <div class="float-right">
+                                lupa password? <a href="{{ url('/password/reset') }}">Reset</a>
+                            </div>
+                        </div>
                         <div class="form-check align-self-start ml-md-n3" style="padding-left: 20%">
                             <label for="remember" class="form-check-label">
                               <input type="checkbox" id="remember" name="remember" class="form-check-input" <?= old('remember') ? 'checked' : '' ?> >
                               Ingat Saya
                             </label>
-                          </div>
+                        </div>
                         <div class=" w-75 form-group mt-3 d-flex align-items-center flex-column">
                             <button type="submit" class="btn btn-primary w-100">Masuk</button>
                         </div>

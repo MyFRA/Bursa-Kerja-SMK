@@ -27,6 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     public const BERANDA = '/siswa/beranda';
     public const RESUME = '/siswa/create-resume/siswa-pendidikan';
     public const EMAILVERIFY = '/email/verify';
+    public const PATH = '/';
 
 
     /**

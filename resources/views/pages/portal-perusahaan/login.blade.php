@@ -57,7 +57,7 @@
                 <button type="submit" class="mt-3 btn btn-primary">Masuk</button>
             </form>
             <span class="text-muted pertama">{{__('Belum mempunyai akun? ')}}<a href="{{ url('/perusahaan/register') }}">{{__('Mendaftar')}}</a></span>
-            <span class="text-muted">{{__('Lupa Password? ')}}<a href="">{{__('Reset')}}</a></span>
+            <span class="text-muted">{{__('Lupa Password? ')}}<a href="{{ url('/password/reset') }}">{{__('Reset')}}</a></span>
             <span class="text-muted mt-4"><i class="fa fa-arrow-right"></i>{{__(' Back to')}} <a href="{{ url('/') }}">Home</a></span>
         </div>
     </div>
