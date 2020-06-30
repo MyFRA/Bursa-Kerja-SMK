@@ -29,7 +29,7 @@ class ArtikelController extends Controller
                                 ->withErrors($validator)
                                 ->withInput();
         } else {
-            SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+            SEOTools::setTitle('Artikel | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
             SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
             SEOTools::setCanonical(URL::current());
             SEOTools::metatags()
@@ -80,7 +80,9 @@ class ArtikelController extends Controller
      */
     public function show($link)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        $article = Artikel::where('link', $link)->first();
+
+        SEOTools::setTitle($article->judul . ' | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -93,7 +95,6 @@ class ArtikelController extends Controller
 
         $randomArtikel = (Artikel::where('status', 'Aktif')->count() >= 3) ? Artikel::where('status', 'Aktif')->get()->random(3) : Artikel::where('status', 'Aktif')->get();
 
-        $article = Artikel::where('link', $link)->first();
         $newCounter = $article->counter + 1;
         $article->update([
             'counter' => $newCounter,

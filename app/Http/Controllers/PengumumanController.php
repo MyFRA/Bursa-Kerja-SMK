@@ -14,7 +14,7 @@ class PengumumanController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle('Pengumuman - SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -36,7 +36,9 @@ class PengumumanController extends Controller
 
     public function show($link)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        $pengumuman = Pengumuman::where('link', $link)->first();
+
+        SEOTools::setTitle($pengumuman->judul . ' - SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -49,7 +51,7 @@ class PengumumanController extends Controller
         
         $data = [
             'navLink' => 'pengumuman',
-            'pengumuman' => Pengumuman::where('link', $link)->first(),
+            'pengumuman' => $pengumuman,
             'artikelPopuler' => Artikel::where('status', 'Aktif')->orderBy('counter', 'DESC')->limit(4)->get(),
             'pengumumanTerbaru' => Pengumuman::orderBy('created_at', 'DESC')->limit(3)->get(),
         ];

@@ -19,10 +19,10 @@ class HalamanSiswaController extends Controller
      * Return a SEO Script.
      *
      */
-    public function getSeo()
+    public function getSeo($title)
     {
         // SEO Script
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle($title . ' | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -37,7 +37,7 @@ class HalamanSiswaController extends Controller
 
     public function testimoniSiswa()
     {
-        $this->getSeo();
+        $this->getSeo('Testimoni Siswa');
 
         $data = [
             'navLink' => ''
@@ -48,7 +48,7 @@ class HalamanSiswaController extends Controller
 
     public function daftarPerusahaan(Request $request)
     {
-        $this->getSeo();
+        $this->getSeo('Perusahaan');
 
         $list_perusahaan;
 

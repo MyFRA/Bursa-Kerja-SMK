@@ -13,10 +13,10 @@ class AboutSmkController extends Controller
      * Return a SEO Script.
      *
      */
-    public function getSeo()
+    public function getSeo($title)
     {
         // SEO Script
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle($title . ' | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -31,7 +31,7 @@ class AboutSmkController extends Controller
 
     public function aboutUs()
     {
-        $this->getSeo();
+        $this->getSeo('Apa Itu SBK');
 
         $data = [
             'navLink' => ''
@@ -42,7 +42,7 @@ class AboutSmkController extends Controller
 
     public function hubungiKami()
     {
-        $this->getSeo();
+        $this->getSeo('Hubungi Kami');
 
         $data = [
             'navLink' => ''
@@ -53,7 +53,7 @@ class AboutSmkController extends Controller
 
     public function kebijakanPrivasi()
     {
-        $this->getSeo();
+        $this->getSeo('Kebijakan Privasi');
 
         $data = [
             'navLink' => ''
@@ -64,7 +64,7 @@ class AboutSmkController extends Controller
 
     public function syaratKetentuan()
     {
-        $this->getSeo();
+        $this->getSeo('Syarat Ketentuan');
 
         $data = [
             'navLink' => ''
@@ -75,7 +75,7 @@ class AboutSmkController extends Controller
 
     public function disklaimer()
     {
-        $this->getSeo();
+        $this->getSeo('Disklaimer');
 
         $data = [
             'navLink' => ''

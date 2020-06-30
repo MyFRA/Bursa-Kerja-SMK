@@ -11,7 +11,7 @@ class PortalController extends Controller
 {
     public function index()
     {
-    	SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+    	SEOTools::setTitle('Portal Perusahaan - SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()

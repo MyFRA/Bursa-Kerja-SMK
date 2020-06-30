@@ -14,7 +14,7 @@ class AgendaController extends Controller
 {
     public function index()
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle('Agenda | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -36,7 +36,9 @@ class AgendaController extends Controller
 
     public function show($link)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        $agenda = Agenda::where('link', $link)->first();
+
+        SEOTools::setTitle(' Agenda  ' . $agenda->judul . ' | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disedikana untuk para penacari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -49,7 +51,7 @@ class AgendaController extends Controller
 
         $data = [
             'navLink' => 'agenda',
-            'agenda' => Agenda::where('link', $link)->first(),
+            'agenda' => $agenda,
             'agendaTerbaru' => Agenda::orderBy('created_at', 'DESC')->limit(3)->get(),
             'artikelPopuler' => Artikel::where('status', 'Aktif')->orderBy('counter', 'DESC')->limit(4)->get()
         ];

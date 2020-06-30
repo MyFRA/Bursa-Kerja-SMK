@@ -13,9 +13,10 @@ use App\Models\Lowongan;
 
 class PerusahaanController extends Controller
 {
-    public function getSeo()
+    public function getSeo($title)
     {
-        SEOTools::setTitle('SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
+        // SEO Script
+        SEOTools::setTitle($title . ' - SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -29,18 +30,19 @@ class PerusahaanController extends Controller
 
     public function register()
     {   
-        $this->getSeo();
+        $this->getSeo('Daftar Perusahaan');
 
     	return view('pages.perusahaan.register');
     }
 
     public function show($id)
     {
-        $this->getSeo();
+        $perusahaan = Perusahaan::find(decrypt($id));
+        $this->getSeo($perusahaan->nama);
 
         $data = [
             'user'       => Auth::user(),
-            'perusahaan' => Perusahaan::find(decrypt($id)),
+            'perusahaan' => $perusahaan,
             'jmlLowongan' => Lowongan::where('perusahaan_id', decrypt($id))
                                     ->count(),
             'navLink' => 'perusahaan'
