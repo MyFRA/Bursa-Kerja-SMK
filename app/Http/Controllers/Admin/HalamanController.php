@@ -65,11 +65,21 @@ class HalamanController extends Controller
                              ->withErrors($validator)
                              ->withInput();
         } else {
+
+            $link = Str::slug($request->judul);
+
+            if(Halaman::where('link', $link)->count() > 0 ) {
+                return redirect()->back()
+                                ->withErrors($validator)
+                                ->withInput()
+                                ->with('gagal', 'Gagal, Judul sudah digunakan');
+            }
+
             $data = Halaman::create([
                 'judul' => $request->judul,
                 'konten' => $request->konten,
                 'status' => $request->status,
-                'link' => Str::slug($request->judul) . '-' . time(),
+                'link' => $link,
             ]);
             return redirect('/app-admin/halaman')->with('success', "Halaman $request->judul Telah Ditambahkan");
         }

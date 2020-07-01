@@ -1,3 +1,9 @@
+@php
+    use App\Models\Halaman;
+
+    $allHalaman = Halaman::get();
+@endphp
+
 <div class="footer text-white py-4">
     <div class="container">
         <div class="row">
@@ -6,12 +12,15 @@
                     TENTANG SMK BISA KERJA
                 </div>
                 <ul class="footer-text-content">
-                    <li><a href="{{ url('tentang') }}">Apa itu SBK?</a></li>
+                    @foreach ($allHalaman as $halaman)
+                        <li><a href="{{ url('/halaman/' . $halaman->link) }}">{{ $halaman->judul }}</a></li>    
+                    @endforeach
+                    {{-- <li><a href="{{ url('tentang') }}">Apa itu SBK?</a></li> --}}
+                    {{-- <li><a href="{{ url('hubungi-kami') }}">Hubungi Kami</a></li> --}}
+                    {{-- <li><a href="{{ url('kebijakan-privasi') }}">Kebijakan Privasi</a></li> --}}
+                    {{-- <li><a href="{{ url('syarat-ketentuan') }}">Syarat &amp; Ketentuan</a></li> --}}
+                    {{-- <li><a href="{{ url('disklaimer') }}">Disklaimer</a></li> --}}
                     <li><a href="{{ url('artikel') }}">Tips/Artikel</a></li>
-                    <li><a href="{{ url('hubungi-kami') }}">Hubungi Kami</a></li>
-                    <li><a href="{{ url('kebijakan-privasi') }}">Kebijakan Privasi</a></li>
-                    <li><a href="{{ url('syarat-ketentuan') }}">Syarat &amp; Ketentuan</a></li>
-                    <li><a href="{{ url('disklaimer') }}">Disklaimer</a></li>
                     <li><a href="{{ url('faq') }}">FAQ</a></li>
                 </ul>
             </div>

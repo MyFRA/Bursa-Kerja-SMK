@@ -52,9 +52,10 @@
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             @if (Auth::user()->hasRole('perusahaan'))
                                 <a class="dropdown-item" href="{{ url('/perusahaan') }}">Dasbhboard</a>
+                                <a class="dropdown-item" href="{{ url('/bantuan-perusahaan') }}"><i class="fa fa-question-circle"></i> Bantuan</a>
                             @elseif(Auth::user()->hasRole('siswa'))
                                 <a class="dropdown-item" href="{{ url('/siswa/profil') }}"><i class="fa fa-user"></i> Profil</a>
-                                <a class="dropdown-item" href="{{ url('/bantuan') }}"><i class="fa fa-question-circle"></i> Bantuan</a>
+                                <a class="dropdown-item" href="{{ url('/bantuan-siswa') }}"><i class="fa fa-question-circle"></i> Bantuan</a>
                             @else
                                 <a class="dropdown-item" href="{{ url('/app-admin/dashboard') }}">Dasbhboard</a>
                             @endif

@@ -29,11 +29,12 @@ Route::get('/pengumuman', 'PengumumanController@index');
 Route::get('/pengumuman/{link}', 'PengumumanController@show');
 
 // Tentang SMK Bisa Kerja
-Route::get('/tentang', 'AboutSmkController@aboutUs');
-Route::get('/hubungi-kami', 'AboutSmkController@hubungiKami');
-Route::get('/kebijakan-privasi', 'AboutSmkController@kebijakanPrivasi');
-Route::get('/syarat-ketentuan', 'AboutSmkController@syaratKetentuan');
-Route::get('/disklaimer', 'AboutSmkController@disklaimer');
+Route::get('/halaman/{link}', 'AboutSmkController@halaman');
+// Route::get('/hubungi-kami', 'AboutSmkController@hubungiKami');
+// Route::get('/kebijakan-privasi', 'AboutSmkController@kebijakanPrivasi');
+// Route::get('/syarat-ketentuan', 'AboutSmkController@syaratKetentuan');
+// Route::get('/disklaimer', 'AboutSmkController@disklaimer');
+// Route::get('/tentang', 'AboutSmkController@aboutUs');
 
 
 // Halaman Siswa

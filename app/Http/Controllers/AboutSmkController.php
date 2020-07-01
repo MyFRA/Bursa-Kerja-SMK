@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\URL;
 
 use Artesaos\SEOTools\Facades\SEOTools;
 
+use App\Models\Halaman;
+
 class AboutSmkController extends Controller
 {
         /**
@@ -16,7 +18,7 @@ class AboutSmkController extends Controller
     public function getSeo($title)
     {
         // SEO Script
-        SEOTools::setTitle($title . ' | SMK Bisa Kerja - SMK Negeri 1 Bojongsari', false);
+        SEOTools::setTitle($title . ' - SMK Bisa Kerja | SMK Negeri 1 Bojongsari', false);
         SEOTools::setDescription('Portal lowongan kerja yang disediakan untuk para pencari pekerjaan bagi lulusan SMK/SMA sederajat');
         SEOTools::setCanonical(URL::current());
         SEOTools::metatags()
@@ -29,58 +31,71 @@ class AboutSmkController extends Controller
     }
 
 
-    public function aboutUs()
+    public function halaman($link)
     {
-        $this->getSeo('Apa Itu SBK');
-
-        $data = [
-            'navLink' => ''
-        ];
-
-        return view('about-smk.about-us', $data);
-    }
-
-    public function hubungiKami()
-    {
-        $this->getSeo('Hubungi Kami');
-
-        $data = [
-            'navLink' => ''
-        ];
-
-        return view('about-smk.hubungi-kami', $data);
-    }
-
-    public function kebijakanPrivasi()
-    {
-        $this->getSeo('Kebijakan Privasi');
-
-        $data = [
-            'navLink' => ''
-        ];
-
-        return view('about-smk.kebijakan-privasi', $data);
-    }
-
-    public function syaratKetentuan()
-    {
-        $this->getSeo('Syarat Ketentuan');
-
-        $data = [
-            'navLink' => ''
-        ];
-
-        return view('about-smk.syarat-ketentuan', $data);
-    }
-
-    public function disklaimer()
-    {
+        $halaman= Halaman::where('link', $link)->first();
         $this->getSeo('Disklaimer');
 
         $data = [
-            'navLink' => ''
+            'navLink' => '',
+            'halaman' => $halaman,
         ];
 
-        return view('about-smk.disklaimer', $data);
+        return view('about-smk.halaman', $data);
     }
+
+    // public function aboutUs()
+    // {
+    //     $this->getSeo('Apa Itu SBK');
+
+    //     $data = [
+    //         'navLink' => ''
+    //     ];
+
+    //     return view('about-smk.about-us', $data);
+    // }
+
+    // public function hubungiKami()
+    // {
+    //     $this->getSeo('Hubungi Kami');
+
+    //     $data = [
+    //         'navLink' => ''
+    //     ];
+
+    //     return view('about-smk.hubungi-kami', $data);
+    // }
+
+    // public function kebijakanPrivasi()
+    // {
+    //     $this->getSeo('Kebijakan Privasi');
+
+    //     $data = [
+    //         'navLink' => ''
+    //     ];
+
+    //     return view('about-smk.kebijakan-privasi', $data);
+    // }
+
+    // public function syaratKetentuan()
+    // {
+    //     $this->getSeo('Syarat Ketentuan');
+
+    //     $data = [
+    //         'navLink' => ''
+    //     ];
+
+    //     return view('about-smk.syarat-ketentuan', $data);
+    // }
+
+    // public function disklaimer()
+    // {
+    //     $this->getSeo('Disklaimer');
+
+    //     $data = [
+    //         'navLink' => ''
+    //     ];
+
+    //     return view('about-smk.disklaimer', $data);
+    // }
 }

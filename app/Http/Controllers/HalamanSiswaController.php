@@ -178,4 +178,15 @@ class HalamanSiswaController extends Controller
 
         return $result;
     }
+
+    public function bantuanSiswa()
+    {
+        $this->getSeo('Bantuan Siswa');
+
+        $data = [
+            'navLink' => ''
+        ];
+
+        return view('halaman-siswa.bantuan-siswa', $data);
+    }
 }

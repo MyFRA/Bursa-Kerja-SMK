@@ -30,6 +30,11 @@
             @csrf
 
             <div class="col-md-9">
+                @if (session('gagal'))
+                    <div class="alert alert-danger">
+                       {{ session('gagal') }}
+                    </div> 
+                @endif
                 <div class="form-group">
                     <input type="text" name="judul" id="inputJudul" onkeyup="getValue('inputJudul')" class="form-control form-control-lg @error('judul') is-invalid @enderror" placeholder="Masukan judul halaman disini" value="{{ old('judul') }}" required="" />
                     

@@ -39,4 +39,15 @@ class HalamanPerusahaanController extends Controller
 
         return view('halaman-perusahaan.testimoni-perusahaan', $data);
     }
+
+    public function bantuanPerusahaan()
+    {
+        $this->getSeo('Bantuan Perusahaan');
+
+        $data = [
+            'navLink' => ''
+        ];
+
+        return view('halaman-perusahaan.bantuan-perusahaan', $data);
+    }
 }
