@@ -13,12 +13,11 @@ class ProvinsiTableSeeder extends Seeder
      */
     public function run()
     {
-        $token = file_get_contents('https://x.rajaapi.com/poe');
-        $token = json_decode($token, true);
-
-        $provinsiJson = file_get_contents('https://x.rajaapi.com/MeP7c5ne' . $token['token'] . '/m/wilayah/provinsi');
+        // $token = file_get_contents('https://x.rajaapi.com/poe');
+        // $token = json_decode($token, true);
+        $provinsiJson = file_get_contents('http://www.emsifa.com/api-wilayah-indonesia/api/provinces.json');
         $provinsi = json_decode($provinsiJson, true);
-            foreach ($provinsi['data'] as $prov) {
+            foreach ($provinsi as $prov) {
                 Provinsi::create([
                 	'id' => $prov['id'],
                 	'negara_id' => 1,
